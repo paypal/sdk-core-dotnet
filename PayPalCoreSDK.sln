@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayPalCoreSDK", "PayPalCoreSDK.csproj", "{1F5FF00B-CE0F-40B8-9BC4-7B5ED2087266}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{1BDC1BDF-89DF-4E3E-9195-089540C0A4C1}"

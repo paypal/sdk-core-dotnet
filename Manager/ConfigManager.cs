@@ -1,5 +1,6 @@
-using System.Configuration;
-using PayPal.Exception;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PayPal.Manager
 {    
@@ -9,40 +10,35 @@ namespace PayPal.Manager
     /// </summary>
     public sealed class ConfigManager
     {
-        private SDKConfigHandler config;
-
-        /// <summary>
-        /// Singleton instance of the ConfigManager
-        /// </summary>
-        private static readonly ConfigManager singletonInstance = new ConfigManager();
-
-        /// <summary>
-        /// Explicit static constructor to tell C# compiler
-        /// not to mark type as beforefieldinit
-        /// </summary>
-        static ConfigManager() { }
+        private readonly SDKConfigHandler config;
 
         /// <summary>
         /// Private constructor
         /// </summary>
-        private ConfigManager()
+        public ConfigManager(Hashtable config)
         {
-            config = (SDKConfigHandler)ConfigurationManager.GetSection("paypal");
-            if (config == null)
-            {
-                throw new ConfigException("Cannot read config file");
-            }
-        }
+            var settings = new Dictionary<string, string>();
+            var accounts = new Dictionary<string, Dictionary<string, string>>();
 
-        /// <summary>
-        /// Gets the Singleton instance of the ConfigManager
-        /// </summary>
-        public static ConfigManager Instance
-        {
-            get
+            foreach (DictionaryEntry elementEntry in config)
             {
-                return singletonInstance;
+                if (elementEntry.Key.ToString() == "accounts")
+                {
+                    foreach (KeyValuePair<string, Dictionary<string, string>> accountEntry in (Dictionary<string, Dictionary<string, string>>)elementEntry.Value)
+                    {
+                        var account = accountEntry.Value.ToDictionary(accountElement => accountElement.Key, accountElement => accountElement.Value);
+                        var apiUserName = string.Empty;
+                        account.TryGetValue(account.Keys.FirstOrDefault(k => k == "apiUsername"), out apiUserName);
+                        accounts.Add(apiUserName, account);
+                    }
+                }
+                else
+                {
+                    settings.Add(elementEntry.Key.ToString(), elementEntry.Value.ToString());
+                }
             }
+
+            this.config = new SDKConfigHandler(settings, accounts);
         }
 
         /// <summary>
@@ -61,8 +57,13 @@ namespace PayPal.Manager
         /// <param name="apiUserName"></param>
         /// <returns></returns>
         public Account GetAccount(string apiUserName)
-        {   
-            return config.Accounts[apiUserName];
+        {
+            Account account;
+            if (config.Accounts.TryGetValue(apiUserName, out account))
+            {
+                return account;
+            }
+            return null;
         }
 
         /// <summary>
@@ -72,7 +73,7 @@ namespace PayPal.Manager
         /// <returns></returns>
         public Account GetAccount(int index)
         {
-            return config.Accounts[index];
+            return config.Accounts[config.Accounts.Keys.ElementAt(index)];
         }        
     }
 }

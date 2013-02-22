@@ -7,17 +7,15 @@ using PayPal.Authentication;
 namespace PayPal.UnitTest.Manager
 {
     [TestFixture]
-    class CredentialManagerTest
+    class CredentialManagerTest : TestsBase
     {
-        CredentialManager credentialMngr;
         ICredential credential;
 
         [Test]
         public void LoadSignatureCredential()
         {
             string apiUsername = UnitTestConstants.APIUserName;
-            credentialMngr = CredentialManager.Instance;
-            credential = credentialMngr.GetCredentials(apiUsername);
+            credential = CredentialMgr.GetCredentials(apiUsername);
             Assert.NotNull(credential);
             Assert.IsInstanceOf(typeof(SignatureCredential), credential);
             SignatureCredential signCredential = (SignatureCredential) credential;
@@ -31,8 +29,7 @@ namespace PayPal.UnitTest.Manager
         public void LoadCertificateCredential()
         {
             string apiUsername = UnitTestConstants.CertificateAPIUserName;
-            credentialMngr = CredentialManager.Instance;
-            credential = credentialMngr.GetCredentials(apiUsername);
+            credential = CredentialMgr.GetCredentials(apiUsername);
             Assert.NotNull(credential);
             Assert.IsInstanceOf(typeof(CertificateCredential), credential);
             CertificateCredential certCredential = (CertificateCredential)credential;
@@ -46,8 +43,7 @@ namespace PayPal.UnitTest.Manager
         [Test, ExpectedException( typeof(MissingCredentialException) )]
         public void LoadCredentialForNonExistentAccount()
         {
-            credentialMngr = CredentialManager.Instance;
-            credential = credentialMngr.GetCredentials("i-do-not-exist_api1.paypal.com");
+            credential = CredentialMgr.GetCredentials("i-do-not-exist_api1.paypal.com");
         }
     }
 }

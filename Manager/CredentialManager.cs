@@ -14,35 +14,14 @@ namespace PayPal.Manager
         /// </summary>
         private static readonly ILog logger = LogManagerWrapper.GetLogger(typeof(CredentialManager));
 
-        /// <summary>
-        /// Singleton instance of ConnectionManager
-        /// </summary>
-        private static readonly CredentialManager singletonInstance = new CredentialManager();
-
-        /// <summary>
-        /// Explicit static constructor to tell C# compiler
-        /// not to mark type as beforefieldinit
-        /// </summary>
-        static CredentialManager() 
-        {
-            //Load log configuration
-            //log4net.Config.XmlConfigurator.Configure();
-        }
+        private readonly ConfigManager configMgr;
 
         /// <summary>
         /// Private constructor
         /// </summary>
-        private CredentialManager() { }
-        
-        /// <summary>
-        /// Gets the Singleton instance of ConnectionManager
-        /// </summary>
-        public static CredentialManager Instance
+        public CredentialManager(ConfigManager configMgr)
         {
-            get
-            {
-                return singletonInstance;
-            }
+            this.configMgr = configMgr;
         }
 
         /// <summary>
@@ -51,8 +30,7 @@ namespace PayPal.Manager
         /// <returns></returns>
         private string GetDefaultAccountName()
         {
-            ConfigManager configMngr = ConfigManager.Instance;
-            Account firstAccount = configMngr.GetAccount(0);
+            Account firstAccount = configMgr.GetAccount(0);
             if (firstAccount == null)
             {
                 throw new MissingCredentialException("No accounts configured for API call");
@@ -73,8 +51,7 @@ namespace PayPal.Manager
             }
            
             ICredential credential = null;
-            ConfigManager configMngr = ConfigManager.Instance;
-            Account accnt = configMngr.GetAccount(apiUserName);
+            Account accnt = configMgr.GetAccount(apiUserName);
             if (accnt == null)
             {
                 throw new MissingCredentialException("Missing credentials for " + apiUserName);

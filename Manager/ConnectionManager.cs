@@ -49,7 +49,6 @@ namespace PayPal.Manager
         /// <returns></returns>
         public HttpWebRequest GetConnection(string url)
         {
-            ConfigManager configMngr = ConfigManager.Instance;
             HttpWebRequest httpRequest = null;
                         
             try
@@ -63,32 +62,26 @@ namespace PayPal.Manager
             }
 
             // Set connection timeout
-            int ConnectionTimeout = 0;
-            bool Success = int.TryParse(configMngr.GetProperty(BaseConstants.HTTP_CONNECTION_TIMEOUT), out ConnectionTimeout);
-            if (!Success)
-            {
-                ConnectionTimeout = BaseConstants.DEFAULT_TIMEOUT;
-            }
-
-            httpRequest.Timeout = ConnectionTimeout;
+            httpRequest.Timeout = BaseConstants.DEFAULT_TIMEOUT;
 
             // Set request proxy for tunnelling http requests via a proxy server
-            string proxyAddress = configMngr.GetProperty(BaseConstants.HTTP_PROXY_ADDRESS);
-            if (proxyAddress != null)
-            {
-                WebProxy requestProxy = new WebProxy();
-                requestProxy.Address = new Uri(proxyAddress);
-                string proxyCredentials = configMngr.GetProperty(BaseConstants.HTTP_PROXY_CREDENTIAL);
-                if (proxyCredentials != null)
-                {
-                    string[] proxyDetails = proxyCredentials.Split(':');
-                    if (proxyDetails.Length == 2)
-                    {
-                        requestProxy.Credentials = new NetworkCredential(proxyDetails[0], proxyDetails[1]);
-                    }
-                }                
-                httpRequest.Proxy = requestProxy;
-            }
+            //string proxyAddress = configMngr.GetProperty(BaseConstants.HTTP_PROXY_ADDRESS);
+            //if (proxyAddress != null)
+            //{
+            //    WebProxy requestProxy = new WebProxy();
+            //    requestProxy.Address = new Uri(proxyAddress);
+            //    string proxyCredentials = configMngr.GetProperty(BaseConstants.HTTP_PROXY_CREDENTIAL);
+            //    if (proxyCredentials != null)
+            //    {
+            //        string[] proxyDetails = proxyCredentials.Split(':');
+            //        if (proxyDetails.Length == 2)
+            //        {
+            //            requestProxy.Credentials = new NetworkCredential(proxyDetails[0], proxyDetails[1]);
+            //        }
+            //    }                
+            //    httpRequest.Proxy = requestProxy;
+            //}
+
             return httpRequest;
         }
     }

@@ -8,16 +8,15 @@ using PayPal.NVP;
 namespace PayPal.UnitTest.NVP
 {
     [TestFixture]
-    class PlatformAPICallPreHandlerTest
+    class PlatformAPICallPreHandlerTest : TestsBase
     {
         PlatformAPICallPreHandler platformAPIHandler;
-        CredentialManager credentialMngr;
         ICredential credential;
 
         [Test]
         public void GetHeaderMapWithSignatureWithTokenTest()
         {
-            platformAPIHandler = new PlatformAPICallPreHandler("payload", "servicename", "method", UnitTestConstants.APIUserName, "accessToken", "tokenSecret");
+            platformAPIHandler = new PlatformAPICallPreHandler(ConfigMgr, CredentialMgr, "payload", "servicename", "method", UnitTestConstants.APIUserName, "accessToken", "tokenSecret");
             Dictionary<string, string> header = platformAPIHandler.GetHeaderMap();
             string authHeader = header["X-PAYPAL-AUTHORIZATION"];
             string[] headers = authHeader.Split(',');
@@ -27,9 +26,8 @@ namespace PayPal.UnitTest.NVP
         [Test]
         public void GetHeaderMapSignatureWithoutTokenTest()
         {
-            credentialMngr = CredentialManager.Instance;
-            credential = credentialMngr.GetCredentials(UnitTestConstants.APIUserName);
-            platformAPIHandler = new PlatformAPICallPreHandler("payload", "servicename", "method", credential);            
+            credential = CredentialMgr.GetCredentials(UnitTestConstants.APIUserName);
+            platformAPIHandler = new PlatformAPICallPreHandler(ConfigMgr, CredentialMgr, "payload", "servicename", "method", credential);            
             Dictionary<string, string> header = platformAPIHandler.GetHeaderMap();
             Assert.AreEqual(UnitTestConstants.APIUserName, header[BaseConstants.PAYPAL_SECURITY_USERID_HEADER]);
             Assert.AreEqual(UnitTestConstants.APIPassword, header[BaseConstants.PAYPAL_SECURITY_PASSWORD_HEADER]);
@@ -42,7 +40,7 @@ namespace PayPal.UnitTest.NVP
         [Test]
         public void GetHeaderMapWithCertificateWithTokenTest()
         {
-            platformAPIHandler = new PlatformAPICallPreHandler("payload", "servicename", "method", UnitTestConstants.CertificateAPIUserName, "accessToken", "tokenSecret");
+            platformAPIHandler = new PlatformAPICallPreHandler(ConfigMgr, CredentialMgr, "payload", "servicename", "method", UnitTestConstants.CertificateAPIUserName, "accessToken", "tokenSecret");
             Dictionary<string, string> header = platformAPIHandler.GetHeaderMap();            
             string authHeader = header[BaseConstants.PAYPAL_AUTHORIZATION_PLATFORM];
             string[] headers = authHeader.Split(',');
@@ -52,9 +50,8 @@ namespace PayPal.UnitTest.NVP
         [Test]
         public void GetHeaderMapCertificateWithoutTokenTest()
         {
-            credentialMngr = CredentialManager.Instance;
-            credential = credentialMngr.GetCredentials(UnitTestConstants.CertificateAPIUserName);
-            platformAPIHandler = new PlatformAPICallPreHandler("payload", "servicename", "method", credential);
+            credential = CredentialMgr.GetCredentials(UnitTestConstants.CertificateAPIUserName);
+            platformAPIHandler = new PlatformAPICallPreHandler(ConfigMgr, CredentialMgr, "payload", "servicename", "method", credential);
             Dictionary<string, string> header = platformAPIHandler.GetHeaderMap();
             Assert.AreEqual(UnitTestConstants.CertificateAPIUserName, header[BaseConstants.PAYPAL_SECURITY_USERID_HEADER]);
             Assert.AreEqual(UnitTestConstants.CertificateAPIPassword, header[BaseConstants.PAYPAL_SECURITY_PASSWORD_HEADER]);
@@ -66,7 +63,7 @@ namespace PayPal.UnitTest.NVP
         [Test]
         public void GetPayloadEndpointWithoutTokenTest()
         {
-            platformAPIHandler = new PlatformAPICallPreHandler("payload", "servicename", "method", UnitTestConstants.APIUserName, "accessToken", "tokenSecret");
+            platformAPIHandler = new PlatformAPICallPreHandler(ConfigMgr, CredentialMgr, "payload", "servicename", "method", UnitTestConstants.APIUserName, "accessToken", "tokenSecret");
             Assert.AreEqual("https://svcs.sandbox.paypal.com/servicename/method", platformAPIHandler.GetEndPoint());
             Assert.AreEqual("payload", platformAPIHandler.GetPayLoad());
             SignatureCredential signatureCredential = (SignatureCredential)platformAPIHandler.GetCredential();

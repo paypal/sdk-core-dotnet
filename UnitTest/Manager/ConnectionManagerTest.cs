@@ -8,7 +8,7 @@ using PayPal.Manager;
 namespace PayPal.UnitTest.Manager
 {
     [TestFixture]
-    public class ConnectionManagerTest
+    public class ConnectionManagerTest : TestsBase
     {
         ConnectionManager connectionMngr;
         HttpWebRequest httpRequest;
@@ -17,11 +17,10 @@ namespace PayPal.UnitTest.Manager
         public void CreateNewConnection()
         {
             connectionMngr = ConnectionManager.Instance;
-            ConfigManager configMngr = ConfigManager.Instance;
             httpRequest = connectionMngr.GetConnection("http://paypal.com/");
             Assert.IsNotNull(httpRequest);
             Assert.AreEqual("http://paypal.com/", httpRequest.RequestUri.AbsoluteUri);
-            Assert.AreEqual(configMngr.GetProperty("connectionTimeout"), httpRequest.Timeout.ToString());
+            Assert.AreEqual(ConfigMgr.GetProperty("connectionTimeout"), httpRequest.Timeout.ToString());
         }
 
         [Test, ExpectedException(typeof(ConfigException))]

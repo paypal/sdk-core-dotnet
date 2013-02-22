@@ -1,184 +1,88 @@
-using System.Configuration;
+using System.Collections.Generic;
 
 namespace PayPal.Manager
 {
     /// <summary>
     /// Custom handler for SDK configuration section as defined in App.Config or Web.Config files
     /// </summary>    
-    public class SDKConfigHandler : ConfigurationSection
+    public class SDKConfigHandler
     {
-        public SDKConfigHandler() { }
+        private readonly Dictionary<string, string> _settings;
+        private readonly Dictionary<string, Account> _accounts;
 
-        private static readonly ConfigurationProperty accountsElement =
-             new ConfigurationProperty("accounts", typeof(AccountCollection), null, ConfigurationPropertyOptions.IsRequired);
+        public SDKConfigHandler(Dictionary<string, string> settings, Dictionary<string, Dictionary<string, string>> accounts)
+        {
+            _settings = settings;
+            _accounts = new Dictionary<string, Account>();
+
+            foreach (var entry in accounts)
+            {
+                var apiUserName = entry.Key;
+
+                string apiPassword;
+                entry.Value.TryGetValue("apiPassword", out apiPassword);
+
+                string apiSignature;
+                entry.Value.TryGetValue("apiSignature", out apiSignature);
+
+                string applicationId;
+                entry.Value.TryGetValue("applicationId", out applicationId);
+
+                string apiCertificate;
+                entry.Value.TryGetValue("apiCertificate", out apiCertificate);
+
+                string privateKeyPassword;
+                entry.Value.TryGetValue("privateKeyPassword", out privateKeyPassword);
+
+                string signatureSubject;
+                entry.Value.TryGetValue("signatureSubject", out signatureSubject);
+
+                string certificateSubject;
+                entry.Value.TryGetValue("certificateSubject", out certificateSubject);
+
+                _accounts.Add(apiUserName, new Account(apiUserName, apiPassword, apiSignature, applicationId, apiCertificate, privateKeyPassword, signatureSubject));
+            }
+        }
 
         /// <summary>
         /// Accounts Collection
         /// </summary>
-        [ConfigurationProperty("accounts", IsRequired = true)]
-        public AccountCollection Accounts
+        public Dictionary<string, Account> Accounts
         {
-            get { return (AccountCollection)this[accountsElement]; }
-        }
-
-        [ConfigurationProperty("settings", IsRequired = true)]
-        private NameValueConfigurationCollection Settings
-        {
-            get { return (NameValueConfigurationCollection)this["settings"]; }
+            get { return _accounts; }
         }
 
         public string Setting(string name)
         {
-            NameValueConfigurationElement config = Settings[name];
-            return ((config == null) ? null : config.Value);
+            var value = string.Empty;
+            return _settings.TryGetValue(name, out value) ? value : null;
         }
     }    
-
-    [ConfigurationCollection(typeof(Account), AddItemName = "account",
-         CollectionType = ConfigurationElementCollectionType.BasicMap)]
-    public class AccountCollection : ConfigurationElementCollection
-    {
-        protected override ConfigurationElement CreateNewElement()
-        {
-            return new Account();
-        }
-        protected override object GetElementKey(ConfigurationElement element)
-        {
-            return ((Account)element).APIUsername;
-        }
-
-        public Account Account(int index)
-        {
-            return (Account)BaseGet(index);
-        }
-
-        public Account Account(string value)
-        {
-            return (Account)BaseGet(value);
-        }
-
-        public new  Account this[string name]
-        {
-            get { return (Account)BaseGet(name); }
-        }
-
-        public Account this[int index]
-        {
-            get { return (Account)BaseGet(index); }
-        }
-    }
 
     /// <summary>
     /// Class holds the <Account> element
     /// </summary>
-    public class Account : ConfigurationElement
+    public class Account
     {
-        private static readonly ConfigurationProperty apiUsername =
-            new ConfigurationProperty("apiUsername", typeof(string), string.Empty, ConfigurationPropertyOptions.IsRequired);
+        public string APIUsername { get; set; }
+        public string APIPassword { get; set; }
+        public string APISignature { get; set; }
+        public string ApplicationId { get; set; }
+        public string APICertificate { get; set; }
+        public string PrivateKeyPassword { get; set; }
+        public string SignatureSubject { get; set; }
+        public string CertificateSubject { get; set; }
 
-        private static readonly ConfigurationProperty apiPassword =
-            new ConfigurationProperty("apiPassword", typeof(string), string.Empty, ConfigurationPropertyOptions.IsRequired);
-
-        private static readonly ConfigurationProperty applicationId =
-            new ConfigurationProperty("applicationId", typeof(string), string.Empty, ConfigurationPropertyOptions.IsRequired);
-
-        private static readonly ConfigurationProperty apiSignature =
-            new ConfigurationProperty("apiSignature", typeof(string), string.Empty);
-
-        private static readonly ConfigurationProperty apiCertificate =
-            new ConfigurationProperty("apiCertificate", typeof(string), string.Empty);
-
-        private static readonly ConfigurationProperty privateKeyPassword =
-            new ConfigurationProperty("privateKeyPassword", typeof(string), string.Empty);
-
-        private static readonly ConfigurationProperty signSubject =
-           new ConfigurationProperty("signatureSubject", typeof(string), string.Empty);
-
-        private static readonly ConfigurationProperty certifySubject =
-           new ConfigurationProperty("certificateSubject", typeof(string), string.Empty);
-
-        public Account()
+        public Account(string apiUsername, string apiPassword, string apiSignature, string applicationId = "", string apiCertificate = "", string privateKeyPassword = "", string signatureSubject = "", string certificateSubject = "")
         {
-            base.Properties.Add(apiUsername);
-            base.Properties.Add(apiPassword);
-            base.Properties.Add(applicationId);
-            base.Properties.Add(apiSignature);
-            base.Properties.Add(apiCertificate);
-            base.Properties.Add(privateKeyPassword);
-            base.Properties.Add(signSubject);
-            base.Properties.Add(certifySubject);
+            APIUsername = apiUsername;
+            APIPassword = apiPassword;
+            APISignature = apiSignature;
+            ApplicationId = applicationId;
+            APICertificate = apiCertificate;
+            PrivateKeyPassword = privateKeyPassword;
+            SignatureSubject = signatureSubject;
+            CertificateSubject = certificateSubject;
         }
-
-        /// <summary>
-        /// API Username
-        /// </summary>
-        [ConfigurationProperty("apiUsername", IsRequired = true)]
-        public string APIUsername
-        {
-            get { return (string)this[apiUsername]; }
-        }
-
-        /// <summary>
-        /// API password
-        /// </summary>
-        [ConfigurationProperty("apiPassword", IsRequired = true)]
-        public string APIPassword
-        {
-            get { return (string)this[apiPassword]; }
-        }
-
-        /// <summary>
-        /// Application ID
-        /// </summary>
-        [ConfigurationProperty("applicationId")]
-        public string ApplicationId
-        {
-            get { return (string)this[applicationId]; }
-        }
-
-        /// <summary>
-        /// API signature
-        /// </summary>
-        [ConfigurationProperty("apiSignature")]
-        public string APISignature
-        {
-            get { return (string)this[apiSignature]; }
-        }
-
-        /// <summary>
-        /// Client certificate for SSL authentication
-        /// </summary>
-        [ConfigurationProperty("apiCertificate")]
-        public string APICertificate
-        {
-            get { return (string)this[apiCertificate]; }
-        }
-
-        /// <summary>
-        /// Private key password for SSL authentication
-        /// </summary>
-        [ConfigurationProperty("privateKeyPassword")]
-        public string PrivateKeyPassword
-        {
-            get { return (string)this[privateKeyPassword]; }
-        }
-      
-        /// <summary>
-        /// Signature Subject
-        /// </summary>
-        [ConfigurationProperty("signatureSubject")]
-        public string SignatureSubject
-        {
-            get { return (string)this[signSubject]; }
-        }
-
-        /// <summary>
-        /// Certificate Subject
-        /// </summary>
-        [ConfigurationProperty("certificateSubject")]
-        public string CertificateSubject
-        {
-            get { return (string)this[certifySubject]; }
-        } 
     }   
 }
