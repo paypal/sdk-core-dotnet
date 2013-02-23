@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Xml;
 
 namespace PayPal.Manager.HashtableConfig
 {
@@ -9,16 +8,18 @@ namespace PayPal.Manager.HashtableConfig
     public class SDKHashtableConfigHandler
     {
         private readonly Dictionary<string, string> _settings;
-        private readonly Dictionary<string, IAccount> _accounts;
+        private readonly SortedList<int, IAccount> _accounts;
 
-        public SDKHashtableConfigHandler(Dictionary<string, string> settings, Dictionary<string, Dictionary<string, string>> accounts)
+        public SDKHashtableConfigHandler(Dictionary<string, string> settings, SortedList<int, Dictionary<string, string>> accounts)
         {
             _settings = settings;
-            _accounts = new Dictionary<string, IAccount>();
+            _accounts = new SortedList<int, IAccount>();
+            var accountIndex = 0;
 
             foreach (var entry in accounts)
             {
-                var apiUserName = entry.Key;
+                string apiUsername;
+                entry.Value.TryGetValue("apiUsername", out apiUsername);
 
                 string apiPassword;
                 entry.Value.TryGetValue("apiPassword", out apiPassword);
@@ -41,14 +42,14 @@ namespace PayPal.Manager.HashtableConfig
                 string certificateSubject;
                 entry.Value.TryGetValue("certificateSubject", out certificateSubject);
 
-                _accounts.Add(apiUserName, new HashtableAccount(apiUserName, apiPassword, apiSignature, applicationId, apiCertificate, privateKeyPassword, signatureSubject));
+                _accounts.Add(accountIndex++, new HashtableAccount(apiUsername, apiPassword, apiSignature, applicationId, apiCertificate, privateKeyPassword, signatureSubject));
             }
         }
 
         /// <summary>
         /// Accounts Collection
         /// </summary>
-        public Dictionary<string, IAccount> Accounts
+        public SortedList<int, IAccount> Accounts
         {
             get { return _accounts; }
         }

@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using PayPal.Manager;
 using PayPal.Manager.AppConfig;
 using PayPal.Manager.HashtableConfig;
@@ -20,7 +20,7 @@ namespace PayPal
             ConfigMgr = new AppConfigManager();
         }
 
-        protected BasePayPalService(Hashtable config)
+        protected BasePayPalService(Dictionary<string, object> config)
         {
             ConfigMgr = new HashtableConfigManager(config);
             CredentialMgr = new CredentialManager(ConfigMgr);

@@ -1,5 +1,4 @@
 ﻿using System.Configuration;
-using System.Linq;
 using PayPal.Exception;
 
 namespace PayPal.Manager.AppConfig

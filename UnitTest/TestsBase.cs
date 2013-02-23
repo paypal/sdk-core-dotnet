@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using PayPal.Manager;
 using PayPal.Manager.AppConfig;
 using PayPal.Manager.HashtableConfig;
@@ -19,7 +18,7 @@ namespace PayPal.UnitTest
         public TestsBase()
         {
             var configSettings =
-                new Hashtable
+                new Dictionary<string, object>
                     {
                         { "endpoint", "https://svcs.sandbox.paypal.com/" },
                         { "PayPalAPI", "https://svcs.sandbox.paypal.com/" },
@@ -35,10 +34,11 @@ namespace PayPal.UnitTest
                         { "sandboxEmailAddress", "Platform.sdk.seller@gmail.com" },
                         {
                             "accounts", 
-                            new Dictionary<string, Dictionary<string, string>>
+                            new SortedList<int, Dictionary<string, string>>
                             {
                                 { 
-                                    "jb-us-seller_api1.paypal.com", 
+                                    // the 0th index represents the default account
+                                    0, 
                                     new Dictionary<string, string>
                                     { 
                                         { "apiUsername", "jb-us-seller_api1.paypal.com" },
@@ -48,7 +48,7 @@ namespace PayPal.UnitTest
                                     }
                                 },
                                 {
-                                    "certuser_biz_api1.paypal.com", 
+                                    1, 
                                     new Dictionary<string, string>
                                     { 
                                         { "apiUsername", "certuser_biz_api1.paypal.com" },

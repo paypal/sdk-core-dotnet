@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using NUnit.Framework;
 using System.Threading;
-using PayPal.Manager;
+using NUnit.Framework;
 using PayPal.NVP;
 using PayPal.SOAP;
 

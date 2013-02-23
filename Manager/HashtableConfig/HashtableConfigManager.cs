@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace PayPal.Manager.HashtableConfig
 {    
@@ -15,26 +13,29 @@ namespace PayPal.Manager.HashtableConfig
         /// <summary>
         /// Private constructor
         /// </summary>
-        public HashtableConfigManager(Hashtable config)
+        public HashtableConfigManager(Dictionary<string, object> config)
         {
             var settings = new Dictionary<string, string>();
-            var accounts = new Dictionary<string, Dictionary<string, string>>();
+            var accounts = new SortedList<int, Dictionary<string, string>>();
+            var accountIndex = 0;
 
-            foreach (DictionaryEntry elementEntry in config)
+            foreach (KeyValuePair<string, object> elementEntry in config)
             {
-                if (elementEntry.Key.ToString() == "accounts")
+                if (elementEntry.Key == "accounts")
                 {
-                    foreach (KeyValuePair<string, Dictionary<string, string>> accountEntry in (Dictionary<string, Dictionary<string, string>>)elementEntry.Value)
+                    foreach (KeyValuePair<int, Dictionary<string, string>> accountEntry in (SortedList<int, Dictionary<string, string>>)elementEntry.Value)
                     {
-                        var account = accountEntry.Value.ToDictionary(accountElement => accountElement.Key, accountElement => accountElement.Value);
-                        var apiUserName = string.Empty;
-                        account.TryGetValue(account.Keys.FirstOrDefault(k => k == "apiUsername"), out apiUserName);
-                        accounts.Add(apiUserName, account);
+                        var account = new Dictionary<string, string>();
+                        foreach (var accountEntryValue in accountEntry.Value)
+                        {
+                            account.Add(accountEntryValue.Key, accountEntryValue.Value);
+                        }
+                        accounts.Add(accountIndex++, account);
                     }
                 }
                 else
                 {
-                    settings.Add(elementEntry.Key.ToString(), elementEntry.Value.ToString());
+                    settings.Add(elementEntry.Key, elementEntry.Value.ToString());
                 }
             }
 
@@ -58,10 +59,13 @@ namespace PayPal.Manager.HashtableConfig
         /// <returns></returns>
         public IAccount GetAccount(string apiUserName)
         {
-            IAccount account;
-            if (_config.Accounts.TryGetValue(apiUserName, out account))
+            foreach (var account in _config.Accounts.Values)
             {
-                return account;
+                if (account.APIUsername == apiUserName)
+                {
+                    return account;
+                }
+                
             }
             return null;
         }
@@ -73,7 +77,7 @@ namespace PayPal.Manager.HashtableConfig
         /// <returns></returns>
         public IAccount GetAccount(int index)
         {
-            return _config.Accounts[_config.Accounts.Keys.ElementAt(index)];
+            return _config.Accounts.Values[index];
         }        
     }
 }
