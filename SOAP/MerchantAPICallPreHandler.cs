@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
 using PayPal.Authentication;
 using PayPal.Exception;
 using PayPal.Manager;
@@ -29,26 +27,6 @@ namespace PayPal.SOAP
 	    /// TokenSecret if any for authorization
 	    /// </summary>
 	    private string tokenSecret;
-
-        /// <summary>
-        /// API Password for authentication
-        /// </summary>
-        private string apiPassword;
-
-        /// <summary>
-        /// API Signature for authentication
-        /// </summary>
-        private string apiSignature;
-
-        /// <summary>
-        /// API Password for authentication
-        /// </summary>
-        private string applicationId;
-
-        /// <summary>
-        /// API Signature for authentication
-        /// </summary>
-        private string signatureSubject;
 
         /// <summary>
         /// API Signature for authentication
@@ -116,10 +94,6 @@ namespace PayPal.SOAP
                 this.accessToken = accessToken;
                 this.tokenSecret = tokenSecret;
                 this.endPoint = configMgr.GetProperty("endpoint");
-                this.apiPassword = configMgr.GetProperty("apiPassword");
-                this.apiSignature = configMgr.GetProperty("apiSignature");
-                this.applicationId = configMgr.GetProperty("applicationId");
-                this.signatureSubject = configMgr.GetProperty("signatureSubject");
                 InitCredential();
             }
             catch(System.Exception ex)
