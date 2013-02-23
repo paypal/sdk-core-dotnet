@@ -14,32 +14,15 @@ namespace PayPal.Manager
         /// Logger
         /// </summary>
         private static ILog logger = LogManagerWrapper.GetLogger(typeof(ConnectionManager));
-        
-        /// <summary>
-        /// Singleton instance of ConnectionManager
-        /// </summary>
-        private static readonly ConnectionManager singletonInstance = new ConnectionManager();
 
-        /// <summary>
-        /// Explicit static constructor to tell C# compiler
-        /// not to mark type as beforefieldinit
-        /// </summary>
-        static ConnectionManager() { }
-        
+        private readonly IConfigManager _configMgr;
+
         /// <summary>
         /// Private constructor
         /// </summary>
-        private ConnectionManager() { }
-
-        /// <summary>
-        /// Gets the Singleton instance of ConnectionManager
-        /// </summary>
-        public static ConnectionManager Instance
+        public ConnectionManager(IConfigManager configMgr)
         {
-            get
-            {
-                return singletonInstance;
-            }
+            _configMgr = configMgr;
         }
 
         /// <summary>
@@ -49,7 +32,6 @@ namespace PayPal.Manager
         /// <returns></returns>
         public HttpWebRequest GetConnection(string url)
         {
-            ConfigManager configMngr = ConfigManager.Instance;
             HttpWebRequest httpRequest = null;
                         
             try
@@ -63,22 +45,15 @@ namespace PayPal.Manager
             }
 
             // Set connection timeout
-            int ConnectionTimeout = 0;
-            bool Success = int.TryParse(configMngr.GetProperty(BaseConstants.HTTP_CONNECTION_TIMEOUT), out ConnectionTimeout);
-            if (!Success)
-            {
-                ConnectionTimeout = BaseConstants.DEFAULT_TIMEOUT;
-            }
+            httpRequest.Timeout = BaseConstants.DEFAULT_TIMEOUT;
 
-            httpRequest.Timeout = ConnectionTimeout;
-
-            // Set request proxy for tunnelling http requests via a proxy server
-            string proxyAddress = configMngr.GetProperty(BaseConstants.HTTP_PROXY_ADDRESS);
+            //Set request proxy for tunnelling http requests via a proxy server
+            string proxyAddress = _configMgr.GetProperty(BaseConstants.HTTP_PROXY_ADDRESS);
             if (proxyAddress != null)
             {
                 WebProxy requestProxy = new WebProxy();
                 requestProxy.Address = new Uri(proxyAddress);
-                string proxyCredentials = configMngr.GetProperty(BaseConstants.HTTP_PROXY_CREDENTIAL);
+                string proxyCredentials = _configMgr.GetProperty(BaseConstants.HTTP_PROXY_CREDENTIAL);
                 if (proxyCredentials != null)
                 {
                     string[] proxyDetails = proxyCredentials.Split(':');
@@ -89,6 +64,7 @@ namespace PayPal.Manager
                 }                
                 httpRequest.Proxy = requestProxy;
             }
+
             return httpRequest;
         }
     }

@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
 using PayPal.Authentication;
 using PayPal.Exception;
 using PayPal.Manager;
@@ -29,6 +27,11 @@ namespace PayPal.SOAP
 	    /// TokenSecret if any for authorization
 	    /// </summary>
 	    private string tokenSecret;
+
+        /// <summary>
+        /// API Signature for authentication
+        /// </summary>
+        private string endPoint;
 
 	    /// <summary>
 	    /// IAPICallPreHandler instance
@@ -60,29 +63,37 @@ namespace PayPal.SOAP
         /// </summary>
         private string prtName;
 
+        private readonly CredentialManager credentialMgr;
+
         /// <summary>
         /// Private constructor
         /// </summary>
         /// <param name="apiCallHandler"></param>
-        private MerchantAPICallPreHandler(IAPICallPreHandler apiCallHandler) : base()
+        private MerchantAPICallPreHandler(CredentialManager credentialMgr, IAPICallPreHandler apiCallHandler) : base()
         {
+            this.credentialMgr = credentialMgr;
             this.apiCallHandler = apiCallHandler;
         }  
 
         /// <summary>
-        /// SOAPAPICallPreHandler decorating basic IAPICallPreHandler using API Username
+        /// SOAPAPICallPreHandler decorating basic IAPICallPreHandler using API Username, optional API Password, optional API Signature, optional applicationId, optional signatureSubject
         /// </summary>
         /// <param name="apiCallHandler"></param>
         /// <param name="apiUserName"></param>
         /// <param name="accessToken"></param>
         /// <param name="tokenSecret"></param>
-	    public MerchantAPICallPreHandler(IAPICallPreHandler apiCallHandler, string apiUserName, string accessToken, string tokenSecret) : this(apiCallHandler)
+        /// <param name="apiPassword"></param>
+        /// <param name="apiSignature"></param>
+        public MerchantAPICallPreHandler(IConfigManager configMgr, CredentialManager credentialMgr, IAPICallPreHandler apiCallHandler, string apiUserName, string accessToken, string tokenSecret)
+            : this(credentialMgr, apiCallHandler)
 		{
             try
             {
+                this.credentialMgr = credentialMgr;
                 this.apiUserName = apiUserName;
                 this.accessToken = accessToken;
                 this.tokenSecret = tokenSecret;
+                this.endPoint = configMgr.GetProperty("endpoint");
                 InitCredential();
             }
             catch(System.Exception ex)
@@ -96,8 +107,9 @@ namespace PayPal.SOAP
 	    /// </summary>
 	    /// <param name="apiCallHandler"></param>
 	    /// <param name="credential"></param>
-	    public MerchantAPICallPreHandler(IAPICallPreHandler apiCallHandler, ICredential credential) : this(apiCallHandler)
-        {	    
+	    public MerchantAPICallPreHandler(CredentialManager credentialMgr, IAPICallPreHandler apiCallHandler, ICredential credential) : this(credentialMgr, apiCallHandler)
+	    {
+	        this.credentialMgr = credentialMgr;
 		    if (credential == null) 
             {
 			    throw new ArgumentException("Credential is null in SOAPAPICallPreHandler");
@@ -220,14 +232,10 @@ namespace PayPal.SOAP
         /// Returns the endpoint url
         /// </summary>
         /// <returns></returns>
-	    public string GetEndPoint() 
+	    public string GetEndPoint()
         {
-            if (PortName == null || string.IsNullOrEmpty(ConfigManager.Instance.GetProperty(PortName)))
-            {
-                return apiCallHandler.GetEndPoint();
-            }
-            return ConfigManager.Instance.GetProperty(PortName);
-	    }
+            return this.endPoint;
+        }
         
         /// <summary>
         /// Returns the instance of ICredential
@@ -236,19 +244,18 @@ namespace PayPal.SOAP
 	    public ICredential GetCredential() 
         {
 		    return credential;
-	    } 
+	    }
 
         /// <summary>
-        ///  Returns the credentials as configured in the application configuration
+        /// Returns the credentials as configured in the application configuration
         /// </summary>
         /// <returns></returns>
-	    private ICredential GetCredentials() 
+        private ICredential GetCredentials()
         {
             ICredential returnCredential = null;
             try
-            {                
-                CredentialManager credentialMngr = CredentialManager.Instance;
-                returnCredential = credentialMngr.GetCredentials(apiUserName);
+            {
+                returnCredential = credentialMgr.GetCredentials(apiUserName);
 
                 if (!string.IsNullOrEmpty(accessToken))
                 {
@@ -268,12 +275,12 @@ namespace PayPal.SOAP
                     }
                 }
             }
-            catch(System.Exception ex)
+            catch (System.Exception ex)
             {
                 throw ex;
             }
-		    return returnCredential;
-	    }
+            return returnCredential;
+        }
 
 	    /// <summary>
         /// Returns default HTTP headers used in SOAP call

@@ -1,14 +1,14 @@
+﻿using System.Collections.Generic;
 using System.Configuration;
+using System.Xml;
 
-namespace PayPal.Manager
+namespace PayPal.Manager.AppConfig
 {
     /// <summary>
     /// Custom handler for SDK configuration section as defined in App.Config or Web.Config files
     /// </summary>    
-    public class SDKConfigHandler : ConfigurationSection
+    public class SDKAppConfigHandler : ConfigurationSection 
     {
-        public SDKConfigHandler() { }
-
         private static readonly ConfigurationProperty accountsElement =
              new ConfigurationProperty("accounts", typeof(AccountCollection), null, ConfigurationPropertyOptions.IsRequired);
 
@@ -32,46 +32,46 @@ namespace PayPal.Manager
             NameValueConfigurationElement config = Settings[name];
             return ((config == null) ? null : config.Value);
         }
-    }    
+    }
 
-    [ConfigurationCollection(typeof(Account), AddItemName = "account",
+    [ConfigurationCollection(typeof(IAccount), AddItemName = "account",
          CollectionType = ConfigurationElementCollectionType.BasicMap)]
     public class AccountCollection : ConfigurationElementCollection
     {
         protected override ConfigurationElement CreateNewElement()
         {
-            return new Account();
+            return new AppAccount();
         }
         protected override object GetElementKey(ConfigurationElement element)
         {
-            return ((Account)element).APIUsername;
+            return ((AppAccount)element).APIUsername;
         }
 
-        public Account Account(int index)
+        public AppAccount Account(int index)
         {
-            return (Account)BaseGet(index);
+            return (AppAccount)BaseGet(index);
         }
 
-        public Account Account(string value)
+        public AppAccount Account(string value)
         {
-            return (Account)BaseGet(value);
+            return (AppAccount)BaseGet(value);
         }
 
-        public new  Account this[string name]
+        public new AppAccount this[string name]
         {
-            get { return (Account)BaseGet(name); }
+            get { return (AppAccount)BaseGet(name); }
         }
 
-        public Account this[int index]
+        public AppAccount this[int index]
         {
-            get { return (Account)BaseGet(index); }
+            get { return (AppAccount)BaseGet(index); }
         }
     }
 
     /// <summary>
     /// Class holds the <Account> element
     /// </summary>
-    public class Account : ConfigurationElement
+    public class AppAccount : ConfigurationElement, IAccount
     {
         private static readonly ConfigurationProperty apiUsername =
             new ConfigurationProperty("apiUsername", typeof(string), string.Empty, ConfigurationPropertyOptions.IsRequired);
@@ -97,7 +97,7 @@ namespace PayPal.Manager
         private static readonly ConfigurationProperty certifySubject =
            new ConfigurationProperty("certificateSubject", typeof(string), string.Empty);
 
-        public Account()
+        public AppAccount()
         {
             base.Properties.Add(apiUsername);
             base.Properties.Add(apiPassword);
@@ -162,7 +162,7 @@ namespace PayPal.Manager
         {
             get { return (string)this[privateKeyPassword]; }
         }
-      
+
         /// <summary>
         /// Signature Subject
         /// </summary>
@@ -179,6 +179,6 @@ namespace PayPal.Manager
         public string CertificateSubject
         {
             get { return (string)this[certifySubject]; }
-        } 
-    }   
+        }
+    }
 }

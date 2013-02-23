@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
+using PayPal.Manager;
 
 namespace PayPal.UnitTest
 {
     [TestFixture]
-    class DefaultSOAPAPICallHandlerTest
+    class DefaultSOAPAPICallHandlerTest : TestsBase
     {
         DefaultSOAPAPICallHandler defaultSOAPHandler;
 
@@ -14,14 +15,14 @@ namespace PayPal.UnitTest
         [Ignore] 
 	    public void EndPoint() 
         {
-            defaultSOAPHandler = new DefaultSOAPAPICallHandler(UnitTestConstants.PayloadNVP, string.Empty, string.Empty);
+            defaultSOAPHandler = new DefaultSOAPAPICallHandler(AppConfigMgr, UnitTestConstants.PayloadNVP, string.Empty, string.Empty);
 		    Assert.AreEqual(UnitTestConstants.APIEndpointSOAP, defaultSOAPHandler.GetEndPoint());
         }
     
         [Test]
         public void HeaderElement()
         {
-            defaultSOAPHandler = new DefaultSOAPAPICallHandler(string.Empty, string.Empty, string.Empty);
+            defaultSOAPHandler = new DefaultSOAPAPICallHandler(AppConfigMgr, string.Empty, string.Empty, string.Empty);
             defaultSOAPHandler.HeaderElement = "HeaderElement";
             Assert.AreEqual("HeaderElement", defaultSOAPHandler.HeaderElement);
         }
@@ -29,7 +30,7 @@ namespace PayPal.UnitTest
         [Test]
         public void NamespaceAttributes()
         {
-            defaultSOAPHandler = new DefaultSOAPAPICallHandler(string.Empty, string.Empty, string.Empty);
+            defaultSOAPHandler = new DefaultSOAPAPICallHandler(AppConfigMgr, string.Empty, string.Empty, string.Empty);
             defaultSOAPHandler.NamespaceAttributes = "NamespaceAttributes";
             Assert.AreEqual("NamespaceAttributes", defaultSOAPHandler.NamespaceAttributes);
         }
@@ -37,7 +38,7 @@ namespace PayPal.UnitTest
         [Test]
         public void GetPayloadForEmptyRawPayload()
         {
-            defaultSOAPHandler = new DefaultSOAPAPICallHandler(string.Empty, string.Empty, string.Empty);
+            defaultSOAPHandler = new DefaultSOAPAPICallHandler(AppConfigMgr, string.Empty, string.Empty, string.Empty);
             Assert.AreEqual("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" ><soapenv:Header></soapenv:Header><soapenv:Body></soapenv:Body></soapenv:Envelope>", defaultSOAPHandler.GetPayLoad());
         }
     }

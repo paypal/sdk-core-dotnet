@@ -64,14 +64,20 @@ namespace PayPal.NVP
         /// </summary>
         private string prtName;
 
+        private readonly IConfigManager configMgr;
+        private readonly CredentialManager credentialMgr;
+
 	    /// <summary>
 	    /// Private constructor
 	    /// </summary>
 	    /// <param name="rawPayLoad"></param>
 	    /// <param name="serviceName"></param>
 	    /// <param name="method"></param>
-	    private PlatformAPICallPreHandler(string rawPayLoad, string serviceName,	string method) : base()
-        {
+        private PlatformAPICallPreHandler(IConfigManager configMgr, CredentialManager credentialMgr, string rawPayLoad, string serviceName, string method)
+            : base()
+	    {
+            this.configMgr = configMgr;
+            this.credentialMgr = credentialMgr;
             this.rawPayLoad = rawPayLoad;
 		    this.serviceName = serviceName;
 		    this.method = method;
@@ -86,10 +92,13 @@ namespace PayPal.NVP
         /// <param name="apiUsername"></param>
         /// <param name="accessToken"></param>
         /// <param name="tokenSecret"></param>
-	    public PlatformAPICallPreHandler(string rawPayLoad, string serviceName, string method, string apiUsername, string accessToken, string tokenSecret)  : this(rawPayLoad, serviceName, method)
+        public PlatformAPICallPreHandler(IConfigManager configMgr, CredentialManager credentialMgr, string rawPayLoad, string serviceName, string method, string apiUsername, string accessToken, string tokenSecret)
+            : this(configMgr, credentialMgr, rawPayLoad, serviceName, method)
         {
             try
             {
+                this.configMgr = configMgr;
+                this.credentialMgr = credentialMgr;
                 this.apiUsername = apiUsername;
                 this.accessToken = accessToken;
                 this.tokenSecret = tokenSecret;
@@ -108,8 +117,11 @@ namespace PayPal.NVP
 	    /// <param name="serviceName"></param>
 	    /// <param name="method"></param>
 	    /// <param name="credential"></param>
-	    public PlatformAPICallPreHandler(string rawPayLoad, string serviceName,string method, ICredential credential) : this(rawPayLoad, serviceName, method)
-        {  		
+        public PlatformAPICallPreHandler(IConfigManager configMgr, CredentialManager credentialMgr, string rawPayLoad, string serviceName, string method, ICredential credential)
+            : this(configMgr, credentialMgr, rawPayLoad, serviceName, method)
+	    {
+            this.configMgr = configMgr;
+	        this.credentialMgr = credentialMgr;
 		    if (credential == null) 
             {
 			    throw new ArgumentException("Credential is null in NVPAPICallPreHandler");
@@ -211,11 +223,11 @@ namespace PayPal.NVP
         /// <returns></returns>
 	    public string GetEndPoint()
         {
-            if (PortName == null || string.IsNullOrEmpty(ConfigManager.Instance.GetProperty(PortName)))
+            if (PortName == null || string.IsNullOrEmpty(configMgr.GetProperty(PortName)))
             {
-                return ConfigManager.Instance.GetProperty(BaseConstants.END_POINT) + serviceName + "/" + method;
+                return configMgr.GetProperty(BaseConstants.END_POINT) + serviceName + "/" + method;
             }
-            return ConfigManager.Instance.GetProperty(PortName) + serviceName + "/" + method;
+            return configMgr.GetProperty(PortName) + serviceName + "/" + method;
         }
 
         /// <summary>
@@ -237,8 +249,7 @@ namespace PayPal.NVP
 
             try
             {
-                CredentialManager credentialMngr = CredentialManager.Instance;
-                returnCredential = credentialMngr.GetCredentials(apiUsername);
+                returnCredential = credentialMgr.GetCredentials(apiUsername);
 
                 if (!string.IsNullOrEmpty(accessToken))
                 {
@@ -322,9 +333,9 @@ namespace PayPal.NVP
 
         private string GetDeviceIPAddress()
         {
-            if (!string.IsNullOrEmpty(ConfigManager.Instance.GetProperty(BaseConstants.PayPalIPAddress)))
+            if (!string.IsNullOrEmpty(configMgr.GetProperty(BaseConstants.PayPalIPAddress)))
             {
-                return ConfigManager.Instance.GetProperty(BaseConstants.PayPalIPAddress);
+                return configMgr.GetProperty(BaseConstants.PayPalIPAddress);
             }
             else
             {
@@ -334,9 +345,9 @@ namespace PayPal.NVP
 
         private string GetSandboxEmailAddress()
         {
-            if (!string.IsNullOrEmpty(ConfigManager.Instance.GetProperty(BaseConstants.PayPalSandboxEmailAddress)))
+            if (!string.IsNullOrEmpty(configMgr.GetProperty(BaseConstants.PayPalSandboxEmailAddress)))
             {
-                return ConfigManager.Instance.GetProperty(BaseConstants.PayPalSandboxEmailAddress);
+                return configMgr.GetProperty(BaseConstants.PayPalSandboxEmailAddress);
             }
             else
             {

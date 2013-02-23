@@ -37,6 +37,16 @@ namespace PayPal
                                                   HttpStatusCode.InternalServerError,
                                                   HttpStatusCode.ServiceUnavailable,
                                                 });
+
+        private readonly IConfigManager _configMgr;
+        private readonly ConnectionManager _connManager;
+
+        public APIService(IConfigManager configMgr, ConnectionManager connMgr)
+        {
+            _configMgr = configMgr;
+            _connManager = connMgr;
+        }
+
         /// <summary>
         /// Makes a request to API service
         /// </summary>
@@ -48,10 +58,9 @@ namespace PayPal
             string uri = apiCallHandler.GetEndPoint();
             Dictionary<string, string> headers = apiCallHandler.GetHeaderMap();
             string payLoad = apiCallHandler.GetPayLoad();
-            ConfigManager configMngr = ConfigManager.Instance;
+
             // Constructing HttpWebRequest object                
-            ConnectionManager connMngr = ConnectionManager.Instance;
-            HttpWebRequest httpRequest = connMngr.GetConnection(uri);
+            HttpWebRequest httpRequest = _connManager.GetConnection(uri);
             httpRequest.Method = RequestMethod;
             foreach (KeyValuePair<string, string> header in headers)
             {
@@ -88,8 +97,8 @@ namespace PayPal
             }
 
             // Fire request. Retry if configured to do so
-            int numRetries = (configMngr.GetProperty(BaseConstants.HTTP_CONNECTION_RETRY) != null) ?
-                Convert.ToInt32(configMngr.GetProperty(BaseConstants.HTTP_CONNECTION_RETRY)) : 0;
+            int numRetries = (_configMgr.GetProperty(BaseConstants.HTTP_CONNECTION_RETRY) != null) ?
+                Convert.ToInt32(_configMgr.GetProperty(BaseConstants.HTTP_CONNECTION_RETRY)) : 0;
             int retries = 0;
 
             do
