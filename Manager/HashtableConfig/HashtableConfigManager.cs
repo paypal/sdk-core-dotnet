@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PayPal.Manager
+namespace PayPal.Manager.HashtableConfig
 {    
     /// <summary>
     /// ConfigManager loads the configuration file and hands out
     /// appropriate parameters to application
     /// </summary>
-    public sealed class ConfigManager
+    public sealed class HashtableConfigManager : IConfigManager
     {
-        private readonly SDKConfigHandler config;
+        private readonly SDKHashtableConfigHandler _config;
 
         /// <summary>
         /// Private constructor
         /// </summary>
-        public ConfigManager(Hashtable config)
+        public HashtableConfigManager(Hashtable config)
         {
             var settings = new Dictionary<string, string>();
             var accounts = new Dictionary<string, Dictionary<string, string>>();
@@ -38,7 +38,7 @@ namespace PayPal.Manager
                 }
             }
 
-            this.config = new SDKConfigHandler(settings, accounts);
+            _config = new SDKHashtableConfigHandler(settings, accounts);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace PayPal.Manager
         /// <returns></returns>
         public string GetProperty(string key)
         {
-            return config.Setting(key);
+            return _config.Setting(key);
         }
 
         /// <summary>
@@ -56,10 +56,10 @@ namespace PayPal.Manager
         /// </summary>
         /// <param name="apiUserName"></param>
         /// <returns></returns>
-        public Account GetAccount(string apiUserName)
+        public IAccount GetAccount(string apiUserName)
         {
-            Account account;
-            if (config.Accounts.TryGetValue(apiUserName, out account))
+            IAccount account;
+            if (_config.Accounts.TryGetValue(apiUserName, out account))
             {
                 return account;
             }
@@ -71,9 +71,9 @@ namespace PayPal.Manager
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public Account GetAccount(int index)
+        public IAccount GetAccount(int index)
         {
-            return config.Accounts[config.Accounts.Keys.ElementAt(index)];
+            return _config.Accounts[_config.Accounts.Keys.ElementAt(index)];
         }        
     }
 }

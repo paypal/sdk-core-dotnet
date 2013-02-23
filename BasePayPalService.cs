@@ -1,5 +1,7 @@
 using System.Collections;
 using PayPal.Manager;
+using PayPal.Manager.AppConfig;
+using PayPal.Manager.HashtableConfig;
 
 namespace PayPal
 {
@@ -9,13 +11,20 @@ namespace PayPal
         private string accessTokenSecret;
         private string lastRequest;
         private string lastResponse;
-        protected readonly ConfigManager ConfigMgr;
+        protected readonly IConfigManager ConfigMgr;
         protected readonly CredentialManager CredentialMgr;
+        protected readonly ConnectionManager ConnMgr;
+
+        protected BasePayPalService()
+        {
+            ConfigMgr = new AppConfigManager();
+        }
 
         protected BasePayPalService(Hashtable config)
         {
-            ConfigMgr = new ConfigManager(config);
+            ConfigMgr = new HashtableConfigManager(config);
             CredentialMgr = new CredentialManager(ConfigMgr);
+            ConnMgr = new ConnectionManager(ConfigMgr);
         }
 
         public void setAccessToken(string accessToken)
@@ -55,7 +64,7 @@ namespace PayPal
         /// <returns></returns>
         public string Call(IAPICallPreHandler apiCallHandler)
         {
-            APIService apiServ = new APIService(ConfigMgr);
+            APIService apiServ = new APIService(ConfigMgr, ConnMgr);
             this.lastRequest = apiCallHandler.GetPayLoad();
             this.lastResponse = apiServ.MakeRequestUsing(apiCallHandler);
             return this.lastResponse;

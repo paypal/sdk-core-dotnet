@@ -1,19 +1,20 @@
 using System.Collections.Generic;
+using System.Xml;
 
-namespace PayPal.Manager
+namespace PayPal.Manager.HashtableConfig
 {
     /// <summary>
     /// Custom handler for SDK configuration section as defined in App.Config or Web.Config files
     /// </summary>    
-    public class SDKConfigHandler
+    public class SDKHashtableConfigHandler
     {
         private readonly Dictionary<string, string> _settings;
-        private readonly Dictionary<string, Account> _accounts;
+        private readonly Dictionary<string, IAccount> _accounts;
 
-        public SDKConfigHandler(Dictionary<string, string> settings, Dictionary<string, Dictionary<string, string>> accounts)
+        public SDKHashtableConfigHandler(Dictionary<string, string> settings, Dictionary<string, Dictionary<string, string>> accounts)
         {
             _settings = settings;
-            _accounts = new Dictionary<string, Account>();
+            _accounts = new Dictionary<string, IAccount>();
 
             foreach (var entry in accounts)
             {
@@ -40,14 +41,14 @@ namespace PayPal.Manager
                 string certificateSubject;
                 entry.Value.TryGetValue("certificateSubject", out certificateSubject);
 
-                _accounts.Add(apiUserName, new Account(apiUserName, apiPassword, apiSignature, applicationId, apiCertificate, privateKeyPassword, signatureSubject));
+                _accounts.Add(apiUserName, new HashtableAccount(apiUserName, apiPassword, apiSignature, applicationId, apiCertificate, privateKeyPassword, signatureSubject));
             }
         }
 
         /// <summary>
         /// Accounts Collection
         /// </summary>
-        public Dictionary<string, Account> Accounts
+        public Dictionary<string, IAccount> Accounts
         {
             get { return _accounts; }
         }
@@ -62,7 +63,7 @@ namespace PayPal.Manager
     /// <summary>
     /// Class holds the <Account> element
     /// </summary>
-    public class Account
+    public class HashtableAccount : IAccount
     {
         public string APIUsername { get; set; }
         public string APIPassword { get; set; }
@@ -73,7 +74,7 @@ namespace PayPal.Manager
         public string SignatureSubject { get; set; }
         public string CertificateSubject { get; set; }
 
-        public Account(string apiUsername, string apiPassword, string apiSignature, string applicationId = "", string apiCertificate = "", string privateKeyPassword = "", string signatureSubject = "", string certificateSubject = "")
+        public HashtableAccount(string apiUsername, string apiPassword, string apiSignature, string applicationId = "", string apiCertificate = "", string privateKeyPassword = "", string signatureSubject = "", string certificateSubject = "")
         {
             APIUsername = apiUsername;
             APIPassword = apiPassword;

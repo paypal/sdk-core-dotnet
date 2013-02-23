@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
 using PayPal.Manager;
+using PayPal.Manager.AppConfig;
+using PayPal.Manager.HashtableConfig;
 
 namespace PayPal.UnitTest
 {
     public class TestsBase
     {
-        protected readonly ConfigManager ConfigMgr;
-        protected readonly CredentialManager CredentialMgr;
+        protected readonly AppConfigManager AppConfigMgr;
+        protected readonly CredentialManager AppCredentialMgr;
+        protected readonly ConnectionManager AppConnMgr;
+
+        protected readonly IConfigManager HashtableConfigMgr;
+        protected readonly CredentialManager HashtableCredentialMgr;
+        protected readonly ConnectionManager HashtableConnMgr;
 
         public TestsBase()
         {
@@ -59,8 +62,13 @@ namespace PayPal.UnitTest
                         }
                     };
 
-            ConfigMgr = new ConfigManager(configSettings);
-            CredentialMgr = new CredentialManager(ConfigMgr);
+            HashtableConfigMgr = new HashtableConfigManager(configSettings);
+            HashtableCredentialMgr = new CredentialManager(HashtableConfigMgr);
+            HashtableConnMgr = new ConnectionManager(HashtableConfigMgr);
+
+            AppConfigMgr = new AppConfigManager();
+            AppCredentialMgr = new CredentialManager(AppConfigMgr);
+            AppConnMgr = new ConnectionManager(AppConfigMgr);
         }
     }
 }

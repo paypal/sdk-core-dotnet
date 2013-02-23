@@ -94,7 +94,7 @@ namespace PayPal
 	    /// <param name="rawPayLoad"></param>
 	    /// <param name="namespaces"></param>
 	    /// <param name="headerString"></param>
-        public DefaultSOAPAPICallHandler(ConfigManager configMgr, string rawPayLoad, string attributesNamespace, string headerString) : base()
+        public DefaultSOAPAPICallHandler(IConfigManager configMgr, string rawPayLoad, string attributesNamespace, string headerString) : base()
         {		    
 		    this.rawPayLoad = rawPayLoad;
             this.nmespceAttributes = attributesNamespace;

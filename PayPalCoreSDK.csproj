@@ -65,6 +65,11 @@
     <Compile Include="DefaultSOAPAPICallHandler.cs" />
     <Compile Include="IPNMessage.cs" />
     <Compile Include="LogManagerWrapper.cs" />
+    <Compile Include="Manager\AppConfig\AppConfigManager.cs" />
+    <Compile Include="Manager\IAccount.cs" />
+    <Compile Include="Manager\IConfigManager.cs" />
+    <Compile Include="Manager\ISDKConfigHandler.cs" />
+    <Compile Include="Manager\AppConfig\SDKAppConfigHandler.cs" />
     <Compile Include="NVP\CertificateHttpHeaderAuthStrategy.cs" />
     <Compile Include="NVP\PlatformAPICallPreHandler.cs" />
     <Compile Include="NVP\SignatureHttpHeaderAuthStrategy.cs" />
@@ -82,13 +87,13 @@
     <Compile Include="Exception\InvalidCredentialException.cs" />
     <Compile Include="Exception\MissingCredentialException.cs" />
     <Compile Include="Exception\OAuthException.cs" />
-    <Compile Include="Manager\ConfigManager.cs">
+    <Compile Include="Manager\HashtableConfig\HashtableConfigManager.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Manager\CredentialManager.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Manager\SDKConfigHandler.cs" />
+    <Compile Include="Manager\HashtableConfig\SDKHashtableConfigHandler.cs" />
     <Compile Include="Manager\ConnectionManager.cs" />
     <Compile Include="SOAP\SignatureHttpHeaderAuthStrategy.cs" />
     <Compile Include="SOAP\SignatureSOAPHeaderAuthStrategy.cs" />

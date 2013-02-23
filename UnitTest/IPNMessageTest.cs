@@ -22,14 +22,14 @@ namespace PayPal.UnitTest
         [Test]
         public void IPNRequest()
         {
-            IPNMessage ipn = new IPNMessage(ConfigMgr, Encoding.GetEncoding(IPNEncoding).GetBytes(ipnMsg)); 
+            IPNMessage ipn = new IPNMessage(AppConfigMgr, Encoding.GetEncoding(IPNEncoding).GetBytes(ipnMsg)); 
             Assert.IsTrue(ipn.Validate());
         }
 
         [Test]
 	    public void IPNMap() 
         {
-            IPNMessage ipn = new IPNMessage(ConfigMgr, Encoding.GetEncoding(IPNEncoding).GetBytes(ipnMsg)); 
+            IPNMessage ipn = new IPNMessage(AppConfigMgr, Encoding.GetEncoding(IPNEncoding).GetBytes(ipnMsg)); 
             NameValueCollection ipnMap = ipn.IpnMap;
             Assert.IsNotNull(ipnMap);
 	    }
@@ -37,7 +37,7 @@ namespace PayPal.UnitTest
         [Test]
         public void IPNTransaction()
         {
-            IPNMessage ipn = new IPNMessage(ConfigMgr, Encoding.GetEncoding(IPNEncoding).GetBytes(ipnMsg)); 
+            IPNMessage ipn = new IPNMessage(AppConfigMgr, Encoding.GetEncoding(IPNEncoding).GetBytes(ipnMsg)); 
             string transactionType = ipn.TransactionType;
             Assert.AreEqual("Adaptive Payment PAY", transactionType);
         }
@@ -45,7 +45,7 @@ namespace PayPal.UnitTest
         [Test]
         public void IPNParameter()
         {
-            IPNMessage ipn = new IPNMessage(ConfigMgr, Encoding.GetEncoding(IPNEncoding).GetBytes(ipnMsg)); 
+            IPNMessage ipn = new IPNMessage(AppConfigMgr, Encoding.GetEncoding(IPNEncoding).GetBytes(ipnMsg)); 
             string parameter = ipn.IpnValue("fees_payer");
             Assert.AreEqual("EACHRECEIVER", parameter);
         }        

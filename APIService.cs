@@ -38,11 +38,13 @@ namespace PayPal
                                                   HttpStatusCode.ServiceUnavailable,
                                                 });
 
-        private readonly ConfigManager configMgr;
+        private readonly IConfigManager _configMgr;
+        private readonly ConnectionManager _connManager;
 
-        public APIService(ConfigManager configMgr)
+        public APIService(IConfigManager configMgr, ConnectionManager connMgr)
         {
-            this.configMgr = configMgr;
+            _configMgr = configMgr;
+            _connManager = connMgr;
         }
 
         /// <summary>
@@ -58,8 +60,7 @@ namespace PayPal
             string payLoad = apiCallHandler.GetPayLoad();
 
             // Constructing HttpWebRequest object                
-            ConnectionManager connMngr = ConnectionManager.Instance;
-            HttpWebRequest httpRequest = connMngr.GetConnection(uri);
+            HttpWebRequest httpRequest = _connManager.GetConnection(uri);
             httpRequest.Method = RequestMethod;
             foreach (KeyValuePair<string, string> header in headers)
             {
@@ -96,8 +97,8 @@ namespace PayPal
             }
 
             // Fire request. Retry if configured to do so
-            int numRetries = (configMgr.GetProperty(BaseConstants.HTTP_CONNECTION_RETRY) != null) ?
-                Convert.ToInt32(configMgr.GetProperty(BaseConstants.HTTP_CONNECTION_RETRY)) : 0;
+            int numRetries = (_configMgr.GetProperty(BaseConstants.HTTP_CONNECTION_RETRY) != null) ?
+                Convert.ToInt32(_configMgr.GetProperty(BaseConstants.HTTP_CONNECTION_RETRY)) : 0;
             int retries = 0;
 
             do

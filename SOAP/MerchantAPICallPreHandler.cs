@@ -106,7 +106,8 @@ namespace PayPal.SOAP
         /// <param name="tokenSecret"></param>
         /// <param name="apiPassword"></param>
         /// <param name="apiSignature"></param>
-	    public MerchantAPICallPreHandler(ConfigManager configMgr, CredentialManager credentialMgr, IAPICallPreHandler apiCallHandler, string apiUserName, string accessToken, string tokenSecret) : this(credentialMgr, apiCallHandler)
+        public MerchantAPICallPreHandler(IConfigManager configMgr, CredentialManager credentialMgr, IAPICallPreHandler apiCallHandler, string apiUserName, string accessToken, string tokenSecret)
+            : this(credentialMgr, apiCallHandler)
 		{
             try
             {

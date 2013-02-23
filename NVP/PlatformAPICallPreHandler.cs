@@ -64,7 +64,7 @@ namespace PayPal.NVP
         /// </summary>
         private string prtName;
 
-        private readonly ConfigManager configMgr;
+        private readonly IConfigManager configMgr;
         private readonly CredentialManager credentialMgr;
 
 	    /// <summary>
@@ -73,7 +73,7 @@ namespace PayPal.NVP
 	    /// <param name="rawPayLoad"></param>
 	    /// <param name="serviceName"></param>
 	    /// <param name="method"></param>
-        private PlatformAPICallPreHandler(ConfigManager configMgr, CredentialManager credentialMgr, string rawPayLoad, string serviceName, string method)
+        private PlatformAPICallPreHandler(IConfigManager configMgr, CredentialManager credentialMgr, string rawPayLoad, string serviceName, string method)
             : base()
 	    {
             this.configMgr = configMgr;
@@ -92,7 +92,7 @@ namespace PayPal.NVP
         /// <param name="apiUsername"></param>
         /// <param name="accessToken"></param>
         /// <param name="tokenSecret"></param>
-        public PlatformAPICallPreHandler(ConfigManager configMgr, CredentialManager credentialMgr, string rawPayLoad, string serviceName, string method, string apiUsername, string accessToken, string tokenSecret)
+        public PlatformAPICallPreHandler(IConfigManager configMgr, CredentialManager credentialMgr, string rawPayLoad, string serviceName, string method, string apiUsername, string accessToken, string tokenSecret)
             : this(configMgr, credentialMgr, rawPayLoad, serviceName, method)
         {
             try
@@ -117,7 +117,7 @@ namespace PayPal.NVP
 	    /// <param name="serviceName"></param>
 	    /// <param name="method"></param>
 	    /// <param name="credential"></param>
-        public PlatformAPICallPreHandler(ConfigManager configMgr, CredentialManager credentialMgr, string rawPayLoad, string serviceName, string method, ICredential credential)
+        public PlatformAPICallPreHandler(IConfigManager configMgr, CredentialManager credentialMgr, string rawPayLoad, string serviceName, string method, ICredential credential)
             : this(configMgr, credentialMgr, rawPayLoad, serviceName, method)
 	    {
             this.configMgr = configMgr;

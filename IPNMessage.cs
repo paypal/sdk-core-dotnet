@@ -31,7 +31,7 @@ namespace PayPal
         /// </summary>
         private const string IPNEncoding = "windows-1252";
 
-        private readonly ConfigManager configMgr;
+        private readonly IConfigManager configMgr;
 
         /// <summary>
         /// Logger
@@ -69,7 +69,7 @@ namespace PayPal
         /// </summary>
         /// <param name="nvc"></param>
         [Obsolete("use IPNMessage(byte[] parameters) instead")]
-        public IPNMessage(ConfigManager configMgr, NameValueCollection nvc)
+        public IPNMessage(IConfigManager configMgr, NameValueCollection nvc)
         {
             this.configMgr = configMgr;
             this.initialize(nvc);
@@ -78,7 +78,7 @@ namespace PayPal
         /// IPNMessage constructor
         /// </summary>
         /// <param name="parameters">byte array read from request</param>
-        public IPNMessage(ConfigManager configMgr, byte[] parameters)
+        public IPNMessage(IConfigManager configMgr, byte[] parameters)
         {
             this.configMgr = configMgr;
             this.initialize(HttpUtility.ParseQueryString(Encoding.GetEncoding(IPNEncoding).GetString(parameters), Encoding.GetEncoding(IPNEncoding)));
