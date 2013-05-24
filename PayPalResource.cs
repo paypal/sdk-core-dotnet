@@ -105,7 +105,14 @@ namespace PayPal
                 }
                 HttpConnection connectionHttp = new HttpConnection(config);
                 response = connectionHttp.Execute(payLoad, httpRequest);
-                return JsonConvert.DeserializeObject<T>(response);
+                if (typeof(T).Name.Equals("Object"))
+                {
+                    return default(T);
+                }
+                else
+                {
+                    return JsonConvert.DeserializeObject<T>(response);
+                }
             }
             catch (UriFormatException ex)
             {
