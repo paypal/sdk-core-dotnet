@@ -30,10 +30,15 @@ namespace PayPal.Util
                 parameters = splitParameters(pattern, ((CreateFromRefreshTokenParameters)parameters[0]).ContainerMap);
             }
             else if (parameters != null && parameters.Length == 1
-               && parameters[0] is UserinfoParameters)
+          && parameters[0] is UserinfoParameters)
             {
                 // Form a object array using the passed Map
                 parameters = splitParameters(pattern, ((UserinfoParameters)parameters[0]).ContainerMap);
+            }
+            else if (parameters != null && parameters.Length == 1
+          && parameters[0] is Dictionary<string, string>)
+            {
+                parameters = splitParameters(pattern, (Dictionary<string, string>)parameters[0]);
             }
             // Perform a simple message formatting
             string formatString = string.Format(pattern, parameters);
@@ -103,7 +108,7 @@ namespace PayPal.Util
 	     * @return Object array
 	     */
 	    private static Object[] splitParameters(String pattern,
-                Dictionary<String, String> parameters)
+                Dictionary<string, string> parameters)
         {
 		    
             List<Object> objectList = new List<Object>();

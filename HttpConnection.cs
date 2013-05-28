@@ -59,19 +59,6 @@ namespace PayPal
 
                             }
                             break;
-                        case "DELETE":
-                            using (StreamWriter writerStream = new StreamWriter(httpRequest.GetRequestStream()))
-                            {
-                                if (!string.IsNullOrEmpty(payLoad))
-                                {
-                                    writerStream.Write(payLoad);
-                                    writerStream.Flush();
-                                    writerStream.Close();
-                                    logger.Debug(payLoad);
-                                }
-
-                            }
-                            break;
                         default:
                             break;
                     }
