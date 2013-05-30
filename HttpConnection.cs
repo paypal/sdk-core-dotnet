@@ -42,23 +42,26 @@ namespace PayPal
         {
             try
             {
-                switch (httpRequest.Method)
+                if (!string.IsNullOrEmpty(payLoad))
                 {
-                    case "POST":
-                        using (StreamWriter writerStream = new StreamWriter(httpRequest.GetRequestStream()))
-                        {
-                            if (!string.IsNullOrEmpty(payLoad))
+                    switch (httpRequest.Method)
+                    {
+                        case "POST":
+                            using (StreamWriter writerStream = new StreamWriter(httpRequest.GetRequestStream()))
                             {
-                                writerStream.Write(payLoad);
-                                writerStream.Flush();
-                                writerStream.Close();
-                                logger.Debug(payLoad);
-                            }
+                                if (!string.IsNullOrEmpty(payLoad))
+                                {
+                                    writerStream.Write(payLoad);
+                                    writerStream.Flush();
+                                    writerStream.Close();
+                                    logger.Debug(payLoad);
+                                }
 
-                        }
-                        break;
-                    default:
-                        break;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                 }
 
                 int retriesConfigured = config.ContainsKey(BaseConstants.HTTP_CONNECTION_RETRY_CONFIG) ?

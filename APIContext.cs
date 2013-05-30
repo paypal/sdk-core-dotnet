@@ -16,6 +16,11 @@ namespace PayPal
         private string requestId;
 
         /// <summary>
+        /// Mask request Id
+        /// </summary>
+        private bool maskRequestIdValue;
+
+        /// <summary>
         /// Dynamic Configuration
         /// </summary>
         private Dictionary<string, string> configValue;
@@ -61,15 +66,32 @@ namespace PayPal
             }
         }
 
+        public bool MaskRequestId
+        {
+            set
+            {
+                maskRequestIdValue = value;
+            }
+            get
+            {
+                return maskRequestIdValue;
+            }
+        }
+
         public string RequestID
         {
             get
             {
-                if (string.IsNullOrEmpty(requestId))
+                string returnId = null;
+                if (!MaskRequestId)
                 {
-                    requestId = Convert.ToString(Guid.NewGuid());
+                    if (string.IsNullOrEmpty(requestId))
+                    {
+                        requestId = Convert.ToString(Guid.NewGuid());
+                    }
+                    returnId = requestId;
                 }
-                return requestId;
+                return returnId;
             }
         }
 

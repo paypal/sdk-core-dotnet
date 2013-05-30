@@ -34,7 +34,7 @@ namespace PayPal
 
         public const string SdkID = "rest-sdk-dotnet";
 
-        public const string SdkVersion = "0.5.0";
+        public const string SdkVersion = "0.7.0";
 
         public static T ConfigureAndExecute<T>(string accessToken, HttpMethod httpMethod, string resource, string payLoad)
         {
@@ -105,7 +105,14 @@ namespace PayPal
                 }
                 HttpConnection connectionHttp = new HttpConnection(config);
                 response = connectionHttp.Execute(payLoad, httpRequest);
-                return JsonConvert.DeserializeObject<T>(response);
+                if (typeof(T).Name.Equals("Object"))
+                {
+                    return default(T);
+                }
+                else
+                {
+                    return JsonConvert.DeserializeObject<T>(response);
+                }
             }
             catch (UriFormatException ex)
             {
