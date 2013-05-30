@@ -154,8 +154,7 @@ namespace PayPal
 
         private string GenerateOAuthToken(string base64ClientID)
         { 
-            try
-            {
+            
                 string response = null;
                 
                 Uri uniformResourceIdentifier = null;
@@ -184,44 +183,14 @@ namespace PayPal
                     httpRequest.Headers.Add(header.Key, header.Value);
                 }
 
-                using (StreamWriter writerStream = new StreamWriter(httpRequest.GetRequestStream()))
-                {
-                    writerStream.Write(postRequest);
-                    logger.Debug(postRequest);
-                }
-                using (WebResponse responseWeb = httpRequest.GetResponse())
-                {
-                    using (StreamReader readerStream = new StreamReader(responseWeb.GetResponseStream()))
-                    {
-                        response = readerStream.ReadToEnd();
-                        logger.Debug("Service response");
-                        logger.Debug(response);
-                    }
-                }
+                HttpConnection httpConnection = new HttpConnection(config);
+                response = httpConnection.Execute(postRequest, httpRequest);
                 JObject deserializedObject = (JObject)JsonConvert.DeserializeObject(response);
                 string generatedToken = (string)deserializedObject["token_type"] + " " + (string)deserializedObject["access_token"];
                 appID = (string)deserializedObject["app_id"];
                 secondsToExpire = (int)deserializedObject["expires_in"];
                 timeInMilliseconds = DateTime.Now.Millisecond;
                 return generatedToken;
-            }            
-            catch (WebException ex)
-            {
-                if (ex.Response is HttpWebResponse)
-                {
-                    HttpStatusCode statusCode = ((HttpWebResponse)ex.Response).StatusCode;
-                    logger.Info("Got " + statusCode.ToString() + " response from server");
-                }
-                throw new PayPalException(ex.Message, ex);
-            }
-            catch (IOException ex)
-            {
-                throw new PayPalException(ex.Message, ex);
-            }
-            catch (System.Exception ex)
-            {
-                throw new PayPalException(ex.Message, ex);
-            }
         }
     }
 }
