@@ -177,6 +177,7 @@ namespace PayPal
                 string postRequest = "grant_type=client_credentials";
                 httpRequest.Method = "POST";
                 httpRequest.Accept = "*/*";
+                httpRequest.ContentType = "application/x-www-form-urlencoded";
                 httpRequest.UserAgent = RESTConfiguration.FormUserAgentHeader();
                 foreach (KeyValuePair<string, string> header in headers)
                 {
