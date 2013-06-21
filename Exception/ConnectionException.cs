@@ -4,6 +4,20 @@ namespace PayPal.Exception
     {
         private string response;
 
+        /// <summary>
+        /// Response payload for non-200 response
+        /// </summary>
+        public string Response
+        {
+            get
+            {
+                return this.response;
+            }
+            private set {
+                this.response = value;
+            }
+        }
+
         public ConnectionException() : base() { }
 
 		/// <summary>

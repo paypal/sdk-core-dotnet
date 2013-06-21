@@ -114,14 +114,10 @@ namespace PayPal
                     return JsonConvert.DeserializeObject<T>(response);
                 }
             }
-            catch (UriFormatException ex)
+            catch (PayPalException ex)
             {
-                throw new PayPalException(ex.Message, ex);
-            }
-            catch (IOException ex)
-            {
-                throw new PayPalException(ex.Message, ex);
-            }
+                throw ex;
+            }            
             catch (System.Exception ex)
             {
                 throw new PayPalException(ex.Message, ex);
