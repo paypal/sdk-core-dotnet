@@ -1,75 +1,64 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PayPal.OpenidConnect
 {
     public class CreateFromRefreshTokenParameters
     {
-
         /// <summary>
         /// Scope used in query parameters
         /// </summary>
-        private const string SCOPE = "scope";
+        private const string Scope = "scope";
 
         /// <summary>
         /// Grant Type used in query parameters
         /// </summary>
-        private const string GRANTTYPE = "grant_type";
+        private const string GrantType = "grant_type";
 
         /// <summary>
         /// Refresh Token used in query parameters
         /// </summary>
-        private const string REFRESHTOKEN = "refresh_token";
+        private const string RefreshToken = "refresh_token";
+
+        public CreateFromRefreshTokenParameters()
+        {
+            ContainerMap = new Dictionary<string, string>();
+            ContainerMap.Add(GrantType, "refresh_token");
+        }
 
         /// <summary>
         /// Backing map
         /// </summary>
-        private Dictionary<string, string> containerMapValue;
-
-        public CreateFromRefreshTokenParameters()
-        {
-            containerMapValue = new Dictionary<string, string>();
-            containerMapValue.Add(GRANTTYPE, "refresh_token");
-        }
-
         public Dictionary<string, string> ContainerMap
         {
-            get
-            {
-                return containerMapValue;
-            }
-            set
-            {
-                containerMapValue = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
         /// Set the scope
         /// </summary>
         /// <param name="scope"></param>
-        public void setScope(string scope)
+        public void SetScope(string scope)
         {
-            ContainerMap.Add(SCOPE, scope);
+            ContainerMap.Add(Scope, scope);
         }
-        
+
         /// <summary>
         /// Set the Grant Type
         /// </summary>
         /// <param name="grantType"></param>
-        public void setGrantType(string grantType)
+        public void SetGrantType(string grantType)
         {
-            ContainerMap.Add(GRANTTYPE, grantType);
+            ContainerMap.Add(GrantType, grantType);
         }
 
         /// <summary>
         /// Set the Refresh Token
         /// </summary>
         /// <param name="refreshToken"></param>
-        public void setRefreshToken(string refreshToken)
+        public void SetRefreshToken(string refreshToken)
         {
-            ContainerMap.Add(REFRESHTOKEN, refreshToken);
+            ContainerMap.Add(RefreshToken, refreshToken);
         }
     }
 

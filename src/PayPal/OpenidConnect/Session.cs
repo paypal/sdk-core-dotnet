@@ -7,7 +7,6 @@ namespace PayPal.OpenidConnect
 {
     public class Session
     {
-
         /// <summary>
         /// Returns the PayPal URL to which the user must be redirected to start the 
         /// authentication / authorization process.
@@ -16,8 +15,7 @@ namespace PayPal.OpenidConnect
         /// <param name="scope"></param>
         /// <param name="apiContext"></param>
         /// <returns></returns>
-        public static string GetRedirectURL(string redirectURI, List<string> scope,
-            APIContext apiContext)
+        public static string GetRedirectURL(string redirectURI, List<string> scope, APIContext apiContext)
         {
             string redirectURL = null;
             Dictionary<string, string> config = null;
@@ -64,8 +62,7 @@ namespace PayPal.OpenidConnect
                 scpBuilder.Append(str).Append(" ");
             }
             strBuilder.Append(HttpUtility.UrlEncode(scpBuilder.ToString()));
-            strBuilder.Append("&redirect_uri=").Append(
-                    HttpUtility.UrlEncode(redirectURI));
+            strBuilder.Append("&redirect_uri=").Append(HttpUtility.UrlEncode(redirectURI));
             redirectURL = baseURL + "/v1/authorize?" + strBuilder.ToString();
             return redirectURL;
         }
@@ -78,8 +75,7 @@ namespace PayPal.OpenidConnect
         /// <param name="idToken"></param>
         /// <param name="apiContext"></param>
         /// <returns></returns>
-        public static string GetLogoutUrl(string redirectURI, string idToken,
-            APIContext apiContext)
+        public static string GetLogoutUrl(string redirectURI, string idToken, APIContext apiContext)
         {
             string logoutURL = null;
             Dictionary<string, string> config = null;
