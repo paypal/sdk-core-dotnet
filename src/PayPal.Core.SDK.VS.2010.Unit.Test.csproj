@@ -81,17 +81,14 @@
     <Compile Include="UnitTestConstants.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Resources\sdk-cert.p12" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="PayPal.Core.SDK.VS.2010.csproj">
       <Project>{1BD91BCF-1DDF-4F1F-A510-C9F4001A50A8}</Project>
       <Name>PayPal.Core.SDK.VS.2010</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Shadow Include="Test References\PayPal.Core.SDK.VS.2010.accessor" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="Resources\sdk-cert.p12" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

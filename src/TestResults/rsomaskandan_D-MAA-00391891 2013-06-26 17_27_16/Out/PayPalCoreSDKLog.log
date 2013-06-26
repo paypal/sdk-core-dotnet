@@ -1,3 +1,0 @@
-2013-06-26 17:27:21,851 [Agent: adapter run thread for test 'CreateNewConnectionWithInvalidURL' with id '5d8b1077-d842-4f95-8dae-ecba3c731df8'] ERROR PayPal.Manager.ConnectionManager [(null)] Invalid URI: The format of the URI could not be determined.
-2013-06-26 17:27:21,882 [Agent: adapter run thread for test 'CreateNewConnectionWithInvalidURL' with id '5d8b1077-d842-4f95-8dae-ecba3c731df8'] ERROR PayPal.Exception.ConfigException [(null)] Invalid URI Not a url
-PayPal.Exception.ConfigException: Invalid URI Not a url

@@ -1,2 +1,0 @@
-2013-06-26 17:12:20,538 [Agent: adapter run thread for test 'LoadCredentialForNonExistentAccount' with id '240bbf63-e4c3-40bb-b9b7-b07ec94c4940'] ERROR PayPal.Exception.MissingCredentialException [(null)] Missing credentials for i-do-not-exist_api1.paypal.com
-PayPal.Exception.MissingCredentialException: Missing credentials for i-do-not-exist_api1.paypal.com

@@ -39,12 +39,6 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="PayPal.Core.SDK.VS.2008.csproj">
-      <Project>{C8310F61-1725-4992-BB9D-C7F7031F47E2}</Project>
-      <Name>PayPal.Core.SDK.VS.2008</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="APIServiceTest.cs" />
     <Compile Include="Authentication\CertificateCredentialTest.cs" />
     <Compile Include="Authentication\SignatureCredentialTest.cs" />
@@ -64,6 +58,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Resources\sdk-cert.p12" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="PayPal.Core.SDK.VS.2008.csproj">
+      <Project>{C8310F61-1725-4992-BB9D-C7F7031F47E2}</Project>
+      <Name>PayPal.Core.SDK.VS.2008</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
