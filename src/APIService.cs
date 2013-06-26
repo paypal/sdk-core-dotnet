@@ -58,6 +58,7 @@ namespace PayPal
         {
             this.config = config;
         }
+
         /// <summary>
         /// Makes a request to API service
         /// </summary>

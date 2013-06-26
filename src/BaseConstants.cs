@@ -36,7 +36,7 @@ namespace PayPal
         public const string PayPalSecuritySignatureHeader = "X-PAYPAL-SECURITY-SIGNATURE";
 
         // PayPal Platform Authorization Header
-        public const string PayPalPlatformAuthorizationHeader = "X-PAYPAL-AUTHORIZATION";
+        public const string PayPalAuthorizationPlatformHeader = "X-PAYPAL-AUTHORIZATION";
 
         // PayPal Merchant Authorization Header
         public const string PayPalAuthorizationMerchantHeader = "X-PP-AUTHORIZATION";

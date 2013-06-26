@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="e641beea-06d1-415c-98d3-83a56cb6f486" name="rsomaskandan@D-MAA-00391891 2013-06-26 17:25:00" runUser="CORP\rsomaskandan" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Default Test Settings" id="f7d110a6-c30f-4609-9377-d40fed86c538">
+    <Deployment runDeploymentRoot="rsomaskandan_D-MAA-00391891 2013-06-26 17_25_00">
+      <DeploymentItem filename="C:\Upgrade\sdk-core-dotnet\src\packages\log4net.2.0.0\lib\net40-full\log4net.dll" />
+      <DeploymentItem filename="C:\Upgrade\sdk-core-dotnet\src\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll" />
+      <DeploymentItem filename="C:\Upgrade\sdk-core-dotnet\build\bin\Debug\.NET Framework 4.0\PayPal.Core.SDK.VS.2010.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2013-06-26T17:25:00.9431047+05:30" queuing="2013-06-26T17:25:01.1771073+05:30" start="2013-06-26T17:25:01.1927079+05:30" finish="2013-06-26T17:25:17.6976841+05:30" />
+  <ResultSummary outcome="Failed">
+    <Counters total="47" executed="47" passed="46" error="0" failed="1" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="GetEndpointForDefaultModeWithoutEndpoint" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="a41a603b-245e-d759-0e29-4b90776b8bf8">
+      <Execution id="062170f3-9d0e-4c20-89e4-3417063f81c7" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.PlatformAPICallPreHandlerTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetEndpointForDefaultModeWithoutEndpoint" />
+    </UnitTest>
+    <UnitTest name="HeaderElement" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="348a32c5-a36c-f5e9-6ea7-72c6aa16ade5">
+      <Execution id="76ecebd4-98df-42af-a08d-58e52f419ad6" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.UnitTest.DefaultSOAPAPICallHandlerTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="HeaderElement" />
+    </UnitTest>
+    <UnitTest name="ThirdPartyAuthorizationForToken" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="a8bc4982-96cf-8919-8fc8-43bbfb183108">
+      <Execution id="2506945c-074c-49f4-81c1-470f5f9978ef" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.SignatureCredentialTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="ThirdPartyAuthorizationForToken" />
+    </UnitTest>
+    <UnitTest name="GetEndpointForSandboxMode" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="e259da7a-5f14-31d9-454c-fd12688ae7da">
+      <Execution id="69126919-190f-4ae0-8f88-3a3ccd92b202" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.PlatformAPICallPreHandlerTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetEndpointForSandboxMode" />
+    </UnitTest>
+    <UnitTest name="IPNTransaction" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="e1aa0cea-ce8f-4dce-14b0-a35bee3a1193">
+      <Execution id="0ad95461-2293-401b-b60a-fb14bb8d1cd8" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.IPNMessageTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="IPNTransaction" />
+    </UnitTest>
+    <UnitTest name="GetHeaderMapWithSignatureWithTokenTest" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="572fc26d-a019-c680-b057-9212fb4a87ce">
+      <Execution id="d4f03ba2-438b-4264-a632-2136de141b61" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.PlatformAPICallPreHandlerTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetHeaderMapWithSignatureWithTokenTest" />
+    </UnitTest>
+    <UnitTest name="NamespaceAttributes" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="9954816d-0199-56c1-ad68-b0b9b77a38dd">
+      <Execution id="d2456f81-b387-4c78-8bd0-954f597bc163" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.UnitTest.DefaultSOAPAPICallHandlerTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="NamespaceAttributes" />
+    </UnitTest>
+    <UnitTest name="IPNRequest" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="31bda955-4698-3bb7-f313-5a568fd924bb">
+      <Execution id="f8017b40-374c-42b0-bbdb-4cda3df0f60c" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.IPNMessageTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="IPNRequest" />
+    </UnitTest>
+    <UnitTest name="GetHeaderMapSignatureWithoutTokenTest" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="7602c5a1-68c8-5132-75da-6b6ec6e3859c">
+      <Execution id="c11ce89a-05da-434e-9985-884ca02d8ebb" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.PlatformAPICallPreHandlerTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetHeaderMapSignatureWithoutTokenTest" />
+    </UnitTest>
+    <UnitTest name="IPNParseQueryString" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="bcbe2a27-7af0-ffe3-a36f-50d059124977">
+      <Execution id="476acb53-9560-4593-93d7-89dfd6b14765" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.IPNMessageTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="IPNParseQueryString" />
+    </UnitTest>
+    <UnitTest name="setAndGetThirdPartyAuthorizationForSubject" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="34cec497-81a9-ae94-3928-9d6ffe4f51b3">
+      <Execution id="dfc47540-2f90-4cfd-964c-7d7ba83a9ee5" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.CertificateCredentialTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="setAndGetThirdPartyAuthorizationForSubject" />
+    </UnitTest>
+    <UnitTest name="GenerateHeaderStrategyWithTokenTest" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="3e25a89a-2717-5061-5bb9-f76c52e98eb6">
+      <Execution id="e71f3da8-1fef-4672-b715-7ac65d3af0c4" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.CertificateHttpHeaderAuthStrategyTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="GenerateHeaderStrategyWithTokenTest" />
+    </UnitTest>
+    <UnitTest name="GenerateHeaderStrategyWithToken" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="793b3ff9-7cec-bc6d-bb95-845664a0a274">
+      <Execution id="852f0e68-e262-466c-ae17-89762d1d0734" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.SignatureHttpHeaderAuthStrategyTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="GenerateHeaderStrategyWithToken" />
+    </UnitTest>
+    <UnitTest name="UserName" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="7132de0d-bcc1-0461-aac5-c0559debcb80">
+      <Execution id="c7ed3904-d93c-48bc-896c-b4a0ad13ae90" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.CertificateCredentialTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="UserName" />
+    </UnitTest>
+    <UnitTest name="ThirdPartyAuthorizationForSubject" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="dbe427e4-2752-847a-24d4-4e2fc7534186">
+      <Execution id="c89d3ce9-1181-4646-a27c-216129c558cd" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.SignatureCredentialTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="ThirdPartyAuthorizationForSubject" />
+    </UnitTest>
+    <UnitTest name="Password" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="167a8f5b-f303-510a-bafc-8c9325dc49f2">
+      <Execution id="8a6d9a86-dea8-4575-bbc2-84c7e2d47750" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.CertificateCredentialTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="Password" />
+    </UnitTest>
+    <UnitTest name="GetHeaderMapCertificateWithoutTokenTest" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="e0873a2a-44f1-4b26-5c9b-cfd0b7d17b73">
+      <Execution id="2554b511-de0d-41be-9983-a2a74208af9c" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.PlatformAPICallPreHandlerTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetHeaderMapCertificateWithoutTokenTest" />
+    </UnitTest>
+    <UnitTest name="MakeRequestUsingNVPSignatureCredential" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="a47fc0f3-b011-bec1-2cd5-22776f70473e">
+      <Execution id="cfe78359-a9d6-4edc-91ee-c1ca624fed71" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.APIServiceTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="MakeRequestUsingNVPSignatureCredential" />
+    </UnitTest>
+    <UnitTest name="GetPayloadForEmptyRawPayload" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="e80579fd-7373-a975-e626-aa229a43550e">
+      <Execution id="f44f38f8-ef02-4d0e-95c1-5be62dd3f8ee" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.UnitTest.DefaultSOAPAPICallHandlerTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetPayloadForEmptyRawPayload" />
+    </UnitTest>
+    <UnitTest name="Signature" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="6b98d33c-7c97-8fa5-c877-e79fd9223fbe">
+      <Execution id="3360383f-4956-443d-9d47-75becb595a72" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.SignatureCredentialTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="Signature" />
+    </UnitTest>
+    <UnitTest name="GenerateHeaderStrategyWithoutTokenTest" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="45adead4-151f-52f9-3bfc-7f9ff4cb26d3">
+      <Execution id="1b70f73d-042a-40c6-aafb-f8ac49b42884" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.CertificateHttpHeaderAuthStrategyTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="GenerateHeaderStrategyWithoutTokenTest" />
+    </UnitTest>
+    <UnitTest name="Password" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="887d4091-e96f-2b45-a8aa-891b10b4bbe4">
+      <Execution id="a5ce9178-6848-43ab-abab-16b7f39032ac" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.SignatureCredentialTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="Password" />
+    </UnitTest>
+    <UnitTest name="GetEndpointForLiveMode" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="60641299-5c2d-1fcb-e3c8-88e7775f65d0">
+      <Execution id="033b15d1-741f-4da3-aee4-49067c12e2fe" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.PlatformAPICallPreHandlerTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetEndpointForLiveMode" />
+    </UnitTest>
+    <UnitTest name="ApplicationID" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="b3a5f5aa-fe94-da40-fb14-119de009c1c1">
+      <Execution id="2e86b28f-9c0d-44ed-9983-9b79e00ce671" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.CertificateCredentialTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="ApplicationID" />
+    </UnitTest>
+    <UnitTest name="GetPayloadEndpointWithoutTokenTest" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="9afbf5bb-fe55-b585-505f-7b59070d181e">
+      <Execution id="33c2fac7-c9e3-4e53-9126-a8085517fc25" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.PlatformAPICallPreHandlerTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetPayloadEndpointWithoutTokenTest" />
+    </UnitTest>
+    <UnitTest name="RetrieveValidProperty" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="ae5adc00-6deb-0c29-408b-2802a8343f13">
+      <Execution id="86926b77-3b5a-4b11-99d3-822769147fed" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.ConfigManagerTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="RetrieveValidProperty" />
+    </UnitTest>
+    <UnitTest name="IPNMap" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="b07d5ea5-8c64-491d-a200-1382f93387fb">
+      <Execution id="5faf7459-e167-41a2-81fc-6e9d6fc16762" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.IPNMessageTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="IPNMap" />
+    </UnitTest>
+    <UnitTest name="ArgumentExceptionTest" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="7a4deb71-e627-caab-0f4b-5ad78a2ca8b2">
+      <Execution id="34b9468a-dabf-4c1b-8306-6504a3441f01" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.TokenAuthorizationTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="ArgumentExceptionTest" />
+    </UnitTest>
+    <UnitTest name="SignatureCredentialArgumentException" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="cc78885f-ec12-bbbb-ee0a-f5046baea7b5">
+      <Execution id="7a734f2e-f60a-44d7-b7b8-ac4045cfee7f" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.SignatureCredentialTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="SignatureCredentialArgumentException" />
+    </UnitTest>
+    <UnitTest name="UserName" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="5e2e2a3a-0066-6895-a9d5-276ece776d13">
+      <Execution id="0619615c-703b-4b22-bb61-a590fe73ac9d" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.SignatureCredentialTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="UserName" />
+    </UnitTest>
+    <UnitTest name="LoadCredentialForNonExistentAccount" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="e317ed9d-e8e8-aa35-12b0-01f4b2feda1b">
+      <Execution id="7e365619-587d-4ea6-b2ec-e78a405ad414" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.CredentialManagerTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="LoadCredentialForNonExistentAccount" />
+    </UnitTest>
+    <UnitTest name="ApplicationID" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="df3261c3-408c-8592-329d-f831acf3b97d">
+      <Execution id="92586ae2-8d46-45a8-8f12-d515e0920da1" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.SignatureCredentialTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="ApplicationID" />
+    </UnitTest>
+    <UnitTest name="MakeRequestUsingNVPCertificateCredential" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="549e6941-7a82-b46d-eaed-7a81c01c0e6c">
+      <Execution id="a6de9829-200e-4b8e-b827-7d12392cf9e0" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.APIServiceTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="MakeRequestUsingNVPCertificateCredential" />
+    </UnitTest>
+    <UnitTest name="CreateNewConnection" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="11126d6d-b4ee-e9ea-20f6-0f491ed11eda">
+      <Execution id="89dbea79-fc43-46b6-b4b7-2cbab9118df8" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.ConnectionManagerTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="CreateNewConnection" />
+    </UnitTest>
+    <UnitTest name="GenerateHeaderStrategyWithoutToken" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="39cf0469-9b56-a06d-ad3d-3062d9632690">
+      <Execution id="ad199423-8143-49ee-9151-6bd38e0d0ab5" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.SignatureHttpHeaderAuthStrategyTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="GenerateHeaderStrategyWithoutToken" />
+    </UnitTest>
+    <UnitTest name="LoadCertificateCredential" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="5e49005f-da85-beb2-c4f0-d669b67aef7e">
+      <Execution id="981725a2-c69f-4d84-b4e9-6bc3a59a4a5e" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.CredentialManagerTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="LoadCertificateCredential" />
+    </UnitTest>
+    <UnitTest name="GetHeaderMapWithCertificateWithTokenTest" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="58a1efbe-125b-c9c2-405c-e5b9542d1783">
+      <Execution id="0cc418fe-b50f-4b86-b391-8e8907ef7d33" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.PlatformAPICallPreHandlerTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetHeaderMapWithCertificateWithTokenTest" />
+    </UnitTest>
+    <UnitTest name="CertificateFile" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="8b826b1e-08d4-0de6-32d0-443417829dc1">
+      <Execution id="a10ee22c-83ea-493a-9ec3-d082463cac8f" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.CertificateCredentialTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="CertificateFile" />
+    </UnitTest>
+    <UnitTest name="GetEndpointForDefaultModeWithExplicitEndpoint" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="34e31e27-65d7-9fd2-b480-8413c210a1c7">
+      <Execution id="1884a249-c913-4cc4-a9f0-64bd5f19d060" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.PlatformAPICallPreHandlerTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="GetEndpointForDefaultModeWithExplicitEndpoint" />
+    </UnitTest>
+    <UnitTest name="TestMethod1" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="97612a9c-cc09-760b-6f31-92f3b36c106c">
+      <Execution id="db74e0d8-89d2-4899-9219-275bc1e02fc1" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.UnitTest1, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestMethod1" />
+    </UnitTest>
+    <UnitTest name="PrivateKeyPassword" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="4b45ba06-3396-0328-c4f5-e68b33e209dd">
+      <Execution id="315dd693-7cec-4703-bfb6-97b5e9169e35" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.CertificateCredentialTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="PrivateKeyPassword" />
+    </UnitTest>
+    <UnitTest name="LoadSignatureCredential" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="d540e76e-48bf-d64f-d68f-126aadf706d7">
+      <Execution id="cf062070-fea9-430b-8c7a-20a9b1457a4d" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.CredentialManagerTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="LoadSignatureCredential" />
+    </UnitTest>
+    <UnitTest name="IPNParameter" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="6bc21a04-f93c-de73-fe81-bf7707421f91">
+      <Execution id="9c84c359-c8b6-4cbd-9c9b-e2c376172c66" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.IPNMessageTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="IPNParameter" />
+    </UnitTest>
+    <UnitTest name="CreateNewConnectionWithInvalidURL" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="6af993b2-6557-db16-924e-6a6d2f624900">
+      <Execution id="d09a8cbb-6392-45b8-b898-de4a295614d9" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.ConnectionManagerTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="CreateNewConnectionWithInvalidURL" />
+    </UnitTest>
+    <UnitTest name="ArgumentExceptionTest" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="21ef3455-1684-aea8-589b-7378e1223574">
+      <Execution id="95d19884-7eae-46da-b5de-83dd9da0d921" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.SubjectAuthorizationTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="ArgumentExceptionTest" />
+    </UnitTest>
+    <UnitTest name="ThirdPartyAuthorizationTestForToken" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="9546f6ea-d206-f93d-baac-8824bf597749">
+      <Execution id="a27d84cd-f83c-483e-9241-591fd7c7d116" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.CertificateCredentialTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="ThirdPartyAuthorizationTestForToken" />
+    </UnitTest>
+    <UnitTest name="CertificateCredentialArgumentException" storage="c:\upgrade\sdk-core-dotnet\src\bin\debug\paypal.core.sdk.vs.2010.unit.test.dll" id="59d960ea-6241-6d24-5578-9ef7f6b66bd4">
+      <Execution id="faefab0e-1211-46d8-90a5-4dd307db458d" />
+      <TestMethod codeBase="C:/Upgrade/sdk-core-dotnet/src/bin/Debug/PayPal.Core.SDK.VS.2010.Unit.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="PayPal.CertificateCredentialTest, PayPal.Core.SDK.VS.2010.Unit.Test, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="CertificateCredentialArgumentException" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="11126d6d-b4ee-e9ea-20f6-0f491ed11eda" executionId="89dbea79-fc43-46b6-b4b7-2cbab9118df8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="167a8f5b-f303-510a-bafc-8c9325dc49f2" executionId="8a6d9a86-dea8-4575-bbc2-84c7e2d47750" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="21ef3455-1684-aea8-589b-7378e1223574" executionId="95d19884-7eae-46da-b5de-83dd9da0d921" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="31bda955-4698-3bb7-f313-5a568fd924bb" executionId="f8017b40-374c-42b0-bbdb-4cda3df0f60c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="348a32c5-a36c-f5e9-6ea7-72c6aa16ade5" executionId="76ecebd4-98df-42af-a08d-58e52f419ad6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="34cec497-81a9-ae94-3928-9d6ffe4f51b3" executionId="dfc47540-2f90-4cfd-964c-7d7ba83a9ee5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="34e31e27-65d7-9fd2-b480-8413c210a1c7" executionId="1884a249-c913-4cc4-a9f0-64bd5f19d060" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="39cf0469-9b56-a06d-ad3d-3062d9632690" executionId="ad199423-8143-49ee-9151-6bd38e0d0ab5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3e25a89a-2717-5061-5bb9-f76c52e98eb6" executionId="e71f3da8-1fef-4672-b715-7ac65d3af0c4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="45adead4-151f-52f9-3bfc-7f9ff4cb26d3" executionId="1b70f73d-042a-40c6-aafb-f8ac49b42884" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4b45ba06-3396-0328-c4f5-e68b33e209dd" executionId="315dd693-7cec-4703-bfb6-97b5e9169e35" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="549e6941-7a82-b46d-eaed-7a81c01c0e6c" executionId="a6de9829-200e-4b8e-b827-7d12392cf9e0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="572fc26d-a019-c680-b057-9212fb4a87ce" executionId="d4f03ba2-438b-4264-a632-2136de141b61" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="58a1efbe-125b-c9c2-405c-e5b9542d1783" executionId="0cc418fe-b50f-4b86-b391-8e8907ef7d33" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="59d960ea-6241-6d24-5578-9ef7f6b66bd4" executionId="faefab0e-1211-46d8-90a5-4dd307db458d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5e2e2a3a-0066-6895-a9d5-276ece776d13" executionId="0619615c-703b-4b22-bb61-a590fe73ac9d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5e49005f-da85-beb2-c4f0-d669b67aef7e" executionId="981725a2-c69f-4d84-b4e9-6bc3a59a4a5e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="60641299-5c2d-1fcb-e3c8-88e7775f65d0" executionId="033b15d1-741f-4da3-aee4-49067c12e2fe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6af993b2-6557-db16-924e-6a6d2f624900" executionId="d09a8cbb-6392-45b8-b898-de4a295614d9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6b98d33c-7c97-8fa5-c877-e79fd9223fbe" executionId="3360383f-4956-443d-9d47-75becb595a72" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6bc21a04-f93c-de73-fe81-bf7707421f91" executionId="9c84c359-c8b6-4cbd-9c9b-e2c376172c66" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7132de0d-bcc1-0461-aac5-c0559debcb80" executionId="c7ed3904-d93c-48bc-896c-b4a0ad13ae90" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7602c5a1-68c8-5132-75da-6b6ec6e3859c" executionId="c11ce89a-05da-434e-9985-884ca02d8ebb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="793b3ff9-7cec-bc6d-bb95-845664a0a274" executionId="852f0e68-e262-466c-ae17-89762d1d0734" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7a4deb71-e627-caab-0f4b-5ad78a2ca8b2" executionId="34b9468a-dabf-4c1b-8306-6504a3441f01" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="887d4091-e96f-2b45-a8aa-891b10b4bbe4" executionId="a5ce9178-6848-43ab-abab-16b7f39032ac" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8b826b1e-08d4-0de6-32d0-443417829dc1" executionId="a10ee22c-83ea-493a-9ec3-d082463cac8f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9546f6ea-d206-f93d-baac-8824bf597749" executionId="a27d84cd-f83c-483e-9241-591fd7c7d116" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="97612a9c-cc09-760b-6f31-92f3b36c106c" executionId="db74e0d8-89d2-4899-9219-275bc1e02fc1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9954816d-0199-56c1-ad68-b0b9b77a38dd" executionId="d2456f81-b387-4c78-8bd0-954f597bc163" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9afbf5bb-fe55-b585-505f-7b59070d181e" executionId="33c2fac7-c9e3-4e53-9126-a8085517fc25" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a41a603b-245e-d759-0e29-4b90776b8bf8" executionId="062170f3-9d0e-4c20-89e4-3417063f81c7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a47fc0f3-b011-bec1-2cd5-22776f70473e" executionId="cfe78359-a9d6-4edc-91ee-c1ca624fed71" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a8bc4982-96cf-8919-8fc8-43bbfb183108" executionId="2506945c-074c-49f4-81c1-470f5f9978ef" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ae5adc00-6deb-0c29-408b-2802a8343f13" executionId="86926b77-3b5a-4b11-99d3-822769147fed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b07d5ea5-8c64-491d-a200-1382f93387fb" executionId="5faf7459-e167-41a2-81fc-6e9d6fc16762" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b3a5f5aa-fe94-da40-fb14-119de009c1c1" executionId="2e86b28f-9c0d-44ed-9983-9b79e00ce671" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bcbe2a27-7af0-ffe3-a36f-50d059124977" executionId="476acb53-9560-4593-93d7-89dfd6b14765" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cc78885f-ec12-bbbb-ee0a-f5046baea7b5" executionId="7a734f2e-f60a-44d7-b7b8-ac4045cfee7f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d540e76e-48bf-d64f-d68f-126aadf706d7" executionId="cf062070-fea9-430b-8c7a-20a9b1457a4d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dbe427e4-2752-847a-24d4-4e2fc7534186" executionId="c89d3ce9-1181-4646-a27c-216129c558cd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="df3261c3-408c-8592-329d-f831acf3b97d" executionId="92586ae2-8d46-45a8-8f12-d515e0920da1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e0873a2a-44f1-4b26-5c9b-cfd0b7d17b73" executionId="2554b511-de0d-41be-9983-a2a74208af9c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e1aa0cea-ce8f-4dce-14b0-a35bee3a1193" executionId="0ad95461-2293-401b-b60a-fb14bb8d1cd8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e259da7a-5f14-31d9-454c-fd12688ae7da" executionId="69126919-190f-4ae0-8f88-3a3ccd92b202" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e317ed9d-e8e8-aa35-12b0-01f4b2feda1b" executionId="7e365619-587d-4ea6-b2ec-e78a405ad414" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e80579fd-7373-a975-e626-aa229a43550e" executionId="f44f38f8-ef02-4d0e-95c1-5be62dd3f8ee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="89dbea79-fc43-46b6-b4b7-2cbab9118df8" testId="11126d6d-b4ee-e9ea-20f6-0f491ed11eda" testName="CreateNewConnection" computerName="D-MAA-00391891" duration="00:00:00.0962167" startTime="2013-06-26T17:25:01.1927079+05:30" endTime="2013-06-26T17:25:01.4891102+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="89dbea79-fc43-46b6-b4b7-2cbab9118df8">
+    </UnitTestResult>
+    <UnitTestResult executionId="8a6d9a86-dea8-4575-bbc2-84c7e2d47750" testId="167a8f5b-f303-510a-bafc-8c9325dc49f2" testName="Password" computerName="D-MAA-00391891" duration="00:00:00.0005974" startTime="2013-06-26T17:25:01.4891102+05:30" endTime="2013-06-26T17:25:01.4891102+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8a6d9a86-dea8-4575-bbc2-84c7e2d47750">
+    </UnitTestResult>
+    <UnitTestResult executionId="95d19884-7eae-46da-b5de-83dd9da0d921" testId="21ef3455-1684-aea8-589b-7378e1223574" testName="ArgumentExceptionTest" computerName="D-MAA-00391891" duration="00:00:00.0031801" startTime="2013-06-26T17:25:01.4891102+05:30" endTime="2013-06-26T17:25:01.5047112+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="95d19884-7eae-46da-b5de-83dd9da0d921">
+    </UnitTestResult>
+    <UnitTestResult executionId="f8017b40-374c-42b0-bbdb-4cda3df0f60c" testId="31bda955-4698-3bb7-f313-5a568fd924bb" testName="IPNRequest" computerName="D-MAA-00391891" duration="00:00:02.1442320" startTime="2013-06-26T17:25:01.5047112+05:30" endTime="2013-06-26T17:25:03.6575934+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f8017b40-374c-42b0-bbdb-4cda3df0f60c">
+    </UnitTestResult>
+    <UnitTestResult executionId="76ecebd4-98df-42af-a08d-58e52f419ad6" testId="348a32c5-a36c-f5e9-6ea7-72c6aa16ade5" testName="HeaderElement" computerName="D-MAA-00391891" duration="00:00:00.0009304" startTime="2013-06-26T17:25:03.6575934+05:30" endTime="2013-06-26T17:25:03.6575934+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="76ecebd4-98df-42af-a08d-58e52f419ad6">
+    </UnitTestResult>
+    <UnitTestResult executionId="dfc47540-2f90-4cfd-964c-7d7ba83a9ee5" testId="34cec497-81a9-ae94-3928-9d6ffe4f51b3" testName="setAndGetThirdPartyAuthorizationForSubject" computerName="D-MAA-00391891" duration="00:00:00.0004611" startTime="2013-06-26T17:25:03.6575934+05:30" endTime="2013-06-26T17:25:03.6731343+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dfc47540-2f90-4cfd-964c-7d7ba83a9ee5">
+    </UnitTestResult>
+    <UnitTestResult executionId="1884a249-c913-4cc4-a9f0-64bd5f19d060" testId="34e31e27-65d7-9fd2-b480-8413c210a1c7" testName="GetEndpointForDefaultModeWithExplicitEndpoint" computerName="D-MAA-00391891" duration="00:00:00.0075360" startTime="2013-06-26T17:25:03.6731343+05:30" endTime="2013-06-26T17:25:03.6731343+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1884a249-c913-4cc4-a9f0-64bd5f19d060">
+    </UnitTestResult>
+    <UnitTestResult executionId="ad199423-8143-49ee-9151-6bd38e0d0ab5" testId="39cf0469-9b56-a06d-ad3d-3062d9632690" testName="GenerateHeaderStrategyWithoutToken" computerName="D-MAA-00391891" duration="00:00:00.0011598" startTime="2013-06-26T17:25:03.6887349+05:30" endTime="2013-06-26T17:25:03.6887349+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad199423-8143-49ee-9151-6bd38e0d0ab5">
+    </UnitTestResult>
+    <UnitTestResult executionId="e71f3da8-1fef-4672-b715-7ac65d3af0c4" testId="3e25a89a-2717-5061-5bb9-f76c52e98eb6" testName="GenerateHeaderStrategyWithTokenTest" computerName="D-MAA-00391891" duration="00:00:00.0224236" startTime="2013-06-26T17:25:03.6887349+05:30" endTime="2013-06-26T17:25:03.7199457+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e71f3da8-1fef-4672-b715-7ac65d3af0c4">
+    </UnitTestResult>
+    <UnitTestResult executionId="1b70f73d-042a-40c6-aafb-f8ac49b42884" testId="45adead4-151f-52f9-3bfc-7f9ff4cb26d3" testName="GenerateHeaderStrategyWithoutTokenTest" computerName="D-MAA-00391891" duration="00:00:00.0003110" startTime="2013-06-26T17:25:03.7199457+05:30" endTime="2013-06-26T17:25:03.7199457+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1b70f73d-042a-40c6-aafb-f8ac49b42884">
+    </UnitTestResult>
+    <UnitTestResult executionId="315dd693-7cec-4703-bfb6-97b5e9169e35" testId="4b45ba06-3396-0328-c4f5-e68b33e209dd" testName="PrivateKeyPassword" computerName="D-MAA-00391891" duration="00:00:00.0002375" startTime="2013-06-26T17:25:03.7199457+05:30" endTime="2013-06-26T17:25:03.7199457+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="315dd693-7cec-4703-bfb6-97b5e9169e35">
+    </UnitTestResult>
+    <UnitTestResult executionId="a6de9829-200e-4b8e-b827-7d12392cf9e0" testId="549e6941-7a82-b46d-eaed-7a81c01c0e6c" testName="MakeRequestUsingNVPCertificateCredential" computerName="D-MAA-00391891" duration="00:00:07.0037160" startTime="2013-06-26T17:25:03.7199457+05:30" endTime="2013-06-26T17:25:10.7400169+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a6de9829-200e-4b8e-b827-7d12392cf9e0">
+    </UnitTestResult>
+    <UnitTestResult executionId="d4f03ba2-438b-4264-a632-2136de141b61" testId="572fc26d-a019-c680-b057-9212fb4a87ce" testName="GetHeaderMapWithSignatureWithTokenTest" computerName="D-MAA-00391891" duration="00:00:00.0016784" startTime="2013-06-26T17:25:10.7400169+05:30" endTime="2013-06-26T17:25:10.7400169+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d4f03ba2-438b-4264-a632-2136de141b61">
+    </UnitTestResult>
+    <UnitTestResult executionId="0cc418fe-b50f-4b86-b391-8e8907ef7d33" testId="58a1efbe-125b-c9c2-405c-e5b9542d1783" testName="GetHeaderMapWithCertificateWithTokenTest" computerName="D-MAA-00391891" duration="00:00:00.0006417" startTime="2013-06-26T17:25:10.7400169+05:30" endTime="2013-06-26T17:25:10.7400169+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0cc418fe-b50f-4b86-b391-8e8907ef7d33">
+    </UnitTestResult>
+    <UnitTestResult executionId="faefab0e-1211-46d8-90a5-4dd307db458d" testId="59d960ea-6241-6d24-5578-9ef7f6b66bd4" testName="CertificateCredentialArgumentException" computerName="D-MAA-00391891" duration="00:00:00.0011233" startTime="2013-06-26T17:25:10.7556106+05:30" endTime="2013-06-26T17:25:10.7556106+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="faefab0e-1211-46d8-90a5-4dd307db458d">
+    </UnitTestResult>
+    <UnitTestResult executionId="0619615c-703b-4b22-bb61-a590fe73ac9d" testId="5e2e2a3a-0066-6895-a9d5-276ece776d13" testName="UserName" computerName="D-MAA-00391891" duration="00:00:00.0003272" startTime="2013-06-26T17:25:10.7556106+05:30" endTime="2013-06-26T17:25:10.7556106+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0619615c-703b-4b22-bb61-a590fe73ac9d">
+    </UnitTestResult>
+    <UnitTestResult executionId="981725a2-c69f-4d84-b4e9-6bc3a59a4a5e" testId="5e49005f-da85-beb2-c4f0-d669b67aef7e" testName="LoadCertificateCredential" computerName="D-MAA-00391891" duration="00:00:00.0005385" startTime="2013-06-26T17:25:10.7556106+05:30" endTime="2013-06-26T17:25:10.7712101+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="981725a2-c69f-4d84-b4e9-6bc3a59a4a5e">
+    </UnitTestResult>
+    <UnitTestResult executionId="033b15d1-741f-4da3-aee4-49067c12e2fe" testId="60641299-5c2d-1fcb-e3c8-88e7775f65d0" testName="GetEndpointForLiveMode" computerName="D-MAA-00391891" duration="00:00:00.0003183" startTime="2013-06-26T17:25:10.7712101+05:30" endTime="2013-06-26T17:25:10.7712101+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="033b15d1-741f-4da3-aee4-49067c12e2fe">
+    </UnitTestResult>
+    <UnitTestResult executionId="d09a8cbb-6392-45b8-b898-de4a295614d9" testId="6af993b2-6557-db16-924e-6a6d2f624900" testName="CreateNewConnectionWithInvalidURL" computerName="D-MAA-00391891" duration="00:00:00.0199949" startTime="2013-06-26T17:25:10.7712101+05:30" endTime="2013-06-26T17:25:10.8024159+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d09a8cbb-6392-45b8-b898-de4a295614d9">
+      <Output>
+        <ErrorInfo>
+          <Message>Test method PayPal.ConnectionManagerTest.CreateNewConnectionWithInvalidURL threw exception: 
+PayPal.Exception.ConfigException: Invalid URI Not a url</Message>
+          <StackTrace>    at PayPal.Manager.ConnectionManager.GetConnection(Dictionary`2 config, String url) in C:\Upgrade\sdk-core-dotnet\src\Manager\ConnectionManager.cs:line 71
+   at PayPal.ConnectionManagerTest.CreateNewConnectionWithInvalidURL() in C:\Upgrade\sdk-core-dotnet\src\Manager\ConnectionManagerTest.cs:line 29
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3360383f-4956-443d-9d47-75becb595a72" testId="6b98d33c-7c97-8fa5-c877-e79fd9223fbe" testName="Signature" computerName="D-MAA-00391891" duration="00:00:00.0001959" startTime="2013-06-26T17:25:10.8024159+05:30" endTime="2013-06-26T17:25:10.8024159+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3360383f-4956-443d-9d47-75becb595a72">
+    </UnitTestResult>
+    <UnitTestResult executionId="9c84c359-c8b6-4cbd-9c9b-e2c376172c66" testId="6bc21a04-f93c-de73-fe81-bf7707421f91" testName="IPNParameter" computerName="D-MAA-00391891" duration="00:00:00.0005135" startTime="2013-06-26T17:25:10.8024159+05:30" endTime="2013-06-26T17:25:10.8024159+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9c84c359-c8b6-4cbd-9c9b-e2c376172c66">
+    </UnitTestResult>
+    <UnitTestResult executionId="c7ed3904-d93c-48bc-896c-b4a0ad13ae90" testId="7132de0d-bcc1-0461-aac5-c0559debcb80" testName="UserName" computerName="D-MAA-00391891" duration="00:00:00.0001809" startTime="2013-06-26T17:25:10.8180111+05:30" endTime="2013-06-26T17:25:10.8180111+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c7ed3904-d93c-48bc-896c-b4a0ad13ae90">
+    </UnitTestResult>
+    <UnitTestResult executionId="c11ce89a-05da-434e-9985-884ca02d8ebb" testId="7602c5a1-68c8-5132-75da-6b6ec6e3859c" testName="GetHeaderMapSignatureWithoutTokenTest" computerName="D-MAA-00391891" duration="00:00:00.0006721" startTime="2013-06-26T17:25:10.8180111+05:30" endTime="2013-06-26T17:25:10.8180111+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c11ce89a-05da-434e-9985-884ca02d8ebb">
+    </UnitTestResult>
+    <UnitTestResult executionId="852f0e68-e262-466c-ae17-89762d1d0734" testId="793b3ff9-7cec-bc6d-bb95-845664a0a274" testName="GenerateHeaderStrategyWithToken" computerName="D-MAA-00391891" duration="00:00:00.0006194" startTime="2013-06-26T17:25:10.8180111+05:30" endTime="2013-06-26T17:25:10.8336113+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="852f0e68-e262-466c-ae17-89762d1d0734">
+    </UnitTestResult>
+    <UnitTestResult executionId="34b9468a-dabf-4c1b-8306-6504a3441f01" testId="7a4deb71-e627-caab-0f4b-5ad78a2ca8b2" testName="ArgumentExceptionTest" computerName="D-MAA-00391891" duration="00:00:00.0010078" startTime="2013-06-26T17:25:10.8336113+05:30" endTime="2013-06-26T17:25:10.8336113+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="34b9468a-dabf-4c1b-8306-6504a3441f01">
+    </UnitTestResult>
+    <UnitTestResult executionId="a5ce9178-6848-43ab-abab-16b7f39032ac" testId="887d4091-e96f-2b45-a8aa-891b10b4bbe4" testName="Password" computerName="D-MAA-00391891" duration="00:00:00.0001890" startTime="2013-06-26T17:25:10.8336113+05:30" endTime="2013-06-26T17:25:10.8336113+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a5ce9178-6848-43ab-abab-16b7f39032ac">
+    </UnitTestResult>
+    <UnitTestResult executionId="a10ee22c-83ea-493a-9ec3-d082463cac8f" testId="8b826b1e-08d4-0de6-32d0-443417829dc1" testName="CertificateFile" computerName="D-MAA-00391891" duration="00:00:00.0001820" startTime="2013-06-26T17:25:10.8336113+05:30" endTime="2013-06-26T17:25:10.8492116+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a10ee22c-83ea-493a-9ec3-d082463cac8f">
+    </UnitTestResult>
+    <UnitTestResult executionId="a27d84cd-f83c-483e-9241-591fd7c7d116" testId="9546f6ea-d206-f93d-baac-8824bf597749" testName="ThirdPartyAuthorizationTestForToken" computerName="D-MAA-00391891" duration="00:00:00.0002748" startTime="2013-06-26T17:25:10.8492116+05:30" endTime="2013-06-26T17:25:10.8492116+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a27d84cd-f83c-483e-9241-591fd7c7d116">
+    </UnitTestResult>
+    <UnitTestResult executionId="db74e0d8-89d2-4899-9219-275bc1e02fc1" testId="97612a9c-cc09-760b-6f31-92f3b36c106c" testName="TestMethod1" computerName="D-MAA-00391891" duration="00:00:00.0001786" startTime="2013-06-26T17:25:10.8492116+05:30" endTime="2013-06-26T17:25:10.8492116+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="db74e0d8-89d2-4899-9219-275bc1e02fc1">
+    </UnitTestResult>
+    <UnitTestResult executionId="d2456f81-b387-4c78-8bd0-954f597bc163" testId="9954816d-0199-56c1-ad68-b0b9b77a38dd" testName="NamespaceAttributes" computerName="D-MAA-00391891" duration="00:00:00.0003249" startTime="2013-06-26T17:25:10.8492116+05:30" endTime="2013-06-26T17:25:10.8648110+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d2456f81-b387-4c78-8bd0-954f597bc163">
+    </UnitTestResult>
+    <UnitTestResult executionId="33c2fac7-c9e3-4e53-9126-a8085517fc25" testId="9afbf5bb-fe55-b585-505f-7b59070d181e" testName="GetPayloadEndpointWithoutTokenTest" computerName="D-MAA-00391891" duration="00:00:00.0004838" startTime="2013-06-26T17:25:10.8648110+05:30" endTime="2013-06-26T17:25:10.8648110+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="33c2fac7-c9e3-4e53-9126-a8085517fc25">
+    </UnitTestResult>
+    <UnitTestResult executionId="062170f3-9d0e-4c20-89e4-3417063f81c7" testId="a41a603b-245e-d759-0e29-4b90776b8bf8" testName="GetEndpointForDefaultModeWithoutEndpoint" computerName="D-MAA-00391891" duration="00:00:00.0012326" startTime="2013-06-26T17:25:10.8648110+05:30" endTime="2013-06-26T17:25:10.8648110+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="062170f3-9d0e-4c20-89e4-3417063f81c7">
+    </UnitTestResult>
+    <UnitTestResult executionId="cfe78359-a9d6-4edc-91ee-c1ca624fed71" testId="a47fc0f3-b011-bec1-2cd5-22776f70473e" testName="MakeRequestUsingNVPSignatureCredential" computerName="D-MAA-00391891" duration="00:00:06.7072798" startTime="2013-06-26T17:25:10.8648110+05:30" endTime="2013-06-26T17:25:17.5884826+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cfe78359-a9d6-4edc-91ee-c1ca624fed71">
+    </UnitTestResult>
+    <UnitTestResult executionId="2506945c-074c-49f4-81c1-470f5f9978ef" testId="a8bc4982-96cf-8919-8fc8-43bbfb183108" testName="ThirdPartyAuthorizationForToken" computerName="D-MAA-00391891" duration="00:00:00.0003468" startTime="2013-06-26T17:25:17.5884826+05:30" endTime="2013-06-26T17:25:17.5884826+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2506945c-074c-49f4-81c1-470f5f9978ef">
+    </UnitTestResult>
+    <UnitTestResult executionId="86926b77-3b5a-4b11-99d3-822769147fed" testId="ae5adc00-6deb-0c29-408b-2802a8343f13" testName="RetrieveValidProperty" computerName="D-MAA-00391891" duration="00:00:00.0004022" startTime="2013-06-26T17:25:17.5884826+05:30" endTime="2013-06-26T17:25:17.5884826+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="86926b77-3b5a-4b11-99d3-822769147fed">
+    </UnitTestResult>
+    <UnitTestResult executionId="5faf7459-e167-41a2-81fc-6e9d6fc16762" testId="b07d5ea5-8c64-491d-a200-1382f93387fb" testName="IPNMap" computerName="D-MAA-00391891" duration="00:00:00.0005924" startTime="2013-06-26T17:25:17.6040839+05:30" endTime="2013-06-26T17:25:17.6040839+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5faf7459-e167-41a2-81fc-6e9d6fc16762">
+    </UnitTestResult>
+    <UnitTestResult executionId="2e86b28f-9c0d-44ed-9983-9b79e00ce671" testId="b3a5f5aa-fe94-da40-fb14-119de009c1c1" testName="ApplicationID" computerName="D-MAA-00391891" duration="00:00:00.0002409" startTime="2013-06-26T17:25:17.6040839+05:30" endTime="2013-06-26T17:25:17.6040839+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2e86b28f-9c0d-44ed-9983-9b79e00ce671">
+    </UnitTestResult>
+    <UnitTestResult executionId="476acb53-9560-4593-93d7-89dfd6b14765" testId="bcbe2a27-7af0-ffe3-a36f-50d059124977" testName="IPNParseQueryString" computerName="D-MAA-00391891" duration="00:00:00.0004611" startTime="2013-06-26T17:25:17.6040839+05:30" endTime="2013-06-26T17:25:17.6196838+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="476acb53-9560-4593-93d7-89dfd6b14765">
+    </UnitTestResult>
+    <UnitTestResult executionId="7a734f2e-f60a-44d7-b7b8-ac4045cfee7f" testId="cc78885f-ec12-bbbb-ee0a-f5046baea7b5" testName="SignatureCredentialArgumentException" computerName="D-MAA-00391891" duration="00:00:00.0010667" startTime="2013-06-26T17:25:17.6196838+05:30" endTime="2013-06-26T17:25:17.6196838+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7a734f2e-f60a-44d7-b7b8-ac4045cfee7f">
+    </UnitTestResult>
+    <UnitTestResult executionId="cf062070-fea9-430b-8c7a-20a9b1457a4d" testId="d540e76e-48bf-d64f-d68f-126aadf706d7" testName="LoadSignatureCredential" computerName="D-MAA-00391891" duration="00:00:00.0004276" startTime="2013-06-26T17:25:17.6196838+05:30" endTime="2013-06-26T17:25:17.6352840+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cf062070-fea9-430b-8c7a-20a9b1457a4d">
+    </UnitTestResult>
+    <UnitTestResult executionId="c89d3ce9-1181-4646-a27c-216129c558cd" testId="dbe427e4-2752-847a-24d4-4e2fc7534186" testName="ThirdPartyAuthorizationForSubject" computerName="D-MAA-00391891" duration="00:00:00.0002194" startTime="2013-06-26T17:25:17.6352840+05:30" endTime="2013-06-26T17:25:17.6352840+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c89d3ce9-1181-4646-a27c-216129c558cd">
+    </UnitTestResult>
+    <UnitTestResult executionId="92586ae2-8d46-45a8-8f12-d515e0920da1" testId="df3261c3-408c-8592-329d-f831acf3b97d" testName="ApplicationID" computerName="D-MAA-00391891" duration="00:00:00.0002082" startTime="2013-06-26T17:25:17.6352840+05:30" endTime="2013-06-26T17:25:17.6352840+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="92586ae2-8d46-45a8-8f12-d515e0920da1">
+    </UnitTestResult>
+    <UnitTestResult executionId="2554b511-de0d-41be-9983-a2a74208af9c" testId="e0873a2a-44f1-4b26-5c9b-cfd0b7d17b73" testName="GetHeaderMapCertificateWithoutTokenTest" computerName="D-MAA-00391891" duration="00:00:00.0005235" startTime="2013-06-26T17:25:17.6352840+05:30" endTime="2013-06-26T17:25:17.6508846+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2554b511-de0d-41be-9983-a2a74208af9c">
+    </UnitTestResult>
+    <UnitTestResult executionId="0ad95461-2293-401b-b60a-fb14bb8d1cd8" testId="e1aa0cea-ce8f-4dce-14b0-a35bee3a1193" testName="IPNTransaction" computerName="D-MAA-00391891" duration="00:00:00.0005685" startTime="2013-06-26T17:25:17.6508846+05:30" endTime="2013-06-26T17:25:17.6508846+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0ad95461-2293-401b-b60a-fb14bb8d1cd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="69126919-190f-4ae0-8f88-3a3ccd92b202" testId="e259da7a-5f14-31d9-454c-fd12688ae7da" testName="GetEndpointForSandboxMode" computerName="D-MAA-00391891" duration="00:00:00.0003064" startTime="2013-06-26T17:25:17.6508846+05:30" endTime="2013-06-26T17:25:17.6508846+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="69126919-190f-4ae0-8f88-3a3ccd92b202">
+    </UnitTestResult>
+    <UnitTestResult executionId="7e365619-587d-4ea6-b2ec-e78a405ad414" testId="e317ed9d-e8e8-aa35-12b0-01f4b2feda1b" testName="LoadCredentialForNonExistentAccount" computerName="D-MAA-00391891" duration="00:00:00.0013619" startTime="2013-06-26T17:25:17.6664841+05:30" endTime="2013-06-26T17:25:17.6664841+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7e365619-587d-4ea6-b2ec-e78a405ad414">
+    </UnitTestResult>
+    <UnitTestResult executionId="f44f38f8-ef02-4d0e-95c1-5be62dd3f8ee" testId="e80579fd-7373-a975-e626-aa229a43550e" testName="GetPayloadForEmptyRawPayload" computerName="D-MAA-00391891" duration="00:00:00.0010343" startTime="2013-06-26T17:25:17.6664841+05:30" endTime="2013-06-26T17:25:17.6664841+05:30" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f44f38f8-ef02-4d0e-95c1-5be62dd3f8ee">
+    </UnitTestResult>
+  </Results>
+</TestRun>

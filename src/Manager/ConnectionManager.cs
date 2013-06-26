@@ -30,8 +30,7 @@ namespace PayPal.Manager
         private static readonly ConnectionManager singletonInstance = new ConnectionManager();
 
         /// <summary>
-        /// Explicit static constructor to tell C# compiler
-        /// not to mark type as beforefieldinit
+        /// Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
         /// </summary>
         static ConnectionManager() { }
         

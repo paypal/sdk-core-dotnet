@@ -16,6 +16,11 @@ namespace PayPal
         private string requestID;
 
         /// <summary>
+        /// Explicit default constructor
+        /// </summary>
+        public APIContext() { }
+
+        /// <summary>
         /// Access Token required for the call
         /// </summary>
         /// <param name="tokenAccess"></param>

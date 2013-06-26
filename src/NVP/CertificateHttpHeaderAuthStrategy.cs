@@ -53,7 +53,7 @@ namespace PayPal.NVP
                 logger.Debug("Permissions signature: " + sign);
                 string authorization = "token=" + toknAuthorization.AccessToken + ",signature=" + sign + ",timestamp=" + tokenTimeStamp;
                 logger.Debug("Authorization string: " + authorization);
-                headers.Add(BaseConstants.PayPalPlatformAuthorizationHeader, authorization);
+                headers.Add(BaseConstants.PayPalAuthorizationPlatformHeader, authorization);
             }
             catch (OAuthException ae)
             {

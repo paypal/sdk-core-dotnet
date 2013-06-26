@@ -10,6 +10,9 @@ namespace PayPal.SOAP
         /// </summary>
         private IThirdPartyAuthorization thrdPartyAuthorization;
 
+        /// <summary>
+        /// Explicit default constructor
+        /// </summary>
         public CertificateSOAPHeaderAuthStrategy() { }
 
         /// <summary>

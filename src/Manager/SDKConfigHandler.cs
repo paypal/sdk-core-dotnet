@@ -6,9 +6,14 @@ namespace PayPal.Manager
     /// Custom handler for SDK configuration section as defined in App.Config or Web.Config files
     /// </summary>    
     public class SDKConfigHandler : ConfigurationSection
-    {
+    {  
         private static readonly ConfigurationProperty accountsElement =
              new ConfigurationProperty("accounts", typeof(AccountCollection), null, ConfigurationPropertyOptions.IsRequired);
+
+        /// <summary>
+        /// Explicit default constructor
+        /// </summary>
+        public SDKConfigHandler() { }
 
         /// <summary>
         /// Accounts Collection

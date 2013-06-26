@@ -8,6 +8,9 @@ namespace PayPal.Util
         string filePath = string.Empty;
         FileStream fileStrm = null;
 
+        /// <summary>
+        /// Explicit default constructor
+        /// </summary>
         public ReadCert() { }
 
         /// <summary>
