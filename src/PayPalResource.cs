@@ -59,7 +59,7 @@ namespace PayPal
             try
             {
                 string response = null;
-                Dictionary<string, String> headers;
+                Dictionary<string, string> headers;
                 Uri uniformResourceIdentifier = null;
                 Uri baseUri = null;
                 Dictionary<string, string> config = null;
@@ -76,7 +76,7 @@ namespace PayPal
 
                 RESTConfiguration restConfiguration = new RESTConfiguration(config, headersMap);
                 restConfiguration.authorizationToken = apiContext.AccessToken;
-                restConfiguration.requestId = apiContext.RequestID;
+                restConfiguration.requestID = apiContext.RequestID;
                 headers = restConfiguration.GetHeaders();
 
                 ConnectionManager connMngr = ConnectionManager.Instance;
@@ -163,10 +163,10 @@ namespace PayPal
                 switch (config["mode"].ToLower())
                 {
                     case "sandbox":
-                        baseURI = new Uri(BaseConstants.REST_SANDBOX_ENDPOINT);
+                        baseURI = new Uri(BaseConstants.RESTSandboxEndpoint);
                         break;
                     case "live":
-                        baseURI = new Uri(BaseConstants.REST_LIVE_ENDPOINT);
+                        baseURI = new Uri(BaseConstants.RESTLiveEndpoint);
                         break;
                 }
             }

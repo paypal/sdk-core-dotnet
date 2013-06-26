@@ -161,18 +161,18 @@ namespace PayPal
 
         private string GetIPNEndpoint()
         {
-            if(config.ContainsKey(BaseConstants.IPN_ENDPOINT_CONFIG) && !String.IsNullOrEmpty(config[BaseConstants.IPN_ENDPOINT_CONFIG]))
+            if(config.ContainsKey(BaseConstants.IPNEndpointConfig) && !string.IsNullOrEmpty(config[BaseConstants.IPNEndpointConfig]))
             {
-                return config[BaseConstants.IPN_ENDPOINT_CONFIG];
+                return config[BaseConstants.IPNEndpointConfig];
             }
-            else if (config.ContainsKey(BaseConstants.APPLICATION_MODE_CONFIG))
+            else if (config.ContainsKey(BaseConstants.ApplicationModeConfig))
             {
-                switch (config[BaseConstants.APPLICATION_MODE_CONFIG].ToLower())
+                switch (config[BaseConstants.ApplicationModeConfig].ToLower())
                 {
-                    case BaseConstants.SANDBOX_MODE:
-                        return BaseConstants.IPN_SANDBOX_ENDPOINT;
-                    case BaseConstants.LIVE_MODE:
-                        return BaseConstants.IPN_LIVE_ENDPOINT;
+                    case BaseConstants.SandboxMode:
+                        return BaseConstants.IPNSandboxEndpoint;
+                    case BaseConstants.LiveMode:
+                        return BaseConstants.IPNLiveEndpoint;
                     default:
                         throw new ConfigException("You must configure either the application mode (sandbox/live) or an IPN endpoint");
                 }
@@ -186,7 +186,7 @@ namespace PayPal
         /// <summary>
         /// Gets the IPN request NameValueCollection
         /// </summary>
-        public NameValueCollection IpnMap
+        public NameValueCollection IPNMap
         {
             get
             {
@@ -199,7 +199,7 @@ namespace PayPal
         /// </summary>
         /// <param name="ipnName"></param>
         /// <returns></returns>
-        public string IpnValue(string ipnName)
+        public string IPNValue(string ipnName)
         {
             return this.nvcMap[ipnName];
         }

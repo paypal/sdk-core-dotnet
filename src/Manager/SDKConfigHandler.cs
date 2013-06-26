@@ -77,7 +77,7 @@ namespace PayPal.Manager
         private static readonly ConfigurationProperty apiPassword =
             new ConfigurationProperty("apiPassword", typeof(string), string.Empty, ConfigurationPropertyOptions.IsRequired);
 
-        private static readonly ConfigurationProperty applicationId =
+        private static readonly ConfigurationProperty appID =
             new ConfigurationProperty("applicationId", typeof(string), string.Empty, ConfigurationPropertyOptions.IsRequired);
 
         private static readonly ConfigurationProperty apiSignature =
@@ -99,7 +99,7 @@ namespace PayPal.Manager
         {
             base.Properties.Add(apiUsername);
             base.Properties.Add(apiPassword);
-            base.Properties.Add(applicationId);
+            base.Properties.Add(appID);
             base.Properties.Add(apiSignature);
             base.Properties.Add(apiCertificate);
             base.Properties.Add(privateKeyPassword);
@@ -131,10 +131,10 @@ namespace PayPal.Manager
         /// Application ID
         /// </summary>
         [ConfigurationProperty("applicationId")]
-        public string ApplicationId
+        public string ApplicationID
         {
-            get { return (string)this[applicationId]; }
-            set { this[applicationId] = value; }
+            get { return (string)this[appID]; }
+            set { this[appID] = value; }
         }
 
         /// <summary>

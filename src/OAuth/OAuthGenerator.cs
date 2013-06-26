@@ -45,7 +45,7 @@ namespace PayPal.Authentication
         /// Sets Token to be used to generate signature
         /// </summary>
         /// <param name="token"></param>
-        public void setToken(string token)
+        public void SetToken(string token)
         {
             this.token = token;
         }
@@ -54,7 +54,7 @@ namespace PayPal.Authentication
         /// Sets Token secret as received from the Permissions API
         /// </summary>
         /// <param name="secret"></param>
-        public void setTokenSecret(string secret)
+        public void SetTokenSecret(string secret)
         {
             this.tokenSecret = System.Text.Encoding.ASCII.GetBytes(secret);
         }
@@ -64,7 +64,7 @@ namespace PayPal.Authentication
         /// </summary>
         /// <param name="name"></param>
         /// <param name="value"></param>
-        public void addParameter(string name, string value)
+        public void AddParameter(string name, string value)
         {
             queryParameters.Add(new Parameter(name, value));
         }
@@ -73,7 +73,7 @@ namespace PayPal.Authentication
         /// Sets URI for signature computation
         /// </summary>
         /// <param name="uri"></param>
-        public void setRequestURI(string uri)
+        public void SetRequestURI(string uri)
         {
             this.requestURI = NormalizeURI(uri);
         }
@@ -82,22 +82,22 @@ namespace PayPal.Authentication
         /// Sets token Timestamp
         /// </summary>
         /// <param name="timestamp"></param>
-        public void setTokenTimestamp(string timestamp)
+        public void SetTokenTimestamp(string timestamp)
         {
             this.tokenTimestamp = timestamp;
         }
 
         //TODO: Remove me
-        public void setHTTPMethod(HTTPMethod method)
+        public void SetHTTPMethod(HTTPMethod method)
         {
             this.methodHTTP = method;
         }
 
         /// <summary>
-        ///  Sets time stamp for signature computation
+        /// Sets time stamp for signature computation
         /// </summary>
         /// <param name="method"></param>
-        public void setHTTPMethod(string method)
+        public void SetHTTPMethod(string method)
         {
             switch (method)
             {
@@ -276,39 +276,24 @@ namespace PayPal.Authentication
         /// Inner class for representing a name/value pair
         /// Implements custom comparison method for sorting
         /// </summary>
-        private class Parameter : System.IComparable
+        private class Parameter : IComparable
         {
-            private string paramName;
-            private string paramValue;
-
             public Parameter(string paramName, string paramValue)
             {
-                this.paramName = paramName;
-                this.paramValue = paramValue;
+                this.ParameterName = paramName;
+                this.ParameterValue = paramValue;
             }
 
             public string ParameterName
             {
-                get
-                {
-                    return paramName;
-                }
-                set
-                {
-                    paramName = value;
-                }
+                get;
+                set;
             }
 
             public string ParameterValue
             {
-                get
-                {
-                    return paramValue;
-                }
-                set
-                {
-                    paramValue = value;
-                }
+                get;
+                set;
             }
 
             /// <summary>
@@ -327,21 +312,15 @@ namespace PayPal.Authentication
                 int returnValue = 0;
                 if (param != null)
                 {
-                    returnValue = this.paramName.CompareTo(param.ParameterName);
+                    returnValue = this.ParameterName.CompareTo(param.ParameterName);
                     // if parameter names are equal then compare parameter values
                     if (returnValue == 0)
                     {
-                        returnValue = this.paramValue.CompareTo(param.ParameterValue);
+                        returnValue = this.ParameterValue.CompareTo(param.ParameterValue);
                     }
                 }
                 return returnValue;
             }
-        }
-
-        public static string GenerateTimeStamp()
-        {
-            TimeSpan span = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            return Convert.ToInt64(span.TotalSeconds).ToString();
-        }
+        }       
     }
 }

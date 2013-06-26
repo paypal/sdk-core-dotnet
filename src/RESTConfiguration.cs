@@ -22,9 +22,9 @@ namespace PayPal
         private string requestIdentity;
 
         /// <summary>
-        /// Idempotency Request Id
+        /// Idempotency Request ID
         /// </summary>
-        public string requestId
+        public string requestID
         {
             private get
             {
@@ -69,24 +69,24 @@ namespace PayPal
                 headers.Add("Authorization", "Basic " + EncodeToBase64(GetClientID(), GetClientSecret()));
             }
             headers.Add("User-Agent", FormUserAgentHeader());
-            if (!string.IsNullOrEmpty(requestId))
+            if (!string.IsNullOrEmpty(requestID))
             {
-                headers.Add("PayPal-Request-Id", requestId);
+                headers.Add("PayPal-Request-Id", requestID);
             }
             return headers;
         }
 
-        private String GetClientID()
+        private string GetClientID()
         {
-            return this.config.ContainsKey(BaseConstants.CLIENT_ID) ? this.config[BaseConstants.CLIENT_ID] : null;
+            return this.config.ContainsKey(BaseConstants.ClientID) ? this.config[BaseConstants.ClientID] : null;
         }
 
-        private String GetClientSecret()
+        private string GetClientSecret()
         {
-            return this.config.ContainsKey(BaseConstants.CLIENT_SECRET) ? this.config[BaseConstants.CLIENT_SECRET] : null;
+            return this.config.ContainsKey(BaseConstants.ClientSecret) ? this.config[BaseConstants.ClientSecret] : null;
         }
 
-        private String EncodeToBase64(string clientID, string clientSecret)
+        private string EncodeToBase64(string clientID, string clientSecret)
         {
             try
             {

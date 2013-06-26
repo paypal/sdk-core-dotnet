@@ -1,38 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace PayPal.Util
 {
     public class QueryParameters
     {
-        private static readonly String COUNT = "count";
+        private static readonly string count = "count";
 
-        private static readonly String STARTID = "start_id";
+        private static readonly string startID = "start_id";
 
-        private static readonly String STARTINDEX = "start_index";
+        private static readonly string startIndex = "start_index";
 
-        private static readonly String STARTTIME = "start_time";
+        private static readonly string startTime = "start_time";
 
-        private static readonly String ENDTIME = "end_time";
+        private static readonly string endTime = "end_time";
 
-        private static readonly String PAYEEID = "payee_id";
+        private static readonly string payeeID = "payee_id";
 
-        private static readonly String SORTBY = "sort_by";
+        private static readonly string sortBy = "sort_by";
 
-        private static readonly String SORTORDER = "sort_order";
+        private static readonly string sortOrder = "sort_order";
 
-        private Dictionary<String, String> containerMap;
+        private Dictionary<string, string> containerMap;
 
         public QueryParameters()
         {
-            containerMap = new Dictionary<String, String>();
+            containerMap = new Dictionary<string, string>();
         }
 
         /**
          * @return the containerMap
          */
-        public Dictionary<String, String> GetMap()
+        public Dictionary<string, string> GetMap()
         {
             return containerMap;
         }
@@ -43,20 +41,20 @@ namespace PayPal.Util
          * @param count
          *            Number of items to return.
          */
-        public void SetCount(String count)
+        public void SetCount(string counter)
         {
-            containerMap.Add(COUNT, count);
+            containerMap.Add(count, counter);
         }
 
         /**
-         * Set the startId
+         * Set the startID
          * 
          * @param startid
          *            Resource ID that indicates the starting resource to return.
          */
-        public void SetStartId(String startId)
+        public void SetStartId(string startingID)
         {
-            containerMap.Add(STARTID, startId);
+            containerMap.Add(startID, startingID);
         }
 
         /**
@@ -67,9 +65,9 @@ namespace PayPal.Util
          *            jump to a specific position in the resource history based on
          *            its order.
          */
-        public void SetStartIndex(String startIndex)
+        public void SetStartIndex(string startingIndex)
         {
-            containerMap.Add(STARTINDEX, startIndex);
+            containerMap.Add(startIndex, startingIndex);
         }
 
         /**
@@ -79,9 +77,9 @@ namespace PayPal.Util
          *            Resource creation time that indicates the start of a range of
          *            results.
          */
-        public void SetStartTime(String startTime)
+        public void SetStartTime(string startingTime)
         {
-            containerMap.Add(STARTTIME, startTime);
+            containerMap.Add(startTime, startingTime);
         }
 
         /**
@@ -91,9 +89,9 @@ namespace PayPal.Util
          *            Resource creation time that indicates the end of a range of
          *            results.
          */
-        public void SetEndTime(String endTime)
+        public void SetEndTime(string endingTime)
         {
-            containerMap.Add(ENDTIME, endTime);
+            containerMap.Add(endTime, endingTime);
         }
 
         /**
@@ -102,9 +100,9 @@ namespace PayPal.Util
          * @param payeeId
          *            PayeeId
          */
-        public void SetPayeeId(String payeeId)
+        public void SetPayeeId(string payID)
         {
-            containerMap.Add(PAYEEID, payeeId);
+            containerMap.Add(payeeID, payID);
         }
 
         /**
@@ -113,9 +111,9 @@ namespace PayPal.Util
          * @param sortBy
          *            Sort based on create_time or update_time.
          */
-        public void SetSortBy(String sortBy)
+        public void SetSortBy(string sortingBy)
         {
-            containerMap.Add(SORTBY, sortBy);
+            containerMap.Add(sortBy, sortingBy);
         }
 
         /**
@@ -125,9 +123,9 @@ namespace PayPal.Util
          *            Sort based on order of results. Options include asc for
          *            ascending order or dec for descending order.
          */
-        public void SetSortOrder(String sortOrder)
+        public void SetSortOrder(string sortingOrder)
         {
-            containerMap.Add(SORTORDER, sortOrder);
+            containerMap.Add(sortOrder, sortingOrder);
         }
     }    
 }

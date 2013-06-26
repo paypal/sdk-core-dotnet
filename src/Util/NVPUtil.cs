@@ -19,7 +19,7 @@ namespace PayPal.Util
                 string[] keyValue = pair.Split('=');
                 if (keyValue.Length == 2)
                 {
-                    nvpMap.Add(keyValue[0], HttpUtility.UrlDecode(keyValue[1], BaseConstants.ENCODING_FORMAT));
+                    nvpMap.Add(keyValue[0], HttpUtility.UrlDecode(keyValue[1], BaseConstants.EncodingFormat));
                 }
             }
             return nvpMap;

@@ -29,16 +29,13 @@ namespace PayPal.Manager
         /// </summary>
         private static readonly CredentialManager singletonInstance = new CredentialManager();
 
-        private static string ACCOUNT_PREFIX = "account";
+        private static string accountPrefix = "account";
+        
         /// <summary>
         /// Explicit static constructor to tell C# compiler
         /// not to mark type as beforefieldinit
         /// </summary>
-        static CredentialManager() 
-        {
-            //Load log configuration
-            //log4net.Config.XmlConfigurator.Configure();
-        }
+        static CredentialManager() { }
 
         /// <summary>
         /// Private constructor
@@ -68,35 +65,35 @@ namespace PayPal.Manager
                 {
                     if (apiUsername == null || apiUsername.Equals(kvPair.Value)) 
                     {
-                        int index = Convert.ToInt32(kvPair.Key.Substring(ACCOUNT_PREFIX.Length, kvPair.Key.IndexOf('.') - ACCOUNT_PREFIX.Length ));
+                        int index = Convert.ToInt32(kvPair.Key.Substring(accountPrefix.Length, kvPair.Key.IndexOf('.') - accountPrefix.Length ));
                         Account accnt = new Account();
-                        if (config.ContainsKey(ACCOUNT_PREFIX +  index + ".apiUsername")) 
+                        if (config.ContainsKey(accountPrefix +  index + ".apiUsername")) 
                         {
-                            accnt.APIUsername = config[ACCOUNT_PREFIX +  index + ".apiUsername"];
+                            accnt.APIUsername = config[accountPrefix +  index + ".apiUsername"];
                         }
-                        if(config.ContainsKey(ACCOUNT_PREFIX +  index + ".apiPassword"))
+                        if(config.ContainsKey(accountPrefix +  index + ".apiPassword"))
                         {
-                            accnt.APIPassword = config[ACCOUNT_PREFIX +  index + ".apiPassword"];
+                            accnt.APIPassword = config[accountPrefix +  index + ".apiPassword"];
                         }
-                        if(config.ContainsKey(ACCOUNT_PREFIX +  index + ".apiSignature")) 
+                        if(config.ContainsKey(accountPrefix +  index + ".apiSignature")) 
                         {
-                            accnt.APISignature = config[ACCOUNT_PREFIX +  index + ".apiSignature"];
+                            accnt.APISignature = config[accountPrefix +  index + ".apiSignature"];
                         }
-                        if(config.ContainsKey(ACCOUNT_PREFIX +  index + ".apiCertificate")) 
+                        if(config.ContainsKey(accountPrefix +  index + ".apiCertificate")) 
                         {
-                            accnt.APICertificate = config[ACCOUNT_PREFIX +  index + ".apiCertificate"];
+                            accnt.APICertificate = config[accountPrefix +  index + ".apiCertificate"];
                         }
-                        if (config.ContainsKey(ACCOUNT_PREFIX +  index + ".privateKeyPassword")) 
+                        if (config.ContainsKey(accountPrefix +  index + ".privateKeyPassword")) 
                         {
-                            accnt.PrivateKeyPassword = config[ACCOUNT_PREFIX +  index + ".privateKeyPassword"];
+                            accnt.PrivateKeyPassword = config[accountPrefix +  index + ".privateKeyPassword"];
                         }            
-                        if(config.ContainsKey(ACCOUNT_PREFIX +  index + ".subject"))
+                        if(config.ContainsKey(accountPrefix +  index + ".subject"))
                         {
-                            accnt.CertificateSubject = config[ACCOUNT_PREFIX +  index + ".subject"];
+                            accnt.CertificateSubject = config[accountPrefix +  index + ".subject"];
                         }
-                        if(config.ContainsKey(ACCOUNT_PREFIX +  index + ".applicationId"))
+                        if(config.ContainsKey(accountPrefix +  index + ".applicationId"))
                         {
-                            accnt.ApplicationId = config[ACCOUNT_PREFIX +  index + ".applicationId"];
+                            accnt.ApplicationID = config[accountPrefix +  index + ".applicationId"];
                         }
                         return accnt;
                     }
@@ -121,7 +118,7 @@ namespace PayPal.Manager
             if (!string.IsNullOrEmpty(accnt.APICertificate))
             {
                 CertificateCredential certCredential = new CertificateCredential(accnt.APIUsername, accnt.APIPassword, accnt.APICertificate, accnt.PrivateKeyPassword);
-                certCredential.ApplicationID = accnt.ApplicationId;
+                certCredential.ApplicationID = accnt.ApplicationID;
                 if (!string.IsNullOrEmpty(accnt.CertificateSubject))
                 {
                     SubjectAuthorization subAuthorization = new SubjectAuthorization(accnt.CertificateSubject);
@@ -132,7 +129,7 @@ namespace PayPal.Manager
             else
             {
                 SignatureCredential signCredential = new SignatureCredential(accnt.APIUsername, accnt.APIPassword, accnt.APISignature);
-                signCredential.ApplicationID = accnt.ApplicationId;
+                signCredential.ApplicationID = accnt.ApplicationID;
                 if (!string.IsNullOrEmpty(accnt.SignatureSubject))
                 {
                     SubjectAuthorization subjectAuthorization = new SubjectAuthorization(accnt.SignatureSubject);
@@ -171,15 +168,15 @@ namespace PayPal.Manager
         {
             if (string.IsNullOrEmpty(apiCredentials.UserName))
             {
-                throw new InvalidCredentialException(BaseConstants.ErrorMessages.err_username);
+                throw new InvalidCredentialException(BaseConstants.ErrorMessages.ErrorUsername);
             }
             if (string.IsNullOrEmpty(apiCredentials.Password))
             {
-                throw new InvalidCredentialException(BaseConstants.ErrorMessages.err_passeword);
+                throw new InvalidCredentialException(BaseConstants.ErrorMessages.ErrorPassword);
             }
             if (string.IsNullOrEmpty(((SignatureCredential)apiCredentials).Signature))
             {
-                throw new InvalidCredentialException(BaseConstants.ErrorMessages.err_signature);
+                throw new InvalidCredentialException(BaseConstants.ErrorMessages.ErrorSignature);
             }
         }
 
@@ -191,21 +188,21 @@ namespace PayPal.Manager
         {
             if (string.IsNullOrEmpty(apiCredentials.UserName))
             {
-                throw new InvalidCredentialException(BaseConstants.ErrorMessages.err_username);
+                throw new InvalidCredentialException(BaseConstants.ErrorMessages.ErrorUsername);
             }
             if (string.IsNullOrEmpty(apiCredentials.Password))
             {
-                throw new InvalidCredentialException(BaseConstants.ErrorMessages.err_passeword);
+                throw new InvalidCredentialException(BaseConstants.ErrorMessages.ErrorPassword);
             }
 
             if (string.IsNullOrEmpty(((CertificateCredential)apiCredentials).CertificateFile))
             {
-                throw new InvalidCredentialException(BaseConstants.ErrorMessages.err_certificate);
+                throw new InvalidCredentialException(BaseConstants.ErrorMessages.ErrorCertificate);
             }
 
             if (string.IsNullOrEmpty(((CertificateCredential)apiCredentials).PrivateKeyPassword))
             {
-                throw new InvalidCredentialException(BaseConstants.ErrorMessages.err_privatekeypassword);
+                throw new InvalidCredentialException(BaseConstants.ErrorMessages.ErrorPrivateKeyPassword);
             }
         }      
     }

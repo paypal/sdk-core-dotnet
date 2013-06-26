@@ -40,20 +40,20 @@ namespace PayPal.NVP
             try
             {
                 OAuthGenerator sigGenerator = new OAuthGenerator(signCredential.UserName, signCredential.Password);
-                sigGenerator.setHTTPMethod(OAuthGenerator.HTTPMethod.POST);
-                sigGenerator.setToken(toknAuthorization.AccessToken);
-                sigGenerator.setTokenSecret(toknAuthorization.TokenSecret);
+                sigGenerator.SetHTTPMethod(OAuthGenerator.HTTPMethod.POST);
+                sigGenerator.SetToken(toknAuthorization.AccessToken);
+                sigGenerator.SetTokenSecret(toknAuthorization.TokenSecret);
                 string tokenTimeStamp = Timestamp;
-                sigGenerator.setTokenTimestamp(tokenTimeStamp);
+                sigGenerator.SetTokenTimestamp(tokenTimeStamp);
                 logger.Debug("token = " + toknAuthorization.AccessToken + " tokenSecret=" + toknAuthorization.TokenSecret + " uri=" + endpointURL);
-                sigGenerator.setRequestURI(endpointURL);
+                sigGenerator.SetRequestURI(endpointURL);
 
                 //Compute Signature
                 string sign = sigGenerator.ComputeSignature();
                 logger.Debug("Permissions signature: " + sign);
                 string authorization = "token=" + toknAuthorization.AccessToken + ",signature=" + sign + ",timestamp=" + tokenTimeStamp;
                 logger.Debug("Authorization string: " + authorization);
-                headers.Add(BaseConstants.PAYPAL_AUTHORIZATION_PLATFORM_HEADER, authorization);
+                headers.Add(BaseConstants.PayPalPlatformAuthorizationHeader, authorization);
             }
             catch (OAuthException ae)
             {

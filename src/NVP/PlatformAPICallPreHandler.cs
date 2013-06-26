@@ -193,19 +193,19 @@ namespace PayPal.NVP
             {
                 endpoint = config[PortName];
             }
-            else if (config.ContainsKey(BaseConstants.END_POINT_CONFIG))
+            else if (config.ContainsKey(BaseConstants.EndpointConfig))
             {
-                endpoint = config[BaseConstants.END_POINT_CONFIG];
+                endpoint = config[BaseConstants.EndpointConfig];
             }
-            else if (config.ContainsKey(BaseConstants.APPLICATION_MODE_CONFIG))
+            else if (config.ContainsKey(BaseConstants.ApplicationModeConfig))
             {
-                switch (config[BaseConstants.APPLICATION_MODE_CONFIG].ToLower())
+                switch (config[BaseConstants.ApplicationModeConfig].ToLower())
                 {
-                    case BaseConstants.LIVE_MODE:
-                        endpoint = BaseConstants.PLATFORM_LIVE_ENDPOINT;
+                    case BaseConstants.LiveMode:
+                        endpoint = BaseConstants.PlatformLiveEndPoint;
                         break;
-                    case BaseConstants.SANDBOX_MODE:
-                        endpoint = BaseConstants.PLATFORM_SANDBOX_ENDPOINT;
+                    case BaseConstants.SandboxMode:
+                        endpoint = BaseConstants.PlatformSandboxEndpoint;
                         break;
                     default:
                         throw new ConfigException("You must specify one of mode(live/sandbox) OR endpoint in the configuration");
@@ -282,12 +282,12 @@ namespace PayPal.NVP
 
             try
             {
-                returnMap.Add(BaseConstants.PAYPAL_APPLICATION_ID_HEADER, GetApplicationID());
-                returnMap.Add(BaseConstants.PAYPAL_REQUEST_DATA_FORMAT_HEADER, BaseConstants.NVP);
-                returnMap.Add(BaseConstants.PAYPAL_RESPONSE_DATA_FORMAT_HEADER, BaseConstants.NVP);
-                returnMap.Add(BaseConstants.PAYPAL_REQUEST_SOURCE_HEADER, SDKName + "-" + SDKVersion);
-                returnMap.Add(BaseConstants.PAYPAL_SANDBOX_EMAIL_ADDRESS_HEADER, GetSandboxEmailAddress());
-                returnMap.Add(BaseConstants.PAYPAL_SANDBOX_DEVICE_IPADDRESS, GetDeviceIPAddress());
+                returnMap.Add(BaseConstants.PayPalApplicationIDHeader, GetApplicationID());
+                returnMap.Add(BaseConstants.PayPalRequestDataFormatHeader, BaseConstants.NVP);
+                returnMap.Add(BaseConstants.PayPalResponseDataFormatHeader, BaseConstants.NVP);
+                returnMap.Add(BaseConstants.PayPalRequestSourceHeader, SDKName + "-" + SDKVersion);
+                returnMap.Add(BaseConstants.PayPalSandboxEmailAddressHeader, GetSandboxEmailAddress());
+                returnMap.Add(BaseConstants.PayPalSandboxDeviceIPAddress, GetDeviceIPAddress());
             }
             catch(System.Exception ex)
             {
@@ -331,10 +331,10 @@ namespace PayPal.NVP
 
         private string GetDeviceIPAddress()
         {
-            if (config.ContainsKey(BaseConstants.CLIENT_IP_ADDRESS_CONFIG) && 
-                !string.IsNullOrEmpty(config[BaseConstants.CLIENT_IP_ADDRESS_CONFIG]))
+            if (config.ContainsKey(BaseConstants.ClientIPAddressConfig) && 
+                !string.IsNullOrEmpty(config[BaseConstants.ClientIPAddressConfig]))
             {
-                return config[BaseConstants.CLIENT_IP_ADDRESS_CONFIG];
+                return config[BaseConstants.ClientIPAddressConfig];
             }
             else
             {
@@ -344,10 +344,10 @@ namespace PayPal.NVP
 
         private string GetSandboxEmailAddress()
         {
-            if (config.ContainsKey(BaseConstants.PAYPAL_SANDBOX_EMAIL_ADDRESS_CONFIG) && 
-                !string.IsNullOrEmpty(config[BaseConstants.PAYPAL_SANDBOX_EMAIL_ADDRESS_CONFIG]))
+            if (config.ContainsKey(BaseConstants.PayPalSandboxEmailAddressConfig) && 
+                !string.IsNullOrEmpty(config[BaseConstants.PayPalSandboxEmailAddressConfig]))
             {
-                return config[BaseConstants.PAYPAL_SANDBOX_EMAIL_ADDRESS_CONFIG];
+                return config[BaseConstants.PayPalSandboxEmailAddressConfig];
             }
             else
             {

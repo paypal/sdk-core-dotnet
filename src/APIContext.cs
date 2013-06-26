@@ -32,15 +32,15 @@ namespace PayPal
         /// Access Token and Request ID required for the call
         /// </summary>
         /// <param name="tokenAccess"></param>
-        /// <param name="requestId"></param>
-        public APIContext(string tokenAccess, string requestId)
+        /// <param name="requestID"></param>
+        public APIContext(string tokenAccess, string requestID)
             : this(tokenAccess)
         {
-            if (string.IsNullOrEmpty(requestId))
+            if (string.IsNullOrEmpty(requestID))
             {
                 throw new ArgumentNullException("RequestId cannot be null");
             }
-            this.requestID = requestId;
+            this.requestID = requestID;
         }
 
         public string AccessToken
@@ -67,16 +67,16 @@ namespace PayPal
         {
             get
             {
-                string returnId = null;
+                string returnID = null;
                 if (!MaskRequestID)
                 {
                     if (string.IsNullOrEmpty(requestID))
                     {
                         requestID = Convert.ToString(Guid.NewGuid());
                     }
-                    returnId = requestID;
+                    returnID = requestID;
                 }
-                return returnId;
+                return returnID;
             }
         }
 

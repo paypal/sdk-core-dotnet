@@ -21,9 +21,9 @@ namespace PayPal.Manager
         {
             defaultConfig = new Dictionary<string, string>();
             // Default connection timeout in milliseconds
-            defaultConfig[BaseConstants.HTTP_CONNECTION_TIMEOUT_CONFIG] = "30000";
-            defaultConfig[BaseConstants.HTTP_CONNECTION_RETRY_CONFIG] = "1";
-            defaultConfig[BaseConstants.CLIENT_IP_ADDRESS_CONFIG] = "127.0.0.1";
+            defaultConfig[BaseConstants.HttpConnectionTimeoutConfig] = "30000";
+            defaultConfig[BaseConstants.HttpConnectionRetryConfig] = "1";
+            defaultConfig[BaseConstants.ClientIPAddressConfig] = "127.0.0.1";
         }
 
         /// <summary>
@@ -99,9 +99,9 @@ namespace PayPal.Manager
                 {
                     this.configValues.Add("account" + index + ".subject", account.CertificateSubject);
                 }
-                if (!string.IsNullOrEmpty(account.ApplicationId))
+                if (!string.IsNullOrEmpty(account.ApplicationID))
                 {
-                    this.configValues.Add("account" + index + ".applicationId", account.ApplicationId);
+                    this.configValues.Add("account" + index + ".applicationId", account.ApplicationID);
                 }
                 index++;
             }

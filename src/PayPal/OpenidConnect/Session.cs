@@ -28,13 +28,13 @@ namespace PayPal.OpenidConnect
                 config = ConfigManager.getConfigWithDefaults(apiContext.Config);
             }
             string baseURL = null;
-            if (config.ContainsKey(BaseConstants.OPENID_REDIRECT_URI))
+            if (config.ContainsKey(BaseConstants.OpenIDRedirectURI))
             {
-                baseURL = config[BaseConstants.OPENID_REDIRECT_URI];
+                baseURL = config[BaseConstants.OpenIDRedirectURI];
             }
             else
             {
-                baseURL = BaseConstants.OPENID_REDIRECT_URI_CONSTANT;
+                baseURL = BaseConstants.OpenIDRedirectURIConstant;
             }
             if (baseURL.EndsWith("/"))
             {
@@ -55,7 +55,7 @@ namespace PayPal.OpenidConnect
                 scope.Add("openid");
             }
             StringBuilder strBuilder = new StringBuilder();
-            strBuilder.Append("client_id=").Append(HttpUtility.UrlEncode((config.ContainsKey(BaseConstants.CLIENT_ID)) ? config[BaseConstants.CLIENT_ID] : string.Empty)).Append("&response_type=").Append("code").Append("&scope=");
+            strBuilder.Append("client_id=").Append(HttpUtility.UrlEncode((config.ContainsKey(BaseConstants.ClientID)) ? config[BaseConstants.ClientID] : string.Empty)).Append("&response_type=").Append("code").Append("&scope=");
             StringBuilder scpBuilder = new StringBuilder();
             foreach (string str in scope)
             {
@@ -88,13 +88,13 @@ namespace PayPal.OpenidConnect
                 config = ConfigManager.getConfigWithDefaults(apiContext.Config);
             }
             string baseURL = null;
-            if (config.ContainsKey(BaseConstants.OPENID_REDIRECT_URI))
+            if (config.ContainsKey(BaseConstants.OpenIDRedirectURI))
             {
-                baseURL = config[BaseConstants.OPENID_REDIRECT_URI];
+                baseURL = config[BaseConstants.OpenIDRedirectURI];
             }
             else
             {
-                baseURL = BaseConstants.OPENID_REDIRECT_URI_CONSTANT;
+                baseURL = BaseConstants.OpenIDRedirectURIConstant;
             }
             if (baseURL.EndsWith("/"))
             {

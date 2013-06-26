@@ -103,17 +103,17 @@ namespace PayPal.Util
 	     *            Map containing the query name and value
 	     * @return Object array
 	     */
-	    private static Object[] splitParameters(String pattern,
+	    private static Object[] splitParameters(string pattern,
                 Dictionary<string, string> parameters)
         {
 		    
             List<Object> objectList = new List<Object>();
-            String[] query = pattern.Split('?');
+            string[] query = pattern.Split('?');
             if (query != null && query.Length == 2 && query[1].Contains("={"))
             {
                 NameValueCollection queryParts = HttpUtility.ParseQueryString(query[1]);
 
-                foreach (String k in queryParts.AllKeys)
+                foreach (string k in queryParts.AllKeys)
                 {
                     string val = string.Empty;
                     if (parameters.TryGetValue(k.Trim(), out val))

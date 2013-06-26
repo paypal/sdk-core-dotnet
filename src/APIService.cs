@@ -27,7 +27,7 @@ namespace PayPal
         /// <summary>
         /// HTTP Method needs to be set.
         /// </summary>
-        private const string RequestMethod = BaseConstants.REQUESTMETHOD;
+        private const string RequestMethod = BaseConstants.RequestMethod;
 
         /// <summary>
         /// X509Certificate
@@ -109,8 +109,8 @@ namespace PayPal
             }
 
             // Fire request. Retry if configured to do so
-            int numRetries = (this.config.ContainsKey(BaseConstants.HTTP_CONNECTION_RETRY_CONFIG)) ?
-                    Convert.ToInt32(config[BaseConstants.HTTP_CONNECTION_RETRY_CONFIG]) : 0;
+            int numRetries = (this.config.ContainsKey(BaseConstants.HttpConnectionRetryConfig)) ?
+                    Convert.ToInt32(config[BaseConstants.HttpConnectionRetryConfig]) : 0;
             int retries = 0;
 
             do

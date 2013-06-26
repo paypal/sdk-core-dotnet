@@ -38,9 +38,9 @@ namespace PayPal
                 else
                 {
                     headers = new Dictionary<string, string>();
-                    headers.Add(BaseConstants.PAYPAL_SECURITY_USERID_HEADER, signCredential.UserName);
-                    headers.Add(BaseConstants.PAYPAL_SECURITY_PASSWORD_HEADER,signCredential.Password);
-                    headers.Add(BaseConstants.PAYPAL_SECURITY_SIGNATURE_HEADER,signCredential.Signature);
+                    headers.Add(BaseConstants.PayPalSecurityUserIDHeader, signCredential.UserName);
+                    headers.Add(BaseConstants.PayPalSecurityPasswordHeader,signCredential.Password);
+                    headers.Add(BaseConstants.PayPalSecuritySignatureHeader,signCredential.Signature);
                 }
             }
             catch (OAuthException ae)

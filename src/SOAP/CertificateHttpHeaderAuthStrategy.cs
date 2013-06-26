@@ -40,20 +40,20 @@ namespace PayPal.SOAP
             try
             {
                 OAuthGenerator signGenerator = new OAuthGenerator(certCredential.UserName, certCredential.Password);
-                signGenerator.setHTTPMethod(OAuthGenerator.HTTPMethod.POST);
-                signGenerator.setToken(toknAuthorization.AccessToken);
-                signGenerator.setTokenSecret(toknAuthorization.TokenSecret);
+                signGenerator.SetHTTPMethod(OAuthGenerator.HTTPMethod.POST);
+                signGenerator.SetToken(toknAuthorization.AccessToken);
+                signGenerator.SetTokenSecret(toknAuthorization.TokenSecret);
                 string tokenTimeStamp = Timestamp;
-                signGenerator.setTokenTimestamp(tokenTimeStamp);
+                signGenerator.SetTokenTimestamp(tokenTimeStamp);
                 logger.Debug("token = " + toknAuthorization.AccessToken + " tokenSecret=" + toknAuthorization.TokenSecret + " uri=" + endpointURL);
-                signGenerator.setRequestURI(endpointURL);
+                signGenerator.SetRequestURI(endpointURL);
 
                 //Compute Signature
                 string sign = signGenerator.ComputeSignature();
                 logger.Debug("Permissions signature: " + sign);
                 string authorization = "token=" + toknAuthorization.AccessToken + ",signature=" + sign + ",timestamp=" + tokenTimeStamp;
                 logger.Debug("Authorization string: " + authorization);
-                headers.Add(BaseConstants.PAYPAL_AUTHORIZATION_MERCHANT_HEADER, authorization);
+                headers.Add(BaseConstants.PayPalAuthorizationMerchantHeader, authorization);
             }
             catch (OAuthException ae)
             {

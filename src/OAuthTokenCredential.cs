@@ -28,12 +28,12 @@ namespace PayPal
 {
     public class OAuthTokenCredential
     {
+        private const string oauthTokenPath = "/v1/oauth2/token";
 
-        private const string OAUTHTOKENPATH = "/v1/oauth2/token";
         /// <summary>
         /// Client ID for OAuth
         /// </summary>
-        private String clientID;
+        private string clientID;
 
         /// <summary>
         /// Client Secret for OAuth
@@ -75,7 +75,7 @@ namespace PayPal
         /// </summary>
         /// <param name="clientID"></param>
         /// <param name="clientSecret"></param>
-        public OAuthTokenCredential(String clientID, String clientSecret)
+        public OAuthTokenCredential(string clientID, string clientSecret)
         {
             this.clientID = clientID;
             this.clientSecret = clientSecret;
@@ -87,7 +87,7 @@ namespace PayPal
         /// </summary>
         /// <param name="clientID"></param>
         /// <param name="clientSecret"></param>
-        public OAuthTokenCredential(String clientID, String clientSecret, Dictionary<string, string> config)
+        public OAuthTokenCredential(string clientID, string clientSecret, Dictionary<string, string> config)
         {
             this.clientID = clientID;
             this.clientSecret = clientSecret;
@@ -167,15 +167,15 @@ namespace PayPal
                 
                 Uri uniformResourceIdentifier = null;
                 Uri baseUri = null;
-                if (config.ContainsKey(BaseConstants.OAUTH_ENDPOINT))
+                if (config.ContainsKey(BaseConstants.OAuthEndpoint))
                 {
-                    baseUri = new Uri(config[BaseConstants.OAUTH_ENDPOINT]);
+                    baseUri = new Uri(config[BaseConstants.OAuthEndpoint]);
                 }
-                else if (config.ContainsKey(BaseConstants.END_POINT_CONFIG))
+                else if (config.ContainsKey(BaseConstants.EndpointConfig))
                 {
-                    baseUri = new Uri(config[BaseConstants.END_POINT_CONFIG]);
+                    baseUri = new Uri(config[BaseConstants.EndpointConfig]);
                 }
-                bool success = Uri.TryCreate(baseUri, OAUTHTOKENPATH, out uniformResourceIdentifier);
+                bool success = Uri.TryCreate(baseUri, oauthTokenPath, out uniformResourceIdentifier);
                 ConnectionManager connManager = ConnectionManager.Instance;
                 HttpWebRequest httpRequest = connManager.GetConnection(ConfigManager.Instance.GetProperties(), uniformResourceIdentifier.AbsoluteUri);  
               

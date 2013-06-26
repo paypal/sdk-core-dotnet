@@ -233,32 +233,32 @@ namespace PayPal.SOAP
             {
                 endpoint = config[PortName];
             }
-            else if (config.ContainsKey(BaseConstants.END_POINT_CONFIG))
+            else if (config.ContainsKey(BaseConstants.EndpointConfig))
             {
                 endpoint = apiCallHandler.GetEndPoint();
             }
-            else if (config.ContainsKey(BaseConstants.APPLICATION_MODE_CONFIG))
+            else if (config.ContainsKey(BaseConstants.ApplicationModeConfig))
             {
-                switch (config[BaseConstants.APPLICATION_MODE_CONFIG].ToLower())
+                switch (config[BaseConstants.ApplicationModeConfig].ToLower())
                 {
-                    case BaseConstants.LIVE_MODE:
+                    case BaseConstants.LiveMode:
                         if (credential is SignatureCredential)
                         {
-                            endpoint = BaseConstants.MERCHANT_SIGNATURE_LIVE_ENDPOINT;
+                            endpoint = BaseConstants.MerchantSignatureLiveEndpoint;
                         }
                         else if (credential is CertificateCredential)
                         {
-                            endpoint = BaseConstants.MERCHANT_CERTIFICATE_LIVE_ENDPOINT;
+                            endpoint = BaseConstants.MerchantCertificateLiveEndpoint;
                         }
                         break;
-                    case BaseConstants.SANDBOX_MODE:
+                    case BaseConstants.SandboxMode:
                         if (credential is SignatureCredential)
                         {
-                            endpoint = BaseConstants.MERCHANT_SIGNATURE_SANDBOX_ENDPOINT;
+                            endpoint = BaseConstants.MerchantSignatureSandboxEndpoint;
                         }
                         else if (credential is CertificateCredential)
                         {
-                            endpoint = BaseConstants.MERCHANT_CERTIFICATE_SANDBOX_ENDPOINT;
+                            endpoint = BaseConstants.MerchantCertificateSandboxEndpoint;
                         }
                         break;
                     default:
@@ -325,9 +325,9 @@ namespace PayPal.SOAP
 	    private Dictionary<string, string> GetDefaultHttpHeadersSOAP() 
         {
 		    Dictionary<string, string> returnMap = new Dictionary<string, string>();
-		    returnMap.Add(BaseConstants.PAYPAL_REQUEST_DATA_FORMAT_HEADER, BaseConstants.SOAP);
-            returnMap.Add(BaseConstants.PAYPAL_RESPONSE_DATA_FORMAT_HEADER, BaseConstants.SOAP);
-            returnMap.Add(BaseConstants.PAYPAL_REQUEST_SOURCE_HEADER, SDKName + "-" + SDKVersion);
+		    returnMap.Add(BaseConstants.PayPalRequestDataFormatHeader, BaseConstants.SOAP);
+            returnMap.Add(BaseConstants.PayPalResponseDataFormatHeader, BaseConstants.SOAP);
+            returnMap.Add(BaseConstants.PayPalRequestSourceHeader, SDKName + "-" + SDKVersion);
 		    return returnMap;
 	    }        
 

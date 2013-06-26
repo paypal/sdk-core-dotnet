@@ -112,7 +112,7 @@ namespace PayPal
         /// <returns></returns>
 	    public string GetEndPoint() 
         {
-		    return config[BaseConstants.END_POINT_CONFIG];
+		    return config[BaseConstants.EndpointConfig];
 	    }
 
 
