@@ -5,52 +5,63 @@ namespace PayPal
 {
     public abstract class BasePayPalService
     {       
-        private string accessToken;
-        private string accessTokenSecret;
-        private string lastRequest;
-        private string lastResponse;
+        private string tokenAccess;
+        private string tokenSecretAccess;
+        private string requestLast;
+        private string responseLast;
 
         protected Dictionary<string, string> config;
 
         public BasePayPalService() 
         {
-            this.config = ConfigManager.getConfigWithDefaults(
-                ConfigManager.Instance.GetProperties()
-            );
+            this.config = ConfigManager.getConfigWithDefaults(ConfigManager.Instance.GetProperties());
         }
 
-        public BasePayPalService(Dictionary<string, string> config) {
+        public BasePayPalService(Dictionary<string, string> config) 
+        {
             this.config = ConfigManager.getConfigWithDefaults(config);
         }
 
-        public void setAccessToken(string accessToken)
+        public void setAccessToken(string tokenAccess)
         {
-            this.accessToken = accessToken;
+            this.tokenAccess = tokenAccess;
         }
 
-        public void setAccessTokenSecret(string accessTokenSecret)
+        public void setAccessTokenSecret(string tokenSecretAccess)
         {
-            this.accessTokenSecret = accessTokenSecret;
+            this.tokenSecretAccess = tokenSecretAccess;
         }
 
-        public string getAccessToken()
+        public string AccessToken
         {
-            return this.accessToken;
+            get
+            {
+                return this.tokenAccess;
+            }
         }
 
-        public string getAccessTokenSecret()
+        public string AccessTokenSecret
         {
-            return this.accessTokenSecret;
+            get
+            {
+                return this.tokenSecretAccess;
+            }
         }
 
-        public string getLastRequest()
+        public string LastRequest
         {
-            return this.lastRequest;
+            get
+            {
+                return this.requestLast;
+            }
         }
 
-        public string getLastResponse()
+        public string LastResponse
         {
-            return this.lastResponse;
+            get
+            {
+                return this.responseLast;
+            }
         }
 
         /// <summary>
@@ -61,9 +72,9 @@ namespace PayPal
         public string Call(IAPICallPreHandler apiCallHandler)
         {
             APIService apiServ = new APIService(this.config);
-            this.lastRequest = apiCallHandler.GetPayLoad();
-            this.lastResponse = apiServ.MakeRequestUsing(apiCallHandler);
-            return this.lastResponse;
+            this.requestLast = apiCallHandler.GetPayLoad();
+            this.responseLast = apiServ.MakeRequestUsing(apiCallHandler);
+            return this.responseLast;
         }
     }
 }

@@ -69,7 +69,7 @@ namespace PayPal
         /// Logs output statements, errors, debug info to a text file    
         /// </summary>
         private static readonly ILog logger = LogManagerWrapper.GetLogger(typeof(OAuthTokenCredential));
-               
+
         /// <summary>
         /// Client ID and Secret for the OAuth
         /// </summary>
@@ -157,49 +157,47 @@ namespace PayPal
             catch (System.Exception ex)
             {
                 throw new PayPalException(ex.Message, ex);
-            }           
+            }
         }
 
         private string GenerateOAuthToken(string base64ClientID)
-        { 
-            
-                string response = null;
-                
-                Uri uniformResourceIdentifier = null;
-                Uri baseUri = null;
-                if (config.ContainsKey(BaseConstants.OAuthEndpoint))
-                {
-                    baseUri = new Uri(config[BaseConstants.OAuthEndpoint]);
-                }
-                else if (config.ContainsKey(BaseConstants.EndpointConfig))
-                {
-                    baseUri = new Uri(config[BaseConstants.EndpointConfig]);
-                }
-                bool success = Uri.TryCreate(baseUri, oauthTokenPath, out uniformResourceIdentifier);
-                ConnectionManager connManager = ConnectionManager.Instance;
-                HttpWebRequest httpRequest = connManager.GetConnection(ConfigManager.Instance.GetProperties(), uniformResourceIdentifier.AbsoluteUri);  
-              
-                
-                Dictionary<string, string> headers = new Dictionary<string, string>();
-                headers.Add("Authorization", "Basic " + base64ClientID);
-                string postRequest = "grant_type=client_credentials";
-                httpRequest.Method = "POST";
-                httpRequest.Accept = "*/*";
-                httpRequest.ContentType = "application/x-www-form-urlencoded";
-                httpRequest.UserAgent = RESTConfiguration.FormUserAgentHeader();
-                foreach (KeyValuePair<string, string> header in headers)
-                {
-                    httpRequest.Headers.Add(header.Key, header.Value);
-                }
+        {
+            string response = null;
 
-                HttpConnection httpConnection = new HttpConnection(config);
-                response = httpConnection.Execute(postRequest, httpRequest);
-                JObject deserializedObject = (JObject)JsonConvert.DeserializeObject(response);
-                string generatedToken = (string)deserializedObject["token_type"] + " " + (string)deserializedObject["access_token"];
-                appID = (string)deserializedObject["app_id"];
-                secondsToExpire = (int)deserializedObject["expires_in"];
-                timeInMilliseconds = DateTime.Now.Millisecond;
-                return generatedToken;
+            Uri uniformResourceIdentifier = null;
+            Uri baseUri = null;
+            if (config.ContainsKey(BaseConstants.OAuthEndpoint))
+            {
+                baseUri = new Uri(config[BaseConstants.OAuthEndpoint]);
+            }
+            else if (config.ContainsKey(BaseConstants.EndpointConfig))
+            {
+                baseUri = new Uri(config[BaseConstants.EndpointConfig]);
+            }
+            bool success = Uri.TryCreate(baseUri, oauthTokenPath, out uniformResourceIdentifier);
+            ConnectionManager connManager = ConnectionManager.Instance;
+            HttpWebRequest httpRequest = connManager.GetConnection(ConfigManager.Instance.GetProperties(), uniformResourceIdentifier.AbsoluteUri);
+            
+            Dictionary<string, string> headers = new Dictionary<string, string>();
+            headers.Add("Authorization", "Basic " + base64ClientID);
+            string postRequest = "grant_type=client_credentials";
+            httpRequest.Method = "POST";
+            httpRequest.Accept = "*/*";
+            httpRequest.ContentType = "application/x-www-form-urlencoded";
+            httpRequest.UserAgent = RESTConfiguration.FormUserAgentHeader();
+            foreach (KeyValuePair<string, string> header in headers)
+            {
+                httpRequest.Headers.Add(header.Key, header.Value);
+            }
+
+            HttpConnection httpConnection = new HttpConnection(config);
+            response = httpConnection.Execute(postRequest, httpRequest);
+            JObject deserializedObject = (JObject)JsonConvert.DeserializeObject(response);
+            string generatedToken = (string)deserializedObject["token_type"] + " " + (string)deserializedObject["access_token"];
+            appID = (string)deserializedObject["app_id"];
+            secondsToExpire = (int)deserializedObject["expires_in"];
+            timeInMilliseconds = DateTime.Now.Millisecond;
+            return generatedToken;
         }
-    }
+    }    
 }
