@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace PayPal.OpenidConnect
+namespace PayPal.OpenIDConnect
 {
     public class CreateFromAuthorizationCodeParameters
     {        

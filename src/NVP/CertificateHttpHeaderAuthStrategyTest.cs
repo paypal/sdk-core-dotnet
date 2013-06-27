@@ -8,16 +8,16 @@ namespace PayPal
     [TestClass]
     public class CertificateHttpHeaderAuthStrategyTest
     {
-        CertificateHttpHeaderAuthStrategy certHttpHeaderAuthStrategy;
-        CertificateCredential certCredential;
+        private CertificateHttpHeaderAuthStrategy CertHttpHeaderAuthStrategy;
+        private CertificateCredential CertCredential;
 
         [TestMethod]
         public void GenerateHeaderStrategyWithTokenTest()
         {
-            certHttpHeaderAuthStrategy = new CertificateHttpHeaderAuthStrategy(Constants.APIEndpointSOAP);
+            CertHttpHeaderAuthStrategy = new CertificateHttpHeaderAuthStrategy(Constants.APIEndpointSOAP);
             TokenAuthorization toknAuthorization = new TokenAuthorization(Constants.AccessToken, Constants.TokenSecret);
-            certCredential = new CertificateCredential("testusername", "testpassword", "sdk-cert.p12", "KJAERUGBLVF6Y", toknAuthorization);
-            Dictionary<string, string> header = certHttpHeaderAuthStrategy.GenerateHeaderStrategy(certCredential);            
+            CertCredential = new CertificateCredential("testusername", "testpassword", "sdk-cert.p12", "KJAERUGBLVF6Y", toknAuthorization);
+            Dictionary<string, string> header = CertHttpHeaderAuthStrategy.GenerateHeaderStrategy(CertCredential);            
             string authHeader = header[BaseConstants.PayPalAuthorizationPlatformHeader];
             string[] headers = authHeader.Split(',');
             Assert.AreEqual("token=" + Constants.AccessToken, headers[0]);
@@ -26,9 +26,9 @@ namespace PayPal
         [TestMethod]
         public void GenerateHeaderStrategyWithoutTokenTest()
         {
-            certHttpHeaderAuthStrategy = new CertificateHttpHeaderAuthStrategy(Constants.APIEndpointNVP);
-            certCredential = new CertificateCredential("testusername", "testpassword", "sdk-cert.p12", "KJAERUGBLVF6Y");
-            Dictionary<string, string> header = certHttpHeaderAuthStrategy.GenerateHeaderStrategy(certCredential);            
+            CertHttpHeaderAuthStrategy = new CertificateHttpHeaderAuthStrategy(Constants.APIEndpointNVP);
+            CertCredential = new CertificateCredential("testusername", "testpassword", "sdk-cert.p12", "KJAERUGBLVF6Y");
+            Dictionary<string, string> header = CertHttpHeaderAuthStrategy.GenerateHeaderStrategy(CertCredential);            
             string username = header[BaseConstants.PayPalSecurityUserIDHeader];
             string password = header[BaseConstants.PayPalSecurityPasswordHeader];
             Assert.AreEqual("testusername", username);

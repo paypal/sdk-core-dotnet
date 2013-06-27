@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using PayPal.Util;
 
-namespace PayPal.OpenidConnect
+namespace PayPal.OpenIDConnect
 {
     public class Tokeninfo
     {

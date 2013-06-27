@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using PayPal.Manager;
 
-namespace PayPal.OpenidConnect
+namespace PayPal.OpenIDConnect
 {
     public class Session
     {

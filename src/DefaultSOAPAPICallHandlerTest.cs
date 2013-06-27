@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Manager;
 
-namespace PayPal.UnitTest
+namespace PayPal
 {
     [TestClass]
     public class DefaultSOAPAPICallHandlerTest

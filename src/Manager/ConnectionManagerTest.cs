@@ -9,18 +9,18 @@ namespace PayPal
     [TestClass]
     public class ConnectionManagerTest
     {
-        ConnectionManager connectionMngr;
-        HttpWebRequest httpRequest;
+        private ConnectionManager ConnectionMngr;
+        private HttpWebRequest HttpRequest;
 
         [TestMethod]
         public void CreateNewConnection()
         {
             Dictionary<string, string> config = ConfigManager.Instance.GetProperties();
-            connectionMngr = ConnectionManager.Instance;
-            httpRequest = connectionMngr.GetConnection(config, "http://paypal.com/");
-            Assert.IsNotNull(httpRequest);
-            Assert.AreEqual("http://paypal.com/", httpRequest.RequestUri.AbsoluteUri);
-            Assert.AreEqual(config["connectionTimeout"], httpRequest.Timeout.ToString());
+            ConnectionMngr = ConnectionManager.Instance;
+            HttpRequest = ConnectionMngr.GetConnection(config, "http://paypal.com/");
+            Assert.IsNotNull(HttpRequest);
+            Assert.AreEqual("http://paypal.com/", HttpRequest.RequestUri.AbsoluteUri);
+            Assert.AreEqual(config["connectionTimeout"], HttpRequest.Timeout.ToString());
         }
 
         [TestMethod]
@@ -29,8 +29,8 @@ namespace PayPal
         {
             try
             {
-                connectionMngr = ConnectionManager.Instance;
-                httpRequest = connectionMngr.GetConnection(ConfigManager.Instance.GetProperties(), "Not a url");
+                ConnectionMngr = ConnectionManager.Instance;
+                HttpRequest = ConnectionMngr.GetConnection(ConfigManager.Instance.GetProperties(), "Not a url");
             }
             catch (ConfigException ex)
             {

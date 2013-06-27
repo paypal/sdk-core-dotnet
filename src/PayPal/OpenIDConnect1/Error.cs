@@ -9,7 +9,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace PayPal.OpenidConnect
+namespace PayPal.OpenIDConnect
 {
 	public class Error
 	{

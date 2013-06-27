@@ -53,7 +53,7 @@
     <Compile Include="NVP\CertificateHttpHeaderAuthStrategyTest.cs" />
     <Compile Include="NVP\PlatformAPICallPreHandlerTest.cs" />
     <Compile Include="NVP\SignatureHttpHeaderAuthStrategyTest.cs" />
-    <Compile Include="OpenIdTest.cs" />
+    <Compile Include="OpenIDTest1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

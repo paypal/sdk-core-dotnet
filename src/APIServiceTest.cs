@@ -9,17 +9,17 @@ namespace PayPal
     [TestClass]
     public class APIServiceTest
     {
-        APIService service;
-        IAPICallPreHandler handler;
-        DefaultSOAPAPICallHandler defaultSOAPHandler;
+        private APIService Service;
+        private IAPICallPreHandler Handler;
+        private DefaultSOAPAPICallHandler SOAPHandler;
 
         [TestMethod]
         public void MakeRequestUsingNVPCertificateCredential()
         {
-            handler = new PlatformAPICallPreHandler(ConfigManager.Instance.GetProperties(), Constants.PayloadNVP, "AdaptivePayments", "ConvertCurrency", Constants.CertificateAPIUserName, null, null);
+            Handler = new PlatformAPICallPreHandler(ConfigManager.Instance.GetProperties(), Constants.PayloadNVP, "AdaptivePayments", "ConvertCurrency", Constants.CertificateAPIUserName, null, null);
             Thread.Sleep(5000);
             APIService service = new APIService(ConfigManager.Instance.GetProperties());
-            string response = service.MakeRequestUsing(handler);
+            string response = service.MakeRequestUsing(Handler);
             Assert.IsNotNull(response);
             Assert.IsTrue(response.Contains("responseEnvelope.ack=Success"));
         }     
@@ -27,10 +27,10 @@ namespace PayPal
         [TestMethod]
         public void MakeRequestUsingNVPSignatureCredential()
         {
-            handler = new PlatformAPICallPreHandler(ConfigManager.Instance.GetProperties(), Constants.PayloadNVP, "AdaptivePayments", "ConvertCurrency", Constants.APIUserName, null, null);
+            Handler = new PlatformAPICallPreHandler(ConfigManager.Instance.GetProperties(), Constants.PayloadNVP, "AdaptivePayments", "ConvertCurrency", Constants.APIUserName, null, null);
             Thread.Sleep(5000);
-            service = new APIService(ConfigManager.Instance.GetProperties());
-            string response = service.MakeRequestUsing(handler);           
+            Service = new APIService(ConfigManager.Instance.GetProperties());
+            string response = Service.MakeRequestUsing(Handler);           
             Assert.IsNotNull(response);            
             Assert.IsTrue(response.Contains("responseEnvelope.ack=Success"));
         }
@@ -39,10 +39,10 @@ namespace PayPal
         [Ignore] 
         public void MakeRequestUsingSOAPSignatureCredential()
         {
-            defaultSOAPHandler = new DefaultSOAPAPICallHandler(ConfigManager.Instance.GetProperties(), Constants.PayloadSOAP, null, null);
-            handler = new MerchantAPICallPreHandler(ConfigManager.Instance.GetProperties(), defaultSOAPHandler, Constants.APIUserName, null, null);
-            service = new APIService(ConfigManager.Instance.GetProperties());
-            string response = service.MakeRequestUsing(handler);
+            SOAPHandler = new DefaultSOAPAPICallHandler(ConfigManager.Instance.GetProperties(), Constants.PayloadSOAP, null, null);
+            Handler = new MerchantAPICallPreHandler(ConfigManager.Instance.GetProperties(), SOAPHandler, Constants.APIUserName, null, null);
+            Service = new APIService(ConfigManager.Instance.GetProperties());
+            string response = Service.MakeRequestUsing(Handler);
             Assert.IsNotNull(response);
             Assert.IsTrue(response.Contains("<Ack xmlns=\"urn:ebay:apis:eBLBaseComponents\">Success</Ack>"));
         }

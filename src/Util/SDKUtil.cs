@@ -3,7 +3,7 @@ using System.Web;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
-using PayPal.OpenidConnect;
+using PayPal.OpenIDConnect;
 
 namespace PayPal.Util
 {
