@@ -78,7 +78,7 @@
     <Compile Include="NVP\PlatformAPICallPreHandlerTest.cs" />
     <Compile Include="NVP\SignatureHttpHeaderAuthStrategyTest.cs" />
     <Compile Include="OpenIdTest.cs" />
-    <Compile Include="UnitTestConstants.cs" />
+    <Compile Include="Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

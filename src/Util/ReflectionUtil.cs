@@ -86,7 +86,7 @@ namespace PayPal.Util
                             else if (returnObject != null && returnObject.GetType().IsEnum)
                             {
                                 Enum e = (Enum)returnObject;
-                                responseDictionary.Add(propertyName, ReflectionEnumUtil.getDescription(e));
+                                responseDictionary.Add(propertyName, ReflectionEnumUtil.GetDescription(e));
                             }
                             else if (returnObject != null)
                             {

@@ -44,6 +44,7 @@
     <Compile Include="Authentication\SignatureCredentialTest.cs" />
     <Compile Include="Authentication\SubjectAuthorizationTest .cs" />
     <Compile Include="Authentication\TokenAuthorizationTest.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="DefaultSOAPAPICallHandlerTest.cs" />
     <Compile Include="IPNMessageTest.cs" />
     <Compile Include="Manager\ConfigManagerTest.cs" />
@@ -53,7 +54,6 @@
     <Compile Include="NVP\PlatformAPICallPreHandlerTest.cs" />
     <Compile Include="NVP\SignatureHttpHeaderAuthStrategyTest.cs" />
     <Compile Include="OpenIdTest.cs" />
-    <Compile Include="UnitTestConstants.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

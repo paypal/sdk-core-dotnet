@@ -32,19 +32,19 @@ namespace PayPal
         /// <summary>
         /// X509Certificate
         /// </summary>
-        private X509Certificate x509;
+        private X509Certificate X509;
 
         private Dictionary<string, string> config;
 
         /// <summary>
         /// Logger
         /// </summary>
-        private static readonly ILog logger = LogManagerWrapper.GetLogger(typeof(APIService));
+        private static readonly ILog Logger = LogManagerWrapper.GetLogger(typeof(APIService));
 
         /// <summary>
         /// Retry codes
         /// </summary>
-        private static ArrayList retryCodes = new ArrayList(new HttpStatusCode[] 
+        private static ArrayList RetryCodes = new ArrayList(new HttpStatusCode[] 
                                                 { HttpStatusCode.GatewayTimeout,
                                                   HttpStatusCode.RequestTimeout,
                                                   HttpStatusCode.InternalServerError,
@@ -79,18 +79,18 @@ namespace PayPal
             {
                 httpRequest.Headers.Add(header.Key, header.Value);
             }  
-            if (logger.IsDebugEnabled)
+            if (Logger.IsDebugEnabled)
             {
                 foreach (string headerName in httpRequest.Headers)
                 {
-                    logger.Debug(headerName + ":" + httpRequest.Headers[headerName]);
+                    Logger.Debug(headerName + ":" + httpRequest.Headers[headerName]);
                 }
             }
             // Adding payLoad to HttpWebRequest object
             using (StreamWriter myWriter = new StreamWriter(httpRequest.GetRequestStream()))
             {
                 myWriter.Write(payLoad);
-                logger.Debug(payLoad);
+                Logger.Debug(payLoad);
             }
 
             if (apiCallHandler.GetCredential() is CertificateCredential)
@@ -100,13 +100,13 @@ namespace PayPal
                 // Load the certificate into an X509Certificate2 object.
                 if (((CertificateCredential)certCredential).PrivateKeyPassword.Trim() == string.Empty)
                 {
-                    x509 = new X509Certificate2(((CertificateCredential)certCredential).CertificateFile);
+                    X509 = new X509Certificate2(((CertificateCredential)certCredential).CertificateFile);
                 }
                 else
                 {
-                    x509 = new X509Certificate2(((CertificateCredential)certCredential).CertificateFile, ((CertificateCredential)certCredential).PrivateKeyPassword);
+                    X509 = new X509Certificate2(((CertificateCredential)certCredential).CertificateFile, ((CertificateCredential)certCredential).PrivateKeyPassword);
                 }
-                httpRequest.ClientCertificates.Add(x509);
+                httpRequest.ClientCertificates.Add(X509);
             }
 
             // Fire request. Retry if configured to do so
@@ -124,8 +124,8 @@ namespace PayPal
                         using (StreamReader sr = new StreamReader(response.GetResponseStream()))
                         {
                             responseString = sr.ReadToEnd();
-                            logger.Debug("Service response");
-                            logger.Debug(responseString);
+                            Logger.Debug("Service response");
+                            Logger.Debug(responseString);
                             return responseString;
                         }
                     }
@@ -135,7 +135,7 @@ namespace PayPal
                 {
                     HttpStatusCode statusCode = ((HttpWebResponse)we.Response).StatusCode;
 
-                    logger.Info("Got " + statusCode.ToString() + " response from server");
+                    Logger.Info("Got " + statusCode.ToString() + " response from server");
                     if (!RequiresRetry(we))
                     {
                         throw new ConnectionException("Invalid HTTP response " + we.Message);
@@ -161,7 +161,7 @@ namespace PayPal
                 return false;
             }
             HttpStatusCode status = ((HttpWebResponse)ex.Response).StatusCode;
-            return retryCodes.Contains(status);
+            return RetryCodes.Contains(status);
         }
     }
 }

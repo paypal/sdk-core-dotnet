@@ -6,32 +6,31 @@ using PayPal.Exception;
 namespace PayPal.Manager
 {    
     /// <summary>
-    /// ConfigManager loads the configuration file and hands out
-    /// appropriate parameters to application
+    /// ConfigManager loads the configuration file and hands out appropriate parameters to application
     /// </summary>
     public sealed class ConfigManager
     {
-        private SDKConfigHandler configHandler;
+        private SDKConfigHandler ConfigHandler;
 
-        private Dictionary<string, string> configValues;
+        private Dictionary<string, string> ConfigValues;
 
-        private static readonly Dictionary<string, string> defaultConfig;
+        private static readonly Dictionary<string, string> DefaultConfig;
                 
         static ConfigManager()
         {
-            defaultConfig = new Dictionary<string, string>();
+            DefaultConfig = new Dictionary<string, string>();
             // Default connection timeout in milliseconds
-            defaultConfig[BaseConstants.HttpConnectionTimeoutConfig] = "30000";
-            defaultConfig[BaseConstants.HttpConnectionRetryConfig] = "1";
-            defaultConfig[BaseConstants.ClientIPAddressConfig] = "127.0.0.1";
+            DefaultConfig[BaseConstants.HttpConnectionTimeoutConfig] = "30000";
+            DefaultConfig[BaseConstants.HttpConnectionRetryConfig] = "1";
+            DefaultConfig[BaseConstants.ClientIPAddressConfig] = "127.0.0.1";
         }
 
         /// <summary>
         /// Singleton instance of the ConfigManager
         /// </summary>
-        private static volatile ConfigManager singletonInstance;
+        private static volatile ConfigManager SingletonInstance;
 
-        private static object syncRoot = new Object();
+        private static object SyncRoot = new Object();
 
 
         /// <summary>
@@ -41,15 +40,17 @@ namespace PayPal.Manager
         {
             get
             {
-                if (singletonInstance == null)
+                if (SingletonInstance == null)
                 {
-                    lock (syncRoot)
+                    lock (SyncRoot)
                     {
-                        if (singletonInstance == null)
-                            singletonInstance = new ConfigManager();
+                        if (SingletonInstance == null)
+                        {
+                            SingletonInstance = new ConfigManager();
+                        }
                     }
                 }
-                return singletonInstance;
+                return SingletonInstance;
             }
         }
 
@@ -58,50 +59,50 @@ namespace PayPal.Manager
         /// </summary>
         private ConfigManager()
         {
-            configHandler = (SDKConfigHandler)ConfigurationManager.GetSection("paypal");
-            if (configHandler == null)
+            ConfigHandler = (SDKConfigHandler)ConfigurationManager.GetSection("paypal");
+            if (ConfigHandler == null)
             {
                 throw new ConfigException("Cannot parse *.Config file. Ensure you have configured the 'paypal' section correctly.");
             }
-            this.configValues = new Dictionary<string, string>();
+            this.ConfigValues = new Dictionary<string, string>();
 
-            NameValueConfigurationCollection settings = this.configHandler.Settings;
+            NameValueConfigurationCollection settings = this.ConfigHandler.Settings;
             foreach (string key in settings.AllKeys)
             {
-                this.configValues.Add(settings[key].Name, settings[key].Value);
+                this.ConfigValues.Add(settings[key].Name, settings[key].Value);
             }
 
             int index = 0;
-            foreach (ConfigurationElement element in this.configHandler.Accounts)
+            foreach (ConfigurationElement element in this.ConfigHandler.Accounts)
             {
                 Account account = (Account)element;
-                if (!string.IsNullOrEmpty(account.APIUsername))
+                if (!string.IsNullOrEmpty(account.APIUserName))
                 {
-                    this.configValues.Add("account" + index + ".apiUsername", account.APIUsername);
+                    this.ConfigValues.Add("account" + index + ".apiUsername", account.APIUserName);
                 }
                 if (!string.IsNullOrEmpty(account.APIPassword))
                 {
-                    this.configValues.Add("account" + index + ".apiPassword", account.APIPassword);
+                    this.ConfigValues.Add("account" + index + ".apiPassword", account.APIPassword);
                 }
                 if (!string.IsNullOrEmpty(account.APISignature))
                 {
-                    this.configValues.Add("account" + index + ".apiSignature", account.APISignature);
+                    this.ConfigValues.Add("account" + index + ".apiSignature", account.APISignature);
                 }
                 if (!string.IsNullOrEmpty(account.APICertificate))
                 {
-                    this.configValues.Add("account" + index + ".apiCertificate", account.APICertificate);
+                    this.ConfigValues.Add("account" + index + ".apiCertificate", account.APICertificate);
                 }
                 if (!string.IsNullOrEmpty(account.PrivateKeyPassword))
                 {
-                    this.configValues.Add("account" + index + ".privateKeyPassword", account.PrivateKeyPassword);
+                    this.ConfigValues.Add("account" + index + ".privateKeyPassword", account.PrivateKeyPassword);
                 }
                 if (!string.IsNullOrEmpty(account.CertificateSubject))
                 {
-                    this.configValues.Add("account" + index + ".subject", account.CertificateSubject);
+                    this.ConfigValues.Add("account" + index + ".subject", account.CertificateSubject);
                 }
                 if (!string.IsNullOrEmpty(account.ApplicationID))
                 {
-                    this.configValues.Add("account" + index + ".applicationId", account.ApplicationID);
+                    this.ConfigValues.Add("account" + index + ".applicationId", account.ApplicationID);
                 }
                 index++;
             }
@@ -113,7 +114,7 @@ namespace PayPal.Manager
         /// <returns></returns>
         public Dictionary<string, string> GetProperties()
         {
-            return this.configValues;
+            return this.ConfigValues;
         }
     
         /// <summary>
@@ -121,13 +122,14 @@ namespace PayPal.Manager
         /// and defaults
         /// </summary>
         /// <returns>Default configuration dictionary</returns>
-        public static Dictionary<string, string> getConfigWithDefaults(Dictionary<string, string> config) {
+        public static Dictionary<string, string> GetConfigWithDefaults(Dictionary<string, string> config)
+        {
             Dictionary<string, string> ret = new Dictionary<string, string>(config);
-            foreach (string key in ConfigManager.defaultConfig.Keys)
+            foreach (string key in ConfigManager.DefaultConfig.Keys)
             {
-                if(!ret.ContainsKey(key))
+                if (!ret.ContainsKey(key))
                 {
-                    ret.Add(key, defaultConfig[key]);
+                    ret.Add(key, DefaultConfig[key]);
                 }
             }
             return ret;
@@ -135,9 +137,9 @@ namespace PayPal.Manager
 
         public static string getDefault(string configKey)
         {
-            if (ConfigManager.defaultConfig.ContainsKey(configKey))
+            if (ConfigManager.DefaultConfig.ContainsKey(configKey))
             {
-                return ConfigManager.defaultConfig[configKey];
+                return ConfigManager.DefaultConfig[configKey];
             }
             return null;
         }

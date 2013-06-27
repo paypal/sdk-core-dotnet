@@ -13,7 +13,7 @@ namespace PayPal
             Dictionary<string, string> config = ConfigManager.Instance.GetProperties();
             string endpoint = config["endpoint"];
             Assert.IsNotNull(endpoint);
-            Assert.AreEqual(UnitTestConstants.APIEndpointNVP, endpoint);
+            Assert.AreEqual(Constants.APIEndpointNVP, endpoint);
             string connectionTimeout = config["connectionTimeout"];
             Assert.IsNotNull(connectionTimeout);
             Assert.AreEqual("360000", connectionTimeout);

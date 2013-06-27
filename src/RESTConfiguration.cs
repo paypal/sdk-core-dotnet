@@ -13,33 +13,33 @@ namespace PayPal
         /// <summary>
         /// Authorization Token
         /// </summary>
-        public string authorizationToken
+        public string AuthorizationToken
         {
             get;
             set;
         }
 
-        private string requestIdentity;
+        private string ReqID;
 
         /// <summary>
         /// Idempotency Request ID
         /// </summary>
-        public string requestID
+        public string RequestID
         {
             private get
             {
-                return requestIdentity;
+                return ReqID;
             }
             set
             {
-                requestIdentity = value;
+                ReqID = value;
             }
         }
 
         /// <summary>
         /// Dynamic configuration map
         /// </summary>
-        private Dictionary<string, string> config;
+        private Dictionary<string, string> Config;
 
         /// <summary>
         /// Optional headers map
@@ -48,42 +48,42 @@ namespace PayPal
 
         public RESTConfiguration(Dictionary<string, string> config)
         {
-            this.config = ConfigManager.getConfigWithDefaults(config);
+            this.Config = ConfigManager.GetConfigWithDefaults(config);
         }
 
         public RESTConfiguration(Dictionary<string, string> config, Dictionary<string, string> headersMap)
         {
-            this.config = ConfigManager.getConfigWithDefaults(config);
+            this.Config = ConfigManager.GetConfigWithDefaults(config);
             this.headersMap = (headersMap == null) ? new Dictionary<string, string>() : headersMap;
         }
 
         public Dictionary<string, string> GetHeaders()
         {
             Dictionary<string, string> headers = new Dictionary<string, string>();
-            if (!string.IsNullOrEmpty(authorizationToken))
+            if (!string.IsNullOrEmpty(AuthorizationToken))
             {
-                headers.Add("Authorization", authorizationToken);
+                headers.Add("Authorization", AuthorizationToken);
             }
             else if (!string.IsNullOrEmpty(GetClientID()) && !string.IsNullOrEmpty(GetClientSecret()))
             {
                 headers.Add("Authorization", "Basic " + EncodeToBase64(GetClientID(), GetClientSecret()));
             }
             headers.Add("User-Agent", FormUserAgentHeader());
-            if (!string.IsNullOrEmpty(requestID))
+            if (!string.IsNullOrEmpty(RequestID))
             {
-                headers.Add("PayPal-Request-Id", requestID);
+                headers.Add("PayPal-Request-Id", RequestID);
             }
             return headers;
         }
 
         private string GetClientID()
         {
-            return this.config.ContainsKey(BaseConstants.ClientID) ? this.config[BaseConstants.ClientID] : null;
+            return this.Config.ContainsKey(BaseConstants.ClientID) ? this.Config[BaseConstants.ClientID] : null;
         }
 
         private string GetClientSecret()
         {
-            return this.config.ContainsKey(BaseConstants.ClientSecret) ? this.config[BaseConstants.ClientSecret] : null;
+            return this.Config.ContainsKey(BaseConstants.ClientSecret) ? this.Config[BaseConstants.ClientSecret] : null;
         }
 
         private string EncodeToBase64(string clientID, string clientSecret)
@@ -116,7 +116,7 @@ namespace PayPal
         {
             string header = null;
             StringBuilder stringBuilder = new StringBuilder("PayPalSDK/"
-                    + PayPalResource.SdkID + " " + PayPalResource.SdkVersion
+                    + PayPalResource.SDKID + " " + PayPalResource.SDKVersion
                     + " ");
             string dotNETVersion = DotNetVersionHeader;
             stringBuilder.Append(";").Append(dotNETVersion);

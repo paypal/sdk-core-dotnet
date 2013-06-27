@@ -22,12 +22,12 @@ namespace PayPal.Manager
         /// <summary>
         /// Logger
         /// </summary>
-        private static ILog logger = LogManagerWrapper.GetLogger(typeof(ConnectionManager));
+        private static ILog Logger = LogManagerWrapper.GetLogger(typeof(ConnectionManager));
         
         /// <summary>
         /// Singleton instance of ConnectionManager
         /// </summary>
-        private static readonly ConnectionManager singletonInstance = new ConnectionManager();
+        private static readonly ConnectionManager SingletonInstance = new ConnectionManager();
 
         /// <summary>
         /// Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
@@ -46,7 +46,7 @@ namespace PayPal.Manager
         {
             get
             {
-                return singletonInstance;
+                return SingletonInstance;
             }
         }
 
@@ -66,7 +66,7 @@ namespace PayPal.Manager
             }
             catch (UriFormatException ex)
             {
-                logger.Error(ex.Message);
+                Logger.Error(ex.Message);
                 throw new ConfigException("Invalid URI " + url);
             }
 

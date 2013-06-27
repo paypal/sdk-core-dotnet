@@ -14,32 +14,32 @@ namespace PayPal
         [TestMethod]
         public void LoadSignatureCredential()
         {
-            string apiUsername = UnitTestConstants.APIUserName;
+            string apiUsername = Constants.APIUserName;
             credentialMngr = CredentialManager.Instance;
             credential = credentialMngr.GetCredentials(ConfigManager.Instance.GetProperties(), apiUsername);
             Assert.IsNotNull(credential);
             Assert.IsInstanceOfType(credential, typeof(SignatureCredential));
             SignatureCredential signCredential = (SignatureCredential) credential;
             Assert.AreEqual(apiUsername, signCredential.UserName);
-            Assert.AreEqual(UnitTestConstants.APIPassword, signCredential.Password);
-            Assert.AreEqual(UnitTestConstants.APISignature, signCredential.Signature);
-            Assert.AreEqual(UnitTestConstants.ApplicationID, signCredential.ApplicationID);            
+            Assert.AreEqual(Constants.APIPassword, signCredential.Password);
+            Assert.AreEqual(Constants.APISignature, signCredential.Signature);
+            Assert.AreEqual(Constants.ApplicationID, signCredential.ApplicationID);            
         }
 
         [TestMethod]
         public void LoadCertificateCredential()
         {
-            string apiUsername = UnitTestConstants.CertificateAPIUserName;
+            string apiUsername = Constants.CertificateAPIUserName;
             credentialMngr = CredentialManager.Instance;
             credential = credentialMngr.GetCredentials(ConfigManager.Instance.GetProperties(), apiUsername);
             Assert.IsNotNull(credential);
             Assert.IsInstanceOfType(credential, typeof(CertificateCredential));
             CertificateCredential certCredential = (CertificateCredential)credential;
             Assert.AreEqual(apiUsername, certCredential.UserName);
-            Assert.AreEqual(UnitTestConstants.CertificateAPIPassword, certCredential.Password);
-            Assert.AreEqual(UnitTestConstants.CertificatePath, certCredential.CertificateFile);
-            Assert.AreEqual(UnitTestConstants.CertificatePassword, certCredential.PrivateKeyPassword);
-            Assert.AreEqual(UnitTestConstants.ApplicationID, certCredential.ApplicationID);
+            Assert.AreEqual(Constants.CertificateAPIPassword, certCredential.Password);
+            Assert.AreEqual(Constants.CertificatePath, certCredential.CertificateFile);
+            Assert.AreEqual(Constants.CertificatePassword, certCredential.PrivateKeyPassword);
+            Assert.AreEqual(Constants.ApplicationID, certCredential.ApplicationID);
         }
 
         [TestMethod]

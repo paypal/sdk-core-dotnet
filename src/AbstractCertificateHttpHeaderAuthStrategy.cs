@@ -50,11 +50,11 @@ namespace PayPal
         }
 
         /// <summary>
-        /// Process Token Authorization based on API format
+        ///  Process Token Authorization based on API format
         /// </summary>
         /// <param name="certCredential"></param>
-        /// <param name="toknAuthorization"></param>
+        /// <param name="tokenAuthorize"></param>
         /// <returns></returns>
-        protected abstract Dictionary<string, string> ProcessTokenAuthorization(CertificateCredential certCredential, TokenAuthorization toknAuthorization);
+        protected abstract Dictionary<string, string> ProcessTokenAuthorization(CertificateCredential certCredential, TokenAuthorization tokenAuthorize);
     }
 }

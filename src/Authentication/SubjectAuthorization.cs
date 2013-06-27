@@ -7,7 +7,7 @@ namespace PayPal.Authentication
         /// <summary>
         /// Subject information
         /// </summary>
-        private string subjct;
+        private string Sub;
            
         /// <summary>
         /// Constructor
@@ -19,7 +19,7 @@ namespace PayPal.Authentication
             {
                 throw new ArgumentException("SubjectAuthorization arguments cannot be null or empty");
             }
-            this.subjct = subjct;
+            this.Sub = subjct;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace PayPal.Authentication
         {
             get
             {
-                return subjct;
+                return Sub;
             }
         }
     }

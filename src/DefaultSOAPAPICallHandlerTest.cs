@@ -12,8 +12,8 @@ namespace PayPal.UnitTest
         [Ignore] 
 	    public void EndPoint() 
         {
-            defaultSOAPHandler = new DefaultSOAPAPICallHandler(ConfigManager.Instance.GetProperties(), UnitTestConstants.PayloadNVP, string.Empty, string.Empty);
-		    Assert.AreEqual(UnitTestConstants.APIEndpointSOAP, defaultSOAPHandler.GetEndPoint());
+            defaultSOAPHandler = new DefaultSOAPAPICallHandler(ConfigManager.Instance.GetProperties(), Constants.PayloadNVP, string.Empty, string.Empty);
+		    Assert.AreEqual(Constants.APIEndpointSOAP, defaultSOAPHandler.GetEndPoint());
         }
     
         [TestMethod]

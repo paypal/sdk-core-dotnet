@@ -2,28 +2,17 @@ namespace PayPal.Exception
 {
     public class OAuthException : System.Exception
     {
-        #region Priavte Members
-        /// <summary>
-        /// Short message
-        /// </summary>
-        private string oauthExpMessage;
-        /// <summary>
-        /// Long message
-        /// </summary>
-        private string oauthExpLongMessage;
-
-        #endregion
-
         #region Constructors
 
         public OAuthException(string oauthExceptionMessage, System.Exception exception)
         {
-            this.oauthExpMessage = oauthExceptionMessage;
-            this.oauthExpLongMessage = exception.Message;
+            this.OAuthExceptionMessage = oauthExceptionMessage;
+            this.OAuthExceptionLongMessage = exception.Message;
         }
+
         public OAuthException(string oauthExceptionMessage)
         {
-            this.oauthExpMessage = oauthExceptionMessage;
+            this.OAuthExceptionMessage = oauthExceptionMessage;
         }
 
         #endregion
@@ -33,31 +22,19 @@ namespace PayPal.Exception
         /// <summary>
         /// Short message.
         /// </summary>
-        public string OauthExceptionMessage
+        public string OAuthExceptionMessage
         {
-            get
-            {
-                return oauthExpMessage;
-            }
-            set
-            {
-                oauthExpMessage = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
         /// Long message
         /// </summary>
-        public string OauthExceptionLongMessage
+        public string OAuthExceptionLongMessage
         {
-            get
-            {
-                return oauthExpLongMessage;
-            }
-            set
-            {
-                oauthExpLongMessage = value;
-            }
+            get;
+            set;
         }
 
         #endregion       

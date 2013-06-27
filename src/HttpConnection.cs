@@ -22,9 +22,9 @@ namespace PayPal
         /// <summary>
         /// Logger
         /// </summary>
-        private static ILog logger = LogManagerWrapper.GetLogger(typeof(ConnectionManager));
+        private static ILog Logger = LogManagerWrapper.GetLogger(typeof(ConnectionManager));
 
-        private static ArrayList retryCodes = new ArrayList(new HttpStatusCode[] 
+        private static ArrayList RetryCodes = new ArrayList(new HttpStatusCode[] 
                                                 { HttpStatusCode.GatewayTimeout,
                                                   HttpStatusCode.RequestTimeout,
                                                   HttpStatusCode.InternalServerError,
@@ -34,11 +34,11 @@ namespace PayPal
         /// <summary>
         /// Dynamic Configuration
         /// </summary>
-        private Dictionary<string, string> config;
+        private Dictionary<string, string> Config;
 
         public HttpConnection(Dictionary<string, string> config)
         {
-            this.config = config;
+            this.Config = config;
         }
 
         public string Execute(string payLoad, HttpWebRequest httpRequest)
@@ -57,7 +57,7 @@ namespace PayPal
                                     writerStream.Write(payLoad);
                                     writerStream.Flush();
                                     writerStream.Close();
-                                    logger.Debug(payLoad);
+                                    Logger.Debug(payLoad);
                                 }
 
                             }
@@ -67,8 +67,8 @@ namespace PayPal
                     }
                 }
 
-                int retriesConfigured = config.ContainsKey(BaseConstants.HttpConnectionRetryConfig) ?
-                    Convert.ToInt32(config[BaseConstants.HttpConnectionRetryConfig]) : 0;
+                int retriesConfigured = Config.ContainsKey(BaseConstants.HttpConnectionRetryConfig) ?
+                    Convert.ToInt32(Config[BaseConstants.HttpConnectionRetryConfig]) : 0;
                 int retries = 0;
 
                 do
@@ -80,8 +80,8 @@ namespace PayPal
                             using (StreamReader readerStream = new StreamReader(responseWeb.GetResponseStream()))
                             {
                                 string response = readerStream.ReadToEnd().Trim();
-                                logger.Debug("Service response");
-                                logger.Debug(response);
+                                Logger.Debug("Service response");
+                                Logger.Debug(response);
                                 return response;
                             }
                         }
@@ -95,9 +95,9 @@ namespace PayPal
                             using (StreamReader readerStream = new StreamReader(ex.Response.GetResponseStream()))
                             {
                                 response = readerStream.ReadToEnd().Trim();
-                                logger.Error("Error Response: " + response);
+                                Logger.Error("Error Response: " + response);
                             }
-                            logger.Info("Got " + statusCode.ToString() + " status code from server");
+                            Logger.Info("Got " + statusCode.ToString() + " status code from server");
                         }
                         if (!RequiresRetry(ex))
                         {
@@ -127,7 +127,7 @@ namespace PayPal
                 return false;
             }
             HttpStatusCode status = ((HttpWebResponse)ex.Response).StatusCode;
-            return retryCodes.Contains(status);
+            return RetryCodes.Contains(status);
         }
     }
 }

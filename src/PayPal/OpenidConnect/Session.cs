@@ -21,11 +21,11 @@ namespace PayPal.OpenidConnect
             Dictionary<string, string> config = null;
             if (apiContext.Config == null)
             {
-                config = ConfigManager.getConfigWithDefaults(ConfigManager.Instance.GetProperties());
+                config = ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());
             }
             else
             {
-                config = ConfigManager.getConfigWithDefaults(apiContext.Config);
+                config = ConfigManager.GetConfigWithDefaults(apiContext.Config);
             }
             string baseURL = null;
             if (config.ContainsKey(BaseConstants.OpenIDRedirectURI))
@@ -81,11 +81,11 @@ namespace PayPal.OpenidConnect
             Dictionary<string, string> config = null;
             if (apiContext.Config == null)
             {
-                config = ConfigManager.getConfigWithDefaults(ConfigManager.Instance.GetProperties());
+                config = ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());
             }
             else
             {
-                config = ConfigManager.getConfigWithDefaults(apiContext.Config);
+                config = ConfigManager.GetConfigWithDefaults(apiContext.Config);
             }
             string baseURL = null;
             if (config.ContainsKey(BaseConstants.OpenIDRedirectURI))

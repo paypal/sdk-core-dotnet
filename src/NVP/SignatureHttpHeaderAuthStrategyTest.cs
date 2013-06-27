@@ -14,19 +14,19 @@ namespace PayPal
         [TestMethod]
         public void GenerateHeaderStrategyWithToken()
         {
-            signHttpHeaderAuthStrategy = new SignatureHttpHeaderAuthStrategy(UnitTestConstants.APIEndpointNVP);
-            TokenAuthorization toknAuthorization = new TokenAuthorization(UnitTestConstants.AccessToken, UnitTestConstants.TokenSecret);
+            signHttpHeaderAuthStrategy = new SignatureHttpHeaderAuthStrategy(Constants.APIEndpointNVP);
+            TokenAuthorization toknAuthorization = new TokenAuthorization(Constants.AccessToken, Constants.TokenSecret);
             signCredential = new SignatureCredential("testusername", "testpassword", "testsignature", toknAuthorization);
             Dictionary<string, string> header = signHttpHeaderAuthStrategy.GenerateHeaderStrategy(signCredential);
             string authHeader = header[BaseConstants.PayPalAuthorizationPlatformHeader];
             string[] headers = authHeader.Split(',');
-            Assert.AreEqual("token=" + UnitTestConstants.AccessToken, headers[0]);
+            Assert.AreEqual("token=" + Constants.AccessToken, headers[0]);
         }  
 
         [TestMethod]
         public void GenerateHeaderStrategyWithoutToken()
         {
-            SignatureHttpHeaderAuthStrategy signatureHttpHeaderAuthStrategy = new SignatureHttpHeaderAuthStrategy(UnitTestConstants.APIEndpointNVP);
+            SignatureHttpHeaderAuthStrategy signatureHttpHeaderAuthStrategy = new SignatureHttpHeaderAuthStrategy(Constants.APIEndpointNVP);
             signCredential = new SignatureCredential("testusername", "testpassword", "testsignature");
             Dictionary<string, string> header = signatureHttpHeaderAuthStrategy.GenerateHeaderStrategy(signCredential);
             string username = header[BaseConstants.PayPalSecurityUserIDHeader];

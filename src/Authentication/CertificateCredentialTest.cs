@@ -41,8 +41,8 @@ namespace PayPal
         [TestMethod]
         public void ApplicationID()
         {
-            certCredential.ApplicationID = UnitTestConstants.ApplicationID ;
-            Assert.AreEqual(UnitTestConstants.ApplicationID, certCredential.ApplicationID);
+            certCredential.ApplicationID = Constants.ApplicationID ;
+            Assert.AreEqual(Constants.ApplicationID, certCredential.ApplicationID);
         }               
 
         [TestMethod]
@@ -57,10 +57,10 @@ namespace PayPal
         [TestMethod]
         public void ThirdPartyAuthorizationTestForToken()
         {
-            IThirdPartyAuthorization thirdPartyAuthorization = new TokenAuthorization(UnitTestConstants.AccessToken, UnitTestConstants.TokenSecret);
+            IThirdPartyAuthorization thirdPartyAuthorization = new TokenAuthorization(Constants.AccessToken, Constants.TokenSecret);
             certCredential.ThirdPartyAuthorization = thirdPartyAuthorization;
-            Assert.AreEqual(((TokenAuthorization)thirdPartyAuthorization).AccessToken, UnitTestConstants.AccessToken);
-            Assert.AreEqual(((TokenAuthorization)thirdPartyAuthorization).TokenSecret, UnitTestConstants.TokenSecret);
+            Assert.AreEqual(((TokenAuthorization)thirdPartyAuthorization).AccessToken, Constants.AccessToken);
+            Assert.AreEqual(((TokenAuthorization)thirdPartyAuthorization).AccessTokenSecret, Constants.TokenSecret);
         }
 
         [TestMethod]

@@ -22,34 +22,34 @@ namespace PayPal
     public class IPNMessage
     {
         /// <summary>
-        /// Result from ipn validation call
+        /// Result from IPN validation call
         /// </summary>
-        private bool? ipnValidationResult;
+        private bool? IPNValidationResult;
    
         /// <summary>
         /// Name value collection containing incoming IPN message key / value pair
         /// </summary>
-        private NameValueCollection nvcMap = new NameValueCollection();
+        private NameValueCollection NVCMap = new NameValueCollection();
 
         /// <summary>
         /// Incoming IPN message converted to query string format. Used when validating the IPN message.
         /// </summary>
-        private string ipnRequest = string.Empty;
+        private string IPNRequest = string.Empty;
 
         /// <summary>
         /// Encoding format for IPN messages
         /// </summary>
-        private const string ipnEncoding = "windows-1252";
+        private const string IPNEncoding = "windows-1252";
 
         /// <summary>
         /// SDK configuration parameters
         /// </summary>
-        private Dictionary<string, string> config;
+        private Dictionary<string, string> Config;
 
         /// <summary>
         /// Logger
         /// </summary>
-        private static readonly ILog logger = LogManagerWrapper.GetLogger(typeof(IPNMessage));
+        private static readonly ILog Logger = LogManagerWrapper.GetLogger(typeof(IPNMessage));
 
         
         /// <summary>
@@ -65,15 +65,15 @@ namespace PayPal
                 {
                     foreach (string key in nvc.Keys)
                     {
-                        items.Add(string.Concat(key, "=", System.Web.HttpUtility.UrlEncode(nvc[key], Encoding.GetEncoding(ipnEncoding))));
-                        nvcMap.Add(key, nvc[key]);
+                        items.Add(string.Concat(key, "=", System.Web.HttpUtility.UrlEncode(nvc[key], Encoding.GetEncoding(IPNEncoding))));
+                        NVCMap.Add(key, nvc[key]);
                     }
-                    ipnRequest = string.Join("&", items.ToArray())+"&cmd=_notify-validate";
+                    IPNRequest = string.Join("&", items.ToArray())+"&cmd=_notify-validate";
                 }
             }
             catch (System.Exception ex)
             {
-                logger.Debug(this.GetType().Name + " : " + ex.Message);
+                Logger.Debug(this.GetType().Name + " : " + ex.Message);
             }
         }
 
@@ -84,7 +84,7 @@ namespace PayPal
         [Obsolete("use IPNMessage(byte[] parameters) instead")]
         public IPNMessage(NameValueCollection nvc)
         {
-            this.config = ConfigManager.Instance.GetProperties();
+            this.Config = ConfigManager.Instance.GetProperties();
             this.Initialize(nvc);
         }
 
@@ -95,8 +95,8 @@ namespace PayPal
         /// <param name="parameters">byte array read from request</param>
         public IPNMessage(Dictionary<string, string> config, byte[] parameters)
         {
-            this.config = config;
-            this.Initialize(HttpUtility.ParseQueryString(Encoding.GetEncoding(ipnEncoding).GetString(parameters), Encoding.GetEncoding(ipnEncoding)));
+            this.Config = config;
+            this.Initialize(HttpUtility.ParseQueryString(Encoding.GetEncoding(IPNEncoding).GetString(parameters), Encoding.GetEncoding(IPNEncoding)));
         }
 
         /// <summary>
@@ -105,8 +105,8 @@ namespace PayPal
         /// <param name="parameters">byte array read from request</param>
         public IPNMessage(byte[] parameters)
         {
-            this.config = ConfigManager.Instance.GetProperties();
-            this.Initialize(HttpUtility.ParseQueryString(Encoding.GetEncoding(ipnEncoding).GetString(parameters), Encoding.GetEncoding(ipnEncoding)));
+            this.Config = ConfigManager.Instance.GetProperties();
+            this.Initialize(HttpUtility.ParseQueryString(Encoding.GetEncoding(IPNEncoding).GetString(parameters), Encoding.GetEncoding(IPNEncoding)));
         }
 
         /// <summary>
@@ -116,9 +116,9 @@ namespace PayPal
         public bool Validate()
         {
             /// If ipn has been previously validated, do not repeat the validation process.
-            if (this.ipnValidationResult != null)
+            if (this.IPNValidationResult != null)
             {
-                return this.ipnValidationResult.Value;
+                return this.IPNValidationResult.Value;
             }
             else
             {
@@ -130,11 +130,11 @@ namespace PayPal
                     //Set values for the request back
                     request.Method = "POST";
                     request.ContentType = "application/x-www-form-urlencoded";
-                    request.ContentLength = ipnRequest.Length;
+                    request.ContentLength = IPNRequest.Length;
 
                     //Send the request to PayPal and get the response
-                    StreamWriter streamOut = new StreamWriter(request.GetRequestStream(), Encoding.GetEncoding(ipnEncoding));
-                    streamOut.Write(ipnRequest);
+                    StreamWriter streamOut = new StreamWriter(request.GetRequestStream(), Encoding.GetEncoding(IPNEncoding));
+                    streamOut.Write(IPNRequest);
                     streamOut.Close();
                     StreamReader streamIn = new StreamReader(request.GetResponse().GetResponseStream());
                     string strResponse = streamIn.ReadToEnd();
@@ -142,32 +142,32 @@ namespace PayPal
 
                     if (strResponse.Equals("VERIFIED"))
                     {
-                        this.ipnValidationResult = true;
+                        this.IPNValidationResult = true;
                     }
                     else
                     {
-                        logger.Info("IPN validation failed. Got response: " + strResponse);
-                        this.ipnValidationResult = false;
+                        Logger.Info("IPN validation failed. Got response: " + strResponse);
+                        this.IPNValidationResult = false;
                     }
                 }
                 catch (System.Exception ex)
                 {
-                    logger.Info(this.GetType().Name + " : " + ex.Message);
+                    Logger.Info(this.GetType().Name + " : " + ex.Message);
 
                 }
-                return this.ipnValidationResult.HasValue ? this.ipnValidationResult.Value : false;
+                return this.IPNValidationResult.HasValue ? this.IPNValidationResult.Value : false;
             }
         }
 
         private string GetIPNEndpoint()
         {
-            if(config.ContainsKey(BaseConstants.IPNEndpointConfig) && !string.IsNullOrEmpty(config[BaseConstants.IPNEndpointConfig]))
+            if(Config.ContainsKey(BaseConstants.IPNEndpointConfig) && !string.IsNullOrEmpty(Config[BaseConstants.IPNEndpointConfig]))
             {
-                return config[BaseConstants.IPNEndpointConfig];
+                return Config[BaseConstants.IPNEndpointConfig];
             }
-            else if (config.ContainsKey(BaseConstants.ApplicationModeConfig))
+            else if (Config.ContainsKey(BaseConstants.ApplicationModeConfig))
             {
-                switch (config[BaseConstants.ApplicationModeConfig].ToLower())
+                switch (Config[BaseConstants.ApplicationModeConfig].ToLower())
                 {
                     case BaseConstants.SandboxMode:
                         return BaseConstants.IPNSandboxEndpoint;
@@ -190,7 +190,7 @@ namespace PayPal
         {
             get
             {
-                return nvcMap;
+                return NVCMap;
             }
         }
       
@@ -201,7 +201,7 @@ namespace PayPal
         /// <returns></returns>
         public string IPNValue(string ipnName)
         {
-            return this.nvcMap[ipnName];
+            return this.NVCMap[ipnName];
         }
         
         /// <summary>
@@ -211,8 +211,8 @@ namespace PayPal
         {
             get
             {
-                return this.nvcMap["txn_type"] != null ? this.nvcMap["txn_type"] :
-                    (this.nvcMap["transaction_type"] != null ? this.nvcMap["transaction_type"] : null);
+                return this.NVCMap["txn_type"] != null ? this.NVCMap["txn_type"] :
+                    (this.NVCMap["transaction_type"] != null ? this.NVCMap["transaction_type"] : null);
             }
         }
     }

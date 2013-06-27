@@ -5,7 +5,7 @@ namespace PayPal.OAuth
 {
     public class PayPalURLEncoder
     {
-        public const string digits = "0123456789abcdef";
+        public const string Digits = "0123456789abcdef";
 
         public static string Encode(string message, string name)
         {
@@ -60,8 +60,8 @@ namespace PayPal.OAuth
             for (int j = 0; j < bytes.Length; j++)
             {
                 builder.Append('%');
-                builder.Append(digits[((bytes[j] & 0xf0) >> 4)]);
-                builder.Append(digits[(bytes[j] & 0xf)]);
+                builder.Append(Digits[((bytes[j] & 0xf0) >> 4)]);
+                builder.Append(Digits[(bytes[j] & 0xf)]);
             }
         }
     }

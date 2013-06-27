@@ -22,12 +22,12 @@ namespace PayPal.Manager
         /// <summary>
         /// Logger
         /// </summary>
-        private static readonly ILog logger = LogManagerWrapper.GetLogger(typeof(CredentialManager));
+        private static readonly ILog Logger = LogManagerWrapper.GetLogger(typeof(CredentialManager));
 
         /// <summary>
         /// Singleton instance of ConnectionManager
         /// </summary>
-        private static readonly CredentialManager singletonInstance = new CredentialManager();
+        private static readonly CredentialManager SingletonInstance = new CredentialManager();
 
         private static string accountPrefix = "account";
         
@@ -49,7 +49,7 @@ namespace PayPal.Manager
         {
             get
             {
-                return singletonInstance;
+                return SingletonInstance;
             }
         }
 
@@ -57,19 +57,19 @@ namespace PayPal.Manager
         /// Returns the default Account Name
         /// </summary>
         /// <returns></returns>
-        private Account GetAccount(Dictionary<string, string> config, string apiUsername)
+        private Account GetAccount(Dictionary<string, string> config, string apiUserName)
         {                        
             foreach (KeyValuePair<string, string> kvPair in config)
             {
                 if(kvPair.Key.EndsWith(".apiUsername"))
                 {
-                    if (apiUsername == null || apiUsername.Equals(kvPair.Value)) 
+                    if (apiUserName == null || apiUserName.Equals(kvPair.Value)) 
                     {
                         int index = Convert.ToInt32(kvPair.Key.Substring(accountPrefix.Length, kvPair.Key.IndexOf('.') - accountPrefix.Length ));
                         Account accnt = new Account();
                         if (config.ContainsKey(accountPrefix +  index + ".apiUsername")) 
                         {
-                            accnt.APIUsername = config[accountPrefix +  index + ".apiUsername"];
+                            accnt.APIUserName = config[accountPrefix +  index + ".apiUsername"];
                         }
                         if(config.ContainsKey(accountPrefix +  index + ".apiPassword"))
                         {
@@ -117,7 +117,7 @@ namespace PayPal.Manager
             }
             if (!string.IsNullOrEmpty(accnt.APICertificate))
             {
-                CertificateCredential certCredential = new CertificateCredential(accnt.APIUsername, accnt.APIPassword, accnt.APICertificate, accnt.PrivateKeyPassword);
+                CertificateCredential certCredential = new CertificateCredential(accnt.APIUserName, accnt.APIPassword, accnt.APICertificate, accnt.PrivateKeyPassword);
                 certCredential.ApplicationID = accnt.ApplicationID;
                 if (!string.IsNullOrEmpty(accnt.CertificateSubject))
                 {
@@ -128,7 +128,7 @@ namespace PayPal.Manager
             }
             else
             {
-                SignatureCredential signCredential = new SignatureCredential(accnt.APIUsername, accnt.APIPassword, accnt.APISignature);
+                SignatureCredential signCredential = new SignatureCredential(accnt.APIUserName, accnt.APIPassword, accnt.APISignature);
                 signCredential.ApplicationID = accnt.ApplicationID;
                 if (!string.IsNullOrEmpty(accnt.SignatureSubject))
                 {
@@ -168,7 +168,7 @@ namespace PayPal.Manager
         {
             if (string.IsNullOrEmpty(apiCredentials.UserName))
             {
-                throw new InvalidCredentialException(BaseConstants.ErrorMessages.ErrorUsername);
+                throw new InvalidCredentialException(BaseConstants.ErrorMessages.ErrorUserName);
             }
             if (string.IsNullOrEmpty(apiCredentials.Password))
             {
@@ -188,7 +188,7 @@ namespace PayPal.Manager
         {
             if (string.IsNullOrEmpty(apiCredentials.UserName))
             {
-                throw new InvalidCredentialException(BaseConstants.ErrorMessages.ErrorUsername);
+                throw new InvalidCredentialException(BaseConstants.ErrorMessages.ErrorUserName);
             }
             if (string.IsNullOrEmpty(apiCredentials.Password))
             {

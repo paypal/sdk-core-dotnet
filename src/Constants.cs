@@ -1,6 +1,6 @@
 namespace PayPal
 {
-    static class UnitTestConstants
+    static class Constants
     {
 	    public const string APIUserName = "jb-us-seller_api1.paypal.com";
         public const string APIPassword = "WX4WTU3S8MY44S7F";

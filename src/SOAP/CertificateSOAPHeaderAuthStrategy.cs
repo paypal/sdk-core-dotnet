@@ -6,11 +6,6 @@ namespace PayPal.SOAP
     public class CertificateSOAPHeaderAuthStrategy : IAuthenticationStrategy<string, CertificateCredential>
     {
         /// <summary>
-        /// Instance of ThirdPartyAuthorization
-        /// </summary>
-        private IThirdPartyAuthorization thrdPartyAuthorization;
-
-        /// <summary>
         /// Explicit default constructor
         /// </summary>
         public CertificateSOAPHeaderAuthStrategy() { }
@@ -20,14 +15,8 @@ namespace PayPal.SOAP
         /// </summary>
         public IThirdPartyAuthorization ThirdPartyAuthorization
         {
-            get
-            {
-                return thrdPartyAuthorization;
-            }
-            set
-            {
-                this.thrdPartyAuthorization = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -38,14 +27,14 @@ namespace PayPal.SOAP
         public string GenerateHeaderStrategy(CertificateCredential credential) 
         {
 		    string payLoad = null;
-		
-            if (thrdPartyAuthorization is TokenAuthorization) 
+
+            if (ThirdPartyAuthorization is TokenAuthorization) 
             {
 			    payLoad = TokenAuthPayLoad();
-		    } 
-            else if (thrdPartyAuthorization is SubjectAuthorization) 
+		    }
+            else if (ThirdPartyAuthorization is SubjectAuthorization) 
             {
-                payLoad = AuthPayLoad(credential, (SubjectAuthorization)thrdPartyAuthorization);
+                payLoad = AuthPayLoad(credential, (SubjectAuthorization)ThirdPartyAuthorization);
 		    } 
             else 
             {

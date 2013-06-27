@@ -2,7 +2,7 @@ namespace PayPal.Exception
 {
     public class ConnectionException : System.Exception
     {
-        private string response;
+        private string Resp;
 
         /// <summary>
         /// Response payload for non-200 response
@@ -11,12 +11,14 @@ namespace PayPal.Exception
         {
             get
             {
-                return this.response;
+                return this.Resp;
             }
-            private set {
-                this.response = value;
+            private set
+            {
+                this.Resp = value;
             }
         }
+        
 
         public ConnectionException() : base() { }
 
@@ -33,7 +35,7 @@ namespace PayPal.Exception
         /// <param name="response">The response from server</param>
         public ConnectionException(string message, string response) : base(message)
         {
-            this.response = response;
+            this.Resp = response;
         }
     }
 }

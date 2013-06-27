@@ -19,7 +19,7 @@ namespace PayPal.SOAP
         /// <summary>
         /// Logger
         /// </summary>
-        private static readonly ILog logger = LogManagerWrapper.GetLogger(typeof(SignatureHttpHeaderAuthStrategy));
+        private static readonly ILog Logger = LogManagerWrapper.GetLogger(typeof(SignatureHttpHeaderAuthStrategy));
 
         /// <summary>
         /// Constructor
@@ -31,28 +31,28 @@ namespace PayPal.SOAP
         /// Processing for TokenAuthorization using SignatureCredential
 	    /// </summary>
 	    /// <param name="signCredential"></param>
-	    /// <param name="toknAuthorization"></param>
+	    /// <param name="tokenAuthorize"></param>
 	    /// <returns></returns>
 	    protected internal override Dictionary<string, string> ProcessTokenAuthorization(
-			    SignatureCredential signCredential, TokenAuthorization toknAuthorization)
+			    SignatureCredential signCredential, TokenAuthorization tokenAuthorize)
     	{
             Dictionary<string, string> headers = new Dictionary<string, string>();
             try
             {   
                 OAuthGenerator signGenerator = new OAuthGenerator(signCredential.UserName, signCredential.Password);
                 signGenerator.SetHTTPMethod(OAuthGenerator.HTTPMethod.POST);
-                signGenerator.SetToken(toknAuthorization.AccessToken);
-                signGenerator.SetTokenSecret(toknAuthorization.TokenSecret);
+                signGenerator.SetToken(tokenAuthorize.AccessToken);
+                signGenerator.SetTokenSecret(tokenAuthorize.AccessTokenSecret);
                 string tokenTimeStamp = Timestamp;
                 signGenerator.SetTokenTimestamp(tokenTimeStamp);
-                logger.Debug("token = " + toknAuthorization.AccessToken + " tokenSecret=" + toknAuthorization.TokenSecret + " uri=" + endpointURL);
+                Logger.Debug("token = " + tokenAuthorize.AccessToken + " tokenSecret=" + tokenAuthorize.AccessTokenSecret + " uri=" + endpointURL);
                 signGenerator.SetRequestURI(endpointURL);
                 
                 //Compute Signature
                 string sign = signGenerator.ComputeSignature();
-                logger.Debug("Permissions signature: " + sign);
-                string authorization = "token=" + toknAuthorization.AccessToken + ",signature=" + sign + ",timestamp=" + tokenTimeStamp;
-                logger.Debug("Authorization string: " + authorization);
+                Logger.Debug("Permissions signature: " + sign);
+                string authorization = "token=" + tokenAuthorize.AccessToken + ",signature=" + sign + ",timestamp=" + tokenTimeStamp;
+                Logger.Debug("Authorization string: " + authorization);
                 headers.Add(BaseConstants.PayPalAuthorizationMerchantHeader, authorization);
             }
             catch (OAuthException ae)

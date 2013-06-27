@@ -4,9 +4,9 @@ namespace PayPal.Util
 {
     class ReadCert
     {
-        byte[] certificate = null;
-        string filePath = string.Empty;
-        FileStream fileStrm = null;
+        private byte[] Certificate = null;
+        private string FilePath = string.Empty;
+        private FileStream fileStrm = null;
 
         /// <summary>
         /// Explicit default constructor
@@ -22,10 +22,10 @@ namespace PayPal.Util
         {
             ///loading the certificate file into profile.
             fileStrm = new FileStream(certificatePath, FileMode.Open, FileAccess.Read);
-            certificate = new byte[fileStrm.Length];
-            fileStrm.Read(certificate, 0, int.Parse(fileStrm.Length.ToString()));
+            Certificate = new byte[fileStrm.Length];
+            fileStrm.Read(Certificate, 0, int.Parse(fileStrm.Length.ToString()));
             fileStrm.Close();
-            return certificate;
+            return Certificate;
         }
     }
 }

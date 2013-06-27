@@ -8,12 +8,12 @@ namespace PayPal
         /// <summary>
         /// Access Token
         /// </summary>
-        private string tokenAccess;
+        private string Token;
 
         /// <summary>
         /// Request ID
         /// </summary>
-        private string requestID;
+        private string ReqID;
 
         /// <summary>
         /// Explicit default constructor
@@ -23,36 +23,36 @@ namespace PayPal
         /// <summary>
         /// Access Token required for the call
         /// </summary>
-        /// <param name="tokenAccess"></param>
-        public APIContext(string tokenAccess)
+        /// <param name="token"></param>
+        public APIContext(string token)
         {
-            if (string.IsNullOrEmpty(tokenAccess))
+            if (string.IsNullOrEmpty(token))
             {
                 throw new ArgumentNullException("AccessToken cannot be null");
             }
-            this.tokenAccess = tokenAccess;
+            this.Token = token;
         }
 
         /// <summary>
         /// Access Token and Request ID required for the call
         /// </summary>
-        /// <param name="tokenAccess"></param>
+        /// <param name="token"></param>
         /// <param name="requestID"></param>
-        public APIContext(string tokenAccess, string requestID)
-            : this(tokenAccess)
+        public APIContext(string token, string requestID)
+            : this(token)
         {
             if (string.IsNullOrEmpty(requestID))
             {
                 throw new ArgumentNullException("RequestId cannot be null");
             }
-            this.requestID = requestID;
+            this.ReqID = requestID;
         }
 
         public string AccessToken
         {
             get
             {
-                return tokenAccess;
+                return Token;
             }
         }
 
@@ -75,11 +75,11 @@ namespace PayPal
                 string returnID = null;
                 if (!MaskRequestID)
                 {
-                    if (string.IsNullOrEmpty(requestID))
+                    if (string.IsNullOrEmpty(ReqID))
                     {
-                        requestID = Convert.ToString(Guid.NewGuid());
+                        ReqID = Convert.ToString(Guid.NewGuid());
                     }
-                    returnID = requestID;
+                    returnID = ReqID;
                 }
                 return returnID;
             }

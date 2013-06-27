@@ -30,18 +30,18 @@ namespace PayPal
         /// <summary>
         /// Logs output statements, errors, debug info to a text file    
         /// </summary>
-        private static readonly ILog logger = LogManagerWrapper.GetLogger(typeof(PayPalResource));
+        private static readonly ILog Logger = LogManagerWrapper.GetLogger(typeof(PayPalResource));
 
-        private static ArrayList retryCodes = new ArrayList(new HttpStatusCode[] 
+        private static ArrayList RetryCodes = new ArrayList(new HttpStatusCode[] 
                                                 { HttpStatusCode.GatewayTimeout,
                                                   HttpStatusCode.RequestTimeout,
                                                   HttpStatusCode.InternalServerError,
                                                   HttpStatusCode.ServiceUnavailable,
                                                 });
 
-        public const string SdkID = "rest-sdk-dotnet";
+        public const string SDKID = "rest-sdk-dotnet";
 
-        public const string SdkVersion = "0.7.1";
+        public const string SDKVersion = "0.7.1";
 
         public static T ConfigureAndExecute<T>(string accessToken, HttpMethod httpMethod, string resource, string payLoad)
         {
@@ -65,18 +65,18 @@ namespace PayPal
                 Dictionary<string, string> config = null;
                 if (apiContext.Config == null)
                 {
-                    config = ConfigManager.getConfigWithDefaults(ConfigManager.Instance.GetProperties());
+                    config = ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());
                 }
                 else
                 {
-                    config = ConfigManager.getConfigWithDefaults(apiContext.Config);
+                    config = ConfigManager.GetConfigWithDefaults(apiContext.Config);
                 }
                 baseUri = GetBaseURI(config);
                 bool success = Uri.TryCreate(baseUri, resource, out uniformResourceIdentifier);
 
                 RESTConfiguration restConfiguration = new RESTConfiguration(config, headersMap);
-                restConfiguration.authorizationToken = apiContext.AccessToken;
-                restConfiguration.requestID = apiContext.RequestID;
+                restConfiguration.AuthorizationToken = apiContext.AccessToken;
+                restConfiguration.RequestID = apiContext.RequestID;
                 headers = restConfiguration.GetHeaders();
 
                 ConnectionManager connMngr = ConnectionManager.Instance;
@@ -103,11 +103,11 @@ namespace PayPal
                         httpRequest.Headers.Add(header.Key, header.Value);
                     }
                 }
-                if (logger.IsDebugEnabled)
+                if (Logger.IsDebugEnabled)
                 {
                     foreach (string headerName in httpRequest.Headers)
                     {
-                        logger.Debug(headerName + ":" + httpRequest.Headers[headerName]);
+                        Logger.Debug(headerName + ":" + httpRequest.Headers[headerName]);
                     }
                 }
                 HttpConnection connectionHttp = new HttpConnection(config);
@@ -143,7 +143,7 @@ namespace PayPal
                 return false;
             }
             HttpStatusCode status = ((HttpWebResponse)ex.Response).StatusCode;
-            return retryCodes.Contains(status);
+            return RetryCodes.Contains(status);
         }
 
         /// <summary>

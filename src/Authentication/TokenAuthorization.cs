@@ -7,26 +7,26 @@ namespace PayPal.Authentication
         /// <summary>
         /// Access Token
         /// </summary>
-        private string accssToken;
+        private string Token;
 
         /// <summary>
-        /// Token Secret
+        /// Access Token Secret
         /// </summary>
-        private string toknSecret;
+        private string TokenSecret;
 
         /// <summary>
-        /// TokenAuthorization
+        /// Token Authorization
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="token"></param>
         /// <param name="tokenSecret"></param>
-        public TokenAuthorization(string accssToken, string toknSecret) : base()
+        public TokenAuthorization(string token, string tokenSecret) : base()
         {
-            if (string.IsNullOrEmpty(accssToken) || string.IsNullOrEmpty(toknSecret))
+            if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(tokenSecret))
             {
                 throw new ArgumentException("TokenAuthorization arguments cannot be empty");
             }
-            this.accssToken = accssToken;
-            this.toknSecret = toknSecret;
+            this.Token = token;
+            this.TokenSecret = tokenSecret;
         }
         
         /// <summary>
@@ -36,18 +36,18 @@ namespace PayPal.Authentication
         {
             get
             {
-                return accssToken;
+                return Token;
             }
         }
 
         /// <summary>
-        /// Gets the Token Secret
+        /// Gets the Access Token Secret
         /// </summary>
-        public string TokenSecret
+        public string AccessTokenSecret
         {
             get
             {
-                return toknSecret;
+                return TokenSecret;
             }
         }
     }

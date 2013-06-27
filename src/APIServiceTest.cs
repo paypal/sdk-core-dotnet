@@ -16,7 +16,7 @@ namespace PayPal
         [TestMethod]
         public void MakeRequestUsingNVPCertificateCredential()
         {
-            handler = new PlatformAPICallPreHandler(ConfigManager.Instance.GetProperties(), UnitTestConstants.PayloadNVP, "AdaptivePayments", "ConvertCurrency", UnitTestConstants.CertificateAPIUserName, null, null);
+            handler = new PlatformAPICallPreHandler(ConfigManager.Instance.GetProperties(), Constants.PayloadNVP, "AdaptivePayments", "ConvertCurrency", Constants.CertificateAPIUserName, null, null);
             Thread.Sleep(5000);
             APIService service = new APIService(ConfigManager.Instance.GetProperties());
             string response = service.MakeRequestUsing(handler);
@@ -27,7 +27,7 @@ namespace PayPal
         [TestMethod]
         public void MakeRequestUsingNVPSignatureCredential()
         {
-            handler = new PlatformAPICallPreHandler(ConfigManager.Instance.GetProperties(), UnitTestConstants.PayloadNVP, "AdaptivePayments", "ConvertCurrency", UnitTestConstants.APIUserName, null, null);
+            handler = new PlatformAPICallPreHandler(ConfigManager.Instance.GetProperties(), Constants.PayloadNVP, "AdaptivePayments", "ConvertCurrency", Constants.APIUserName, null, null);
             Thread.Sleep(5000);
             service = new APIService(ConfigManager.Instance.GetProperties());
             string response = service.MakeRequestUsing(handler);           
@@ -39,8 +39,8 @@ namespace PayPal
         [Ignore] 
         public void MakeRequestUsingSOAPSignatureCredential()
         {
-            defaultSOAPHandler = new DefaultSOAPAPICallHandler(ConfigManager.Instance.GetProperties(), UnitTestConstants.PayloadSOAP, null, null);
-            handler = new MerchantAPICallPreHandler(ConfigManager.Instance.GetProperties(), defaultSOAPHandler, UnitTestConstants.APIUserName, null, null);
+            defaultSOAPHandler = new DefaultSOAPAPICallHandler(ConfigManager.Instance.GetProperties(), Constants.PayloadSOAP, null, null);
+            handler = new MerchantAPICallPreHandler(ConfigManager.Instance.GetProperties(), defaultSOAPHandler, Constants.APIUserName, null, null);
             service = new APIService(ConfigManager.Instance.GetProperties());
             string response = service.MakeRequestUsing(handler);
             Assert.IsNotNull(response);

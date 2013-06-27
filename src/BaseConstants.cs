@@ -104,7 +104,7 @@ namespace PayPal
         public const string HttpConnectionRetryConfig = "requestRetries";
 
         // Configuration key suffix for Credential Username
-        public const string CredentialUsernameConfig = "apiUsername";
+        public const string CredentialUserNameConfig = "apiUsername";
 
         // Configuration key suffix for Credential Password
         public const string CredentialPasswordConfig = "apiPassword";
@@ -135,14 +135,13 @@ namespace PayPal
         public const string OpenIDRedirectURIConstant = "https://www.paypal.com/webapps/auth/protocol/openidconnect";
 
         public const string OAuthEndpoint = "oauth.EndPoint";
-
-
+        
         public static class ErrorMessages
         {
             public const string ProfileNull = "APIProfile cannot be null.";
             public const string PayloadNull = "PayLoad cannot be null or empty.";
             public const string ErrorEndpoint = "Endpoint cannot be empty.";
-            public const string ErrorUsername = "API Username cannot be empty";
+            public const string ErrorUserName = "API Username cannot be empty";
             public const string ErrorPassword = "API Password cannot be empty.";
             public const string ErrorSignature = "API Signature cannot be empty.";
             public const string ErrorAppID = "Application ID cannot be empty.";

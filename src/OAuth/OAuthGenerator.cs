@@ -9,19 +9,19 @@ namespace PayPal.Authentication
 {
     public class OAuthGenerator
     {
-        private static string delimiter = "&";
-        private static string separator = "=";
-        private static string method = "ASCII";
-        private static string version = "1.0";
-        private static string authentication = "HMAC-SHA1";
-        private string consumerKey;
-        private string token;
-        private byte[] consumerSecret;
-        private byte[] tokenSecret;
-        private string requestURI;
-        private string tokenTimestamp;
+        private static string Delimiter = "&";
+        private static string Separator = "=";
+        private static string Method = "ASCII";
+        private static string Version = "1.0";
+        private static string Authentication = "HMAC-SHA1";
+        private string ConsumerKey;
+        private string Token;
+        private byte[] ConsumerSecret;
+        private byte[] TokenSecret;
+        private string RequestURI;
+        private string TokenTimestamp;
         private HTTPMethod methodHTTP;
-        private ArrayList queryParameters;
+        private ArrayList QueryParameters;
 
         public enum HTTPMethod
         {
@@ -35,9 +35,9 @@ namespace PayPal.Authentication
         /// <param name="consumerSecret"></param>        
         public OAuthGenerator(string consumerKey, string consumerSecret)
         {
-            this.queryParameters = new ArrayList();
-            this.consumerKey = consumerKey;
-            this.consumerSecret = System.Text.Encoding.ASCII.GetBytes(consumerSecret);
+            this.QueryParameters = new ArrayList();
+            this.ConsumerKey = consumerKey;
+            this.ConsumerSecret = System.Text.Encoding.ASCII.GetBytes(consumerSecret);
             this.methodHTTP = HTTPMethod.POST;
         }
 
@@ -47,7 +47,7 @@ namespace PayPal.Authentication
         /// <param name="token"></param>
         public void SetToken(string token)
         {
-            this.token = token;
+            this.Token = token;
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace PayPal.Authentication
         /// <param name="secret"></param>
         public void SetTokenSecret(string secret)
         {
-            this.tokenSecret = System.Text.Encoding.ASCII.GetBytes(secret);
+            this.TokenSecret = System.Text.Encoding.ASCII.GetBytes(secret);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace PayPal.Authentication
         /// <param name="value"></param>
         public void AddParameter(string name, string value)
         {
-            queryParameters.Add(new Parameter(name, value));
+            QueryParameters.Add(new Parameter(name, value));
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace PayPal.Authentication
         /// <param name="uri"></param>
         public void SetRequestURI(string uri)
         {
-            this.requestURI = NormalizeURI(uri);
+            this.RequestURI = NormalizeURI(uri);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace PayPal.Authentication
         /// <param name="timestamp"></param>
         public void SetTokenTimestamp(string timestamp)
         {
-            this.tokenTimestamp = timestamp;
+            this.TokenTimestamp = timestamp;
         }
 
         //TODO: Remove me
@@ -125,13 +125,13 @@ namespace PayPal.Authentication
         /// <returns></returns>
         public string ComputeSignature()
         {
-            if (consumerSecret == null || consumerSecret.Length == 0)
+            if (ConsumerSecret == null || ConsumerSecret.Length == 0)
             {
                 throw new OAuthException("Consumer Secret or key not set.");
             }
 
-            if (token == string.Empty || tokenSecret.Length == 0
-                || requestURI == string.Empty || tokenTimestamp == string.Empty)
+            if (Token == string.Empty || TokenSecret.Length == 0
+                || RequestURI == string.Empty || TokenTimestamp == string.Empty)
             {
                 throw new OAuthException(
                         "AuthToken or TokenSecret or Request URI or Timestamp not set.");
@@ -140,31 +140,31 @@ namespace PayPal.Authentication
             string signature = string.Empty;
             try
             {
-                string consumerSec = System.Text.Encoding.GetEncoding(method).GetString(consumerSecret);
+                string consumerSec = System.Text.Encoding.GetEncoding(Method).GetString(ConsumerSecret);
                 //TODO: Why encode consumersecret twice?
-                string key = PayPalURLEncoder.Encode(consumerSec, method);
-                key += delimiter;
-                string tokenSec = System.Text.Encoding.GetEncoding(method).GetString(tokenSecret);
-                key += PayPalURLEncoder.Encode(tokenSec, method);
+                string key = PayPalURLEncoder.Encode(consumerSec, Method);
+                key += Delimiter;
+                string tokenSec = System.Text.Encoding.GetEncoding(Method).GetString(TokenSecret);
+                key += PayPalURLEncoder.Encode(tokenSec, Method);
                 StringBuilder paramString = new StringBuilder();
-                ArrayList oAuthParams = queryParameters;
-                oAuthParams.Add(new Parameter("oauth_consumer_key", consumerKey));
-                oAuthParams.Add(new Parameter("oauth_version", version));
-                oAuthParams.Add(new Parameter("oauth_signature_method", authentication));
-                oAuthParams.Add(new Parameter("oauth_token", token));
-                oAuthParams.Add(new Parameter("oauth_timestamp", tokenTimestamp));
+                ArrayList oAuthParams = QueryParameters;
+                oAuthParams.Add(new Parameter("oauth_consumer_key", ConsumerKey));
+                oAuthParams.Add(new Parameter("oauth_version", Version));
+                oAuthParams.Add(new Parameter("oauth_signature_method", Authentication));
+                oAuthParams.Add(new Parameter("oauth_token", Token));
+                oAuthParams.Add(new Parameter("oauth_timestamp", TokenTimestamp));
                 oAuthParams.Sort();
                 int numParams = oAuthParams.Count - 1;
                 for (int counter = 0; counter <= numParams; counter++)
                 {
                     Parameter current = (Parameter)oAuthParams[counter];
-                    paramString.Append(current.ParameterName).Append(separator).Append(current.ParameterValue);
+                    paramString.Append(current.ParameterName).Append(Separator).Append(current.ParameterValue);
                     if (counter < numParams)
-                        paramString.Append(delimiter);
+                        paramString.Append(Delimiter);
                 }
-                string signatureBase = this.methodHTTP + delimiter;
-                signatureBase += PayPalURLEncoder.Encode(requestURI, method) + delimiter;
-                signatureBase += PayPalURLEncoder.Encode(paramString.ToString(), method);
+                string signatureBase = this.methodHTTP + Delimiter;
+                signatureBase += PayPalURLEncoder.Encode(RequestURI, Method) + Delimiter;
+                signatureBase += PayPalURLEncoder.Encode(paramString.ToString(), Method);
                 Encoding encoding = System.Text.Encoding.ASCII;
                 byte[] encodedKey = encoding.GetBytes(key);
                 using (HMACSHA1 keyDigest = new HMACSHA1(encodedKey))

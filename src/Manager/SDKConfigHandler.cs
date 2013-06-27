@@ -47,7 +47,7 @@ namespace PayPal.Manager
         }
         protected override object GetElementKey(ConfigurationElement element)
         {
-            return ((Account)element).APIUsername;
+            return ((Account)element).APIUserName;
         }
 
         public Account Account(int index)
@@ -76,7 +76,7 @@ namespace PayPal.Manager
     /// </summary>
     public class Account : ConfigurationElement
     {
-        private static readonly ConfigurationProperty apiUsername =
+        private static readonly ConfigurationProperty apiUserName =
             new ConfigurationProperty("apiUsername", typeof(string), string.Empty, ConfigurationPropertyOptions.IsRequired);
 
         private static readonly ConfigurationProperty apiPassword =
@@ -102,7 +102,7 @@ namespace PayPal.Manager
 
         public Account()
         {
-            base.Properties.Add(apiUsername);
+            base.Properties.Add(apiUserName);
             base.Properties.Add(apiPassword);
             base.Properties.Add(appID);
             base.Properties.Add(apiSignature);
@@ -116,10 +116,10 @@ namespace PayPal.Manager
         /// API Username
         /// </summary>
         [ConfigurationProperty("apiUsername", IsRequired = true)]
-        public string APIUsername
+        public string APIUserName
         {
-            get { return (string)this[apiUsername]; }
-            set { this[apiUsername] = value; }
+            get { return (string)this[apiUserName]; }
+            set { this[apiUserName] = value; }
         }
 
         /// <summary>

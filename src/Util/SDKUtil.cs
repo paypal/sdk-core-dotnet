@@ -42,7 +42,6 @@ namespace PayPal.Util
             return RemoveNullsFromQueryString(formatString);
         }
         
-
         private static string RemoveNullsFromQueryString(string formatString)
         {
             if (formatString != null && formatString.Length != 0)

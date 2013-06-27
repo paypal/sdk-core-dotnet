@@ -12,27 +12,17 @@ namespace PayPal.Authentication
         /// <summary>
         /// Username credential
         /// </summary> 
-        private string usrName;
+        private string UsrName;
                 
         /// <summary>
         /// Password credential
         /// </summary>
-        private string pasWord;
-
-        /// <summary>
-        /// Application ID (Used by Platform APIs)
-        /// </summary>
-        private string appID;
+        private string PssWord;
 
         /// <summary>
         /// Signature
         /// </summary>
-        private string sign;
-
-        /// <summary>
-        /// Instance of IThirdPartyAuthorization
-        /// </summary>
-        private IThirdPartyAuthorization thrdPartyAuthorization;
+        private string Sign;
 
         /// <summary>
         /// SignatureCredential constructor
@@ -48,9 +38,9 @@ namespace PayPal.Authentication
             {
                 throw new ArgumentException("Signature Credential arguments cannot be null");
             }
-            this.usrName = usrName;
-            this.pasWord = pssword;
-            this.sign = sign;
+            this.UsrName = usrName;
+            this.PssWord = pssword;
+            this.Sign = sign;
         }
 
         /// <summary>
@@ -66,7 +56,7 @@ namespace PayPal.Authentication
             : this(usrName, pasWord, sign)
         {
 
-            this.thrdPartyAuthorization = thrdPartyAuthorization;
+            this.ThirdPartyAuthorization = thrdPartyAuthorization;
         }
         
         /// <summary>
@@ -74,15 +64,8 @@ namespace PayPal.Authentication
         /// </summary>
         public string ApplicationID
         {
-            get
-            {
-                return appID;
-            }
-
-            set
-            {
-                this.appID = value;
-            }
+            get;
+            set;
         }
        
         /// <summary>
@@ -90,14 +73,8 @@ namespace PayPal.Authentication
         /// </summary>
         public IThirdPartyAuthorization ThirdPartyAuthorization
         {
-            get
-            {
-                return thrdPartyAuthorization;
-            }
-            set
-            {
-                this.thrdPartyAuthorization = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -107,7 +84,7 @@ namespace PayPal.Authentication
         {
             get
             {
-                return usrName;
+                return UsrName;
             }
         }
 
@@ -118,7 +95,7 @@ namespace PayPal.Authentication
         {
             get
             {
-                return pasWord;
+                return PssWord;
             }
         }
         
@@ -129,7 +106,7 @@ namespace PayPal.Authentication
         {
             get
             {
-                return sign;
+                return Sign;
             }
         }
     }

@@ -28,47 +28,47 @@ namespace PayPal
 {
     public class OAuthTokenCredential
     {
-        private const string oauthTokenPath = "/v1/oauth2/token";
+        private const string OAuthTokenPath = "/v1/oauth2/token";
 
         /// <summary>
         /// Client ID for OAuth
         /// </summary>
-        private string clientID;
+        private string ClientID;
 
         /// <summary>
         /// Client Secret for OAuth
         /// </summary>
-        private string clientSecret;
+        private string ClientSecret;
 
         /// <summary>
         /// Access Token that is generated
         /// </summary>
-        private string accessToken;
+        private string AccessToken;
 
         /// <summary>
         /// Application ID returned by OAuth servers
         /// </summary>
-        private string appID;
+        private string AppID;
 
         /// <summary>
         /// Seconds for with access token is valid
         /// </summary>
-        private int secondsToExpire;
+        private int SecondsToExpire;
 
         /// <summary>
         /// Last time when access token was generated
         /// </summary>
-        private long timeInMilliseconds;
+        private long TimeInMilliseconds;
 
         /// <summary>
         /// Dynamic configuration map
         /// </summary>
-        private Dictionary<string, string> config;
+        private Dictionary<string, string> Config;
 
         /// <summary>
         /// Logs output statements, errors, debug info to a text file    
         /// </summary>
-        private static readonly ILog logger = LogManagerWrapper.GetLogger(typeof(OAuthTokenCredential));
+        private static readonly ILog Logger = LogManagerWrapper.GetLogger(typeof(OAuthTokenCredential));
 
         /// <summary>
         /// Client ID and Secret for the OAuth
@@ -77,9 +77,9 @@ namespace PayPal
         /// <param name="clientSecret"></param>
         public OAuthTokenCredential(string clientID, string clientSecret)
         {
-            this.clientID = clientID;
-            this.clientSecret = clientSecret;
-            this.config = ConfigManager.getConfigWithDefaults(ConfigManager.Instance.GetProperties());
+            this.ClientID = clientID;
+            this.ClientSecret = clientSecret;
+            this.Config = ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());
         }
 
         /// <summary>
@@ -89,47 +89,47 @@ namespace PayPal
         /// <param name="clientSecret"></param>
         public OAuthTokenCredential(string clientID, string clientSecret, Dictionary<string, string> config)
         {
-            this.clientID = clientID;
-            this.clientSecret = clientSecret;
+            this.ClientID = clientID;
+            this.ClientSecret = clientSecret;
             if (config != null)
             {
-                ConfigManager.getConfigWithDefaults(config);
+                ConfigManager.GetConfigWithDefaults(config);
             }
             else
             {
-                this.config = ConfigManager.getConfigWithDefaults(ConfigManager.Instance.GetProperties());
+                this.Config = ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());
             }
         }
 
         public string GetAccessToken()
         {
             // If Access Token is not Null and time has lapsed
-            if (accessToken != null)
+            if (AccessToken != null)
             {
                 // If the token has not expired
                 // Set TTL as expiresTime - 60000
                 // If expired set accesstoken == null
-                if (((DateTime.Now.Millisecond - timeInMilliseconds) / 1000) > (secondsToExpire - 120))
+                if (((DateTime.Now.Millisecond - TimeInMilliseconds) / 1000) > (SecondsToExpire - 120))
                 {
                     // regenerate token
-                    accessToken = null;
+                    AccessToken = null;
                 }
             }
             // If accessToken is Null, Compute it
-            if (accessToken == null)
+            if (AccessToken == null)
             {
                 // Write Logic for passing in Detail to Identity Api Serv and
                 // computing the token
                 // Set the Value inside the accessToken and result
-                accessToken = GenerateAccessToken();
+                AccessToken = GenerateAccessToken();
             }
-            return accessToken;
+            return AccessToken;
         }
 
         private string GenerateAccessToken()
         {
             string generatedToken = null;
-            string base64ClientID = GenerateBase64String(clientID + ":" + clientSecret);
+            string base64ClientID = GenerateBase64String(ClientID + ":" + ClientSecret);
             generatedToken = GenerateOAuthToken(base64ClientID);
             return generatedToken;
         }
@@ -166,15 +166,15 @@ namespace PayPal
 
             Uri uniformResourceIdentifier = null;
             Uri baseUri = null;
-            if (config.ContainsKey(BaseConstants.OAuthEndpoint))
+            if (Config.ContainsKey(BaseConstants.OAuthEndpoint))
             {
-                baseUri = new Uri(config[BaseConstants.OAuthEndpoint]);
+                baseUri = new Uri(Config[BaseConstants.OAuthEndpoint]);
             }
-            else if (config.ContainsKey(BaseConstants.EndpointConfig))
+            else if (Config.ContainsKey(BaseConstants.EndpointConfig))
             {
-                baseUri = new Uri(config[BaseConstants.EndpointConfig]);
+                baseUri = new Uri(Config[BaseConstants.EndpointConfig]);
             }
-            bool success = Uri.TryCreate(baseUri, oauthTokenPath, out uniformResourceIdentifier);
+            bool success = Uri.TryCreate(baseUri, OAuthTokenPath, out uniformResourceIdentifier);
             ConnectionManager connManager = ConnectionManager.Instance;
             HttpWebRequest httpRequest = connManager.GetConnection(ConfigManager.Instance.GetProperties(), uniformResourceIdentifier.AbsoluteUri);
             
@@ -190,13 +190,13 @@ namespace PayPal
                 httpRequest.Headers.Add(header.Key, header.Value);
             }
 
-            HttpConnection httpConnection = new HttpConnection(config);
+            HttpConnection httpConnection = new HttpConnection(Config);
             response = httpConnection.Execute(postRequest, httpRequest);
             JObject deserializedObject = (JObject)JsonConvert.DeserializeObject(response);
             string generatedToken = (string)deserializedObject["token_type"] + " " + (string)deserializedObject["access_token"];
-            appID = (string)deserializedObject["app_id"];
-            secondsToExpire = (int)deserializedObject["expires_in"];
-            timeInMilliseconds = DateTime.Now.Millisecond;
+            AppID = (string)deserializedObject["app_id"];
+            SecondsToExpire = (int)deserializedObject["expires_in"];
+            TimeInMilliseconds = DateTime.Now.Millisecond;
             return generatedToken;
         }
     }    

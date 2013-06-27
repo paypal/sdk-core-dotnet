@@ -12,32 +12,22 @@ namespace PayPal.Authentication
         /// <summary>
         /// Username credential
         /// </summary>
-        private string usrName;
+        private string UsrName;
 
         /// <summary>
         /// Password credential
         /// </summary>
-        private string pasWord;
-
-        /// <summary>
-        /// Application ID (Used by Platform APIs)
-        /// </summary>
-        private string appID;
+        private string PssWord;              
 
         /// <summary>
         /// Certificate file
         /// </summary>
-        private string certFile;
+        private string CertFile;
 
         /// <summary>
         /// Password of the Certificate's Private Key
         /// </summary>
-        private string priKeyPassword;
-
-        /// <summary>
-        /// Instance of IThirdPartyAuthorization
-        /// </summary>
-        private IThirdPartyAuthorization thrdPartyAuthorization;
+        private string PriKeyPassword;
 
         /// <summary>
         /// CertificateCredential constructor
@@ -54,10 +44,10 @@ namespace PayPal.Authentication
             {
                 throw new ArgumentException("Certificate Credential arguments cannot be null");
             }
-            this.usrName = usrName;
-            this.pasWord = pasWord;
-            this.certFile = certFile;
-            this.priKeyPassword = priKeyPassword;
+            this.UsrName = usrName;
+            this.PssWord = pasWord;
+            this.CertFile = certFile;
+            this.PriKeyPassword = priKeyPassword;
         }                    
 
         /// <summary>
@@ -72,7 +62,7 @@ namespace PayPal.Authentication
             IThirdPartyAuthorization thrdPartyAuthorization)
             : this(usrName, pasWord, certFile, priKeyPassword)
         {
-           this.thrdPartyAuthorization = thrdPartyAuthorization;
+            this.ThirdPartyAuthorization = thrdPartyAuthorization;
         }   
         
         /// <summary>
@@ -80,14 +70,8 @@ namespace PayPal.Authentication
         /// </summary>
         public IThirdPartyAuthorization ThirdPartyAuthorization
         {
-            get
-            {
-                return thrdPartyAuthorization;
-            }
-            set
-            {
-                this.thrdPartyAuthorization = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -97,7 +81,7 @@ namespace PayPal.Authentication
         {
             get
             {
-                return usrName;
+                return UsrName;
             }
         }
        
@@ -108,7 +92,7 @@ namespace PayPal.Authentication
         {
             get
             {
-                return pasWord;
+                return PssWord;
             }
         }
 
@@ -117,14 +101,8 @@ namespace PayPal.Authentication
         /// </summary>
         public string ApplicationID
         {
-            get
-            {
-                return appID;
-            }
-            set
-            {
-                appID = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -134,7 +112,7 @@ namespace PayPal.Authentication
         {
             get
             {
-                return this.certFile;
+                return this.CertFile;
             }
         }
 
@@ -145,7 +123,7 @@ namespace PayPal.Authentication
         {
             get
             {
-                return this.priKeyPassword;
+                return this.PriKeyPassword;
             }
         }
     }

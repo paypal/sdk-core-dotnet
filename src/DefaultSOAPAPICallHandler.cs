@@ -41,12 +41,12 @@ namespace PayPal
 	    /// <summary>
         /// Raw payload from stubs
 	    /// </summary>
-	    private string rawPayLoad;        
+	    private string RawPayLoad;        
       
         /// <summary>
         /// SDK Configuration
         /// </summary>
-        private Dictionary<string, string> config;
+        private Dictionary<string, string> Config;
         
         /// <summary>
         /// Gets and sets the Header Element
@@ -76,10 +76,10 @@ namespace PayPal
         public DefaultSOAPAPICallHandler(Dictionary<string, string> config, string rawPayLoad, string attributesNamespace, 
             string headerString) : base()
         {		    
-		    this.rawPayLoad = rawPayLoad;
+		    this.RawPayLoad = rawPayLoad;
             this.NamespaceAttributes = attributesNamespace;
             this.HeaderElement = headerString;
-            this.config = (config == null) ? ConfigManager.Instance.GetProperties() : config;
+            this.Config = (config == null) ? ConfigManager.Instance.GetProperties() : config;
 	    }
 
         //Returns headers for HTTP call
@@ -112,7 +112,7 @@ namespace PayPal
         /// <returns></returns>
 	    public string GetEndPoint() 
         {
-		    return config[BaseConstants.EndpointConfig];
+		    return Config[BaseConstants.EndpointConfig];
 	    }
 
 
@@ -164,9 +164,9 @@ namespace PayPal
         {
 		    string body = null;
 
-		    if (rawPayLoad != null) 
+		    if (RawPayLoad != null) 
             {
-			    body = string.Format(SOAPBodyStart, new object[] { null, null, rawPayLoad });
+			    body = string.Format(SOAPBodyStart, new object[] { null, null, RawPayLoad });
 		    } 
             else 
             {
