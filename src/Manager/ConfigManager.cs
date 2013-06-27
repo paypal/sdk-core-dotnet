@@ -32,7 +32,6 @@ namespace PayPal.Manager
 
         private static object SyncRoot = new Object();
 
-
         /// <summary>
         /// Gets the Singleton instance of the ConfigManager
         /// </summary>

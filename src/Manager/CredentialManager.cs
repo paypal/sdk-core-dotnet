@@ -24,12 +24,12 @@ namespace PayPal.Manager
         /// </summary>
         private static readonly ILog Logger = LogManagerWrapper.GetLogger(typeof(CredentialManager));
 
+        private static string AccountPrefix = "account";
+
         /// <summary>
         /// Singleton instance of ConnectionManager
         /// </summary>
-        private static readonly CredentialManager SingletonInstance = new CredentialManager();
-
-        private static string accountPrefix = "account";
+        private static readonly CredentialManager SingletonInstance = new CredentialManager();              
         
         /// <summary>
         /// Explicit static constructor to tell C# compiler
@@ -65,35 +65,35 @@ namespace PayPal.Manager
                 {
                     if (apiUserName == null || apiUserName.Equals(kvPair.Value)) 
                     {
-                        int index = Convert.ToInt32(kvPair.Key.Substring(accountPrefix.Length, kvPair.Key.IndexOf('.') - accountPrefix.Length ));
+                        int index = Convert.ToInt32(kvPair.Key.Substring(AccountPrefix.Length, kvPair.Key.IndexOf('.') - AccountPrefix.Length ));
                         Account accnt = new Account();
-                        if (config.ContainsKey(accountPrefix +  index + ".apiUsername")) 
+                        if (config.ContainsKey(AccountPrefix +  index + ".apiUsername")) 
                         {
-                            accnt.APIUserName = config[accountPrefix +  index + ".apiUsername"];
+                            accnt.APIUserName = config[AccountPrefix +  index + ".apiUsername"];
                         }
-                        if(config.ContainsKey(accountPrefix +  index + ".apiPassword"))
+                        if(config.ContainsKey(AccountPrefix +  index + ".apiPassword"))
                         {
-                            accnt.APIPassword = config[accountPrefix +  index + ".apiPassword"];
+                            accnt.APIPassword = config[AccountPrefix +  index + ".apiPassword"];
                         }
-                        if(config.ContainsKey(accountPrefix +  index + ".apiSignature")) 
+                        if(config.ContainsKey(AccountPrefix +  index + ".apiSignature")) 
                         {
-                            accnt.APISignature = config[accountPrefix +  index + ".apiSignature"];
+                            accnt.APISignature = config[AccountPrefix +  index + ".apiSignature"];
                         }
-                        if(config.ContainsKey(accountPrefix +  index + ".apiCertificate")) 
+                        if(config.ContainsKey(AccountPrefix +  index + ".apiCertificate")) 
                         {
-                            accnt.APICertificate = config[accountPrefix +  index + ".apiCertificate"];
+                            accnt.APICertificate = config[AccountPrefix +  index + ".apiCertificate"];
                         }
-                        if (config.ContainsKey(accountPrefix +  index + ".privateKeyPassword")) 
+                        if (config.ContainsKey(AccountPrefix +  index + ".privateKeyPassword")) 
                         {
-                            accnt.PrivateKeyPassword = config[accountPrefix +  index + ".privateKeyPassword"];
+                            accnt.PrivateKeyPassword = config[AccountPrefix +  index + ".privateKeyPassword"];
                         }            
-                        if(config.ContainsKey(accountPrefix +  index + ".subject"))
+                        if(config.ContainsKey(AccountPrefix +  index + ".subject"))
                         {
-                            accnt.CertificateSubject = config[accountPrefix +  index + ".subject"];
+                            accnt.CertificateSubject = config[AccountPrefix +  index + ".subject"];
                         }
-                        if(config.ContainsKey(accountPrefix +  index + ".applicationId"))
+                        if(config.ContainsKey(AccountPrefix +  index + ".applicationId"))
                         {
-                            accnt.ApplicationID = config[accountPrefix +  index + ".applicationId"];
+                            accnt.ApplicationID = config[AccountPrefix +  index + ".applicationId"];
                         }
                         return accnt;
                     }
