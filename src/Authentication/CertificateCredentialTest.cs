@@ -46,7 +46,7 @@ namespace PayPal
         }               
 
         [TestMethod]
-        public void setAndGetThirdPartyAuthorizationForSubject()
+        public void SetAndGetThirdPartyAuthorizationForSubject()
         {
             IThirdPartyAuthorization thirdPartyAuthorization = new SubjectAuthorization("Subject");
             CertCredential.ThirdPartyAuthorization = thirdPartyAuthorization;
