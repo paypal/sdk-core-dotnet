@@ -23,7 +23,8 @@ namespace PayPal.Manager
         /// Logger
         /// </summary>
         private static ILog Logger = LogManagerWrapper.GetLogger(typeof(ConnectionManager));
-        
+
+#if NET_3_5
         /// <summary>
         /// Singleton instance of ConnectionManager
         /// </summary>
@@ -33,11 +34,6 @@ namespace PayPal.Manager
         /// Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
         /// </summary>
         static ConnectionManager() { }
-        
-        /// <summary>
-        /// Private constructor
-        /// </summary>
-        private ConnectionManager() { }
 
         /// <summary>
         /// Gets the Singleton instance of ConnectionManager
@@ -49,6 +45,22 @@ namespace PayPal.Manager
                 return SingletonInstance;
             }
         }
+#elif NET_4_0
+        /// <summary>
+        /// System.Lazy type guarantees thread-safe lazy-construction
+        /// static holder for instance, need to use lambda to construct since constructor private
+        /// </summary>
+        private static readonly Lazy<ConnectionManager> laze = new Lazy<ConnectionManager>(() => new ConnectionManager());
+
+        /// <summary>
+        /// Accessor for the Singleton instance of ConnectionManager
+        /// </summary>
+        public static ConnectionManager Instance { get { return laze.Value; } }  
+#endif
+        /// <summary>
+        /// Private constructor, private to prevent direct instantiation
+        /// </summary>
+        private ConnectionManager() { }     
 
         /// <summary>
         /// Create and Config a HttpWebRequest
