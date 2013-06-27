@@ -15,7 +15,10 @@ namespace PayPal.Manager
         private Dictionary<string, string> ConfigValues;
 
         private static readonly Dictionary<string, string> DefaultConfig;
-                
+            
+        /// <summary>
+        ///  Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
+        /// </summary>
         static ConfigManager()
         {
             DefaultConfig = new Dictionary<string, string>();
@@ -24,35 +27,34 @@ namespace PayPal.Manager
             DefaultConfig[BaseConstants.HttpConnectionRetryConfig] = "1";
             DefaultConfig[BaseConstants.ClientIPAddressConfig] = "127.0.0.1";
         }
-
+#if NET_3_5
         /// <summary>
         /// Singleton instance of the ConfigManager
         /// </summary>
-        private static volatile ConfigManager SingletonInstance;
-
-        private static object SyncRoot = new Object();
+        private static readonly ConfigManager SingletonInstance = new ConfigManager();              
 
         /// <summary>
-        /// Gets the Singleton instance of the ConfigManager
+        /// Gets the Singleton instance of ConnectionManager
         /// </summary>
         public static ConfigManager Instance
         {
             get
             {
-                if (SingletonInstance == null)
-                {
-                    lock (SyncRoot)
-                    {
-                        if (SingletonInstance == null)
-                        {
-                            SingletonInstance = new ConfigManager();
-                        }
-                    }
-                }
                 return SingletonInstance;
             }
         }
+#elif NET_4_0
+        /// <summary>
+        /// System.Lazy type guarantees thread-safe lazy-construction
+        /// static holder for instance, need to use lambda to construct since constructor private
+        /// </summary>
+        private static readonly Lazy<ConfigManager> laze = new Lazy<ConfigManager>(() => new ConfigManager());
 
+        /// <summary>
+        /// Accessor for the Singleton instance of ConnectionManager
+        /// </summary>
+        public static ConfigManager Instance { get { return laze.Value; } }  
+#endif
         /// <summary>
         /// Private constructor
         /// </summary>
