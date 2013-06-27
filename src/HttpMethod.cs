@@ -1,10 +1,7 @@
 namespace PayPal
 {
     public enum HttpMethod
-    {
-        GET,
-        POST,
-        DELETE,
-        PATCH
+    {       
+        GET, HEAD, POST, PUT, UPDATE
     }
 }

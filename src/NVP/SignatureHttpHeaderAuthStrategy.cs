@@ -40,7 +40,7 @@ namespace PayPal.NVP
             try
             {
                 OAuthGenerator sigGenerator = new OAuthGenerator(signCredential.UserName, signCredential.Password);
-                sigGenerator.SetHTTPMethod(OAuthGenerator.HTTPMethod.POST);
+                sigGenerator.SetHttpPMethod(HttpMethod.POST);
                 sigGenerator.SetToken(tokenAuthorize.AccessToken);
                 sigGenerator.SetTokenSecret(tokenAuthorize.AccessTokenSecret);
                 string tokenTimeStamp = Timestamp;

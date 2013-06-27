@@ -20,13 +20,8 @@ namespace PayPal.Authentication
         private byte[] TokenSecret;
         private string RequestURI;
         private string TokenTimestamp;
-        private HTTPMethod methodHTTP;
+        private HttpMethod MethodHttp;
         private ArrayList QueryParameters;
-
-        public enum HTTPMethod
-        {
-            GET, HEAD, POST, PUT, UPDATE
-        };
 
         /// <summary>
         /// Default Constructor
@@ -38,7 +33,7 @@ namespace PayPal.Authentication
             this.QueryParameters = new ArrayList();
             this.ConsumerKey = consumerKey;
             this.ConsumerSecret = System.Text.Encoding.ASCII.GetBytes(consumerSecret);
-            this.methodHTTP = HTTPMethod.POST;
+            this.MethodHttp = HttpMethod.POST;
         }
 
         /// <summary>
@@ -88,33 +83,33 @@ namespace PayPal.Authentication
         }
 
         //TODO: Remove me
-        public void SetHTTPMethod(HTTPMethod method)
+        public void SetHttpPMethod(HttpMethod method)
         {
-            this.methodHTTP = method;
+            this.MethodHttp = method;
         }
 
         /// <summary>
         /// Sets time stamp for signature computation
         /// </summary>
         /// <param name="method"></param>
-        public void SetHTTPMethod(string method)
+        public void SetHttpMethod(string method)
         {
             switch (method)
             {
                 case "GET":
-                    this.methodHTTP = HTTPMethod.GET;
+                    this.MethodHttp = HttpMethod.GET;
                     break;
                 case "POST":
-                    this.methodHTTP = HTTPMethod.POST;
+                    this.MethodHttp = HttpMethod.POST;
                     break;
                 case "PUT":
-                    this.methodHTTP = HTTPMethod.PUT;
+                    this.MethodHttp = HttpMethod.PUT;
                     break;
                 case "UPDATE":
-                    this.methodHTTP = HTTPMethod.UPDATE;
+                    this.MethodHttp = HttpMethod.UPDATE;
                     break;
                 default:
-                    this.methodHTTP = HTTPMethod.POST;
+                    this.MethodHttp = HttpMethod.POST;
                     break;
             }
         }
@@ -162,7 +157,7 @@ namespace PayPal.Authentication
                     if (counter < numParams)
                         paramString.Append(Delimiter);
                 }
-                string signatureBase = this.methodHTTP + Delimiter;
+                string signatureBase = this.MethodHttp + Delimiter;
                 signatureBase += PayPalURLEncoder.Encode(RequestURI, Method) + Delimiter;
                 signatureBase += PayPalURLEncoder.Encode(paramString.ToString(), Method);
                 Encoding encoding = System.Text.Encoding.ASCII;
