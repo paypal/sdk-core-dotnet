@@ -16,6 +16,93 @@ namespace PayPal.OpenIDConnect
 {
     public class Tokeninfo
     {
+#if NET_2_0
+        /// <summary>
+        /// OPTIONAL, if identical to the scope requested by the client; otherwise, REQUIRED.
+        /// </summary>
+        private string scopeValue;
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string scope
+        {
+            get
+            {
+                return scopeValue;
+            }
+            set
+            {
+                scopeValue = value;
+            }
+        }
+        /// <summary>
+        /// The access token issued by the authorization server.
+        /// </summary>
+        private string access_tokenValue;
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string access_token
+        {
+            get
+            {
+                return access_tokenValue;
+            }
+            set
+            {
+                access_tokenValue = value;
+            }
+        }
+        /// <summary>
+        /// The refresh token, which can be used to obtain new access tokens using the same authorization grant as described in OAuth2.0 RFC6749 in Section 6.
+        /// </summary>
+        private string refresh_tokenValue;
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string refresh_token
+        {
+            get
+            {
+                return refresh_tokenValue;
+            }
+            set
+            {
+                refresh_tokenValue = value;
+            }
+        }
+        /// <summary>
+        /// The type of the token issued as described in OAuth2.0 RFC6749 (Section 7.1).  Value is case insensitive.
+        /// </summary>
+        private string token_typeValue;
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string token_type
+        {
+            get
+            {
+                return token_typeValue;
+            }
+            set
+            {
+                token_typeValue = value;
+            }
+        }
+        /// <summary>
+        /// The lifetime in seconds of the access token.
+        /// </summary>
+        private int expires_inValue;
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public int expires_in
+        {
+            get
+            {
+                return expires_inValue;
+            }
+            set
+            {
+                expires_inValue = value;
+            }
+        }
+#else
         /// <summary>
         /// OPTIONAL, if identical to the scope requested by the client; otherwise, REQUIRED
         /// </summary>
@@ -64,7 +151,12 @@ namespace PayPal.OpenIDConnect
         {
             get;
             set;
-        }
+        }        
+#endif
+        /// <summary>
+        /// Explicit default constructor
+        /// </summary>
+        public Tokeninfo() { }
 
         /// <summary>
         /// Constructor overload

@@ -26,7 +26,29 @@ namespace PayPal.Manager
 
         private static string AccountPrefix = "account";
 
-#if NET_3_5
+#if NET_2_0
+        /// <summary>
+        /// Singleton instance of ConnectionManager
+        /// </summary>
+        private static readonly CredentialManager SingletonInstance = new CredentialManager();
+
+        /// <summary>
+        /// Explicit static constructor to tell C# compiler
+        /// not to mark type as beforefieldinit
+        /// </summary>
+        static CredentialManager() { }
+
+        /// <summary>
+        /// Gets the Singleton instance of ConnectionManager
+        /// </summary>
+        public static CredentialManager Instance
+        {
+            get
+            {
+                return SingletonInstance;
+            }
+        }
+#elif NET_3_5
         /// <summary>
         /// Singleton instance of ConnectionManager
         /// </summary>

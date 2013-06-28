@@ -1,0 +1,125 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7CD6456F-7828-45EA-90A1-C1E26900C476}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PayPal</RootNamespace>
+    <AssemblyName>PayPalCoreSDK</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\build\bin\Debug\.NET Framework 2.0\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET_2_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\build\bin\Release\.NET Framework 2.0\</OutputPath>
+    <DefineConstants>TRACE;NET_2_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\log4net.2.0.0\lib\net20-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\Newtonsoft.Json.5.0.6\lib\net20\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbstractCertificateHttpHeaderAuthStrategy.cs" />
+    <Compile Include="AbstractSignatureHttpHeaderAuthStrategy.cs" />
+    <Compile Include="APIContext.cs" />
+    <Compile Include="APIService.cs" />
+    <Compile Include="Authentication\CertificateCredential.cs" />
+    <Compile Include="Authentication\ICredential.cs" />
+    <Compile Include="Authentication\IThirdPartyAuthorization.cs" />
+    <Compile Include="Authentication\SignatureCredential.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Authentication\SubjectAuthorization.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Authentication\TokenAuthorization.cs" />
+    <Compile Include="BaseConstants.cs" />
+    <Compile Include="BasePayPalService.cs" />
+    <Compile Include="DefaultSOAPAPICallHandler.cs" />
+    <Compile Include="Exception\ConfigException.cs" />
+    <Compile Include="Exception\ConnectionException.cs" />
+    <Compile Include="Exception\InvalidCredentialException.cs" />
+    <Compile Include="Exception\MissingCredentialException.cs" />
+    <Compile Include="Exception\OAuthException.cs" />
+    <Compile Include="Exception\PayPalException.cs" />
+    <Compile Include="HttpConnection.cs" />
+    <Compile Include="HttpMethod.cs" />
+    <Compile Include="IAPICallPreHandler.cs" />
+    <Compile Include="IAuthenticationStrategy.cs" />
+    <Compile Include="IPNMessage.cs" />
+    <Compile Include="JSONFormat.cs" />
+    <Compile Include="LogManagerWrapper.cs" />
+    <Compile Include="Manager\ConfigManager.cs" />
+    <Compile Include="Manager\ConnectionManager.cs" />
+    <Compile Include="Manager\CredentialManager.cs" />
+    <Compile Include="Manager\SDKConfigHandler.cs" />
+    <Compile Include="NVP\CertificateHttpHeaderAuthStrategy.cs" />
+    <Compile Include="NVP\PlatformAPICallPreHandler.cs" />
+    <Compile Include="NVP\SignatureHttpHeaderAuthStrategy.cs" />
+    <Compile Include="OAuthTokenCredential.cs" />
+    <Compile Include="OAuth\OAuthGenerator.cs" />
+    <Compile Include="OAuth\PayPalURLEncoder.cs" />
+    <Compile Include="PayPalResource.cs" />
+    <Compile Include="PayPal\OpenIDConnect\Address.cs" />
+    <Compile Include="PayPal\OpenIDConnect\CreateFromAuthorizationCodeParameters.cs" />
+    <Compile Include="PayPal\OpenIDConnect\CreateFromRefreshTokenParameters.cs" />
+    <Compile Include="PayPal\OpenIDConnect\Error.cs" />
+    <Compile Include="PayPal\OpenIDConnect\Session.cs" />
+    <Compile Include="PayPal\OpenIDConnect\Tokeninfo.cs" />
+    <Compile Include="PayPal\OpenIDConnect\Userinfo.cs" />
+    <Compile Include="PayPal\OpenIDConnect\UserinfoParameters.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RESTConfiguration.cs" />
+    <Compile Include="SOAP\CertificateHttpHeaderAuthStrategy.cs" />
+    <Compile Include="SOAP\CertificateSOAPHeaderAuthStrategy.cs" />
+    <Compile Include="SOAP\MerchantAPICallPreHandler.cs" />
+    <Compile Include="SOAP\SignatureHttpHeaderAuthStrategy.cs" />
+    <Compile Include="SOAP\SignatureSOAPHeaderAuthStrategy.cs" />
+    <Compile Include="Util\NVPUtil.cs" />
+    <Compile Include="Util\QueryParameters.cs" />
+    <Compile Include="Util\ReadCert.cs" />
+    <Compile Include="Util\ReflectionEnumUtil.cs" />
+    <Compile Include="Util\ReflectionUtil.cs" />
+    <Compile Include="Util\SDKUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CHANGELOG.md" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

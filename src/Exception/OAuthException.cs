@@ -6,8 +6,13 @@ namespace PayPal.Exception
 
         public OAuthException(string oauthExceptionMessage, System.Exception exception)
         {
+#if NET_2_0
+            this.OAuthExcptnMessage = oauthExceptionMessage;
+            this.OAuthExcptnLongMessage = exception.Message;
+#else
             this.OAuthExceptionMessage = oauthExceptionMessage;
             this.OAuthExceptionLongMessage = exception.Message;
+#endif
         }
 
         public OAuthException(string oauthExceptionMessage)
@@ -19,8 +24,51 @@ namespace PayPal.Exception
 
         #region Public Properties
 
+#if NET_2_0
         /// <summary>
-        /// Short message.
+        /// OAuth Exception Short Message
+        /// </summary>
+        private string OAuthExcptnMessage;
+
+        /// <summary>
+        /// Gets and sets OAuth Exception Short Message
+        /// </summary>
+        public string OAuthExceptionMessage
+        {
+            get
+            {
+                return this.OAuthExcptnMessage;
+
+            }
+            set
+            {
+                this.OAuthExcptnMessage = value;
+            }
+        }
+
+        /// <summary>
+        /// OAuth Exception Long Message
+        /// </summary>
+        private string OAuthExcptnLongMessage;
+
+        /// <summary>
+        /// Gets and sets OAuth Exception Long Message
+        /// </summary>
+        public string OAuthExceptionLongMessage
+        {
+            get
+            {
+                return this.OAuthExcptnLongMessage;
+
+            }
+            set
+            {
+                this.OAuthExcptnLongMessage = value;
+            }
+        }
+#else
+        /// <summary>
+        /// Gets and sets OAuth Exception Short Message
         /// </summary>
         public string OAuthExceptionMessage
         {
@@ -29,14 +77,14 @@ namespace PayPal.Exception
         }
 
         /// <summary>
-        /// Long message
+        /// Gets and sets OAuth Exception Long Message
         /// </summary>
         public string OAuthExceptionLongMessage
         {
             get;
             set;
         }
-
-        #endregion       
+#endif
+        #endregion
     }
 }

@@ -27,7 +27,23 @@ namespace PayPal.Manager
             DefaultConfig[BaseConstants.HttpConnectionRetryConfig] = "1";
             DefaultConfig[BaseConstants.ClientIPAddressConfig] = "127.0.0.1";
         }
-#if NET_3_5
+#if NET_2_0
+        /// <summary>
+        /// Singleton instance of the ConfigManager
+        /// </summary>
+        private static readonly ConfigManager SingletonInstance = new ConfigManager();
+
+        /// <summary>
+        /// Gets the Singleton instance of ConnectionManager
+        /// </summary>
+        public static ConfigManager Instance
+        {
+            get
+            {
+                return SingletonInstance;
+            }
+        }
+#elif NET_3_5
         /// <summary>
         /// Singleton instance of the ConfigManager
         /// </summary>

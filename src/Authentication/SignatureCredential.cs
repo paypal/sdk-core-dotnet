@@ -56,26 +56,72 @@ namespace PayPal.Authentication
             : this(usrName, pasWord, sign)
         {
 
+#if NET_2_0
+            this.Authorization = thrdPartyAuthorization;
+#else
             this.ThirdPartyAuthorization = thrdPartyAuthorization;
+#endif
         }
-        
+
+#if NET_2_0
         /// <summary>
-        /// Gets and sets the Application ID
+        /// Third Party Authorization
+        /// </summary>
+        private IThirdPartyAuthorization Authorization;
+
+        /// <summary>
+        ///  Gets and sets the instance of IThirdPartyAuthorization
+        /// </summary>
+        public IThirdPartyAuthorization ThirdPartyAuthorization
+        {
+            get
+            {
+                return this.Authorization;
+            }
+            set
+            {
+                this.Authorization = value;
+            }
+        }
+
+        /// <summary>
+        ///  Application ID
+        /// </summary>
+        private string AppID;
+
+        /// <summary>
+        /// Gets and sets the Application ID (Used by Platform APIs)
         /// </summary>
         public string ApplicationID
         {
-            get;
-            set;
+            get
+            {
+                return this.AppID;
+            }
+            set
+            {
+                this.AppID = value;
+            }
         }
-       
+#else
         /// <summary>
-        /// Gets and sets any instance of IThirdPartyAuthorization
+        ///  Gets and sets the instance of IThirdPartyAuthorization
         /// </summary>
         public IThirdPartyAuthorization ThirdPartyAuthorization
         {
             get;
             set;
         }
+
+        /// <summary>
+        /// Gets and sets the Application ID (Used by Platform APIs)
+        /// </summary>
+        public string ApplicationID
+        {
+            get;
+            set;
+        }
+#endif
 
         /// <summary>
         /// Gets the UserName

@@ -47,7 +47,50 @@ namespace PayPal
         /// SDK Configuration
         /// </summary>
         private Dictionary<string, string> Config;
-        
+
+#if NET_2_0
+
+        /// <summary>
+        /// Header Element
+        /// </summary>
+        private string Header;
+
+        /// <summary>
+        /// Gets and sets the Header Element
+        /// </summary>
+        public string HeaderElement
+        {
+            get
+            {
+                return this.Header;
+            }
+            set
+            {
+                this.Header = value;
+            }
+        }
+
+        /// <summary>
+        /// Namespaces
+        /// </summary>
+        public string Namespaces;
+
+        /// <summary>
+        /// Gets and sets the Namespaces
+        /// </summary>
+        public string NamespaceAttributes
+        {
+            get
+            {
+                return this.Namespaces;
+
+            }
+            set
+            {
+                this.Namespaces = value;
+            }
+        }
+#else
         /// <summary>
         /// Gets and sets the Header Element
         /// </summary>
@@ -65,8 +108,8 @@ namespace PayPal
             get;
             set;
         }
-
-	    /// <summary>
+#endif
+        /// <summary>
         /// DefaultSOAPAPICallHandler acts as the base SOAPAPICallHandler.
 	    /// </summary>
 	    /// <param name="rawPayLoad"></param>

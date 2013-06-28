@@ -56,6 +56,27 @@ namespace PayPal
             }
         }
 
+#if NET_2_0
+        /// <summary>
+        /// Mask Request ID
+        /// </summary>
+        private bool MaskReqID;
+
+        /// <summary>
+        /// Mask Request ID
+        /// </summary>
+        public bool MaskRequestID
+        {
+            get
+            {
+                return this.MaskReqID;
+            }
+            set
+            {
+                this.MaskReqID = value;
+            }
+        }
+#else
         /// <summary>
         /// Mask Request ID
         /// </summary>
@@ -64,7 +85,8 @@ namespace PayPal
             get;
             set;
         }
-         
+#endif
+        
         /// <summary>
         /// Request ID
         /// </summary>
@@ -85,6 +107,24 @@ namespace PayPal
             }
         }
 
+#if NET_2_0
+        private Dictionary<string, string> Configuration;
+
+        /// <summary>
+        /// Dynamic Configuration
+        /// </summary>
+        public Dictionary<string, string> Config
+        {
+            get
+            {
+                return this.Configuration;
+            }
+            set
+            {
+                this.Configuration = value;
+            }
+        }
+#else
         /// <summary>
         /// Dynamic Configuration
         /// </summary>
@@ -93,5 +133,6 @@ namespace PayPal
             get;
             set;
         }
+#endif
     }
 }

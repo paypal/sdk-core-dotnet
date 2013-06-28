@@ -275,10 +275,45 @@ namespace PayPal.Authentication
         {
             public Parameter(string paramName, string paramValue)
             {
+
+#if NET_2_0
+                this.ParamName = paramName;
+                this.ParamValue = paramValue;
+#else
                 this.ParameterName = paramName;
                 this.ParameterValue = paramValue;
+#endif
             }
 
+#if NET_2_0
+            private string ParamName;
+
+            public string ParameterName
+            {
+                get
+                {
+                    return this.ParamName;
+                }
+                set
+                {
+                    this.ParamName = value;
+                }
+            }
+
+            private string ParamValue;
+
+            public string ParameterValue
+            {
+                get
+                {
+                    return this.ParamValue;
+                }
+                set
+                {
+                    this.ParamValue = value;
+                }
+            }
+#else
             public string ParameterName
             {
                 get;
@@ -290,6 +325,8 @@ namespace PayPal.Authentication
                 get;
                 set;
             }
+#endif
+
 
             /// <summary>
             /// Compare by name or compare by value if both are equal

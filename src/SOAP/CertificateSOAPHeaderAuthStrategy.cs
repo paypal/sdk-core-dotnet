@@ -10,14 +10,36 @@ namespace PayPal.SOAP
         /// </summary>
         public CertificateSOAPHeaderAuthStrategy() { }
 
+#if NET_2_0
         /// <summary>
-        /// Gets and sets any instance of {@link ThirdPartyAuthorization}
+        /// Third Party Authorization
+        /// </summary>
+        private IThirdPartyAuthorization Authorization;
+
+        /// <summary>
+        ///  Gets and sets the instance of IThirdPartyAuthorization
+        /// </summary>
+        public IThirdPartyAuthorization ThirdPartyAuthorization
+        {
+            get
+            {
+                return this.Authorization;
+            }
+            set
+            {
+                this.Authorization = value;
+            }
+        }
+#else
+        /// <summary>
+        ///  Gets and sets the instance of IThirdPartyAuthorization
         /// </summary>
         public IThirdPartyAuthorization ThirdPartyAuthorization
         {
             get;
             set;
         }
+#endif
 
         /// <summary>
         /// Returns the Header

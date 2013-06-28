@@ -95,7 +95,69 @@ namespace PayPal.SOAP
 		    }
 		    this.Credential = credential;
 	    }
-        
+
+#if NET_2_0
+        /// <summary>
+        /// SDK Name
+        /// </summary>
+        private string Name;
+
+        /// <summary>
+        /// Gets and sets the SDK Name
+        /// </summary>
+        public string SDKName
+        {
+            get
+            {
+                return this.Name;
+            }
+            set
+            {
+                this.Name = value;
+            }
+        }
+
+        /// <summary>
+        /// SDK Version
+        /// </summary>
+        private string Version;
+
+        /// <summary>
+        /// Gets and sets the SDK Version
+        /// </summary>
+        public string SDKVersion
+        {
+            get
+            {
+                return this.Version;
+            }
+            set
+            {
+                this.Version = value;
+            }
+        }
+
+        /// <summary>
+        /// Port Name
+        /// </summary>
+        private string Port;
+
+        /// <summary>
+        /// Gets and sets the Port Name
+        /// </summary>
+        public string PortName
+        {
+            get
+            {
+                return this.Port;
+
+            }
+            set
+            {
+                this.Port = value;
+            }
+        }
+#else
         /// <summary>
         /// Gets and sets the SDK Name
         /// </summary>
@@ -105,9 +167,9 @@ namespace PayPal.SOAP
             set;
         }
 
-        /// <summary>
-        /// Gets and sets the SDK version
-        /// </summary>
+	    /// <summary>
+        /// Gets and sets the SDK Version
+	    /// </summary>
         public string SDKVersion
         {
             get;
@@ -115,14 +177,14 @@ namespace PayPal.SOAP
         }
 
         /// <summary>
-        /// Gets and sets the port mame
+        /// Gets and sets the Port Name
         /// </summary>
         public string PortName
         {
             get;
             set;
         }
-
+#endif
         /// <summary>
         /// Returns the Header
         /// </summary>

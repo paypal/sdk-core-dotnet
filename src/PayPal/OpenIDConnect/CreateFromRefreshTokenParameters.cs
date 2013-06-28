@@ -25,6 +25,27 @@ namespace PayPal.OpenIDConnect
             ContainerMap.Add(GrantType, "refresh_token");
         }
 
+#if NET_2_0
+        /// <summary>
+        /// Backing map
+        /// </summary>
+        private Dictionary<string, string> MapContainer;
+
+        /// <summary>
+        /// Backing map
+        /// </summary>
+        public Dictionary<string, string> ContainerMap
+        {
+            get
+            {
+                return this.MapContainer;
+            }
+            set
+            {
+                this.MapContainer = value;
+            }
+        }
+#else
         /// <summary>
         /// Backing map
         /// </summary>
@@ -33,14 +54,19 @@ namespace PayPal.OpenIDConnect
             get;
             set;
         }
-
+#endif
         /// <summary>
         /// Set the scope
         /// </summary>
         /// <param name="scope"></param>
         public void SetScope(string scope)
         {
+
+#if NET_2_0
+            MapContainer.Add(Scope, scope);
+#else
             ContainerMap.Add(Scope, scope);
+#endif
         }
 
         /// <summary>

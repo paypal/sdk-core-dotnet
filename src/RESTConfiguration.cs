@@ -10,14 +10,36 @@ namespace PayPal
 {
     public class RESTConfiguration
     {
+#if NET_2_0
         /// <summary>
-        /// Authorization Token
+        /// string Authorization Token
+        /// </summary>
+        private string AuthorizeToken;
+
+        /// <summary>
+        ///  Gets and sets the Authorization Token
+        /// </summary>
+        public string AuthorizationToken
+        {
+            get
+            {
+                return this.AuthorizeToken;
+            }
+            set
+            {
+                this.AuthorizeToken = value;
+            }
+        }
+#else
+        /// <summary>
+        ///  Gets and sets the Authorization Token
         /// </summary>
         public string AuthorizationToken
         {
             get;
             set;
         }
+#endif
 
         private string ReqID;
 

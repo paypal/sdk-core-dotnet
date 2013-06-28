@@ -58,13 +58,58 @@ namespace PayPal.Authentication
         /// <param name="certFile"></param>
         /// <param name="priKeyPassword"></param>
         /// <param name="thrdPartyAuthorization"></param>
-        public CertificateCredential(string usrName, string pasWord, string certFile, string priKeyPassword, 
+        public CertificateCredential(string usrName, string pssWord, string certFile, string priKeyPassword, 
             IThirdPartyAuthorization thrdPartyAuthorization)
-            : this(usrName, pasWord, certFile, priKeyPassword)
+            : this(usrName, pssWord, certFile, priKeyPassword)
         {
+#if NET_2_0
+            this.Authorization = thrdPartyAuthorization;
+#else
             this.ThirdPartyAuthorization = thrdPartyAuthorization;
+#endif
         }   
         
+#if NET_2_0
+        /// <summary>
+        /// Third Party Authorization
+        /// </summary>
+        private IThirdPartyAuthorization Authorization;
+
+        /// <summary>
+        ///  Gets and sets the instance of IThirdPartyAuthorization
+        /// </summary>
+        public IThirdPartyAuthorization ThirdPartyAuthorization
+        {
+            get
+            {
+                return this.Authorization;
+            }
+            set
+            {
+                this.Authorization = value;
+            }
+        }
+
+        /// <summary>
+        ///  Application ID
+        /// </summary>
+        private string AppID;
+
+        /// <summary>
+        /// Gets and sets the Application ID (Used by Platform APIs)
+        /// </summary>
+        public string ApplicationID
+        {
+            get
+            {
+                return this.AppID;
+            }
+            set
+            {
+                this.AppID = value;
+            }
+        }
+#else
         /// <summary>
         ///  Gets and sets the instance of IThirdPartyAuthorization
         /// </summary>
@@ -73,6 +118,16 @@ namespace PayPal.Authentication
             get;
             set;
         }
+
+        /// <summary>
+        /// Gets and sets the Application ID (Used by Platform APIs)
+        /// </summary>
+        public string ApplicationID
+        {
+            get;
+            set;
+        }
+#endif
 
         /// <summary>
         /// Gets the Username credential
@@ -94,15 +149,6 @@ namespace PayPal.Authentication
             {
                 return PssWord;
             }
-        }
-
-        /// <summary>
-        /// Gets and sets the Application ID (Used by Platform APIs)
-        /// </summary>
-        public string ApplicationID
-        {
-            get;
-            set;
         }
 
         /// <summary>
