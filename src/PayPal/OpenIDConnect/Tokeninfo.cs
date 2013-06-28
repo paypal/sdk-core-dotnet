@@ -142,7 +142,7 @@ namespace PayPal.OpenIDConnect
         /// <param name="apiContext">APIContext to be used for the call.</param>
         /// <param name="createFromAuthorizationCodeParameters">Query parameters used for API call</param>
         /// </summary>
-        public static Tokeninfo CreateFromAuthorizationCode(apiContext apiContext, CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters)
+        public static Tokeninfo CreateFromAuthorizationCode(APIContext apiContext, CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters)
         {
             string pattern = "v1/identity/openidconnect/tokenservice ?grant_type={0}&code={1}&redirect_uri={2}";
             object[] parameters = new object[] { createFromAuthorizationCodeParameters };
@@ -178,7 +178,7 @@ namespace PayPal.OpenIDConnect
         /// <param name="apiContext">APIContext to be used for the call</param>
         /// <param name="createFromRefreshTokenParameters">Query parameters used for API call</param>
         /// </summary>
-        public Tokeninfo CreateFromRefreshToken(apiContext apiContext, CreateFromRefreshTokenParameters createFromRefreshTokenParameters)
+        public Tokeninfo CreateFromRefreshToken(APIContext apiContext, CreateFromRefreshTokenParameters createFromRefreshTokenParameters)
         {
             string pattern = "v1/identity/openidconnect/tokenservice ?grant_type={0}&refresh_token={1}&scope={2}&client_id={3}&client_secret={4}";
             createFromRefreshTokenParameters.SetRefreshToken(HttpUtility.UrlEncode(refresh_token));

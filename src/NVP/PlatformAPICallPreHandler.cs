@@ -186,12 +186,12 @@ namespace PayPal.NVP
                     headers = new Dictionary<string, string>();
                     if (credential is SignatureCredential)
                     {
-                        SignatureHttpHeaderAuthStrategy signatureHttpHeaderAuthStrategy = new SignatureHttpHeaderAuthStrategy(GetEndPoint());
+                        SignatureHttpHeaderAuthStrategy signatureHttpHeaderAuthStrategy = new SignatureHttpHeaderAuthStrategy(GetEndpoint());
                         headers = signatureHttpHeaderAuthStrategy.GenerateHeaderStrategy((SignatureCredential)credential);
                     }
                     else if (credential is CertificateCredential)
                     {
-                        CertificateHttpHeaderAuthStrategy certificateHttpHeaderAuthStrategy = new CertificateHttpHeaderAuthStrategy(GetEndPoint());
+                        CertificateHttpHeaderAuthStrategy certificateHttpHeaderAuthStrategy = new CertificateHttpHeaderAuthStrategy(GetEndpoint());
                         headers = certificateHttpHeaderAuthStrategy.GenerateHeaderStrategy((CertificateCredential)credential);
                     }
                     foreach (KeyValuePair<string, string> pair in GetDefaultHttpHeadersNVP())
@@ -220,7 +220,7 @@ namespace PayPal.NVP
         /// Returns the endpoint url
         /// </summary>
         /// <returns></returns>
-	    public string GetEndPoint()
+	    public string GetEndpoint()
         {
             string endpoint = null;
             if (PortName != null && config.ContainsKey(PortName) && !string.IsNullOrEmpty(config[PortName]))
@@ -236,7 +236,7 @@ namespace PayPal.NVP
                 switch (config[BaseConstants.ApplicationModeConfig].ToLower())
                 {
                     case BaseConstants.LiveMode:
-                        endpoint = BaseConstants.PlatformLiveEndPoint;
+                        endpoint = BaseConstants.PlatformLiveEndpoint;
                         break;
                     case BaseConstants.SandboxMode:
                         endpoint = BaseConstants.PlatformSandboxEndpoint;

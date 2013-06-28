@@ -132,11 +132,10 @@ namespace PayPal
         /// Returns the endpoint for the API call
         /// </summary>
         /// <returns></returns>
-	    public string GetEndPoint() 
+	    public string GetEndpoint() 
         {
 		    return Config[BaseConstants.EndpointConfig];
 	    }
-
 
 	    public ICredential GetCredential() 
         {

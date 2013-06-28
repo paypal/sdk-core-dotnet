@@ -45,16 +45,16 @@ namespace PayPal
 
         public static T ConfigureAndExecute<T>(string accessToken, HttpMethod httpMethod, string resource, string payLoad)
         {
-            apiContext apiContext = new apiContext(accessToken);
+            APIContext apiContext = new APIContext(accessToken);
             return ConfigureAndExecute<T>(apiContext, httpMethod, resource, null, payLoad);
         }
 
-        public static T ConfigureAndExecute<T>(apiContext apiContext, HttpMethod httpMethod, string resource, string payLoad)
+        public static T ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payLoad)
         {
             return ConfigureAndExecute<T>(apiContext, httpMethod, resource, null, payLoad);
         }
 
-        public static T ConfigureAndExecute<T>(apiContext apiContext, HttpMethod httpMethod, string resource, Dictionary<string, string> headersMap, string payLoad)
+        public static T ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, Dictionary<string, string> headersMap, string payLoad)
         {
             try
             {

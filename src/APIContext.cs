@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PayPal
 {
-    public class apiContext
+    public class APIContext
     {
         /// <summary>
         /// Access Token
@@ -28,13 +28,13 @@ namespace PayPal
         /// <summary>
         /// Explicit default constructor
         /// </summary>
-        public apiContext() { }
+        public APIContext() { }
 
         /// <summary>
         /// Access Token required for the call
         /// </summary>
         /// <param name="token"></param>
-        public apiContext(string token)
+        public APIContext(string token)
         {
             if (string.IsNullOrEmpty(token))
             {
@@ -48,7 +48,7 @@ namespace PayPal
         /// </summary>
         /// <param name="token"></param>
         /// <param name="requestID"></param>
-        public apiContext(string token, string requestID)
+        public APIContext(string token, string requestID)
             : this(token)
         {
             if (string.IsNullOrEmpty(requestID))

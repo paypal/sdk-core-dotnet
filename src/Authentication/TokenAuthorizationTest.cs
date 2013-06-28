@@ -1,15 +1,32 @@
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Authentication;
 
-namespace PayPal
+#if NUnit
+using NUnit.Framework;
+
+namespace PayPal.NUnitTest
+{
+    [TestFixture]
+    class TokenAuthorizationTest
+    {
+        [Test, ExpectedException(typeof(ArgumentException))]
+        public void ArgumentExceptionTest()
+        {
+            TokenAuthorization toknAuthorization = new TokenAuthorization(null, null);
+        }
+    }
+}
+#else
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace PayPal.UnitTest
 {
     [TestClass]
     public class TokenAuthorizationTest
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-	    public void ArgumentExceptionTest() 
+        public void ArgumentExceptionTest()
         {
             try
             {
@@ -20,6 +37,7 @@ namespace PayPal
                 Assert.AreEqual("TokenAuthorization arguments cannot be empty", ex.Message);
                 throw;
             }
-	    }
+        }
     }
 }
+#endif

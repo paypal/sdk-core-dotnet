@@ -15,7 +15,7 @@ namespace PayPal.OpenIDConnect
         /// <param name="scope"></param>
         /// <param name="apiContext"></param>
         /// <returns></returns>
-        public static string GetRedirectURL(string redirectURI, List<string> scope, apiContext apiContext)
+        public static string GetRedirectURL(string redirectURI, List<string> scope, APIContext apiContext)
         {
             string redirectURL = null;
             Dictionary<string, string> config = null;
@@ -75,7 +75,7 @@ namespace PayPal.OpenIDConnect
         /// <param name="idToken"></param>
         /// <param name="apiContext"></param>
         /// <returns></returns>
-        public static string GetLogoutUrl(string redirectURI, string idToken, apiContext apiContext)
+        public static string GetLogoutUrl(string redirectURI, string idToken, APIContext apiContext)
         {
             string logoutURL = null;
             Dictionary<string, string> config = null;

@@ -66,7 +66,7 @@ namespace PayPal
         // Endpoints for various APIs        
         public const string MerchantCertificateLiveEndpoint = "https://api.paypal.com/2.0/";        
         public const string MerchantSignatureLiveEndpoint = "https://api-3t.paypal.com/2.0/";
-        public const string PlatformLiveEndPoint = "https://svcs.paypal.com/";
+        public const string PlatformLiveEndpoint = "https://svcs.paypal.com/";
         public const string IPNLiveEndpoint = "https://ipnpb.paypal.com/cgi-bin/webscr";
         public const string RESTSandboxEndpoint = "https://api.sandbox.paypal.com/";
 

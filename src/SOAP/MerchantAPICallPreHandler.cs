@@ -171,12 +171,12 @@ namespace PayPal.SOAP
                     headers = apiCallHandler.GetHeaderMap();
                     if (credential is SignatureCredential)
                     {
-                        SignatureHttpHeaderAuthStrategy signatureHttpHeaderAuthStrategy = new SignatureHttpHeaderAuthStrategy(GetEndPoint());
+                        SignatureHttpHeaderAuthStrategy signatureHttpHeaderAuthStrategy = new SignatureHttpHeaderAuthStrategy(GetEndpoint());
                         headers = signatureHttpHeaderAuthStrategy.GenerateHeaderStrategy((SignatureCredential)credential);
                     }
                     else if (credential is CertificateCredential)
                     {
-                        CertificateHttpHeaderAuthStrategy certificateHttpHeaderAuthStrategy = new CertificateHttpHeaderAuthStrategy(GetEndPoint());
+                        CertificateHttpHeaderAuthStrategy certificateHttpHeaderAuthStrategy = new CertificateHttpHeaderAuthStrategy(GetEndpoint());
                         headers = certificateHttpHeaderAuthStrategy.GenerateHeaderStrategy((CertificateCredential)credential);
                     }
 
@@ -228,7 +228,7 @@ namespace PayPal.SOAP
         /// Returns the endpoint url
         /// </summary>
         /// <returns></returns>
-	    public string GetEndPoint() 
+	    public string GetEndpoint() 
         {
             string endpoint = null;
             if (PortName != null && config.ContainsKey(PortName) && !string.IsNullOrEmpty(config[PortName]))
@@ -237,7 +237,7 @@ namespace PayPal.SOAP
             }
             else if (config.ContainsKey(BaseConstants.EndpointConfig))
             {
-                endpoint = apiCallHandler.GetEndPoint();
+                endpoint = apiCallHandler.GetEndpoint();
             }
             else if (config.ContainsKey(BaseConstants.ApplicationModeConfig))
             {

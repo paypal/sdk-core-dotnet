@@ -67,7 +67,7 @@ namespace PayPal
         public string MakeRequestUsing(IAPICallPreHandler apiCallHandler)
         {
             string responseString = string.Empty;
-            string uri = apiCallHandler.GetEndPoint();
+            string uri = apiCallHandler.GetEndpoint();
             Dictionary<string, string> headers = apiCallHandler.GetHeaderMap();
             string payLoad = apiCallHandler.GetPayLoad();
 

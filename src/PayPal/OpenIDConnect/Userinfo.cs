@@ -379,7 +379,7 @@ namespace PayPal.OpenIDConnect
         /// <param name="apiContext">APIContext to be used for the call.</param>
         /// <param name="userinfoParameters">Query parameters used for API call</param>
         /// </summary>
-        public static Userinfo GetUserinfo(apiContext apiContext, UserinfoParameters userinfoParameters)
+        public static Userinfo GetUserinfo(APIContext apiContext, UserinfoParameters userinfoParameters)
         {
             string pattern = "v1/identity/openidconnect/userinfo?schema={0}&access_token={1}";
             object[] parameters = new object[] { userinfoParameters };

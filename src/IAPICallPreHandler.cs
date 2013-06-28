@@ -24,7 +24,7 @@ namespace PayPal
         /// Returns the endpoint for the API call
 	    /// </summary>
 	    /// <returns></returns>
-	    string GetEndPoint();
+	    string GetEndpoint();
 
 	    /// <summary>
         /// Returns the ICredential configured for the API call

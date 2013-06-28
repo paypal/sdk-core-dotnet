@@ -1,8 +1,25 @@
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayPal.Authentication;
 
-namespace PayPal
+#if NUnit
+using NUnit.Framework;
+
+namespace PayPal.NUnitTest
+{
+    [TestFixture]
+    class SubjectAuthorizationTest
+    {
+        [Test, ExpectedException(typeof(ArgumentException))]
+        public void ArgumentExceptionTest()
+        {
+            SubjectAuthorization subAuthorization = new SubjectAuthorization(null);
+        }
+    }
+}
+#else
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace PayPal.UnitTest
 {
     [TestClass]
     public class SubjectAuthorizationTest
@@ -10,7 +27,7 @@ namespace PayPal
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void ArgumentExceptionTest()
-        { 
+        {
             try
             {
                 SubjectAuthorization subAuthorization = new SubjectAuthorization(null);
@@ -19,7 +36,8 @@ namespace PayPal
             {
                 Assert.AreEqual("SubjectAuthorization arguments cannot be null or empty", ex.Message);
                 throw;
-            }   
+            }
         }
     }
 }
+#endif

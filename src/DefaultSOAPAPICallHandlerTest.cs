@@ -1,22 +1,25 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PayPal;
 using PayPal.Manager;
 
-namespace PayPal
+#if NUnit
+using NUnit.Framework;
+
+namespace PayPal.NUnitTest
 {
-    [TestClass]
-    public class DefaultSOAPAPICallHandlerTest
+    [TestFixture]
+    class DefaultSOAPAPICallHandlerTest
     {
         DefaultSOAPAPICallHandler defaultSOAPHandler;
 
-        // [TestMethod] // <!--SOAP--> To Run this Test Case configure App.config <add name="endpoint" value="https://api-3t.sandbox.paypal.com/2.0"/>
-        [Ignore] 
-	    public void EndPoint() 
+        // [Test] // <!--SOAP--> To Run this Test Case configure App.config <add name="endpoint" value="https://api-3t.sandbox.paypal.com/2.0"/>
+        [Ignore]
+        public void Endpoint()
         {
             defaultSOAPHandler = new DefaultSOAPAPICallHandler(ConfigManager.Instance.GetProperties(), Constants.PayloadNVP, string.Empty, string.Empty);
-		    Assert.AreEqual(Constants.APIEndpointSOAP, defaultSOAPHandler.GetEndPoint());
+            Assert.AreEqual(Constants.APIEndpointSOAP, defaultSOAPHandler.GetEndpoint());
         }
-    
-        [TestMethod]
+
+        [Test]
         public void HeaderElement()
         {
             defaultSOAPHandler = new DefaultSOAPAPICallHandler(ConfigManager.Instance.GetProperties(), string.Empty, string.Empty, string.Empty);
@@ -24,7 +27,7 @@ namespace PayPal
             Assert.AreEqual("HeaderElement", defaultSOAPHandler.HeaderElement);
         }
 
-        [TestMethod]
+        [Test]
         public void NamespaceAttributes()
         {
             defaultSOAPHandler = new DefaultSOAPAPICallHandler(ConfigManager.Instance.GetProperties(), string.Empty, string.Empty, string.Empty);
@@ -32,7 +35,7 @@ namespace PayPal
             Assert.AreEqual("NamespaceAttributes", defaultSOAPHandler.NamespaceAttributes);
         }
 
-        [TestMethod]
+        [Test]
         public void GetPayloadForEmptyRawPayload()
         {
             defaultSOAPHandler = new DefaultSOAPAPICallHandler(ConfigManager.Instance.GetProperties(), string.Empty, string.Empty, string.Empty);
@@ -40,3 +43,43 @@ namespace PayPal
         }
     }
 }
+#else
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+[TestClass]
+public class DefaultSOAPAPICallHandlerTest
+{
+    DefaultSOAPAPICallHandler defaultSOAPHandler;
+
+    // [TestMethod] // <!--SOAP--> To Run this Test Case configure App.config <add name="endpoint" value="https://api-3t.sandbox.paypal.com/2.0"/>
+    [Ignore] 
+    public void Endpoint() 
+    {
+        defaultSOAPHandler = new DefaultSOAPAPICallHandler(ConfigManager.Instance.GetProperties(), Constants.PayloadNVP, string.Empty, string.Empty);
+	    Assert.AreEqual(Constants.APIEndpointSOAP, defaultSOAPHandler.GetEndpoint());
+    }
+
+    [TestMethod]
+    public void HeaderElement()
+    {
+        defaultSOAPHandler = new DefaultSOAPAPICallHandler(ConfigManager.Instance.GetProperties(), string.Empty, string.Empty, string.Empty);
+        defaultSOAPHandler.HeaderElement = "HeaderElement";
+        Assert.AreEqual("HeaderElement", defaultSOAPHandler.HeaderElement);
+    }
+
+    [TestMethod]
+    public void NamespaceAttributes()
+    {
+        defaultSOAPHandler = new DefaultSOAPAPICallHandler(ConfigManager.Instance.GetProperties(), string.Empty, string.Empty, string.Empty);
+        defaultSOAPHandler.NamespaceAttributes = "NamespaceAttributes";
+        Assert.AreEqual("NamespaceAttributes", defaultSOAPHandler.NamespaceAttributes);
+    }
+
+    [TestMethod]
+    public void GetPayloadForEmptyRawPayload()
+    {
+        defaultSOAPHandler = new DefaultSOAPAPICallHandler(ConfigManager.Instance.GetProperties(), string.Empty, string.Empty, string.Empty);
+        Assert.AreEqual("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" ><soapenv:Header></soapenv:Header><soapenv:Body></soapenv:Body></soapenv:Envelope>", defaultSOAPHandler.GetPayLoad());
+    }
+}
+#endif
