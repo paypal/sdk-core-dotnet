@@ -9,8 +9,6 @@ namespace PayPal.NUnitTest
     [TestFixture]
     class ConfigManagerTest
     {
-        ConfigManager configMngr;
-
         [Test]
         public void RetrieveValidProperty()
         {

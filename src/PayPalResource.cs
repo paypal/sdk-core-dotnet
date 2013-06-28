@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Net;
 /* NuGet Install
- * Visual Studio 2008
+ * Visual Studio 2005 or  2008
     * Install Newtonsoft.Json -OutputDirectory .\packages
     * Add reference from the folder "net35"
  * Visual Studio 2010 or higher
@@ -12,7 +12,7 @@ using System.Net;
 */
 using Newtonsoft.Json;
 /* NuGet Install
- * Visual Studio 2008
+ * Visual Studio 2005 or  2008
     * Install log4net -OutputDirectory .\packages
     * Add reference from the folder "net35-full"
  * Visual Studio 2010 or higher

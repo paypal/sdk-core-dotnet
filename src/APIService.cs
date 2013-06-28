@@ -5,7 +5,7 @@ using System.IO;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 /* NuGet Install
- * Visual Studio 2008
+ * Visual Studio 2005 or  2008
     * Install log4net -OutputDirectory .\packages
     * Add reference from the folder "net35-full"
  * Visual Studio 2010 or higher

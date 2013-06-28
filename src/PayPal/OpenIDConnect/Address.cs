@@ -1,5 +1,5 @@
 /* NuGet Install
- * Visual Studio 2008
+ * Visual Studio 2005 or  2008
     * Install Newtonsoft.Json -OutputDirectory .\packages
     * Add reference from the folder "net35"
  * Visual Studio 2010 or higher
