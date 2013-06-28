@@ -160,9 +160,21 @@ namespace PayPal
                 {
                     baseUri = new Uri(config[BaseConstants.END_POINT_CONFIG]);
                 }
+                else if (config.ContainsKey(BaseConstants.APPLICATION_MODE_CONFIG))
+                {
+                    string mode = config[BaseConstants.APPLICATION_MODE_CONFIG];
+                    if (mode.Equals(BaseConstants.LIVE_MODE))
+                    {
+                        baseUri = new Uri(BaseConstants.REST_LIVE_ENDPOINT);
+                    }
+                    else if (mode.Equals(BaseConstants.SANDBOX_MODE))
+                    {
+                        baseUri = new Uri(BaseConstants.REST_SANDBOX_ENDPOINT);
+                    }
+                }
                 bool success = Uri.TryCreate(baseUri, OAUTHTOKENPATH, out uniformResourceIdentifier);
                 ConnectionManager connManager = ConnectionManager.Instance;
-                HttpWebRequest httpRequest = connManager.GetConnection(ConfigManager.Instance.GetProperties(), uniformResourceIdentifier.AbsoluteUri);  
+                HttpWebRequest httpRequest = connManager.GetConnection(this.config, uniformResourceIdentifier.AbsoluteUri);  
               
                 
                 Dictionary<string, string> headers = new Dictionary<string, string>();
