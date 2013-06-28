@@ -127,18 +127,6 @@ namespace PayPal
                 string base64ClientID = Convert.ToBase64String(bytes);
                 return base64ClientID;
             }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                throw new PayPalException(ex.Message, ex);
-            }
-            catch (ArgumentException ex)
-            {
-                throw new PayPalException(ex.Message, ex);
-            }
-            catch (NotSupportedException ex)
-            {
-                throw new PayPalException(ex.Message, ex);
-            }
             catch (System.Exception ex)
             {
                 throw new PayPalException(ex.Message, ex);
@@ -170,6 +158,10 @@ namespace PayPal
                     else if (mode.Equals(BaseConstants.SANDBOX_MODE))
                     {
                         baseUri = new Uri(BaseConstants.REST_SANDBOX_ENDPOINT);
+                    }
+                    else
+                    {
+                        throw new ConfigException("You must specify one of mode(live/sandbox) OR endpoint in the configuration");
                     }
                 }
                 bool success = Uri.TryCreate(baseUri, OAUTHTOKENPATH, out uniformResourceIdentifier);
