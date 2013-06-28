@@ -19,7 +19,6 @@ namespace PayPal.OpenIDConnect
         /// </summary>
         private const string GrantType = "grant_type";
 
-#if NET_2_0
         /// <summary>
         /// Backing map
         /// </summary>
@@ -39,16 +38,7 @@ namespace PayPal.OpenIDConnect
                 this.MapContainer = value;
             }
         }
-#else
-        /// <summary>
-        /// Backing map
-        /// </summary>
-        public Dictionary<string, string> ContainerMap
-        {
-            get;
-            set;
-        }
-#endif
+
 
         public CreateFromAuthorizationCodeParameters()
         {

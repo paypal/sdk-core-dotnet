@@ -30,9 +30,9 @@ namespace PayPal
         /// <summary>
         /// Logs output statements, errors, debug info to a text file    
         /// </summary>
-        private static readonly ILog Logger = LogManagerWrapper.GetLogger(typeof(PayPalResource));
+        private static ILog logger = LogManagerWrapper.GetLogger(typeof(PayPalResource));
 
-        private static ArrayList RetryCodes = new ArrayList(new HttpStatusCode[] 
+        private static ArrayList retryCodes = new ArrayList(new HttpStatusCode[] 
                                                 { HttpStatusCode.GatewayTimeout,
                                                   HttpStatusCode.RequestTimeout,
                                                   HttpStatusCode.InternalServerError,
@@ -45,16 +45,16 @@ namespace PayPal
 
         public static T ConfigureAndExecute<T>(string accessToken, HttpMethod httpMethod, string resource, string payLoad)
         {
-            APIContext apiContext = new APIContext(accessToken);
+            apiContext apiContext = new apiContext(accessToken);
             return ConfigureAndExecute<T>(apiContext, httpMethod, resource, null, payLoad);
         }
 
-        public static T ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payLoad)
+        public static T ConfigureAndExecute<T>(apiContext apiContext, HttpMethod httpMethod, string resource, string payLoad)
         {
             return ConfigureAndExecute<T>(apiContext, httpMethod, resource, null, payLoad);
         }
 
-        public static T ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, Dictionary<string, string> headersMap, string payLoad)
+        public static T ConfigureAndExecute<T>(apiContext apiContext, HttpMethod httpMethod, string resource, Dictionary<string, string> headersMap, string payLoad)
         {
             try
             {
@@ -103,11 +103,11 @@ namespace PayPal
                         httpRequest.Headers.Add(header.Key, header.Value);
                     }
                 }
-                if (Logger.IsDebugEnabled)
+                if (logger.IsDebugEnabled)
                 {
                     foreach (string headerName in httpRequest.Headers)
                     {
-                        Logger.Debug(headerName + ":" + httpRequest.Headers[headerName]);
+                        logger.Debug(headerName + ":" + httpRequest.Headers[headerName]);
                     }
                 }
                 HttpConnection connectionHttp = new HttpConnection(config);
@@ -143,7 +143,7 @@ namespace PayPal
                 return false;
             }
             HttpStatusCode status = ((HttpWebResponse)ex.Response).StatusCode;
-            return RetryCodes.Contains(status);
+            return retryCodes.Contains(status);
         }
 
         /// <summary>

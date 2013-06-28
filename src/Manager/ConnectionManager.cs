@@ -22,7 +22,7 @@ namespace PayPal.Manager
         /// <summary>
         /// Logger
         /// </summary>
-        private static ILog Logger = LogManagerWrapper.GetLogger(typeof(ConnectionManager));
+        private static ILog logger = LogManagerWrapper.GetLogger(typeof(ConnectionManager));
 
 #if NET_2_0 || NET_3_5
         /// <summary>
@@ -78,7 +78,7 @@ namespace PayPal.Manager
             }
             catch (UriFormatException ex)
             {
-                Logger.Error(ex.Message);
+                logger.Error(ex.Message);
                 throw new ConfigException("Invalid URI " + url);
             }
 

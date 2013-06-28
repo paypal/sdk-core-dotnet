@@ -7,7 +7,7 @@ namespace PayPal.OAuth
     {
         public const string Digits = "0123456789abcdef";
 
-        public static string Encode(string message, string name)
+        public static string encode(string message, string name)
         {
             if (message == null || name == null)
             {

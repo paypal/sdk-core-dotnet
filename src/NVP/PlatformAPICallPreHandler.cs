@@ -11,47 +11,62 @@ namespace PayPal.NVP
         /// <summary>
         /// Service Name
         /// </summary>
-	    private readonly string ServiceName;
+	    private readonly string serviceName;
 
         /// <summary>
         /// API method
         /// </summary>
-	    private readonly string Method;
+	    private readonly string method;
 
         /// <summary>
         /// Raw payload from stubs
         /// </summary>
-		private readonly string RawPayLoad;
+		private readonly string rawPayLoad;
 
 	    /// <summary>
 	    /// API Username for authentication
 	    /// </summary>
-	    private string APIUserName;
+	    private string apiUserName;
 
 	    /// <summary>
 	    /// {@link ICredential} for authentication
 	    /// </summary>
-	    private ICredential Credential;
+	    private ICredential credential;
         
         /// <summary>
         /// Access token if any for authorization
         /// </summary>
-		private string AccessToken;
+		private string accessToken;
         
         /// <summary>
         /// Access token secret if any for authorization
         /// </summary>
-        private string AccessTokenSecret;
+        private string accessTokenSecret;
         	          
         /// <summary>
         /// Internal variable to hold headers
         /// </summary>
-	    private Dictionary<string, string> Headers;
+	    private Dictionary<string, string> headers;
                
         /// <summary>
         /// SDK Configuration
         /// </summary>
-        private Dictionary<string, string> Config;
+        private Dictionary<string, string> config;
+        
+        /// <summary>
+        /// SDK Name
+        /// </summary>
+        private string nameSDK;
+
+        /// <summary>
+        /// SDK Version
+        /// </summary>
+        private string versionSDK;
+
+        /// <summary>
+        /// Port Name
+        /// </summary>
+        private string namePort;
 
         /// <summary>
 	    /// Private constructor
@@ -62,10 +77,10 @@ namespace PayPal.NVP
         private PlatformAPICallPreHandler(string rawPayLoad, string serviceName, string method, Dictionary<string, string> config)
             : base()
         {
-            this.RawPayLoad = rawPayLoad;
-		    this.ServiceName = serviceName;
-		    this.Method = method;
-            this.Config = (config == null) ? ConfigManager.Instance.GetProperties() : config;
+            this.rawPayLoad = rawPayLoad;
+		    this.serviceName = serviceName;
+		    this.method = method;
+            this.config = (config == null) ? ConfigManager.Instance.GetProperties() : config;
 	    }
 
         /// <summary>
@@ -76,16 +91,16 @@ namespace PayPal.NVP
         /// <param name="method"></param>
         /// <param name="apiUserName"></param>
         /// <param name="accessToken"></param>
-        /// <param name="tokenSecret"></param>
+        /// <param name="accesstokenSecret"></param>
 	    public PlatformAPICallPreHandler(Dictionary<string, string> config, string rawPayLoad, string serviceName, string method,
-            string apiUserName, string accessToken, string tokenSecret)
+            string apiUserName, string accessToken, string accesstokenSecret)
             : this(rawPayLoad, serviceName, method, config)
         {
             try
             {
-                this.APIUserName = apiUserName;
-                this.AccessToken = accessToken;
-                this.AccessTokenSecret = tokenSecret;
+                this.apiUserName = apiUserName;
+                this.accessToken = accessToken;
+                this.accessTokenSecret = accesstokenSecret;
                 InitCredential();
             }
             catch(System.Exception ex)
@@ -109,13 +124,8 @@ namespace PayPal.NVP
             {
 			    throw new ArgumentException("Credential is null in NVPAPICallPreHandler");
 		    }
-		    this.Credential = credential;
+		    this.credential = credential;
         }
-#if NET_2_0
-        /// <summary>
-        /// SDK Name
-        /// </summary>
-        private string Name;
 
         /// <summary>
         /// Gets and sets the SDK Name
@@ -124,18 +134,13 @@ namespace PayPal.NVP
         {
             get
             {
-                return this.Name;
+                return this.nameSDK;
             }
             set
             {
-                this.Name = value;
+                this.nameSDK = value;
             }
         }
-
-        /// <summary>
-        /// SDK Version
-        /// </summary>
-        private string Version;
 
         /// <summary>
         /// Gets and sets the SDK Version
@@ -144,18 +149,13 @@ namespace PayPal.NVP
         {
             get
             {
-                return this.Version;
+                return this.versionSDK;
             }
             set
             {
-                this.Version = value;
+                this.versionSDK = value;
             }
         }
-
-        /// <summary>
-        /// Port Name
-        /// </summary>
-        private string Port;
 
         /// <summary>
         /// Gets and sets the Port Name
@@ -164,44 +164,14 @@ namespace PayPal.NVP
         {
             get
             {
-                return this.Port;
+                return this.namePort;
 
             }
             set
             {
-                this.Port = value;
+                this.namePort = value;
             }
         }
-#else
-        /// <summary>
-        /// Gets and sets the SDK Name
-        /// </summary>
-        public string SDKName
-        {
-            get;
-            set;
-        }
-
-	    /// <summary>
-        /// Gets and sets the SDK Version
-	    /// </summary>
-        public string SDKVersion
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets and sets the Port Name
-        /// </summary>
-        public string PortName
-        {
-            get;
-            set;
-        }
-
-#endif
-
 
         /// <summary>
         /// Returns the Header
@@ -211,22 +181,22 @@ namespace PayPal.NVP
         {
             try
             {
-                if (Headers == null)
+                if (headers == null)
                 {
-                    Headers = new Dictionary<string, string>();
-                    if (Credential is SignatureCredential)
+                    headers = new Dictionary<string, string>();
+                    if (credential is SignatureCredential)
                     {
                         SignatureHttpHeaderAuthStrategy signatureHttpHeaderAuthStrategy = new SignatureHttpHeaderAuthStrategy(GetEndPoint());
-                        Headers = signatureHttpHeaderAuthStrategy.GenerateHeaderStrategy((SignatureCredential)Credential);
+                        headers = signatureHttpHeaderAuthStrategy.GenerateHeaderStrategy((SignatureCredential)credential);
                     }
-                    else if (Credential is CertificateCredential)
+                    else if (credential is CertificateCredential)
                     {
                         CertificateHttpHeaderAuthStrategy certificateHttpHeaderAuthStrategy = new CertificateHttpHeaderAuthStrategy(GetEndPoint());
-                        Headers = certificateHttpHeaderAuthStrategy.GenerateHeaderStrategy((CertificateCredential)Credential);
+                        headers = certificateHttpHeaderAuthStrategy.GenerateHeaderStrategy((CertificateCredential)credential);
                     }
                     foreach (KeyValuePair<string, string> pair in GetDefaultHttpHeadersNVP())
                     {
-                        Headers.Add(pair.Key, pair.Value);
+                        headers.Add(pair.Key, pair.Value);
                     }
                 }
             }
@@ -234,7 +204,7 @@ namespace PayPal.NVP
             {
                 throw ae;
             }
-            return Headers;
+            return headers;
         }
 
         /// <summary>
@@ -243,7 +213,7 @@ namespace PayPal.NVP
         /// <returns></returns>
 	    public string GetPayLoad() 
         {
-		    return RawPayLoad;
+		    return rawPayLoad;
 	    }
 
         /// <summary>
@@ -253,17 +223,17 @@ namespace PayPal.NVP
 	    public string GetEndPoint()
         {
             string endpoint = null;
-            if (PortName != null && Config.ContainsKey(PortName) && !string.IsNullOrEmpty(Config[PortName]))
+            if (PortName != null && config.ContainsKey(PortName) && !string.IsNullOrEmpty(config[PortName]))
             {
-                endpoint = Config[PortName];
+                endpoint = config[PortName];
             }
-            else if (Config.ContainsKey(BaseConstants.EndpointConfig))
+            else if (config.ContainsKey(BaseConstants.EndpointConfig))
             {
-                endpoint = Config[BaseConstants.EndpointConfig];
+                endpoint = config[BaseConstants.EndpointConfig];
             }
-            else if (Config.ContainsKey(BaseConstants.ApplicationModeConfig))
+            else if (config.ContainsKey(BaseConstants.ApplicationModeConfig))
             {
-                switch (Config[BaseConstants.ApplicationModeConfig].ToLower())
+                switch (config[BaseConstants.ApplicationModeConfig].ToLower())
                 {
                     case BaseConstants.LiveMode:
                         endpoint = BaseConstants.PlatformLiveEndPoint;
@@ -286,7 +256,7 @@ namespace PayPal.NVP
                 {
                     endpoint = endpoint + "/";
                 }
-                endpoint = endpoint + ServiceName + "/" + Method;
+                endpoint = endpoint + serviceName + "/" + method;
             }
             return endpoint;
         }
@@ -297,7 +267,7 @@ namespace PayPal.NVP
         /// <returns></returns>
 	    public ICredential GetCredential() 
         {
-		    return Credential;
+		    return credential;
 	    }
 
         /// <summary>
@@ -311,11 +281,11 @@ namespace PayPal.NVP
             try
             {
                 CredentialManager credentialMngr = CredentialManager.Instance;
-                returnCredential = credentialMngr.GetCredentials(this.Config, APIUserName);
+                returnCredential = credentialMngr.GetCredentials(this.config, apiUserName);
 
-                if (!string.IsNullOrEmpty(AccessToken))
+                if (!string.IsNullOrEmpty(accessToken))
                 {
-                    IThirdPartyAuthorization tokenAuthuthorize = new TokenAuthorization(AccessToken, AccessTokenSecret);
+                    IThirdPartyAuthorization tokenAuthuthorize = new TokenAuthorization(accessToken, accessTokenSecret);
 
                     if (returnCredential is SignatureCredential)
                     {
@@ -367,24 +337,24 @@ namespace PayPal.NVP
 	    private string GetApplicationID() 
         {
 		    string applicationID = string.Empty;
-		    if (Credential is CertificateCredential) 
+		    if (credential is CertificateCredential) 
             {
-			    applicationID = ((CertificateCredential) Credential).ApplicationID;
+			    applicationID = ((CertificateCredential) credential).ApplicationID;
 		    } 
-            else if (Credential is SignatureCredential) 
+            else if (credential is SignatureCredential) 
             {
-			    applicationID = ((SignatureCredential) Credential).ApplicationID;
+			    applicationID = ((SignatureCredential) credential).ApplicationID;
 		    }
 		    return applicationID;
 	    }
 
 	    private void InitCredential() 
         {
-		    if (Credential == null) 
+		    if (credential == null) 
             {
                 try
                 {
-                    Credential = GetCredentials();
+                    credential = GetCredentials();
                 }
                 catch (System.Exception ex)
                 {
@@ -395,10 +365,10 @@ namespace PayPal.NVP
 
         private string GetDeviceIPAddress()
         {
-            if (Config.ContainsKey(BaseConstants.ClientIPAddressConfig) && 
-                !string.IsNullOrEmpty(Config[BaseConstants.ClientIPAddressConfig]))
+            if (config.ContainsKey(BaseConstants.ClientIPAddressConfig) && 
+                !string.IsNullOrEmpty(config[BaseConstants.ClientIPAddressConfig]))
             {
-                return Config[BaseConstants.ClientIPAddressConfig];
+                return config[BaseConstants.ClientIPAddressConfig];
             }
             else
             {
@@ -408,10 +378,10 @@ namespace PayPal.NVP
 
         private string GetSandboxEmailAddress()
         {
-            if (Config.ContainsKey(BaseConstants.PayPalSandboxEmailAddressConfig) && 
-                !string.IsNullOrEmpty(Config[BaseConstants.PayPalSandboxEmailAddressConfig]))
+            if (config.ContainsKey(BaseConstants.PayPalSandboxEmailAddressConfig) && 
+                !string.IsNullOrEmpty(config[BaseConstants.PayPalSandboxEmailAddressConfig]))
             {
-                return Config[BaseConstants.PayPalSandboxEmailAddressConfig];
+                return config[BaseConstants.PayPalSandboxEmailAddressConfig];
             }
             else
             {

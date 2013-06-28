@@ -19,17 +19,16 @@ namespace PayPal.OpenIDConnect
         /// </summary>
         private const string RefreshToken = "refresh_token";
 
+        /// <summary>
+        /// Backing map
+        /// </summary>
+        private Dictionary<string, string> mapContainer;
+
         public CreateFromRefreshTokenParameters()
         {
             ContainerMap = new Dictionary<string, string>();
             ContainerMap.Add(GrantType, "refresh_token");
         }
-
-#if NET_2_0
-        /// <summary>
-        /// Backing map
-        /// </summary>
-        private Dictionary<string, string> MapContainer;
 
         /// <summary>
         /// Backing map
@@ -38,23 +37,14 @@ namespace PayPal.OpenIDConnect
         {
             get
             {
-                return this.MapContainer;
+                return this.mapContainer;
             }
             set
             {
-                this.MapContainer = value;
+                this.mapContainer = value;
             }
         }
-#else
-        /// <summary>
-        /// Backing map
-        /// </summary>
-        public Dictionary<string, string> ContainerMap
-        {
-            get;
-            set;
-        }
-#endif
+
         /// <summary>
         /// Set the scope
         /// </summary>
@@ -82,5 +72,4 @@ namespace PayPal.OpenIDConnect
             ContainerMap.Add(RefreshToken, refreshToken);
         }
     }
-
 }

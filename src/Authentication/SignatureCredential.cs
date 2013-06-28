@@ -12,17 +12,27 @@ namespace PayPal.Authentication
         /// <summary>
         /// Username credential
         /// </summary> 
-        private string UsrName;
+        private string usrName;
                 
         /// <summary>
         /// Password credential
         /// </summary>
-        private string PssWord;
+        private string pssWord;
 
         /// <summary>
         /// Signature
         /// </summary>
-        private string Sign;
+        private string sign;
+
+        /// <summary>
+        /// Third Party Authorization
+        /// </summary>
+        private IThirdPartyAuthorization authorization;
+
+        /// <summary>
+        ///  Application ID
+        /// </summary>
+        private string appID;
 
         /// <summary>
         /// SignatureCredential constructor
@@ -38,9 +48,9 @@ namespace PayPal.Authentication
             {
                 throw new ArgumentException("Signature Credential arguments cannot be null");
             }
-            this.UsrName = usrName;
-            this.PssWord = pssword;
-            this.Sign = sign;
+            this.usrName = usrName;
+            this.pssWord = pssword;
+            this.sign = sign;
         }
 
         /// <summary>
@@ -57,13 +67,7 @@ namespace PayPal.Authentication
         {
             this.ThirdPartyAuthorization = thrdPartyAuthorization;
         }
-
-#if NET_2_0
-        /// <summary>
-        /// Third Party Authorization
-        /// </summary>
-        private IThirdPartyAuthorization Authorization;
-
+        
         /// <summary>
         ///  Gets and sets the instance of IThirdPartyAuthorization
         /// </summary>
@@ -71,18 +75,13 @@ namespace PayPal.Authentication
         {
             get
             {
-                return this.Authorization;
+                return this.authorization;
             }
             set
             {
-                this.Authorization = value;
+                this.authorization = value;
             }
         }
-
-        /// <summary>
-        ///  Application ID
-        /// </summary>
-        private string AppID;
 
         /// <summary>
         /// Gets and sets the Application ID (Used by Platform APIs)
@@ -91,32 +90,13 @@ namespace PayPal.Authentication
         {
             get
             {
-                return this.AppID;
+                return this.appID;
             }
             set
             {
-                this.AppID = value;
+                this.appID = value;
             }
         }
-#else
-        /// <summary>
-        ///  Gets and sets the instance of IThirdPartyAuthorization
-        /// </summary>
-        public IThirdPartyAuthorization ThirdPartyAuthorization
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets and sets the Application ID (Used by Platform APIs)
-        /// </summary>
-        public string ApplicationID
-        {
-            get;
-            set;
-        }
-#endif
 
         /// <summary>
         /// Gets the UserName
@@ -125,7 +105,7 @@ namespace PayPal.Authentication
         {
             get
             {
-                return UsrName;
+                return usrName;
             }
         }
 
@@ -136,7 +116,7 @@ namespace PayPal.Authentication
         {
             get
             {
-                return PssWord;
+                return pssWord;
             }
         }
         
@@ -147,7 +127,7 @@ namespace PayPal.Authentication
         {
             get
             {
-                return Sign;
+                return sign;
             }
         }
     }

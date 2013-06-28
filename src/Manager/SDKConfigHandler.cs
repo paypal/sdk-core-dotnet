@@ -37,8 +37,7 @@ namespace PayPal.Manager
         }
     }    
 
-    [ConfigurationCollection(typeof(Account), AddItemName = "account",
-         CollectionType = ConfigurationElementCollectionType.BasicMap)]
+    [ConfigurationCollection(typeof(Account), AddItemName = "account", CollectionType = ConfigurationElementCollectionType.BasicMap)]
     public class AccountCollection : ConfigurationElementCollection
     {
         protected override ConfigurationElement CreateNewElement()

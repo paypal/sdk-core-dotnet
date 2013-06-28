@@ -7,19 +7,19 @@ namespace PayPal.Authentication
         /// <summary>
         /// Subject information
         /// </summary>
-        private string Sub;
+        private string sub;
            
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="subject"></param>
-        public SubjectAuthorization(string subjct) : base()
+        public SubjectAuthorization(string sub) : base()
         {
-            if (string.IsNullOrEmpty(subjct))
+            if (string.IsNullOrEmpty(sub))
             {
                 throw new ArgumentException("SubjectAuthorization arguments cannot be null or empty");
             }
-            this.Sub = subjct;
+            this.sub = sub;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace PayPal.Authentication
         {
             get
             {
-                return Sub;
+                return sub;
             }
         }
     }

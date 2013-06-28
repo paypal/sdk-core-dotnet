@@ -15,7 +15,7 @@ namespace PayPal.Exception
         /// <summary>
         /// Logger
         /// </summary>
-        private static readonly ILog Logger = LogManagerWrapper.GetLogger(typeof(MissingCredentialException));
+        private static ILog logger = LogManagerWrapper.GetLogger(typeof(MissingCredentialException));
 
 		/// <summary>
 		/// Represents errors that occur during application execution
@@ -28,9 +28,9 @@ namespace PayPal.Exception
 		/// <param name="message">The message that describes the error</param>
 		public MissingCredentialException(string message): base(message)
 		{
-			if (Logger.IsErrorEnabled)
+			if (logger.IsErrorEnabled)
 			{
-				Logger.Error(message, this);
+				logger.Error(message, this);
 			}
 		}
         
@@ -42,10 +42,10 @@ namespace PayPal.Exception
         public MissingCredentialException(string message, System.Exception cause)
             : base(message, cause)
 		{
-			if (Logger.IsErrorEnabled) 
+			if (logger.IsErrorEnabled) 
 			{
-				Logger.Error(message, this);
+				logger.Error(message, this);
 			}
 		}
-	} // MissingCredentialException
+	}
 }

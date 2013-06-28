@@ -17,43 +17,31 @@ namespace PayPal.OpenIDConnect
         /// </summary>
         private const string AccessToken = "access_token";
 
+        /// <summary>
+        /// Backing map
+        /// </summary>
+        private Dictionary<string, string> mapContainer;
+
         public UserinfoParameters()
         {
             ContainerMap = new Dictionary<string, string>();
             ContainerMap.Add(Schema, "openid");
         }
 
-#if NET_2_0
         /// <summary>
-        /// Backing map
-        /// </summary>
-        private Dictionary<string, string> MapContainer;
-
-        /// <summary>
-        /// Backing map
+        /// Gets and sets the backing map
         /// </summary>
         public Dictionary<string, string> ContainerMap
         {
             get
             {
-                return this.MapContainer;
+                return this.mapContainer;
             }
             set
             {
-                this.MapContainer = value;
+                this.mapContainer = value;
             }
         }
-#else
-        /// <summary>
-        /// Backing map
-        /// </summary>
-        public Dictionary<string, string> ContainerMap
-        {
-            get;
-            set;
-        }
-#endif
-
         /// <summary>
         /// Set the Access Token
         /// </summary>
@@ -63,5 +51,4 @@ namespace PayPal.OpenIDConnect
             ContainerMap.Add(AccessToken, HttpUtility.UrlEncode(accessToken));
         }
     }
-
 }

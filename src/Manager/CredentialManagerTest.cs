@@ -8,18 +8,18 @@ namespace PayPal
     [TestClass]
     public class CredentialManagerTest
     {
-        private CredentialManager CredentialMngr;
-        private ICredential Credential;
+        private CredentialManager credentialMngr;
+        private ICredential credential;
 
         [TestMethod]
         public void LoadSignatureCredential()
         {
             string apiUsername = Constants.APIUserName;
-            CredentialMngr = CredentialManager.Instance;
-            Credential = CredentialMngr.GetCredentials(ConfigManager.Instance.GetProperties(), apiUsername);
-            Assert.IsNotNull(Credential);
-            Assert.IsInstanceOfType(Credential, typeof(SignatureCredential));
-            SignatureCredential signCredential = (SignatureCredential) Credential;
+            credentialMngr = CredentialManager.Instance;
+            credential = credentialMngr.GetCredentials(ConfigManager.Instance.GetProperties(), apiUsername);
+            Assert.IsNotNull(credential);
+            Assert.IsInstanceOfType(credential, typeof(SignatureCredential));
+            SignatureCredential signCredential = (SignatureCredential) credential;
             Assert.AreEqual(apiUsername, signCredential.UserName);
             Assert.AreEqual(Constants.APIPassword, signCredential.Password);
             Assert.AreEqual(Constants.APISignature, signCredential.Signature);
@@ -30,11 +30,11 @@ namespace PayPal
         public void LoadCertificateCredential()
         {
             string apiUsername = Constants.CertificateAPIUserName;
-            CredentialMngr = CredentialManager.Instance;
-            Credential = CredentialMngr.GetCredentials(ConfigManager.Instance.GetProperties(), apiUsername);
-            Assert.IsNotNull(Credential);
-            Assert.IsInstanceOfType(Credential, typeof(CertificateCredential));
-            CertificateCredential certCredential = (CertificateCredential)Credential;
+            credentialMngr = CredentialManager.Instance;
+            credential = credentialMngr.GetCredentials(ConfigManager.Instance.GetProperties(), apiUsername);
+            Assert.IsNotNull(credential);
+            Assert.IsInstanceOfType(credential, typeof(CertificateCredential));
+            CertificateCredential certCredential = (CertificateCredential)credential;
             Assert.AreEqual(apiUsername, certCredential.UserName);
             Assert.AreEqual(Constants.CertificateAPIPassword, certCredential.Password);
             Assert.AreEqual(Constants.CertificatePath, certCredential.CertificateFile);
@@ -48,8 +48,8 @@ namespace PayPal
         {
             try
             {
-                CredentialMngr = CredentialManager.Instance;
-                Credential = CredentialMngr.GetCredentials(ConfigManager.Instance.GetProperties(), "i-do-not-exist_api1.paypal.com");
+                credentialMngr = CredentialManager.Instance;
+                credential = credentialMngr.GetCredentials(ConfigManager.Instance.GetProperties(), "i-do-not-exist_api1.paypal.com");
             }
             catch (MissingCredentialException ex)
             {

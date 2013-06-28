@@ -14,7 +14,7 @@ namespace PayPal
             configurationMap.Add("ClientID", "dummy");
             configurationMap.Add("ClientSecret", "dummypassword");
             configurationMap.Add("mode", "live");
-            APIContext apiContxt = new APIContext();
+            apiContext apiContxt = new apiContext();
             apiContxt.Config = configurationMap;
             List<string> scopeList = new List<string>();
             scopeList.Add("openid");

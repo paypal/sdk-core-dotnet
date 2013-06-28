@@ -5,10 +5,10 @@ namespace PayPal
 {
     public abstract class BasePayPalService
     {       
-        private string Token;
-        private string TokenSecret;
-        private string LastReq;
-        private string LastResp;
+        private string token;
+        private string tokenSecret;
+        private string lastReq;
+        private string lastResp;
 
         protected Dictionary<string, string> config;
 
@@ -24,19 +24,19 @@ namespace PayPal
 
         public void SetAccessToken(string token)
         {
-            this.Token = token;
+            this.token = token;
         }
 
         public void SetAccessTokenSecret(string tokenSecret)
         {
-            this.TokenSecret = tokenSecret;
+            this.tokenSecret = tokenSecret;
         }
 
         public string AccessToken
         {
             get
             {
-                return this.Token;
+                return this.token;
             }
         }
 
@@ -44,7 +44,7 @@ namespace PayPal
         {
             get
             {
-                return this.TokenSecret;
+                return this.tokenSecret;
             }
         }
 
@@ -52,7 +52,7 @@ namespace PayPal
         {
             get
             {
-                return this.LastReq;
+                return this.lastReq;
             }
         }
 
@@ -60,7 +60,7 @@ namespace PayPal
         {
             get
             {
-                return this.LastResp;
+                return this.lastResp;
             }
         }
 
@@ -72,9 +72,9 @@ namespace PayPal
         public string Call(IAPICallPreHandler apiCallHandler)
         {
             APIService apiServ = new APIService(this.config);
-            this.LastReq = apiCallHandler.GetPayLoad();
-            this.LastResp = apiServ.MakeRequestUsing(apiCallHandler);
-            return this.LastResp;
+            this.lastReq = apiCallHandler.GetPayLoad();
+            this.lastResp = apiServ.MakeRequestUsing(apiCallHandler);
+            return this.lastResp;
         }
     }
 }

@@ -10,11 +10,20 @@ namespace PayPal
 {
     public class RESTConfiguration
     {
-#if NET_2_0
         /// <summary>
         /// string Authorization Token
         /// </summary>
-        private string AuthorizeToken;
+        private string authorizeToken;
+
+        /// <summary>
+        /// Idempotency Request ID
+        /// </summary>
+        private string reqID;
+
+        /// <summary>
+        /// Dynamic configuration map
+        /// </summary>
+        private Dictionary<string, string> config;
 
         /// <summary>
         ///  Gets and sets the Authorization Token
@@ -23,45 +32,28 @@ namespace PayPal
         {
             get
             {
-                return this.AuthorizeToken;
+                return this.authorizeToken;
             }
             set
             {
-                this.AuthorizeToken = value;
+                this.authorizeToken = value;
             }
         }
-#else
-        /// <summary>
-        ///  Gets and sets the Authorization Token
-        /// </summary>
-        public string AuthorizationToken
-        {
-            get;
-            set;
-        }
-#endif
-
-        private string ReqID;
 
         /// <summary>
-        /// Idempotency Request ID
+        /// Gets and sets the Idempotency Request ID
         /// </summary>
         public string RequestID
         {
             private get
             {
-                return ReqID;
+                return reqID;
             }
             set
             {
-                ReqID = value;
+                reqID = value;
             }
         }
-
-        /// <summary>
-        /// Dynamic configuration map
-        /// </summary>
-        private Dictionary<string, string> Config;
 
         /// <summary>
         /// Optional headers map
@@ -70,12 +62,12 @@ namespace PayPal
 
         public RESTConfiguration(Dictionary<string, string> config)
         {
-            this.Config = ConfigManager.GetConfigWithDefaults(config);
+            this.config = ConfigManager.GetConfigWithDefaults(config);
         }
 
         public RESTConfiguration(Dictionary<string, string> config, Dictionary<string, string> headersMap)
         {
-            this.Config = ConfigManager.GetConfigWithDefaults(config);
+            this.config = ConfigManager.GetConfigWithDefaults(config);
             this.headersMap = (headersMap == null) ? new Dictionary<string, string>() : headersMap;
         }
 
@@ -100,12 +92,12 @@ namespace PayPal
 
         private string GetClientID()
         {
-            return this.Config.ContainsKey(BaseConstants.ClientID) ? this.Config[BaseConstants.ClientID] : null;
+            return this.config.ContainsKey(BaseConstants.ClientID) ? this.config[BaseConstants.ClientID] : null;
         }
 
         private string GetClientSecret()
         {
-            return this.Config.ContainsKey(BaseConstants.ClientSecret) ? this.Config[BaseConstants.ClientSecret] : null;
+            return this.config.ContainsKey(BaseConstants.ClientSecret) ? this.config[BaseConstants.ClientSecret] : null;
         }
 
         private string EncodeToBase64(string clientID, string clientSecret)

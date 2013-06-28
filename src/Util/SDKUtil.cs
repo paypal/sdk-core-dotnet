@@ -90,22 +90,20 @@ namespace PayPal.Util
             return formatString;
         }
 
-         /*
-	     * Split the URI and form a Object array using the query string and values
-	     * in the provided map. The return object array is populated only if the map
-	     * contains valid value for the query name. The object array contains null
-	     * values if there is no value found in the map
-	     * 
-	     * @param pattern
-	     *            URI pattern
-	     * @param parameters
-	     *            Map containing the query name and value
-	     * @return Object array
-	     */
-	    private static Object[] splitParameters(string pattern,
-                Dictionary<string, string> parameters)
-        {
-		    
+        /*
+	    * Split the URI and form a Object array using the query string and values
+	    * in the provided map. The return object array is populated only if the map
+	    * contains valid value for the query name. The object array contains null
+	    * values if there is no value found in the map
+	    * 
+	    * @param pattern
+	    *            URI pattern
+	    * @param parameters
+	    *            Map containing the query name and value
+	    * @return Object array
+	    */
+	    private static Object[] splitParameters(string pattern, Dictionary<string, string> parameters)
+        {		    
             List<Object> objectList = new List<Object>();
             string[] query = pattern.Split('?');
             if (query != null && query.Length == 2 && query[1].Contains("={"))

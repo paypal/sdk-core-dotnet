@@ -7,43 +7,43 @@ namespace PayPal
     [TestClass]
     public class SignatureCredentialTest
     {
-        private SignatureCredential SignCredential;
+        private SignatureCredential signCredential;
 
         public SignatureCredentialTest()
         {
-            SignCredential = new SignatureCredential("platfo_1255077030_biz_api1.gmail.com", "1255077037", "Abg0gYcQyxQvnf2HDJkKtA-p6pqhA1k-KTYE0Gcy1diujFio4io5Vqjf");
+            signCredential = new SignatureCredential("platfo_1255077030_biz_api1.gmail.com", "1255077037", "Abg0gYcQyxQvnf2HDJkKtA-p6pqhA1k-KTYE0Gcy1diujFio4io5Vqjf");
         }
 
         [TestMethod]
         public void Signature()
         {
-            Assert.AreEqual("Abg0gYcQyxQvnf2HDJkKtA-p6pqhA1k-KTYE0Gcy1diujFio4io5Vqjf", ((SignatureCredential)SignCredential).Signature);
+            Assert.AreEqual("Abg0gYcQyxQvnf2HDJkKtA-p6pqhA1k-KTYE0Gcy1diujFio4io5Vqjf", ((SignatureCredential)signCredential).Signature);
         }
 
         [TestMethod]
         public void Password()
         {
-            Assert.AreEqual("1255077037", SignCredential.Password);
+            Assert.AreEqual("1255077037", signCredential.Password);
         }
 
         [TestMethod]
         public void UserName()
         {
-            Assert.AreEqual("platfo_1255077030_biz_api1.gmail.com", SignCredential.UserName);
+            Assert.AreEqual("platfo_1255077030_biz_api1.gmail.com", signCredential.UserName);
         }
 
         [TestMethod]
         public void ApplicationID()
         {
-            SignCredential.ApplicationID = Constants.ApplicationID;
-            Assert.AreEqual(Constants.ApplicationID, SignCredential.ApplicationID);
+            signCredential.ApplicationID = Constants.ApplicationID;
+            Assert.AreEqual(Constants.ApplicationID, signCredential.ApplicationID);
         }
 
         [TestMethod]
         public void ThirdPartyAuthorizationForSubject()
         {
             IThirdPartyAuthorization thirdPartyAuthorization = new SubjectAuthorization("Subject");
-            SignCredential.ThirdPartyAuthorization = thirdPartyAuthorization;
+            signCredential.ThirdPartyAuthorization = thirdPartyAuthorization;
             Assert.AreEqual(((SubjectAuthorization)thirdPartyAuthorization).Subject, "Subject");
         }
 
@@ -51,7 +51,7 @@ namespace PayPal
         public void ThirdPartyAuthorizationForToken()
         {
             IThirdPartyAuthorization thirdPartyAuthorization = new TokenAuthorization(Constants.AccessToken, Constants.TokenSecret);
-            SignCredential.ThirdPartyAuthorization = thirdPartyAuthorization;            
+            signCredential.ThirdPartyAuthorization = thirdPartyAuthorization;            
             Assert.AreEqual(((TokenAuthorization)thirdPartyAuthorization).AccessToken, Constants.AccessToken);
             Assert.AreEqual(((TokenAuthorization)thirdPartyAuthorization).AccessTokenSecret, Constants.TokenSecret);
 
@@ -63,7 +63,7 @@ namespace PayPal
         {
             try
             {
-                SignCredential = new SignatureCredential(null, null, null);
+                signCredential = new SignatureCredential(null, null, null);
             }
             catch (ArgumentException ex)
             {

@@ -4,27 +4,27 @@ namespace PayPal.Util
 {
     public class QueryParameters
     {
-        private static readonly string Count = "count";
+        private static readonly string count = "count";
 
-        private static readonly string StartID = "start_id";
+        private static readonly string startID = "start_id";
 
-        private static readonly string StartIndex = "start_index";
+        private static readonly string startIndex = "start_index";
 
-        private static readonly string StartTime = "start_time";
+        private static readonly string startTime = "start_time";
 
-        private static readonly string EndTime = "end_time";
+        private static readonly string endTime = "end_time";
 
-        private static readonly string PayeeID = "payee_id";
+        private static readonly string payeeID = "payee_id";
 
-        private static readonly string SortBy = "sort_by";
+        private static readonly string sortBy = "sort_by";
 
-        private static readonly string SortOrder = "sort_order";
+        private static readonly string sortOrder = "sort_order";
 
-        private Dictionary<string, string> ContainerMap;
+        private Dictionary<string, string> containerMap;
 
         public QueryParameters()
         {
-            ContainerMap = new Dictionary<string, string>();
+            containerMap = new Dictionary<string, string>();
         }
 
         /**
@@ -32,7 +32,7 @@ namespace PayPal.Util
          */
         public Dictionary<string, string> GetMap()
         {
-            return ContainerMap;
+            return containerMap;
         }
 
         /**
@@ -43,7 +43,7 @@ namespace PayPal.Util
          */
         public void SetCount(string counter)
         {
-            ContainerMap.Add(Count, counter);
+            containerMap.Add(count, counter);
         }
 
         /**
@@ -54,7 +54,7 @@ namespace PayPal.Util
          */
         public void SetStartId(string startingID)
         {
-            ContainerMap.Add(StartID, startingID);
+            containerMap.Add(startID, startingID);
         }
 
         /**
@@ -67,7 +67,7 @@ namespace PayPal.Util
          */
         public void SetStartIndex(string startingIndex)
         {
-            ContainerMap.Add(StartIndex, startingIndex);
+            containerMap.Add(startIndex, startingIndex);
         }
 
         /**
@@ -79,7 +79,7 @@ namespace PayPal.Util
          */
         public void SetStartTime(string startingTime)
         {
-            ContainerMap.Add(StartTime, startingTime);
+            containerMap.Add(startTime, startingTime);
         }
 
         /**
@@ -91,7 +91,7 @@ namespace PayPal.Util
          */
         public void SetEndTime(string endingTime)
         {
-            ContainerMap.Add(EndTime, endingTime);
+            containerMap.Add(endTime, endingTime);
         }
 
         /**
@@ -102,7 +102,7 @@ namespace PayPal.Util
          */
         public void SetPayeeId(string payID)
         {
-            ContainerMap.Add(PayeeID, payID);
+            containerMap.Add(payeeID, payID);
         }
 
         /**
@@ -113,7 +113,7 @@ namespace PayPal.Util
          */
         public void SetSortBy(string sortingBy)
         {
-            ContainerMap.Add(SortBy, sortingBy);
+            containerMap.Add(sortBy, sortingBy);
         }
 
         /**
@@ -125,7 +125,7 @@ namespace PayPal.Util
          */
         public void SetSortOrder(string sortingOrder)
         {
-            ContainerMap.Add(SortOrder, sortingOrder);
+            containerMap.Add(sortOrder, sortingOrder);
         }
     }    
 }

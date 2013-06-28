@@ -3,34 +3,44 @@ using System.Collections.Generic;
 
 namespace PayPal
 {
-    public class APIContext
+    public class apiContext
     {
         /// <summary>
         /// Access Token
         /// </summary>
-        private string Token;
+        private string token;
 
         /// <summary>
         /// Request ID
         /// </summary>
-        private string ReqID;
+        private string reqID;
+
+        /// <summary>
+        /// Mask Request ID
+        /// </summary>
+        private bool maskReqID;
+
+        /// <summary>
+        /// Dynamic configuration
+        /// </summary>
+        private Dictionary<string, string> dynamicConfig;
 
         /// <summary>
         /// Explicit default constructor
         /// </summary>
-        public APIContext() { }
+        public apiContext() { }
 
         /// <summary>
         /// Access Token required for the call
         /// </summary>
         /// <param name="token"></param>
-        public APIContext(string token)
+        public apiContext(string token)
         {
             if (string.IsNullOrEmpty(token))
             {
                 throw new ArgumentNullException("AccessToken cannot be null");
             }
-            this.Token = token;
+            this.token = token;
         }
 
         /// <summary>
@@ -38,57 +48,44 @@ namespace PayPal
         /// </summary>
         /// <param name="token"></param>
         /// <param name="requestID"></param>
-        public APIContext(string token, string requestID)
+        public apiContext(string token, string requestID)
             : this(token)
         {
             if (string.IsNullOrEmpty(requestID))
             {
                 throw new ArgumentNullException("RequestId cannot be null");
             }
-            this.ReqID = requestID;
+            this.reqID = requestID;
         }
 
+        /// <summary>
+        /// Gets the Access Token
+        /// </summary>
         public string AccessToken
         {
             get
             {
-                return Token;
+                return token;
             }
         }
 
-#if NET_2_0
         /// <summary>
-        /// Mask Request ID
-        /// </summary>
-        private bool MaskReqID;
-
-        /// <summary>
-        /// Mask Request ID
+        /// Gets and sets the Mask Request ID
         /// </summary>
         public bool MaskRequestID
         {
             get
             {
-                return this.MaskReqID;
+                return this.maskReqID;
             }
             set
             {
-                this.MaskReqID = value;
+                this.maskReqID = value;
             }
         }
-#else
-        /// <summary>
-        /// Mask Request ID
-        /// </summary>
-        public bool MaskRequestID
-        {   
-            get;
-            set;
-        }
-#endif
         
         /// <summary>
-        /// Request ID
+        /// Gets the Request ID
         /// </summary>
         public string RequestID
         {
@@ -97,42 +94,29 @@ namespace PayPal
                 string returnID = null;
                 if (!MaskRequestID)
                 {
-                    if (string.IsNullOrEmpty(ReqID))
+                    if (string.IsNullOrEmpty(reqID))
                     {
-                        ReqID = Convert.ToString(Guid.NewGuid());
+                        reqID = Convert.ToString(Guid.NewGuid());
                     }
-                    returnID = ReqID;
+                    returnID = reqID;
                 }
                 return returnID;
             }
         }
 
-#if NET_2_0
-        private Dictionary<string, string> Configuration;
-
         /// <summary>
-        /// Dynamic Configuration
+        /// Gets and sets the Dynamic Configuration
         /// </summary>
         public Dictionary<string, string> Config
         {
             get
             {
-                return this.Configuration;
+                return this.dynamicConfig;
             }
             set
             {
-                this.Configuration = value;
+                this.dynamicConfig = value;
             }
         }
-#else
-        /// <summary>
-        /// Dynamic Configuration
-        /// </summary>
-        public Dictionary<string, string> Config
-        {
-            get;
-            set;
-        }
-#endif
     }
 }

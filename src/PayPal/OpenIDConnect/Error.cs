@@ -13,11 +13,20 @@ namespace PayPal.OpenIDConnect
 {
 	public class Error
     {
-#if NET_2_0
         /// <summary>
         /// A single ASCII error code from the following enum.
         /// </summary>
         private string errorValue;
+
+        /// <summary>
+        /// A resource ID that indicates the starting resource in the returned results.
+        /// </summary>
+        private string error_descriptionValue;
+
+        /// <summary>
+        /// A URI identifying a human-readable web page with information about the error, used to provide the client developer with additional information about the error.
+        /// </summary>
+        private string error_uriValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string error
@@ -31,10 +40,6 @@ namespace PayPal.OpenIDConnect
                 errorValue = value;
             }
         }
-        /// <summary>
-        /// A resource ID that indicates the starting resource in the returned results.
-        /// </summary>
-        private string error_descriptionValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string error_description
@@ -48,10 +53,6 @@ namespace PayPal.OpenIDConnect
                 error_descriptionValue = value;
             }
         }
-        /// <summary>
-        /// A URI identifying a human-readable web page with information about the error, used to provide the client developer with additional information about the error.
-        /// </summary>
-        private string error_uriValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string error_uri
@@ -65,37 +66,7 @@ namespace PayPal.OpenIDConnect
                 error_uriValue = value;
             }
         }
-#else
-        /// <summary>
-        /// A single ASCII error code from the following enum
-		/// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string error
-        {
-            get;
-            set;
-        }
-		
-        /// <summary>
-        /// A resource ID that indicates the starting resource in the returned results
-        /// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string error_description
-		{
-            get;
-            set;
-		}
 
-        /// <summary>
-        /// A URI identifying a human-readable web page with information about the error, used to provide the client developer with additional information about the error
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string error_uri
-        {
-            get;
-            set;
-        }		    
-#endif
         /// <summary>
         /// Explicit default constructor
         /// </summary>

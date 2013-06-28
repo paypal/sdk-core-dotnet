@@ -2,7 +2,15 @@ namespace PayPal.Exception
 {
     public class OAuthException : System.Exception
     {
-        #region Constructors
+        /// <summary>
+        /// OAuth Exception Short Message
+        /// </summary>
+        private string oauthExcptnMessage;
+
+        /// <summary>
+        /// OAuth Exception Long Message
+        /// </summary>
+        private string oauthExcptnLongMessage;
 
         public OAuthException(string oauthExceptionMessage, System.Exception exception)
         {
@@ -15,16 +23,6 @@ namespace PayPal.Exception
             this.OAuthExceptionMessage = oauthExceptionMessage;
         }
 
-        #endregion
-
-        #region Public Properties
-
-#if NET_2_0
-        /// <summary>
-        /// OAuth Exception Short Message
-        /// </summary>
-        private string OAuthExcptnMessage;
-
         /// <summary>
         /// Gets and sets OAuth Exception Short Message
         /// </summary>
@@ -32,19 +30,14 @@ namespace PayPal.Exception
         {
             get
             {
-                return this.OAuthExcptnMessage;
+                return this.oauthExcptnMessage;
 
             }
             set
             {
-                this.OAuthExcptnMessage = value;
+                this.oauthExcptnMessage = value;
             }
         }
-
-        /// <summary>
-        /// OAuth Exception Long Message
-        /// </summary>
-        private string OAuthExcptnLongMessage;
 
         /// <summary>
         /// Gets and sets OAuth Exception Long Message
@@ -53,33 +46,13 @@ namespace PayPal.Exception
         {
             get
             {
-                return this.OAuthExcptnLongMessage;
+                return this.oauthExcptnLongMessage;
 
             }
             set
             {
-                this.OAuthExcptnLongMessage = value;
+                this.oauthExcptnLongMessage = value;
             }
         }
-#else
-        /// <summary>
-        /// Gets and sets OAuth Exception Short Message
-        /// </summary>
-        public string OAuthExceptionMessage
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets and sets OAuth Exception Long Message
-        /// </summary>
-        public string OAuthExceptionLongMessage
-        {
-            get;
-            set;
-        }
-#endif
-        #endregion
     }
 }

@@ -13,11 +13,30 @@ namespace PayPal.OpenIDConnect
 {
 	public class Address
     {
-#if NET_2_0
         /// <summary>
         /// Full street address component, which may include house number, street name.
         /// </summary>
         private string street_addressValue;
+
+        /// <summary>
+        /// City or locality component.
+        /// </summary>
+        private string localityValue;
+
+        /// <summary>
+        /// State, province, prefecture or region component.
+        /// </summary>
+        private string regionValue;
+
+        /// <summary>
+        /// Zip code or postal code component.
+        /// </summary>
+        private string postal_codeValue;
+
+        /// <summary>
+        /// Country name component.
+        /// </summary>
+        private string countryValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string street_address
@@ -31,11 +50,7 @@ namespace PayPal.OpenIDConnect
                 street_addressValue = value;
             }
         }
-        /// <summary>
-        /// City or locality component.
-        /// </summary>
-        private string localityValue;
-
+        
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string locality
         {
@@ -48,11 +63,7 @@ namespace PayPal.OpenIDConnect
                 localityValue = value;
             }
         }
-        /// <summary>
-        /// State, province, prefecture or region component.
-        /// </summary>
-        private string regionValue;
-
+   
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string region
         {
@@ -65,10 +76,6 @@ namespace PayPal.OpenIDConnect
                 regionValue = value;
             }
         }
-        /// <summary>
-        /// Zip code or postal code component.
-        /// </summary>
-        private string postal_codeValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string postal_code
@@ -82,10 +89,6 @@ namespace PayPal.OpenIDConnect
                 postal_codeValue = value;
             }
         }
-        /// <summary>
-        /// Country name component.
-        /// </summary>
-        private string countryValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string country
@@ -99,57 +102,7 @@ namespace PayPal.OpenIDConnect
                 countryValue = value;
             }
         }
-#else
-        /// <summary>
-        /// Full street address component, which may include house number, street name
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string street_address
-        {
-            get;
-            set;
-        }
 
-        /// <summary>
-        /// City or locality component
-        /// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string locality
-		{
-            get;
-            set;
-		}
-
-		/// <summary>
-        /// State, province, prefecture or region component
-		/// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string region
-		{
-            get;
-            set;
-		}
-		
-        /// <summary>
-        /// Zip code or postal code component
-        /// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string postal_code
-		{
-            get;
-            set;
-		}
-		
-        /// <summary>
-        /// Country name component
-        /// </summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string country
-		{
-            get;
-            set;
-		}	
-#endif
         /// <summary>
         /// Explicit default constructor
         /// </summary>

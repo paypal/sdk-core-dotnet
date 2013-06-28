@@ -19,7 +19,7 @@ namespace PayPal.NVP
         /// <summary>
         /// Logger
         /// </summary>
-        private static readonly ILog Logger = LogManagerWrapper.GetLogger(typeof(CertificateHttpHeaderAuthStrategy));
+        private static ILog logger = LogManagerWrapper.GetLogger(typeof(CertificateHttpHeaderAuthStrategy));
 
         /// <summary>
         /// CertificateHttpHeaderAuthStrategy
@@ -33,8 +33,7 @@ namespace PayPal.NVP
         /// <param name="certCredential"></param>
         /// <param name="tokenAuthorize"></param>
         /// <returns></returns>
-        protected override Dictionary<string, string> ProcessTokenAuthorization(
-                CertificateCredential certCredential, TokenAuthorization tokenAuthorize)
+        protected override Dictionary<string, string> ProcessTokenAuthorization(CertificateCredential certCredential, TokenAuthorization tokenAuthorize)
         {
             Dictionary<string, string> headers = new Dictionary<string, string>();
             try
@@ -45,19 +44,19 @@ namespace PayPal.NVP
                 signGenerator.SetTokenSecret(tokenAuthorize.AccessTokenSecret);
                 string tokenTimeStamp = Timestamp;
                 signGenerator.SetTokenTimestamp(tokenTimeStamp);
-                Logger.Debug("token = " + tokenAuthorize.AccessToken + " tokenSecret=" + tokenAuthorize.AccessTokenSecret + " uri=" + endpointURL);
+                logger.Debug("token = " + tokenAuthorize.AccessToken + " tokenSecret=" + tokenAuthorize.AccessTokenSecret + " uri=" + endpointURL);
                 signGenerator.SetRequestURI(endpointURL);
 
                 //Compute Signature
                 string sign = signGenerator.ComputeSignature();
-                Logger.Debug("Permissions signature: " + sign);
+                logger.Debug("Permissions signature: " + sign);
                 string authorization = "token=" + tokenAuthorize.AccessToken + ",signature=" + sign + ",timestamp=" + tokenTimeStamp;
-                Logger.Debug("Authorization string: " + authorization);
+                logger.Debug("Authorization string: " + authorization);
                 headers.Add(BaseConstants.PayPalAuthorizationPlatformHeader, authorization);
             }
-            catch (OAuthException ae)
+            catch (OAuthException oex)
             {
-                throw ae;
+                throw oex;
             }
             return headers;
         }

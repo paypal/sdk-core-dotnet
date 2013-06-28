@@ -33,42 +33,42 @@ namespace PayPal
         /// <summary>
         /// Client ID for OAuth
         /// </summary>
-        private string ClientID;
+        private string clientID;
 
         /// <summary>
         /// Client Secret for OAuth
         /// </summary>
-        private string ClientSecret;
+        private string clientSecret;
 
         /// <summary>
         /// Access Token that is generated
         /// </summary>
-        private string AccessToken;
+        private string accessToken;
 
         /// <summary>
         /// Application ID returned by OAuth servers
         /// </summary>
-        private string AppID;
+        private string appID;
 
         /// <summary>
         /// Seconds for with access token is valid
         /// </summary>
-        private int SecondsToExpire;
+        private int aecondsToExpire;
 
         /// <summary>
         /// Last time when access token was generated
         /// </summary>
-        private long TimeInMilliseconds;
+        private long timeInMilliseconds;
 
         /// <summary>
         /// Dynamic configuration map
         /// </summary>
-        private Dictionary<string, string> Config;
+        private Dictionary<string, string> config;
 
         /// <summary>
         /// Logs output statements, errors, debug info to a text file    
         /// </summary>
-        private static readonly ILog Logger = LogManagerWrapper.GetLogger(typeof(OAuthTokenCredential));
+        private static ILog logger = LogManagerWrapper.GetLogger(typeof(OAuthTokenCredential));
 
         /// <summary>
         /// Client ID and Secret for the OAuth
@@ -77,9 +77,9 @@ namespace PayPal
         /// <param name="clientSecret"></param>
         public OAuthTokenCredential(string clientID, string clientSecret)
         {
-            this.ClientID = clientID;
-            this.ClientSecret = clientSecret;
-            this.Config = ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());
+            this.clientID = clientID;
+            this.clientSecret = clientSecret;
+            this.config = ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());
         }
 
         /// <summary>
@@ -89,47 +89,47 @@ namespace PayPal
         /// <param name="clientSecret"></param>
         public OAuthTokenCredential(string clientID, string clientSecret, Dictionary<string, string> config)
         {
-            this.ClientID = clientID;
-            this.ClientSecret = clientSecret;
+            this.clientID = clientID;
+            this.clientSecret = clientSecret;
             if (config != null)
             {
                 ConfigManager.GetConfigWithDefaults(config);
             }
             else
             {
-                this.Config = ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());
+                this.config = ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());
             }
         }
 
         public string GetAccessToken()
         {
             // If Access Token is not Null and time has lapsed
-            if (AccessToken != null)
+            if (accessToken != null)
             {
                 // If the token has not expired
                 // Set TTL as expiresTime - 60000
                 // If expired set accesstoken == null
-                if (((DateTime.Now.Millisecond - TimeInMilliseconds) / 1000) > (SecondsToExpire - 120))
+                if (((DateTime.Now.Millisecond - timeInMilliseconds) / 1000) > (aecondsToExpire - 120))
                 {
                     // regenerate token
-                    AccessToken = null;
+                    accessToken = null;
                 }
             }
             // If accessToken is Null, Compute it
-            if (AccessToken == null)
+            if (accessToken == null)
             {
                 // Write Logic for passing in Detail to Identity Api Serv and
                 // computing the token
                 // Set the Value inside the accessToken and result
-                AccessToken = GenerateAccessToken();
+                accessToken = GenerateAccessToken();
             }
-            return AccessToken;
+            return accessToken;
         }
 
         private string GenerateAccessToken()
         {
             string generatedToken = null;
-            string base64ClientID = GenerateBase64String(ClientID + ":" + ClientSecret);
+            string base64ClientID = GenerateBase64String(clientID + ":" + clientSecret);
             generatedToken = GenerateOAuthToken(base64ClientID);
             return generatedToken;
         }
@@ -166,13 +166,13 @@ namespace PayPal
 
             Uri uniformResourceIdentifier = null;
             Uri baseUri = null;
-            if (Config.ContainsKey(BaseConstants.OAuthEndpoint))
+            if (config.ContainsKey(BaseConstants.OAuthEndpoint))
             {
-                baseUri = new Uri(Config[BaseConstants.OAuthEndpoint]);
+                baseUri = new Uri(config[BaseConstants.OAuthEndpoint]);
             }
-            else if (Config.ContainsKey(BaseConstants.EndpointConfig))
+            else if (config.ContainsKey(BaseConstants.EndpointConfig))
             {
-                baseUri = new Uri(Config[BaseConstants.EndpointConfig]);
+                baseUri = new Uri(config[BaseConstants.EndpointConfig]);
             }
             bool success = Uri.TryCreate(baseUri, OAuthTokenPath, out uniformResourceIdentifier);
             ConnectionManager connManager = ConnectionManager.Instance;
@@ -190,13 +190,13 @@ namespace PayPal
                 httpRequest.Headers.Add(header.Key, header.Value);
             }
 
-            HttpConnection httpConnection = new HttpConnection(Config);
+            HttpConnection httpConnection = new HttpConnection(config);
             response = httpConnection.Execute(postRequest, httpRequest);
             JObject deserializedObject = (JObject)JsonConvert.DeserializeObject(response);
             string generatedToken = (string)deserializedObject["token_type"] + " " + (string)deserializedObject["access_token"];
-            AppID = (string)deserializedObject["app_id"];
-            SecondsToExpire = (int)deserializedObject["expires_in"];
-            TimeInMilliseconds = DateTime.Now.Millisecond;
+            appID = (string)deserializedObject["app_id"];
+            aecondsToExpire = (int)deserializedObject["expires_in"];
+            timeInMilliseconds = DateTime.Now.Millisecond;
             return generatedToken;
         }
     }    

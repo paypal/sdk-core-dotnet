@@ -12,42 +12,58 @@ namespace PayPal.SOAP
         /// <summary>
 	    /// API Username for authentication
 	    /// </summary>
-	    private string APIUserName;
+	    private string apiUserName;
 
 	    /// <summary>
 	    /// ICredential instance for authentication
 	    /// </summary>
-	    private ICredential Credential;
+	    private ICredential credential;
 
 	    /// <summary>
 	    /// Access token if any for authorization
 	    /// </summary>
-	    private string AccessToken;
+	    private string accessToken;
 
 	    /// <summary>
 	    /// TokenSecret if any for authorization
 	    /// </summary>
-	    private string TokenSecret;
+	    private string tokenSecret;
 
 	    /// <summary>
 	    /// IAPICallPreHandler instance
 	    /// </summary>
-	    private IAPICallPreHandler APICallHandler;
+	    private IAPICallPreHandler apiCallHandler;
        
 	    /// <summary>
 	    /// Internal variable to hold headers
 	    /// </summary>
-	    private Dictionary<string, string> Headers;
+	    private Dictionary<string, string> headers;
         
 	    /// <summary>
 	    /// Internal variable to hold payload
 	    /// </summary>
-	    private string PayLoad;
+	    private string payLoad;
 
         /// <summary>
         /// SDK Configuration
         /// </summary>
-        private Dictionary<string, string> Config;
+        private Dictionary<string, string> config;
+
+        /// <summary>
+        /// SDK Name
+        /// </summary>
+        private string nameSDK;
+
+        /// <summary>
+        /// SDK Version
+        /// </summary>
+        private string versionSDK;
+
+
+        /// <summary>
+        /// Port Name
+        /// </summary>
+        private string namePort;
 
         /// <summary>
         /// Private constructor
@@ -56,8 +72,8 @@ namespace PayPal.SOAP
         private MerchantAPICallPreHandler(IAPICallPreHandler apiCallHandler, Dictionary<string, string> config)
             : base()
         {
-            this.APICallHandler = apiCallHandler;
-            this.Config = (config == null) ? ConfigManager.Instance.GetProperties() : config;
+            this.apiCallHandler = apiCallHandler;
+            this.config = (config == null) ? ConfigManager.Instance.GetProperties() : config;
         }  
 
         /// <summary>
@@ -71,9 +87,9 @@ namespace PayPal.SOAP
 		{
             try
             {
-                this.APIUserName = apiUserName;
-                this.AccessToken = accessToken;
-                this.TokenSecret = tokenSecret;
+                this.apiUserName = apiUserName;
+                this.accessToken = accessToken;
+                this.tokenSecret = tokenSecret;
                 InitCredential();
             }
             catch(System.Exception ex)
@@ -93,15 +109,9 @@ namespace PayPal.SOAP
             {
 			    throw new ArgumentException("Credential is null in SOAPAPICallPreHandler");
 		    }
-		    this.Credential = credential;
+		    this.credential = credential;
 	    }
 
-#if NET_2_0
-        /// <summary>
-        /// SDK Name
-        /// </summary>
-        private string Name;
-
         /// <summary>
         /// Gets and sets the SDK Name
         /// </summary>
@@ -109,18 +119,13 @@ namespace PayPal.SOAP
         {
             get
             {
-                return this.Name;
+                return this.nameSDK;
             }
             set
             {
-                this.Name = value;
+                this.nameSDK = value;
             }
         }
-
-        /// <summary>
-        /// SDK Version
-        /// </summary>
-        private string Version;
 
         /// <summary>
         /// Gets and sets the SDK Version
@@ -129,18 +134,13 @@ namespace PayPal.SOAP
         {
             get
             {
-                return this.Version;
+                return this.versionSDK;
             }
             set
             {
-                this.Version = value;
+                this.versionSDK = value;
             }
         }
-
-        /// <summary>
-        /// Port Name
-        /// </summary>
-        private string Port;
 
         /// <summary>
         /// Gets and sets the Port Name
@@ -149,42 +149,15 @@ namespace PayPal.SOAP
         {
             get
             {
-                return this.Port;
+                return this.namePort;
 
             }
             set
             {
-                this.Port = value;
+                this.namePort = value;
             }
         }
-#else
-        /// <summary>
-        /// Gets and sets the SDK Name
-        /// </summary>
-        public string SDKName
-        {
-            get;
-            set;
-        }
 
-	    /// <summary>
-        /// Gets and sets the SDK Version
-	    /// </summary>
-        public string SDKVersion
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets and sets the Port Name
-        /// </summary>
-        public string PortName
-        {
-            get;
-            set;
-        }
-#endif
         /// <summary>
         /// Returns the Header
         /// </summary>
@@ -193,23 +166,23 @@ namespace PayPal.SOAP
         {
             try
             {
-                if (Headers == null)
+                if (headers == null)
                 {
-                    Headers = APICallHandler.GetHeaderMap();
-                    if (Credential is SignatureCredential)
+                    headers = apiCallHandler.GetHeaderMap();
+                    if (credential is SignatureCredential)
                     {
                         SignatureHttpHeaderAuthStrategy signatureHttpHeaderAuthStrategy = new SignatureHttpHeaderAuthStrategy(GetEndPoint());
-                        Headers = signatureHttpHeaderAuthStrategy.GenerateHeaderStrategy((SignatureCredential)Credential);
+                        headers = signatureHttpHeaderAuthStrategy.GenerateHeaderStrategy((SignatureCredential)credential);
                     }
-                    else if (Credential is CertificateCredential)
+                    else if (credential is CertificateCredential)
                     {
                         CertificateHttpHeaderAuthStrategy certificateHttpHeaderAuthStrategy = new CertificateHttpHeaderAuthStrategy(GetEndPoint());
-                        Headers = certificateHttpHeaderAuthStrategy.GenerateHeaderStrategy((CertificateCredential)Credential);
+                        headers = certificateHttpHeaderAuthStrategy.GenerateHeaderStrategy((CertificateCredential)credential);
                     }
 
                     foreach (KeyValuePair<string, string> pair in GetDefaultHttpHeadersSOAP())
                     {
-                        Headers.Add(pair.Key, pair.Value);
+                        headers.Add(pair.Key, pair.Value);
                     }
                 }
             }
@@ -217,7 +190,7 @@ namespace PayPal.SOAP
             {
                 throw ae;
             }
-            return Headers;
+            return headers;
         }	    
         
         /// <summary>
@@ -227,28 +200,28 @@ namespace PayPal.SOAP
         /// <returns></returns>
 	    public string GetPayLoad() 
         {
-		    if (PayLoad == null) 
+		    if (payLoad == null) 
             {
-                PayLoad = APICallHandler.GetPayLoad();
+                payLoad = apiCallHandler.GetPayLoad();
 			    string header = null;
-			    if (Credential is SignatureCredential)
+			    if (credential is SignatureCredential)
                 {
-				    SignatureCredential signCredential = (SignatureCredential) Credential;
+				    SignatureCredential signCredential = (SignatureCredential) credential;
 				    SignatureSOAPHeaderAuthStrategy signSoapHeaderAuthStrategy = new SignatureSOAPHeaderAuthStrategy();
 				    signSoapHeaderAuthStrategy.ThirdPartyAuthorization = signCredential.ThirdPartyAuthorization;						    
 				    header = signSoapHeaderAuthStrategy.GenerateHeaderStrategy(signCredential);
 			    } 
-                else if (Credential is CertificateCredential) 
+                else if (credential is CertificateCredential) 
                 {
-				    CertificateCredential certCredential = (CertificateCredential) Credential;
+				    CertificateCredential certCredential = (CertificateCredential) credential;
 				    CertificateSOAPHeaderAuthStrategy certSoapHeaderAuthStrategy = new CertificateSOAPHeaderAuthStrategy();
 				    certSoapHeaderAuthStrategy.ThirdPartyAuthorization = certCredential.ThirdPartyAuthorization;					
 				    header = certSoapHeaderAuthStrategy.GenerateHeaderStrategy(certCredential);
 
 			    }
-			    PayLoad = GetPayLoadUsingSOAPHeader(PayLoad, GetAttributeNamespace(), header);
+			    payLoad = GetPayLoadUsingSOAPHeader(payLoad, GetAttributeNamespace(), header);
 		    }
-		    return PayLoad;
+		    return payLoad;
 	    }
 
         /// <summary>
@@ -258,34 +231,34 @@ namespace PayPal.SOAP
 	    public string GetEndPoint() 
         {
             string endpoint = null;
-            if (PortName != null && Config.ContainsKey(PortName) && !string.IsNullOrEmpty(Config[PortName]))
+            if (PortName != null && config.ContainsKey(PortName) && !string.IsNullOrEmpty(config[PortName]))
             {
-                endpoint = Config[PortName];
+                endpoint = config[PortName];
             }
-            else if (Config.ContainsKey(BaseConstants.EndpointConfig))
+            else if (config.ContainsKey(BaseConstants.EndpointConfig))
             {
-                endpoint = APICallHandler.GetEndPoint();
+                endpoint = apiCallHandler.GetEndPoint();
             }
-            else if (Config.ContainsKey(BaseConstants.ApplicationModeConfig))
+            else if (config.ContainsKey(BaseConstants.ApplicationModeConfig))
             {
-                switch (Config[BaseConstants.ApplicationModeConfig].ToLower())
+                switch (config[BaseConstants.ApplicationModeConfig].ToLower())
                 {
                     case BaseConstants.LiveMode:
-                        if (Credential is SignatureCredential)
+                        if (credential is SignatureCredential)
                         {
                             endpoint = BaseConstants.MerchantSignatureLiveEndpoint;
                         }
-                        else if (Credential is CertificateCredential)
+                        else if (credential is CertificateCredential)
                         {
                             endpoint = BaseConstants.MerchantCertificateLiveEndpoint;
                         }
                         break;
                     case BaseConstants.SandboxMode:
-                        if (Credential is SignatureCredential)
+                        if (credential is SignatureCredential)
                         {
                             endpoint = BaseConstants.MerchantSignatureSandboxEndpoint;
                         }
-                        else if (Credential is CertificateCredential)
+                        else if (credential is CertificateCredential)
                         {
                             endpoint = BaseConstants.MerchantCertificateSandboxEndpoint;
                         }
@@ -307,7 +280,7 @@ namespace PayPal.SOAP
         /// <returns></returns>
 	    public ICredential GetCredential() 
         {
-		    return Credential;
+		    return credential;
 	    } 
 
         /// <summary>
@@ -320,14 +293,14 @@ namespace PayPal.SOAP
             try
             {                
                 CredentialManager credentialMngr = CredentialManager.Instance;
-                returnCredential = credentialMngr.GetCredentials(this.Config, APIUserName);
+                returnCredential = credentialMngr.GetCredentials(this.config, apiUserName);
 
-                if (!string.IsNullOrEmpty(AccessToken))
+                if (!string.IsNullOrEmpty(accessToken))
                 {
 
                     // Set third party authorization to token
                     // if token is sent as part of request call
-                    IThirdPartyAuthorization thirdPartyAuthorization = new TokenAuthorization(AccessToken, TokenSecret);
+                    IThirdPartyAuthorization thirdPartyAuthorization = new TokenAuthorization(accessToken, tokenSecret);
                     if (returnCredential is SignatureCredential)
                     {
                         SignatureCredential signCredential = (SignatureCredential)returnCredential;
@@ -367,9 +340,9 @@ namespace PayPal.SOAP
         {
             try
             {
-                if (Credential == null)
+                if (credential == null)
                 {
-                    Credential = GetCredentials();
+                    credential = GetCredentials();
                 }
             }
             catch(System.Exception ex)
@@ -384,8 +357,8 @@ namespace PayPal.SOAP
 	    /// <returns></returns>
         private string GetAttributeNamespace() 
         {
-		    string AttributeNamespace = "xmlns:ns=\"urn:ebay:api:PayPalAPI\" xmlns:ebl=\"urn:ebay:apis:eBLBaseComponents\" xmlns:cc=\"urn:ebay:apis:CoreComponentTypes\" xmlns:ed=\"urn:ebay:apis:EnhancedDataTypes\"";
-            return AttributeNamespace;
+		    string attributeNamespace = "xmlns:ns=\"urn:ebay:api:PayPalAPI\" xmlns:ebl=\"urn:ebay:apis:eBLBaseComponents\" xmlns:cc=\"urn:ebay:apis:CoreComponentTypes\" xmlns:ed=\"urn:ebay:apis:EnhancedDataTypes\"";
+            return attributeNamespace;
 	    }
 
 	    /// <summary>

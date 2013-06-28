@@ -22,9 +22,9 @@ namespace PayPal.Manager
         /// <summary>
         /// Logger
         /// </summary>
-        private static readonly ILog Logger = LogManagerWrapper.GetLogger(typeof(CredentialManager));
+        private static ILog logger = LogManagerWrapper.GetLogger(typeof(CredentialManager));
 
-        private static string AccountPrefix = "account";
+        private static string accountPrefix = "account";
 
 #if NET_2_0 || NET_3_5
         /// <summary>
@@ -77,35 +77,35 @@ namespace PayPal.Manager
                 {
                     if (apiUserName == null || apiUserName.Equals(kvPair.Value)) 
                     {
-                        int index = Convert.ToInt32(kvPair.Key.Substring(AccountPrefix.Length, kvPair.Key.IndexOf('.') - AccountPrefix.Length ));
+                        int index = Convert.ToInt32(kvPair.Key.Substring(accountPrefix.Length, kvPair.Key.IndexOf('.') - accountPrefix.Length ));
                         Account accnt = new Account();
-                        if (config.ContainsKey(AccountPrefix +  index + ".apiUsername")) 
+                        if (config.ContainsKey(accountPrefix +  index + ".apiUsername")) 
                         {
-                            accnt.APIUserName = config[AccountPrefix +  index + ".apiUsername"];
+                            accnt.APIUserName = config[accountPrefix +  index + ".apiUsername"];
                         }
-                        if(config.ContainsKey(AccountPrefix +  index + ".apiPassword"))
+                        if(config.ContainsKey(accountPrefix +  index + ".apiPassword"))
                         {
-                            accnt.APIPassword = config[AccountPrefix +  index + ".apiPassword"];
+                            accnt.APIPassword = config[accountPrefix +  index + ".apiPassword"];
                         }
-                        if(config.ContainsKey(AccountPrefix +  index + ".apiSignature")) 
+                        if(config.ContainsKey(accountPrefix +  index + ".apiSignature")) 
                         {
-                            accnt.APISignature = config[AccountPrefix +  index + ".apiSignature"];
+                            accnt.APISignature = config[accountPrefix +  index + ".apiSignature"];
                         }
-                        if(config.ContainsKey(AccountPrefix +  index + ".apiCertificate")) 
+                        if(config.ContainsKey(accountPrefix +  index + ".apiCertificate")) 
                         {
-                            accnt.APICertificate = config[AccountPrefix +  index + ".apiCertificate"];
+                            accnt.APICertificate = config[accountPrefix +  index + ".apiCertificate"];
                         }
-                        if (config.ContainsKey(AccountPrefix +  index + ".privateKeyPassword")) 
+                        if (config.ContainsKey(accountPrefix +  index + ".privateKeyPassword")) 
                         {
-                            accnt.PrivateKeyPassword = config[AccountPrefix +  index + ".privateKeyPassword"];
+                            accnt.PrivateKeyPassword = config[accountPrefix +  index + ".privateKeyPassword"];
                         }            
-                        if(config.ContainsKey(AccountPrefix +  index + ".subject"))
+                        if(config.ContainsKey(accountPrefix +  index + ".subject"))
                         {
-                            accnt.CertificateSubject = config[AccountPrefix +  index + ".subject"];
+                            accnt.CertificateSubject = config[accountPrefix +  index + ".subject"];
                         }
-                        if(config.ContainsKey(AccountPrefix +  index + ".applicationId"))
+                        if(config.ContainsKey(accountPrefix +  index + ".applicationId"))
                         {
-                            accnt.ApplicationID = config[AccountPrefix +  index + ".applicationId"];
+                            accnt.ApplicationID = config[accountPrefix +  index + ".applicationId"];
                         }
                         return accnt;
                     }

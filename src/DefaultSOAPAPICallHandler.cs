@@ -41,40 +41,38 @@ namespace PayPal
 	    /// <summary>
         /// Raw payload from stubs
 	    /// </summary>
-	    private string RawPayLoad;        
+	    private string rawPayLoad;        
       
         /// <summary>
         /// SDK Configuration
         /// </summary>
         private Dictionary<string, string> Config;
 
-#if NET_2_0
-
         /// <summary>
         /// Header Element
         /// </summary>
-        private string Header;
-
-        /// <summary>
-        /// Gets and sets the Header Element
-        /// </summary>
-        public string HeaderElement
-        {
-            get
-            {
-                return this.Header;
-            }
-            set
-            {
-                this.Header = value;
-            }
-        }
+        private string elementHeader;
 
         /// <summary>
         /// Namespaces
         /// </summary>
-        public string Namespaces;
+        public string attributeNamespaces;
 
+        /// <summary>
+        /// Gets and sets the Header Element
+        /// </summary>
+        public string HeaderElement
+        {
+            get
+            {
+                return this.elementHeader;
+            }
+            set
+            {
+                this.elementHeader = value;
+            }
+        }
+        
         /// <summary>
         /// Gets and sets the Namespaces
         /// </summary>
@@ -82,33 +80,14 @@ namespace PayPal
         {
             get
             {
-                return this.Namespaces;
+                return this.attributeNamespaces;
 
             }
             set
             {
-                this.Namespaces = value;
+                this.attributeNamespaces = value;
             }
         }
-#else
-        /// <summary>
-        /// Gets and sets the Header Element
-        /// </summary>
-        public string HeaderElement
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets and sets the Namespaces
-        /// </summary>
-        public string NamespaceAttributes
-        {
-            get;
-            set;
-        }
-#endif
         /// <summary>
         /// DefaultSOAPAPICallHandler acts as the base SOAPAPICallHandler.
 	    /// </summary>
@@ -119,7 +98,7 @@ namespace PayPal
         public DefaultSOAPAPICallHandler(Dictionary<string, string> config, string rawPayLoad, string attributesNamespace, 
             string headerString) : base()
         {		    
-		    this.RawPayLoad = rawPayLoad;
+		    this.rawPayLoad = rawPayLoad;
             this.NamespaceAttributes = attributesNamespace;
             this.HeaderElement = headerString;
             this.Config = (config == null) ? ConfigManager.Instance.GetProperties() : config;
@@ -207,9 +186,9 @@ namespace PayPal
         {
 		    string body = null;
 
-		    if (RawPayLoad != null) 
+		    if (rawPayLoad != null) 
             {
-			    body = string.Format(SOAPBodyStart, new object[] { null, null, RawPayLoad });
+			    body = string.Format(SOAPBodyStart, new object[] { null, null, rawPayLoad });
 		    } 
             else 
             {

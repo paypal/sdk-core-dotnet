@@ -14,11 +14,99 @@ namespace PayPal.OpenIDConnect
 {
     public class Userinfo
     {
-#if NET_2_0
         /// <summary>
         /// Subject - Identifier for the End-User at the Issuer.
         /// </summary>
         private string user_idValue;
+
+        /// <summary>
+        /// Subject - Identifier for the End-User at the Issuer.
+        /// </summary>
+        private string subValue;
+
+        /// <summary>
+        /// End-User's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User's locale and preferences.
+        /// </summary>
+        private string nameValue;
+
+        /// <summary>
+        /// Given name(s) or first name(s) of the End-User
+        /// </summary>
+        private string given_nameValue;
+
+        /// <summary>
+        /// Surname(s) or last name(s) of the End-User.
+        /// </summary>
+        private string family_nameValue;
+
+        /// <summary>
+        /// Middle name(s) of the End-User.
+        /// </summary>
+        private string middle_nameValue;
+
+        /// <summary>
+        /// URL of the End-User's profile picture.
+        /// </summary>
+        private string pictureValue;
+
+        /// <summary>
+        /// End-User's preferred e-mail address.
+        /// </summary>
+        private string emailValue;
+
+        /// <summary>
+        /// True if the End-User's e-mail address has been verified; otherwise false.
+        /// </summary>
+        private bool email_verifiedValue;
+
+        /// <summary>
+        /// End-User's gender.
+        /// </summary>
+        private string genderValue;
+
+        /// <summary>
+        /// End-User's birthday, represented as an YYYY-MM-DD format. They year MAY be 0000, indicating it is omited. To represent only the year, YYYY format would be used.
+        /// </summary>
+        private string birthdateValue;
+
+        /// <summary>
+        /// Time zone database representing the End-User's time zone
+        /// </summary>
+        private string zoneinfoValue;
+
+        /// <summary>
+        /// End-User's locale.
+        /// </summary>
+        private string localeValue;
+
+        /// <summary>
+        /// End-User's preferred telephone number.
+        /// </summary>
+        private string phone_numberValue;
+
+        /// <summary>
+        /// End-User's preferred address.
+        /// </summary>
+        private Address addressValue;
+        /// <summary>
+        /// Verified account status.
+        /// </summary>
+        private bool verified_accountValue;
+
+        /// <summary>
+        /// Account type.
+        /// </summary>
+        private string account_typeValue;
+
+        /// <summary>
+        /// Account holder age range.
+        /// </summary>
+        private string age_rangeValue;
+
+        /// <summary>
+        /// Account payer identifier.
+        /// </summary>
+        private string payer_idValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string user_id
@@ -32,10 +120,6 @@ namespace PayPal.OpenIDConnect
                 user_idValue = value;
             }
         }
-        /// <summary>
-        /// Subject - Identifier for the End-User at the Issuer.
-        /// </summary>
-        private string subValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string sub
@@ -49,10 +133,6 @@ namespace PayPal.OpenIDConnect
                 subValue = value;
             }
         }
-        /// <summary>
-        /// End-User's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User's locale and preferences.
-        /// </summary>
-        private string nameValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string name
@@ -66,10 +146,6 @@ namespace PayPal.OpenIDConnect
                 nameValue = value;
             }
         }
-        /// <summary>
-        /// Given name(s) or first name(s) of the End-User
-        /// </summary>
-        private string given_nameValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string given_name
@@ -83,11 +159,7 @@ namespace PayPal.OpenIDConnect
                 given_nameValue = value;
             }
         }
-        /// <summary>
-        /// Surname(s) or last name(s) of the End-User.
-        /// </summary>
-        private string family_nameValue;
-
+        
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string family_name
         {
@@ -100,10 +172,6 @@ namespace PayPal.OpenIDConnect
                 family_nameValue = value;
             }
         }
-        /// <summary>
-        /// Middle name(s) of the End-User.
-        /// </summary>
-        private string middle_nameValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string middle_name
@@ -117,10 +185,6 @@ namespace PayPal.OpenIDConnect
                 middle_nameValue = value;
             }
         }
-        /// <summary>
-        /// URL of the End-User's profile picture.
-        /// </summary>
-        private string pictureValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string picture
@@ -134,10 +198,6 @@ namespace PayPal.OpenIDConnect
                 pictureValue = value;
             }
         }
-        /// <summary>
-        /// End-User's preferred e-mail address.
-        /// </summary>
-        private string emailValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string email
@@ -151,10 +211,6 @@ namespace PayPal.OpenIDConnect
                 emailValue = value;
             }
         }
-        /// <summary>
-        /// True if the End-User's e-mail address has been verified; otherwise false.
-        /// </summary>
-        private bool email_verifiedValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public bool email_verified
@@ -168,10 +224,6 @@ namespace PayPal.OpenIDConnect
                 email_verifiedValue = value;
             }
         }
-        /// <summary>
-        /// End-User's gender.
-        /// </summary>
-        private string genderValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string gender
@@ -185,10 +237,6 @@ namespace PayPal.OpenIDConnect
                 genderValue = value;
             }
         }
-        /// <summary>
-        /// End-User's birthday, represented as an YYYY-MM-DD format. They year MAY be 0000, indicating it is omited. To represent only the year, YYYY format would be used.
-        /// </summary>
-        private string birthdateValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string birthdate
@@ -202,10 +250,6 @@ namespace PayPal.OpenIDConnect
                 birthdateValue = value;
             }
         }
-        /// <summary>
-        /// Time zone database representing the End-User's time zone
-        /// </summary>
-        private string zoneinfoValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string zoneinfo
@@ -219,10 +263,6 @@ namespace PayPal.OpenIDConnect
                 zoneinfoValue = value;
             }
         }
-        /// <summary>
-        /// End-User's locale.
-        /// </summary>
-        private string localeValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string locale
@@ -236,10 +276,6 @@ namespace PayPal.OpenIDConnect
                 localeValue = value;
             }
         }
-        /// <summary>
-        /// End-User's preferred telephone number.
-        /// </summary>
-        private string phone_numberValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string phone_number
@@ -253,10 +289,6 @@ namespace PayPal.OpenIDConnect
                 phone_numberValue = value;
             }
         }
-        /// <summary>
-        /// End-User's preferred address.
-        /// </summary>
-        private Address addressValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public Address address
@@ -270,11 +302,7 @@ namespace PayPal.OpenIDConnect
                 addressValue = value;
             }
         }
-        /// <summary>
-        /// Verified account status.
-        /// </summary>
-        private bool verified_accountValue;
-
+        
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public bool verified_account
         {
@@ -287,10 +315,6 @@ namespace PayPal.OpenIDConnect
                 verified_accountValue = value;
             }
         }
-        /// <summary>
-        /// Account type.
-        /// </summary>
-        private string account_typeValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string account_type
@@ -304,11 +328,7 @@ namespace PayPal.OpenIDConnect
                 account_typeValue = value;
             }
         }
-        /// <summary>
-        /// Account holder age range.
-        /// </summary>
-        private string age_rangeValue;
-
+        
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string age_range
         {
@@ -321,10 +341,6 @@ namespace PayPal.OpenIDConnect
                 age_rangeValue = value;
             }
         }
-        /// <summary>
-        /// Account payer identifier.
-        /// </summary>
-        private string payer_idValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string payer_id
@@ -338,197 +354,7 @@ namespace PayPal.OpenIDConnect
                 payer_idValue = value;
             }
         }
-#else
-        /// <summary>
-        /// Subject - Identifier for the End-User at the Issuer
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string user_id
-        {
-            get;
-            set;
-        }
 
-        /// <summary>
-        /// Subject - Identifier for the End-User at the Issuer
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string sub
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// End-User's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User's locale and preferences
-        /// </summary>	
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string name
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Given name(s) or first name(s) of the End-User
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string given_name
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Surname(s) or last name(s) of the End-User
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string family_name
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Middle name(s) of the End-User
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string middle_name
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// URL of the End-User's profile picture
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string picture
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// End-User's preferred e-mail address
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string email
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// True if the End-User's e-mail address has been verified; otherwise false
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public bool email_verified
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// End-User's gender
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string gender
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// End-User's birthday, represented as an YYYY-MM-DD format. They year MAY be 0000, indicating it is omited. To represent only the year, YYYY format would be used
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string birthdate
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Time zone database representing the End-User's time zone
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string zoneinfo
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// End-User's locale
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string locale
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// End-User's preferred telephone number
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string phone_number
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// End-User's preferred address
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Address address
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Verified account status
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public bool verified_account
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Account type
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string account_type
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Account holder age range
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string age_range
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Account payer identifier.
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string payer_id
-        {
-            get;
-            set;
-        }
-#endif
         /// <summary>
         /// Explicit default constructor
         /// </summary>
@@ -553,7 +379,7 @@ namespace PayPal.OpenIDConnect
         /// <param name="apiContext">APIContext to be used for the call.</param>
         /// <param name="userinfoParameters">Query parameters used for API call</param>
         /// </summary>
-        public static Userinfo GetUserinfo(APIContext apiContext, UserinfoParameters userinfoParameters)
+        public static Userinfo GetUserinfo(apiContext apiContext, UserinfoParameters userinfoParameters)
         {
             string pattern = "v1/identity/openidconnect/userinfo?schema={0}&access_token={1}";
             object[] parameters = new object[] { userinfoParameters };

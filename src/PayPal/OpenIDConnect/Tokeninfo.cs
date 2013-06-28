@@ -16,11 +16,25 @@ namespace PayPal.OpenIDConnect
 {
     public class Tokeninfo
     {
-#if NET_2_0
         /// <summary>
         /// OPTIONAL, if identical to the scope requested by the client; otherwise, REQUIRED.
         /// </summary>
         private string scopeValue;
+
+        /// <summary>
+        /// The access token issued by the authorization server.
+        /// </summary>
+        private string access_tokenValue;
+
+        /// <summary>
+        /// The refresh token, which can be used to obtain new access tokens using the same authorization grant as described in OAuth2.0 RFC6749 in Section 6.
+        /// </summary>
+        private string refresh_tokenValue;
+
+        /// <summary>
+        /// The type of the token issued as described in OAuth2.0 RFC6749 (Section 7.1).  Value is case insensitive.
+        /// </summary>
+        private string token_typeValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string scope
@@ -34,11 +48,7 @@ namespace PayPal.OpenIDConnect
                 scopeValue = value;
             }
         }
-        /// <summary>
-        /// The access token issued by the authorization server.
-        /// </summary>
-        private string access_tokenValue;
-
+        
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string access_token
         {
@@ -51,10 +61,6 @@ namespace PayPal.OpenIDConnect
                 access_tokenValue = value;
             }
         }
-        /// <summary>
-        /// The refresh token, which can be used to obtain new access tokens using the same authorization grant as described in OAuth2.0 RFC6749 in Section 6.
-        /// </summary>
-        private string refresh_tokenValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string refresh_token
@@ -68,10 +74,6 @@ namespace PayPal.OpenIDConnect
                 refresh_tokenValue = value;
             }
         }
-        /// <summary>
-        /// The type of the token issued as described in OAuth2.0 RFC6749 (Section 7.1).  Value is case insensitive.
-        /// </summary>
-        private string token_typeValue;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string token_type
@@ -102,57 +104,7 @@ namespace PayPal.OpenIDConnect
                 expires_inValue = value;
             }
         }
-#else
-        /// <summary>
-        /// OPTIONAL, if identical to the scope requested by the client; otherwise, REQUIRED
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string scope
-        {
-            get;
-            set;
-        }
 
-        /// <summary>
-        /// The access token issued by the authorization server
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string access_token
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// The refresh token, which can be used to obtain new access tokens using the same authorization grant as described in OAuth2.0 RFC6749 in Section 6
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string refresh_token
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// The type of the token issued as described in OAuth2.0 RFC6749 (Section 7.1).  Value is case insensitive
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string token_type
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// The lifetime in seconds of the access token
-        /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public int expires_in
-        {
-            get;
-            set;
-        }        
-#endif
         /// <summary>
         /// Explicit default constructor
         /// </summary>
@@ -190,7 +142,7 @@ namespace PayPal.OpenIDConnect
         /// <param name="apiContext">APIContext to be used for the call.</param>
         /// <param name="createFromAuthorizationCodeParameters">Query parameters used for API call</param>
         /// </summary>
-        public static Tokeninfo CreateFromAuthorizationCode(APIContext apiContext, CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters)
+        public static Tokeninfo CreateFromAuthorizationCode(apiContext apiContext, CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters)
         {
             string pattern = "v1/identity/openidconnect/tokenservice ?grant_type={0}&code={1}&redirect_uri={2}";
             object[] parameters = new object[] { createFromAuthorizationCodeParameters };
@@ -226,7 +178,7 @@ namespace PayPal.OpenIDConnect
         /// <param name="apiContext">APIContext to be used for the call</param>
         /// <param name="createFromRefreshTokenParameters">Query parameters used for API call</param>
         /// </summary>
-        public Tokeninfo CreateFromRefreshToken(APIContext apiContext, CreateFromRefreshTokenParameters createFromRefreshTokenParameters)
+        public Tokeninfo CreateFromRefreshToken(apiContext apiContext, CreateFromRefreshTokenParameters createFromRefreshTokenParameters)
         {
             string pattern = "v1/identity/openidconnect/tokenservice ?grant_type={0}&refresh_token={1}&scope={2}&client_id={3}&client_secret={4}";
             createFromRefreshTokenParameters.SetRefreshToken(HttpUtility.UrlEncode(refresh_token));

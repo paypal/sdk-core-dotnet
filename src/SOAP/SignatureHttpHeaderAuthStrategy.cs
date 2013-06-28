@@ -19,7 +19,7 @@ namespace PayPal.SOAP
         /// <summary>
         /// Logger
         /// </summary>
-        private static readonly ILog Logger = LogManagerWrapper.GetLogger(typeof(SignatureHttpHeaderAuthStrategy));
+        private static ILog logger = LogManagerWrapper.GetLogger(typeof(SignatureHttpHeaderAuthStrategy));
 
         /// <summary>
         /// Constructor
@@ -45,14 +45,14 @@ namespace PayPal.SOAP
                 signGenerator.SetTokenSecret(tokenAuthorize.AccessTokenSecret);
                 string tokenTimeStamp = Timestamp;
                 signGenerator.SetTokenTimestamp(tokenTimeStamp);
-                Logger.Debug("token = " + tokenAuthorize.AccessToken + " tokenSecret=" + tokenAuthorize.AccessTokenSecret + " uri=" + endpointURL);
+                logger.Debug("token = " + tokenAuthorize.AccessToken + " tokenSecret=" + tokenAuthorize.AccessTokenSecret + " uri=" + endpointURL);
                 signGenerator.SetRequestURI(endpointURL);
                 
                 //Compute Signature
                 string sign = signGenerator.ComputeSignature();
-                Logger.Debug("Permissions signature: " + sign);
+                logger.Debug("Permissions signature: " + sign);
                 string authorization = "token=" + tokenAuthorize.AccessToken + ",signature=" + sign + ",timestamp=" + tokenTimeStamp;
-                Logger.Debug("Authorization string: " + authorization);
+                logger.Debug("Authorization string: " + authorization);
                 headers.Add(BaseConstants.PayPalAuthorizationMerchantHeader, authorization);
             }
             catch (OAuthException ae)
