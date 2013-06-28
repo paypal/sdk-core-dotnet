@@ -83,14 +83,7 @@ namespace PayPal
         {
             this.clientID = clientID;
             this.clientSecret = clientSecret;
-            if (config != null)
-            {
-                ConfigManager.getConfigWithDefaults(config);
-            }
-            else
-            {
-                this.config = ConfigManager.getConfigWithDefaults(ConfigManager.Instance.GetProperties());
-            }
+            this.config = config != null ? ConfigManager.getConfigWithDefaults(config): ConfigManager.getConfigWithDefaults(ConfigManager.Instance.GetProperties());
         }
 
         public string GetAccessToken()
