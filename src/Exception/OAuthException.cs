@@ -6,13 +6,8 @@ namespace PayPal.Exception
 
         public OAuthException(string oauthExceptionMessage, System.Exception exception)
         {
-#if NET_2_0
-            this.OAuthExcptnMessage = oauthExceptionMessage;
-            this.OAuthExcptnLongMessage = exception.Message;
-#else
             this.OAuthExceptionMessage = oauthExceptionMessage;
             this.OAuthExceptionLongMessage = exception.Message;
-#endif
         }
 
         public OAuthException(string oauthExceptionMessage)

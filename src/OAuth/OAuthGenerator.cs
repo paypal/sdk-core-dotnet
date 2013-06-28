@@ -276,13 +276,8 @@ namespace PayPal.Authentication
             public Parameter(string paramName, string paramValue)
             {
 
-#if NET_2_0
-                this.ParamName = paramName;
-                this.ParamValue = paramValue;
-#else
                 this.ParameterName = paramName;
                 this.ParameterValue = paramValue;
-#endif
             }
 
 #if NET_2_0

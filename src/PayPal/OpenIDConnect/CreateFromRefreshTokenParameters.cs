@@ -61,12 +61,7 @@ namespace PayPal.OpenIDConnect
         /// <param name="scope"></param>
         public void SetScope(string scope)
         {
-
-#if NET_2_0
-            MapContainer.Add(Scope, scope);
-#else
             ContainerMap.Add(Scope, scope);
-#endif
         }
 
         /// <summary>

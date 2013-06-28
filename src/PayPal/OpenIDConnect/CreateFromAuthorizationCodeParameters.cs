@@ -52,14 +52,8 @@ namespace PayPal.OpenIDConnect
 
         public CreateFromAuthorizationCodeParameters()
         {
-
-#if NET_2_0
-            MapContainer = new Dictionary<string, string>();
-            MapContainer.Add(GrantType, "authorization_code");
-#else
             ContainerMap = new Dictionary<string, string>();
             ContainerMap.Add(GrantType, "authorization_code");
-#endif
         }        
 
         /// <summary>

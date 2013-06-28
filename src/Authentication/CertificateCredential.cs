@@ -62,11 +62,7 @@ namespace PayPal.Authentication
             IThirdPartyAuthorization thrdPartyAuthorization)
             : this(usrName, pssWord, certFile, priKeyPassword)
         {
-#if NET_2_0
-            this.Authorization = thrdPartyAuthorization;
-#else
             this.ThirdPartyAuthorization = thrdPartyAuthorization;
-#endif
         }   
         
 #if NET_2_0
