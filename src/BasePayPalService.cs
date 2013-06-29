@@ -72,7 +72,7 @@ namespace PayPal
         public string Call(IAPICallPreHandler apiCallHandler)
         {
             APIService apiServ = new APIService(this.config);
-            this.lastReq = apiCallHandler.GetPayLoad();
+            this.lastReq = apiCallHandler.GetPayload();
             this.lastResp = apiServ.MakeRequestUsing(apiCallHandler);
             return this.lastResp;
         }

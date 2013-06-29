@@ -31,9 +31,9 @@ namespace PayPal
         private const string OAuthTokenPath = "/v1/oauth2/token";
 
         /// <summary>
-        /// Client ID for OAuth
+        /// Client Id for OAuth
         /// </summary>
-        private string clientID;
+        private string clientId;
 
         /// <summary>
         /// Client Secret for OAuth
@@ -46,9 +46,9 @@ namespace PayPal
         private string accessToken;
 
         /// <summary>
-        /// Application ID returned by OAuth servers
+        /// Application Id returned by OAuth servers
         /// </summary>
-        private string appID;
+        private string appId;
 
         /// <summary>
         /// Seconds for with access token is valid
@@ -71,25 +71,25 @@ namespace PayPal
         private static ILog logger = LogManagerWrapper.GetLogger(typeof(OAuthTokenCredential));
 
         /// <summary>
-        /// Client ID and Secret for the OAuth
+        /// Client Id and Secret for the OAuth
         /// </summary>
-        /// <param name="clientID"></param>
+        /// <param name="clientId"></param>
         /// <param name="clientSecret"></param>
-        public OAuthTokenCredential(string clientID, string clientSecret)
+        public OAuthTokenCredential(string clientId, string clientSecret)
         {
-            this.clientID = clientID;
+            this.clientId = clientId;
             this.clientSecret = clientSecret;
             this.config = ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());
         }
 
         /// <summary>
-        /// Client ID and Secret for the OAuth
+        /// Client Id and Secret for the OAuth
         /// </summary>
-        /// <param name="clientID"></param>
+        /// <param name="clientId"></param>
         /// <param name="clientSecret"></param>
-        public OAuthTokenCredential(string clientID, string clientSecret, Dictionary<string, string> config)
+        public OAuthTokenCredential(string clientId, string clientSecret, Dictionary<string, string> config)
         {
-            this.clientID = clientID;
+            this.clientId = clientId;
             this.clientSecret = clientSecret;
             if (config != null)
             {
@@ -129,8 +129,8 @@ namespace PayPal
         private string GenerateAccessToken()
         {
             string generatedToken = null;
-            string base64ClientID = GenerateBase64String(clientID + ":" + clientSecret);
-            generatedToken = GenerateOAuthToken(base64ClientID);
+            string base64ClientId = GenerateBase64String(clientId + ":" + clientSecret);
+            generatedToken = GenerateOAuthToken(base64ClientId);
             return generatedToken;
         }
 
@@ -139,8 +139,8 @@ namespace PayPal
             try
             {
                 byte[] bytes = Encoding.UTF8.GetBytes(clientCredential);
-                string base64ClientID = Convert.ToBase64String(bytes);
-                return base64ClientID;
+                string base64ClientId = Convert.ToBase64String(bytes);
+                return base64ClientId;
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -160,7 +160,7 @@ namespace PayPal
             }
         }
 
-        private string GenerateOAuthToken(string base64ClientID)
+        private string GenerateOAuthToken(string base64ClientId)
         {
             string response = null;
 
@@ -179,7 +179,7 @@ namespace PayPal
             HttpWebRequest httpRequest = connManager.GetConnection(ConfigManager.Instance.GetProperties(), uniformResourceIdentifier.AbsoluteUri);
             
             Dictionary<string, string> headers = new Dictionary<string, string>();
-            headers.Add("Authorization", "Basic " + base64ClientID);
+            headers.Add("Authorization", "Basic " + base64ClientId);
             string postRequest = "grant_type=client_credentials";
             httpRequest.Method = "POST";
             httpRequest.Accept = "*/*";
@@ -194,7 +194,7 @@ namespace PayPal
             response = httpConnection.Execute(postRequest, httpRequest);
             JObject deserializedObject = (JObject)JsonConvert.DeserializeObject(response);
             string generatedToken = (string)deserializedObject["token_type"] + " " + (string)deserializedObject["access_token"];
-            appID = (string)deserializedObject["app_id"];
+            appId = (string)deserializedObject["app_id"];
             aecondsToExpire = (int)deserializedObject["expires_in"];
             timeInMilliseconds = DateTime.Now.Millisecond;
             return generatedToken;

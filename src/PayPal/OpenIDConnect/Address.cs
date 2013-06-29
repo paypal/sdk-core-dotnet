@@ -9,7 +9,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace PayPal.OpenIDConnect
+namespace PayPal.OpenIdConnect
 {
 	public class Address
     {

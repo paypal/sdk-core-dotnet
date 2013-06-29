@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using PayPal.OpenIDConnect;
+using PayPal.OpenIdConnect;
 
 #if NUnit
 /* NuGet Install
@@ -18,7 +18,7 @@ namespace PayPal.NUnitTest
         public void TestGetAuthUrl()
         {
             Dictionary<string, string> configurationMap = new Dictionary<string, string>();
-            configurationMap.Add("ClientID", "dummy");
+            configurationMap.Add("ClientId", "dummy");
             configurationMap.Add("ClientSecret",
                     "dummypassword");
             configurationMap.Add("mode", "live");
@@ -46,13 +46,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace PayPal.UnitTest
 {
     [TestClass]
-    public class OpenIDTest
+    public class OpenIdTest
     {
         [Ignore]
         public void GetAuthUrlTest()
         {
             Dictionary<string, string> configurationMap = new Dictionary<string, string>();
-            configurationMap.Add("ClientID", "dummy");
+            configurationMap.Add("ClientId", "dummy");
             configurationMap.Add("ClientSecret", "dummypassword");
             configurationMap.Add("mode", "live");
             APIContext apiContxt = new APIContext();

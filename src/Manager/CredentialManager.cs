@@ -105,7 +105,7 @@ namespace PayPal.Manager
                         }
                         if(config.ContainsKey(accountPrefix +  index + ".applicationId"))
                         {
-                            accnt.ApplicationID = config[accountPrefix +  index + ".applicationId"];
+                            accnt.ApplicationId = config[accountPrefix +  index + ".applicationId"];
                         }
                         return accnt;
                     }
@@ -130,7 +130,7 @@ namespace PayPal.Manager
             if (!string.IsNullOrEmpty(accnt.APICertificate))
             {
                 CertificateCredential certCredential = new CertificateCredential(accnt.APIUserName, accnt.APIPassword, accnt.APICertificate, accnt.PrivateKeyPassword);
-                certCredential.ApplicationID = accnt.ApplicationID;
+                certCredential.ApplicationId = accnt.ApplicationId;
                 if (!string.IsNullOrEmpty(accnt.CertificateSubject))
                 {
                     SubjectAuthorization subAuthorization = new SubjectAuthorization(accnt.CertificateSubject);
@@ -141,7 +141,7 @@ namespace PayPal.Manager
             else
             {
                 SignatureCredential signCredential = new SignatureCredential(accnt.APIUserName, accnt.APIPassword, accnt.APISignature);
-                signCredential.ApplicationID = accnt.ApplicationID;
+                signCredential.ApplicationId = accnt.ApplicationId;
                 if (!string.IsNullOrEmpty(accnt.SignatureSubject))
                 {
                     SubjectAuthorization subjectAuthorization = new SubjectAuthorization(accnt.SignatureSubject);

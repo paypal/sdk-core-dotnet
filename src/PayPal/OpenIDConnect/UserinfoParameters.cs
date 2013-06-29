@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 
-namespace PayPal.OpenIDConnect
+namespace PayPal.OpenIdConnect
 {
     public class UserinfoParameters
     {

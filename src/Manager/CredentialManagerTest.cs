@@ -29,7 +29,7 @@ namespace PayPal.NUnitTest
             Assert.AreEqual(apiUsername, signCredential.UserName);
             Assert.AreEqual(Constants.APIPassword, signCredential.Password);
             Assert.AreEqual(Constants.APISignature, signCredential.Signature);
-            Assert.AreEqual(Constants.ApplicationID, signCredential.ApplicationID);
+            Assert.AreEqual(Constants.ApplicationId, signCredential.ApplicationId);
         }
 
         [Test]
@@ -45,7 +45,7 @@ namespace PayPal.NUnitTest
             Assert.AreEqual(Constants.CertificateAPIPassword, certCredential.Password);
             Assert.AreEqual(Constants.CertificatePath, certCredential.CertificateFile);
             Assert.AreEqual(Constants.CertificatePassword, certCredential.PrivateKeyPassword);
-            Assert.AreEqual(Constants.ApplicationID, certCredential.ApplicationID);
+            Assert.AreEqual(Constants.ApplicationId, certCredential.ApplicationId);
         }
 
         [Test, ExpectedException(typeof(MissingCredentialException))]
@@ -79,7 +79,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(apiUsername, signCredential.UserName);
             Assert.AreEqual(Constants.APIPassword, signCredential.Password);
             Assert.AreEqual(Constants.APISignature, signCredential.Signature);
-            Assert.AreEqual(Constants.ApplicationID, signCredential.ApplicationID);
+            Assert.AreEqual(Constants.ApplicationId, signCredential.ApplicationId);
         }
 
         [TestMethod]
@@ -95,7 +95,7 @@ namespace PayPal.UnitTest
             Assert.AreEqual(Constants.CertificateAPIPassword, certCredential.Password);
             Assert.AreEqual(Constants.CertificatePath, certCredential.CertificateFile);
             Assert.AreEqual(Constants.CertificatePassword, certCredential.PrivateKeyPassword);
-            Assert.AreEqual(Constants.ApplicationID, certCredential.ApplicationID);
+            Assert.AreEqual(Constants.ApplicationId, certCredential.ApplicationId);
         }
 
         [TestMethod]

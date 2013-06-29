@@ -18,7 +18,7 @@ namespace PayPal
         /// in formatting the payload appropriately
         /// </summary>
         /// <returns></returns>
-	    string GetPayLoad();
+	    string GetPayload();
 
 	    /// <summary>
         /// Returns the endpoint for the API call

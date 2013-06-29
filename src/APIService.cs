@@ -69,9 +69,9 @@ namespace PayPal
             string responseString = string.Empty;
             string uri = apiCallHandler.GetEndpoint();
             Dictionary<string, string> headers = apiCallHandler.GetHeaderMap();
-            string payLoad = apiCallHandler.GetPayLoad();
+            string payload = apiCallHandler.GetPayload();
 
-            // Constructing HttpWebRequest object                
+            //Constructing HttpWebRequest object                
             ConnectionManager connMngr = ConnectionManager.Instance;
             HttpWebRequest httpRequest = connMngr.GetConnection(this.config, uri);
             httpRequest.Method = RequestMethod;
@@ -86,18 +86,18 @@ namespace PayPal
                     logger.Debug(headerName + ":" + httpRequest.Headers[headerName]);
                 }
             }
-            // Adding payLoad to HttpWebRequest object
+            //Adding payload to HttpWebRequest object
             using (StreamWriter myWriter = new StreamWriter(httpRequest.GetRequestStream()))
             {
-                myWriter.Write(payLoad);
-                logger.Debug(payLoad);
+                myWriter.Write(payload);
+                logger.Debug(payload);
             }
 
             if (apiCallHandler.GetCredential() is CertificateCredential)
             {
                 CertificateCredential certCredential = (CertificateCredential)apiCallHandler.GetCredential();
 
-                // Load the certificate into an X509Certificate2 object.
+                //Load the certificate into an X509Certificate2 object.
                 if (((CertificateCredential)certCredential).PrivateKeyPassword.Trim() == string.Empty)
                 {
                     x509 = new X509Certificate2(((CertificateCredential)certCredential).CertificateFile);
@@ -109,7 +109,7 @@ namespace PayPal
                 httpRequest.ClientCertificates.Add(x509);
             }
 
-            // Fire request. Retry if configured to do so
+            //Fire request. Retry if configured to do so
             int numRetries = (this.config.ContainsKey(BaseConstants.HttpConnectionRetryConfig)) ?
                     Convert.ToInt32(config[BaseConstants.HttpConnectionRetryConfig]) : 0;
             int retries = 0;
@@ -118,7 +118,7 @@ namespace PayPal
             {
                 try
                 {
-                    // Calling the plaftform API web service and getting the response
+                    //Calling the plaftform API web service and getting the response
                     using (WebResponse response = httpRequest.GetResponse())
                     {
                         using (StreamReader sr = new StreamReader(response.GetResponseStream()))
@@ -130,7 +130,7 @@ namespace PayPal
                         }
                     }
                 }
-                // Server responses in the range of 4xx and 5xx throw a WebException
+                //Server responses in the range of 4xx and 5xx throw a WebException
                 catch (WebException we)
                 {
                     HttpStatusCode statusCode = ((HttpWebResponse)we.Response).StatusCode;

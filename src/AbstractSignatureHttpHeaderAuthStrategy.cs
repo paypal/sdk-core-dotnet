@@ -38,7 +38,7 @@ namespace PayPal
                 else
                 {
                     headers = new Dictionary<string, string>();
-                    headers.Add(BaseConstants.PayPalSecurityUserIDHeader, signCredential.UserName);
+                    headers.Add(BaseConstants.PayPalSecurityUserIdHeader, signCredential.UserName);
                     headers.Add(BaseConstants.PayPalSecurityPasswordHeader,signCredential.Password);
                     headers.Add(BaseConstants.PayPalSecuritySignatureHeader,signCredential.Signature);
                 }

@@ -40,10 +40,10 @@ namespace PayPal.NUnitTest
         }
 
         [Test]
-        public void ApplicationID()
+        public void ApplicationId()
         {
-            signCredential.ApplicationID = Constants.ApplicationID;
-            Assert.AreEqual(Constants.ApplicationID, signCredential.ApplicationID);
+            signCredential.ApplicationId = Constants.ApplicationId;
+            Assert.AreEqual(Constants.ApplicationId, signCredential.ApplicationId);
         }
 
         [Test]
@@ -105,10 +105,10 @@ namespace PayPal.UnitTest
         }
 
         [TestMethod]
-        public void ApplicationID()
+        public void ApplicationId()
         {
-            signCredential.ApplicationID = Constants.ApplicationID;
-            Assert.AreEqual(Constants.ApplicationID, signCredential.ApplicationID);
+            signCredential.ApplicationId = Constants.ApplicationId;
+            Assert.AreEqual(Constants.ApplicationId, signCredential.ApplicationId);
         }
 
         [TestMethod]

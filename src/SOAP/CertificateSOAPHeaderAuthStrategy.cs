@@ -36,21 +36,21 @@ namespace PayPal.SOAP
         /// <returns></returns>
         public string GenerateHeaderStrategy(CertificateCredential credential) 
         {
-		    string payLoad = null;
+		    string payload = null;
 
             if (ThirdPartyAuthorization is TokenAuthorization) 
             {
-			    payLoad = TokenAuthPayLoad();
+			    payload = TokenAuthPayload();
 		    }
             else if (ThirdPartyAuthorization is SubjectAuthorization) 
             {
-                payLoad = AuthPayLoad(credential, (SubjectAuthorization)ThirdPartyAuthorization);
+                payload = AuthPayload(credential, (SubjectAuthorization)ThirdPartyAuthorization);
 		    } 
             else 
             {
-                payLoad = AuthPayLoad(credential, null);
+                payload = AuthPayload(credential, null);
 		    }
-		    return payLoad;
+		    return payload;
 	    }
 
         /// <summary>
@@ -58,14 +58,14 @@ namespace PayPal.SOAP
         /// Token authorization does not bear a credential part
         /// </summary>
         /// <returns></returns>
-        private string TokenAuthPayLoad()
+        private string TokenAuthPayload()
         {
             StringBuilder soapMessage = new StringBuilder();
             soapMessage.Append("<ns:RequesterCredentials/>");
             return soapMessage.ToString();
         }
 
-        private string AuthPayLoad(CertificateCredential credential,
+        private string AuthPayload(CertificateCredential credential,
                 SubjectAuthorization subjectAuthorization)
         {
             StringBuilder soapMessage = new StringBuilder();

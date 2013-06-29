@@ -41,23 +41,23 @@ namespace PayPal
             this.config = config;
         }
 
-        public string Execute(string payLoad, HttpWebRequest httpRequest)
+        public string Execute(string payload, HttpWebRequest httpRequest)
         {
             try
             {
-                if (!string.IsNullOrEmpty(payLoad))
+                if (!string.IsNullOrEmpty(payload))
                 {
                     switch (httpRequest.Method)
                     {
                         case "POST":
                             using (StreamWriter writerStream = new StreamWriter(httpRequest.GetRequestStream()))
                             {
-                                if (!string.IsNullOrEmpty(payLoad))
+                                if (!string.IsNullOrEmpty(payload))
                                 {
-                                    writerStream.Write(payLoad);
+                                    writerStream.Write(payload);
                                     writerStream.Flush();
                                     writerStream.Close();
-                                    logger.Debug(payLoad);
+                                    logger.Debug(payload);
                                 }
 
                             }

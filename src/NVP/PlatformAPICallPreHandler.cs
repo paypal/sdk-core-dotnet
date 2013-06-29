@@ -112,13 +112,13 @@ namespace PayPal.NVP
 	    /// <summary>
         /// NVPAPICallPreHandler
 	    /// </summary>
-	    /// <param name="rawPayLoad"></param>
+	    /// <param name="rawPayload"></param>
 	    /// <param name="serviceName"></param>
 	    /// <param name="method"></param>
 	    /// <param name="credential"></param>
-	    public PlatformAPICallPreHandler(Dictionary<string, string> config, string rawPayLoad, string serviceName,string method,
+	    public PlatformAPICallPreHandler(Dictionary<string, string> config, string rawPayload, string serviceName,string method,
             ICredential credential)
-            : this(rawPayLoad, serviceName, method, config)
+            : this(rawPayload, serviceName, method, config)
         {  		
 		    if (credential == null) 
             {
@@ -211,7 +211,7 @@ namespace PayPal.NVP
         /// Returns the raw payload as no processing necessary for NVP
         /// </summary>
         /// <returns></returns>
-	    public string GetPayLoad() 
+	    public string GetPayload() 
         {
 		    return rawPayload;
 	    }
@@ -316,7 +316,7 @@ namespace PayPal.NVP
 
             try
             {
-                returnMap.Add(BaseConstants.PayPalApplicationIDHeader, GetApplicationID());
+                returnMap.Add(BaseConstants.PayPalApplicationIdHeader, GetApplicationId());
                 returnMap.Add(BaseConstants.PayPalRequestDataFormatHeader, BaseConstants.NVP);
                 returnMap.Add(BaseConstants.PayPalResponseDataFormatHeader, BaseConstants.NVP);
                 returnMap.Add(BaseConstants.PayPalRequestSourceHeader, SDKName + "-" + SDKVersion);
@@ -331,21 +331,21 @@ namespace PayPal.NVP
 	    }
 
         /// <summary>
-        /// Returns Application ID
+        /// Returns Application Id
         /// </summary>
         /// <returns></returns>
-	    private string GetApplicationID() 
+	    private string GetApplicationId() 
         {
-		    string applicationID = string.Empty;
+		    string applicationId = string.Empty;
 		    if (credential is CertificateCredential) 
             {
-			    applicationID = ((CertificateCredential) credential).ApplicationID;
+			    applicationId = ((CertificateCredential) credential).ApplicationId;
 		    } 
             else if (credential is SignatureCredential) 
             {
-			    applicationID = ((SignatureCredential) credential).ApplicationID;
+			    applicationId = ((SignatureCredential) credential).ApplicationId;
 		    }
-		    return applicationID;
+		    return applicationId;
 	    }
 
 	    private void InitCredential() 

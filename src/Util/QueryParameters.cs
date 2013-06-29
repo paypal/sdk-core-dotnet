@@ -6,7 +6,7 @@ namespace PayPal.Util
     {
         private static readonly string count = "count";
 
-        private static readonly string startID = "start_id";
+        private static readonly string startId = "start_id";
 
         private static readonly string startIndex = "start_index";
 
@@ -14,7 +14,7 @@ namespace PayPal.Util
 
         private static readonly string endTime = "end_time";
 
-        private static readonly string payeeID = "payee_id";
+        private static readonly string payeeId = "payee_id";
 
         private static readonly string sortBy = "sort_by";
 
@@ -46,12 +46,12 @@ namespace PayPal.Util
         }
 
         /// <summary>
-        /// Sets the Start ID
+        /// Sets the Start Id
         /// </summary>
-        /// <param name="startingID"></param>
-        public void SetStartId(string startingID)
+        /// <param name="startingId"></param>
+        public void SetStartId(string startingId)
         {
-            containerMap.Add(startID, startingID);
+            containerMap.Add(startId, startingId);
         }
 
         /// <summary>
@@ -82,12 +82,12 @@ namespace PayPal.Util
         }
 
         /// <summary>
-        /// Set the Payee ID
+        /// Set the Payee Id
         /// </summary>
-        /// <param name="payID"></param>
-        public void SetPayeeID(string payID)
+        /// <param name="payId"></param>
+        public void SetPayeeId(string payId)
         {
-            containerMap.Add(payeeID, payID);
+            containerMap.Add(payeeId, payId);
         }
 
         /// <summary>

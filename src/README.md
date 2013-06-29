@@ -20,7 +20,7 @@ The PayPal Core SDK for .NET
  	Error log: The PayPal Core SDK uses the log4net tool to log output statements to a text file to help locate the problem.
  	Backward compatibility: The PayPal Core SDK is developed using .NET Framework 2.0 and should compile on later versions of the .NET Framework.
 
-## OpenID Connect Integration
+## OpenId Connect Integration
 
    * Redirect your buyer to obtain authorization.
    * Capture the authorization code that is available as a query parameter ("code") in the redirect url

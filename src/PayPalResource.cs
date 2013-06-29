@@ -39,22 +39,22 @@ namespace PayPal
                                                   HttpStatusCode.ServiceUnavailable,
                                                 });
 
-        public const string SDKID = "rest-sdk-dotnet";
+        public const string SDKId = "rest-sdk-dotnet";
 
         public const string SDKVersion = "0.7.1";
 
-        public static T ConfigureAndExecute<T>(string accessToken, HttpMethod httpMethod, string resource, string payLoad)
+        public static T ConfigureAndExecute<T>(string accessToken, HttpMethod httpMethod, string resource, string payload)
         {
             APIContext apiContext = new APIContext(accessToken);
-            return ConfigureAndExecute<T>(apiContext, httpMethod, resource, null, payLoad);
+            return ConfigureAndExecute<T>(apiContext, httpMethod, resource, null, payload);
         }
 
-        public static T ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payLoad)
+        public static T ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payload)
         {
-            return ConfigureAndExecute<T>(apiContext, httpMethod, resource, null, payLoad);
+            return ConfigureAndExecute<T>(apiContext, httpMethod, resource, null, payload);
         }
 
-        public static T ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, Dictionary<string, string> headersMap, string payLoad)
+        public static T ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, Dictionary<string, string> headersMap, string payload)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace PayPal
 
                 RESTConfiguration restConfiguration = new RESTConfiguration(config, headersMap);
                 restConfiguration.AuthorizationToken = apiContext.AccessToken;
-                restConfiguration.RequestID = apiContext.RequestID;
+                restConfiguration.RequestId = apiContext.RequestId;
                 headers = restConfiguration.GetHeaders();
 
                 ConnectionManager connMngr = ConnectionManager.Instance;
@@ -91,7 +91,7 @@ namespace PayPal
                 {
                     httpRequest.ContentType = "application/json";
                 }
-                httpRequest.ContentLength = payLoad.Length;
+                httpRequest.ContentLength = payload.Length;
                 foreach (KeyValuePair<string, string> header in headers)
                 {
                     if (header.Key.Trim().Equals("User-Agent"))
@@ -111,7 +111,7 @@ namespace PayPal
                     }
                 }
                 HttpConnection connectionHttp = new HttpConnection(config);
-                response = connectionHttp.Execute(payLoad, httpRequest);
+                response = connectionHttp.Execute(payload, httpRequest);
                 if (typeof(T).Name.Equals("Object"))
                 {
                     return default(T);

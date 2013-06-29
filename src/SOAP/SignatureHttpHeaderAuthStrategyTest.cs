@@ -36,7 +36,7 @@ namespace PayPal.NUnitTest
             signHttpHeaderAuthStrategy = new SignatureHttpHeaderAuthStrategy(Constants.APIEndpointSOAP);
             signCredential = new SignatureCredential("testusername", "testpassword", "testsignature");
             Dictionary<string, string> header = signHttpHeaderAuthStrategy.GenerateHeaderStrategy(signCredential);
-            string username = header[BaseConstants.PayPalSecurityUserIDHeader];
+            string username = header[BaseConstants.PayPalSecurityUserIdHeader];
             string password = header[BaseConstants.PayPalSecurityPasswordHeader];
             string sign = header[BaseConstants.PayPalSecuritySignatureHeader];
             Assert.AreEqual("testusername", username);
@@ -74,7 +74,7 @@ namespace PayPal.UnitTest
             signHttpHeaderAuthStrategy = new SignatureHttpHeaderAuthStrategy(Constants.APIEndpointSOAP);
             signCredential = new SignatureCredential("testusername", "testpassword", "testsignature");
             Dictionary<string, string> header = signHttpHeaderAuthStrategy.GenerateHeaderStrategy(signCredential);
-            string username = header[BaseConstants.PayPalSecurityUserIDHeader];
+            string username = header[BaseConstants.PayPalSecurityUserIdHeader];
             string password = header[BaseConstants.PayPalSecurityPasswordHeader];
             string sign = header[BaseConstants.PayPalSecuritySignatureHeader];
             Assert.AreEqual("testusername", username);

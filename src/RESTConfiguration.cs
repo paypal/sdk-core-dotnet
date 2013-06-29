@@ -16,9 +16,9 @@ namespace PayPal
         private string authorizeToken;
 
         /// <summary>
-        /// Idempotency Request ID
+        /// Idempotency Request Id
         /// </summary>
-        private string reqID;
+        private string reqId;
 
         /// <summary>
         /// Dynamic configuration map
@@ -41,17 +41,17 @@ namespace PayPal
         }
 
         /// <summary>
-        /// Gets and sets the Idempotency Request ID
+        /// Gets and sets the Idempotency Request Id
         /// </summary>
-        public string RequestID
+        public string RequestId
         {
             private get
             {
-                return reqID;
+                return reqId;
             }
             set
             {
-                reqID = value;
+                reqId = value;
             }
         }
 
@@ -78,21 +78,21 @@ namespace PayPal
             {
                 headers.Add("Authorization", AuthorizationToken);
             }
-            else if (!string.IsNullOrEmpty(GetClientID()) && !string.IsNullOrEmpty(GetClientSecret()))
+            else if (!string.IsNullOrEmpty(GetClientId()) && !string.IsNullOrEmpty(GetClientSecret()))
             {
-                headers.Add("Authorization", "Basic " + EncodeToBase64(GetClientID(), GetClientSecret()));
+                headers.Add("Authorization", "Basic " + EncodeToBase64(GetClientId(), GetClientSecret()));
             }
             headers.Add("User-Agent", FormUserAgentHeader());
-            if (!string.IsNullOrEmpty(RequestID))
+            if (!string.IsNullOrEmpty(RequestId))
             {
-                headers.Add("PayPal-Request-Id", RequestID);
+                headers.Add("PayPal-Request-Id", RequestId);
             }
             return headers;
         }
 
-        private string GetClientID()
+        private string GetClientId()
         {
-            return this.config.ContainsKey(BaseConstants.ClientID) ? this.config[BaseConstants.ClientID] : null;
+            return this.config.ContainsKey(BaseConstants.ClientId) ? this.config[BaseConstants.ClientId] : null;
         }
 
         private string GetClientSecret()
@@ -100,13 +100,13 @@ namespace PayPal
             return this.config.ContainsKey(BaseConstants.ClientSecret) ? this.config[BaseConstants.ClientSecret] : null;
         }
 
-        private string EncodeToBase64(string clientID, string clientSecret)
+        private string EncodeToBase64(string clientId, string clientSecret)
         {
             try
             {
-                byte[] bytes = Encoding.UTF8.GetBytes(clientID + ":" + clientSecret);
-                string base64ClientID = Convert.ToBase64String(bytes);
-                return base64ClientID;
+                byte[] bytes = Encoding.UTF8.GetBytes(clientId + ":" + clientSecret);
+                string base64ClientId = Convert.ToBase64String(bytes);
+                return base64ClientId;
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -130,7 +130,7 @@ namespace PayPal
         {
             string header = null;
             StringBuilder stringBuilder = new StringBuilder("PayPalSDK/"
-                    + PayPalResource.SDKID + " " + PayPalResource.SDKVersion
+                    + PayPalResource.SDKId + " " + PayPalResource.SDKVersion
                     + " ");
             string dotNETVersion = DotNetVersionHeader;
             stringBuilder.Append(";").Append(dotNETVersion);

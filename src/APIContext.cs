@@ -11,14 +11,14 @@ namespace PayPal
         private string token;
 
         /// <summary>
-        /// Request ID
+        /// Request Id
         /// </summary>
-        private string reqID;
+        private string reqId;
 
         /// <summary>
-        /// Mask Request ID
+        /// Mask Request Id
         /// </summary>
-        private bool maskReqID;
+        private bool maskReqId;
 
         /// <summary>
         /// Dynamic configuration
@@ -44,18 +44,18 @@ namespace PayPal
         }
 
         /// <summary>
-        /// Access Token and Request ID required for the call
+        /// Access Token and Request Id required for the call
         /// </summary>
         /// <param name="token"></param>
-        /// <param name="requestID"></param>
-        public APIContext(string token, string requestID)
+        /// <param name="requestId"></param>
+        public APIContext(string token, string requestId)
             : this(token)
         {
-            if (string.IsNullOrEmpty(requestID))
+            if (string.IsNullOrEmpty(requestId))
             {
                 throw new ArgumentNullException("RequestId cannot be null");
             }
-            this.reqID = requestID;
+            this.reqId = requestId;
         }
 
         /// <summary>
@@ -70,37 +70,37 @@ namespace PayPal
         }
 
         /// <summary>
-        /// Gets and sets the Mask Request ID
+        /// Gets and sets the Mask Request Id
         /// </summary>
-        public bool MaskRequestID
+        public bool MaskRequestId
         {
             get
             {
-                return this.maskReqID;
+                return this.maskReqId;
             }
             set
             {
-                this.maskReqID = value;
+                this.maskReqId = value;
             }
         }
         
         /// <summary>
-        /// Gets the Request ID
+        /// Gets the Request Id
         /// </summary>
-        public string RequestID
+        public string RequestId
         {
             get
             {
-                string returnID = null;
-                if (!MaskRequestID)
+                string returnId = null;
+                if (!MaskRequestId)
                 {
-                    if (string.IsNullOrEmpty(reqID))
+                    if (string.IsNullOrEmpty(reqId))
                     {
-                        reqID = Convert.ToString(Guid.NewGuid());
+                        reqId = Convert.ToString(Guid.NewGuid());
                     }
-                    returnID = reqID;
+                    returnId = reqId;
                 }
-                return returnID;
+                return returnId;
             }
         }
 

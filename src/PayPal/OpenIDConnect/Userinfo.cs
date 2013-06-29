@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using PayPal.Util;
 
-namespace PayPal.OpenIDConnect
+namespace PayPal.OpenIdConnect
 {
     public class Userinfo
     {
@@ -369,9 +369,9 @@ namespace PayPal.OpenIDConnect
             string pattern = "v1/identity/openidconnect/userinfo?schema={0}&access_token={1}";
             object[] parameters = new object[] { userinfoParameters };
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = string.Empty;
+            string payload = string.Empty;
             return PayPalResource.ConfigureAndExecute<Userinfo>(null, HttpMethod.GET,
-                    resourcePath, null, payLoad);
+                    resourcePath, null, payload);
         }
 
         /// <summary>
@@ -384,9 +384,9 @@ namespace PayPal.OpenIDConnect
             string pattern = "v1/identity/openidconnect/userinfo?schema={0}&access_token={1}";
             object[] parameters = new object[] { userinfoParameters };
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = string.Empty;
+            string payload = string.Empty;
             return PayPalResource.ConfigureAndExecute<Userinfo>(apiContext,
-                    HttpMethod.GET, resourcePath, null, payLoad);
+                    HttpMethod.GET, resourcePath, null, payload);
         }
     }
 }

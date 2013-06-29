@@ -42,7 +42,7 @@ namespace PayPal.SOAP
 	    /// <summary>
 	    /// Internal variable to hold payload
 	    /// </summary>
-	    private string payLoad;
+	    private string payload;
 
         /// <summary>
         /// SDK Configuration
@@ -198,11 +198,11 @@ namespace PayPal.SOAP
         /// if the credentials mandate soap headers
         /// </summary>
         /// <returns></returns>
-	    public string GetPayLoad() 
+	    public string GetPayload() 
         {
-		    if (payLoad == null) 
+		    if (payload == null) 
             {
-                payLoad = apiCallHandler.GetPayLoad();
+                payload = apiCallHandler.GetPayload();
 			    string header = null;
 			    if (credential is SignatureCredential)
                 {
@@ -219,9 +219,9 @@ namespace PayPal.SOAP
 				    header = certSoapHeaderAuthStrategy.GenerateHeaderStrategy(certCredential);
 
 			    }
-			    payLoad = GetPayLoadUsingSOAPHeader(payLoad, GetAttributeNamespace(), header);
+			    payload = GetPayloadUsingSOAPHeader(payload, GetAttributeNamespace(), header);
 		    }
-		    return payLoad;
+		    return payload;
 	    }
 
         /// <summary>
@@ -364,19 +364,19 @@ namespace PayPal.SOAP
 	    /// <summary>
         /// Returns Payload after decoration
 	    /// </summary>
-	    /// <param name="payLoad"></param>
+	    /// <param name="payload"></param>
 	    /// <param name="namespaces"></param>
 	    /// <param name="header"></param>
 	    /// <returns></returns>
-	    private string GetPayLoadUsingSOAPHeader(string payLoad, string namespaces, string header) 
+	    private string GetPayloadUsingSOAPHeader(string payload, string namespaces, string header) 
         {
-            string returnPayLoad = null;
+            string returnPayload = null;
             Regex regex = new Regex("\\{(?![01]})");
-            string formattedPayLoad = regex.Replace(payLoad, "{{");
+            string formattedPayload = regex.Replace(payload, "{{");
             regex = new Regex("(?<!\\{[01]{1})}");
-            formattedPayLoad = regex.Replace(formattedPayLoad, "}}");
-            returnPayLoad = string.Format(formattedPayLoad, new object[] { namespaces, header });
-            return returnPayLoad;
+            formattedPayload = regex.Replace(formattedPayload, "}}");
+            returnPayload = string.Format(formattedPayload, new object[] { namespaces, header });
+            return returnPayload;
 	    }
     }
 }

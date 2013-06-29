@@ -9,7 +9,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace PayPal.OpenIDConnect
+namespace PayPal.OpenIdConnect
 {
 	public class Error
     {
@@ -19,7 +19,7 @@ namespace PayPal.OpenIDConnect
         private string errorValue;
 
         /// <summary>
-        /// A resource ID that indicates the starting resource in the returned results.
+        /// A resource Id that indicates the starting resource in the returned results.
         /// </summary>
         private string error_descriptionValue;
 

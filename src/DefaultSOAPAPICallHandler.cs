@@ -41,7 +41,7 @@ namespace PayPal
 	    /// <summary>
         /// Raw payload from stubs
 	    /// </summary>
-	    private string rawPayLoad;        
+	    private string rawPayload;        
       
         /// <summary>
         /// SDK Configuration
@@ -91,14 +91,14 @@ namespace PayPal
         /// <summary>
         /// DefaultSOAPAPICallHandler acts as the base SOAPAPICallHandler.
 	    /// </summary>
-	    /// <param name="rawPayLoad"></param>
+	    /// <param name="rawPayload"></param>
 	    /// <param name="namespaces"></param>
 	    /// <param name="headerString"></param>
         /// <param name="config"></param>
-        public DefaultSOAPAPICallHandler(Dictionary<string, string> config, string rawPayLoad, string attributesNamespace, 
+        public DefaultSOAPAPICallHandler(Dictionary<string, string> config, string rawPayload, string attributesNamespace, 
             string headerString) : base()
         {		    
-		    this.rawPayLoad = rawPayLoad;
+		    this.rawPayload = rawPayload;
             this.NamespaceAttributes = attributesNamespace;
             this.HeaderElement = headerString;
             this.Config = (config == null) ? ConfigManager.Instance.GetProperties() : config;
@@ -116,7 +116,7 @@ namespace PayPal
         /// in formatting the payload appropriately
         /// </summary>
         /// <returns></returns>
-	    public string GetPayLoad() 
+	    public string GetPayload() 
         {
 		    StringBuilder payload = new StringBuilder();
 		    payload.Append(GetSoapEnvelopeStart());
@@ -185,9 +185,9 @@ namespace PayPal
         {
 		    string body = null;
 
-		    if (rawPayLoad != null) 
+		    if (rawPayload != null) 
             {
-			    body = string.Format(SOAPBodyStart, new object[] { null, null, rawPayLoad });
+			    body = string.Format(SOAPBodyStart, new object[] { null, null, rawPayload });
 		    } 
             else 
             {

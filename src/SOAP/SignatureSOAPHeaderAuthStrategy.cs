@@ -32,30 +32,30 @@ namespace PayPal.SOAP
 
         public string GenerateHeaderStrategy(SignatureCredential credential)
         {
-            string payLoad = null;
+            string payload = null;
             if (ThirdPartyAuthorization is TokenAuthorization)
             {
-                payLoad = TokenAuthPayLoad();
+                payload = TokenAuthPayload();
             }
             else if (ThirdPartyAuthorization is SubjectAuthorization)
             {
-                payLoad = AuthPayLoad(credential, (SubjectAuthorization)ThirdPartyAuthorization);
+                payload = AuthPayload(credential, (SubjectAuthorization)ThirdPartyAuthorization);
             }
             else
             {
-                payLoad = AuthPayLoad(credential, null);
+                payload = AuthPayload(credential, null);
             }
-            return payLoad;
+            return payload;
         }
 
-        private string TokenAuthPayLoad()
+        private string TokenAuthPayload()
         {
             StringBuilder soapMessage = new StringBuilder();
             soapMessage.Append("<ns:RequesterCredentials/>");
             return soapMessage.ToString();
         }
 
-        private string AuthPayLoad(SignatureCredential signCredential,
+        private string AuthPayload(SignatureCredential signCredential,
                 SubjectAuthorization subjectAuth)
         {  
             StringBuilder soapMessage = new StringBuilder();

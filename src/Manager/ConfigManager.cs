@@ -101,9 +101,9 @@ namespace PayPal.Manager
                 {
                     this.configValues.Add("account" + index + ".subject", account.CertificateSubject);
                 }
-                if (!string.IsNullOrEmpty(account.ApplicationID))
+                if (!string.IsNullOrEmpty(account.ApplicationId))
                 {
-                    this.configValues.Add("account" + index + ".applicationId", account.ApplicationID);
+                    this.configValues.Add("account" + index + ".applicationId", account.ApplicationId);
                 }
                 index++;
             }

@@ -30,9 +30,9 @@ namespace PayPal.Authentication
         private IThirdPartyAuthorization authorization;
 
         /// <summary>
-        ///  Application ID
+        ///  Application Id
         /// </summary>
-        private string appID;
+        private string appId;
 
         /// <summary>
         /// SignatureCredential constructor
@@ -83,17 +83,17 @@ namespace PayPal.Authentication
         }
 
         /// <summary>
-        /// Gets and sets the Application ID (Used by Platform APIs)
+        /// Gets and sets the Application Id (Used by Platform APIs)
         /// </summary>
-        public string ApplicationID
+        public string ApplicationId
         {
             get
             {
-                return this.appID;
+                return this.appId;
             }
             set
             {
-                this.appID = value;
+                this.appId = value;
             }
         }
 

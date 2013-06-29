@@ -27,7 +27,7 @@ namespace PayPal
         
         // HTTP Header Constants
         // PayPal Security UserId Header
-        public const string PayPalSecurityUserIDHeader = "X-PAYPAL-SECURITY-USERID";
+        public const string PayPalSecurityUserIdHeader = "X-PAYPAL-SECURITY-USERID";
 
         // PayPal Security Password Header
         public const string PayPalSecurityPasswordHeader = "X-PAYPAL-SECURITY-PASSWORD";
@@ -41,8 +41,8 @@ namespace PayPal
         // PayPal Merchant Authorization Header
         public const string PayPalAuthorizationMerchantHeader = "X-PP-AUTHORIZATION";
 
-        // PayPal Application ID Header
-        public const string PayPalApplicationIDHeader = "X-PAYPAL-APPLICATION-ID";
+        // PayPal Application Id Header
+        public const string PayPalApplicationIdHeader = "X-PAYPAL-APPLICATION-ID";
 
         // PayPal Request Data Header
         public const string PayPalRequestDataFormatHeader = "X-PAYPAL-REQUEST-DATA-FORMAT";
@@ -109,8 +109,8 @@ namespace PayPal
         // Configuration key suffix for Credential Password
         public const string CredentialPasswordConfig = "apiPassword";
 
-        // Configuration key suffix for Credential Application ID
-        public const string CredentialApplicationIDConfig = "applicationId";
+        // Configuration key suffix for Credential Application Id
+        public const string CredentialApplicationIdConfig = "applicationId";
 
         // Configuration key suffix for Credential Subject
         public const string CredentialSubjectConfig = "Subject";
@@ -125,26 +125,26 @@ namespace PayPal
         public const string CredentialCertKeyConfig = "privateKeyPassword";
 
         // Configuration key suffix for Client Id
-        public const string ClientID = "clientId";
+        public const string ClientId = "clientId";
 
         // Configuration key suffix for Client Secret
         public const string ClientSecret = "clientSecret";
 
-        public const string OpenIDRedirectURI = "openid.RedirectUri";
+        public const string OpenIdRedirectURI = "openid.RedirectUri";
 
-        public const string OpenIDRedirectURIConstant = "https://www.paypal.com/webapps/auth/protocol/openidconnect";
+        public const string OpenIdRedirectURIConstant = "https://www.paypal.com/webapps/auth/protocol/openidconnect";
 
         public const string OAuthEndpoint = "oauth.EndPoint";
         
         public static class ErrorMessages
         {
             public const string ProfileNull = "APIProfile cannot be null.";
-            public const string PayloadNull = "PayLoad cannot be null or empty.";
+            public const string PayloadNull = "Payload cannot be null or empty.";
             public const string ErrorEndpoint = "Endpoint cannot be empty.";
             public const string ErrorUserName = "API Username cannot be empty";
             public const string ErrorPassword = "API Password cannot be empty.";
             public const string ErrorSignature = "API Signature cannot be empty.";
-            public const string ErrorAppID = "Application ID cannot be empty.";
+            public const string ErrorAppId = "Application Id cannot be empty.";
             public const string ErrorCertificate = "Certificate cannot be empty.";
             public const string ErrorPrivateKeyPassword = "Private Key Password cannot be null or empty.";
         }

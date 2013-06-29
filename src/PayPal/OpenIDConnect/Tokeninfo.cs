@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using PayPal.Util;
 
-namespace PayPal.OpenIDConnect
+namespace PayPal.OpenIdConnect
 {
     public class Tokeninfo
     {
@@ -129,12 +129,12 @@ namespace PayPal.OpenIDConnect
             string pattern = "v1/identity/openidconnect/tokenservice ?grant_type={0}&code={1}&redirect_uri={2}";
             object[] parameters = new object[] { createFromAuthorizationCodeParameters };
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
+            string payload = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
             resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
             Dictionary<string, string> headersMap = new Dictionary<string, string>();
             headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
             return PayPalResource.ConfigureAndExecute<Tokeninfo>(null, HttpMethod.POST,
-                    resourcePath, headersMap, payLoad);
+                    resourcePath, headersMap, payload);
         }
 
         /// <summary>
@@ -147,12 +147,12 @@ namespace PayPal.OpenIDConnect
             string pattern = "v1/identity/openidconnect/tokenservice ?grant_type={0}&code={1}&redirect_uri={2}";
             object[] parameters = new object[] { createFromAuthorizationCodeParameters };
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
+            string payload = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
             resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
             Dictionary<string, string> headersMap = new Dictionary<string, string>();
             headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
             return PayPalResource.ConfigureAndExecute<Tokeninfo>(apiContext, HttpMethod.POST,
-                    resourcePath, headersMap, payLoad);
+                    resourcePath, headersMap, payload);
         }
 
         /// <summary>
@@ -165,12 +165,12 @@ namespace PayPal.OpenIDConnect
             createFromRefreshTokenParameters.SetRefreshToken(HttpUtility.UrlEncode(refresh_token));
             object[] parameters = new object[] { createFromRefreshTokenParameters };
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
+            string payload = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
             resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
             Dictionary<string, string> headersMap = new Dictionary<string, string>();
             headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
             return PayPalResource.ConfigureAndExecute<Tokeninfo>(null, HttpMethod.POST,
-                    resourcePath, headersMap, payLoad);
+                    resourcePath, headersMap, payload);
         }
 
         /// <summary>
@@ -184,12 +184,12 @@ namespace PayPal.OpenIDConnect
             createFromRefreshTokenParameters.SetRefreshToken(HttpUtility.UrlEncode(refresh_token));
             object[] parameters = new object[] { createFromRefreshTokenParameters };
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
+            string payload = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
             resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
             Dictionary<string, string> headersMap = new Dictionary<string, string>();
             headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
             return PayPalResource.ConfigureAndExecute<Tokeninfo>(apiContext,
-                    HttpMethod.POST, resourcePath, headersMap, payLoad);
+                    HttpMethod.POST, resourcePath, headersMap, payload);
         }
     }
 }

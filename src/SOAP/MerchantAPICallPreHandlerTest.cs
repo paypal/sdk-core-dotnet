@@ -32,11 +32,11 @@ namespace PayPal.NUnitTest
             accountConfig = new Dictionary<string, string>();
             accountConfig.Add("account1.apiUsername", Constants.APIUserName);
             accountConfig.Add("account1.apiPassword", Constants.APIPassword);
-            accountConfig.Add("account1.applicationId", Constants.ApplicationID);
+            accountConfig.Add("account1.applicationId", Constants.ApplicationId);
             accountConfig.Add("account1.apiSignature", Constants.APISignature);
             accountConfig.Add("account2.apiUsername", Constants.CertificateAPIUserName);
             accountConfig.Add("account2.apiPassword", Constants.CertificateAPIPassword);
-            accountConfig.Add("account2.applicationId", Constants.ApplicationID);
+            accountConfig.Add("account2.applicationId", Constants.ApplicationId);
             accountConfig.Add("account2.apiCertificate", Constants.CertificatePath);
             accountConfig.Add("account2.privateKeyPassword", Constants.CertificatePassword);
         }
@@ -49,7 +49,7 @@ namespace PayPal.NUnitTest
             Dictionary<string, string> headers = soapHandler.GetHeaderMap();
             Assert.IsNotNull(headers);
             Assert.IsTrue(headers.Count > 0);
-            Assert.AreEqual(Constants.APIUserName, headers[BaseConstants.PayPalSecurityUserIDHeader]);
+            Assert.AreEqual(Constants.APIUserName, headers[BaseConstants.PayPalSecurityUserIdHeader]);
             Assert.AreEqual(Constants.APIPassword, headers[BaseConstants.PayPalSecurityPasswordHeader]);
             Assert.AreEqual(Constants.APISignature, headers[BaseConstants.PayPalSecuritySignatureHeader]);
             Assert.AreEqual(BaseConstants.SOAP, headers[BaseConstants.PayPalRequestDataFormatHeader]);
@@ -64,7 +64,7 @@ namespace PayPal.NUnitTest
             Dictionary<string, string> headers = soapHandler.GetHeaderMap();
             Assert.IsNotNull(headers);
             Assert.IsTrue(headers.Count > 0);
-            Assert.AreEqual(Constants.CertificateAPIUserName, headers[BaseConstants.PayPalSecurityUserIDHeader]);
+            Assert.AreEqual(Constants.CertificateAPIUserName, headers[BaseConstants.PayPalSecurityUserIdHeader]);
             Assert.AreEqual(Constants.CertificateAPIPassword, headers[BaseConstants.PayPalSecurityPasswordHeader]);
             Assert.AreEqual(BaseConstants.SOAP, headers[BaseConstants.PayPalRequestDataFormatHeader]);
             Assert.AreEqual(BaseConstants.SOAP, headers[BaseConstants.PayPalResponseDataFormatHeader]);
@@ -72,11 +72,11 @@ namespace PayPal.NUnitTest
         }
 
         [Test]
-        public void GetPayLoadSignature()
+        public void GetPayloadSignature()
         {
             credential = credentialMngr.GetCredentials(ConfigManager.Instance.GetProperties(), Constants.APIUserName);
             soapHandler = new MerchantAPICallPreHandler(ConfigManager.Instance.GetProperties(), defaultSoapHandler, credential);
-            string payload = soapHandler.GetPayLoad();
+            string payload = soapHandler.GetPayload();
             XmlDocument xmlDoc = GetXmlDocument(payload);
             XmlNodeList xmlNodeListUsername = xmlDoc.GetElementsByTagName("Username");
             Assert.IsTrue(xmlNodeListUsername.Count > 0);
@@ -93,11 +93,11 @@ namespace PayPal.NUnitTest
         }
 
         [Test]
-        public void GetPayLoadForCertificate()
+        public void GetPayloadForCertificate()
         {
             credential = credentialMngr.GetCredentials(ConfigManager.Instance.GetProperties(), Constants.CertificateAPIUserName);
             soapHandler = new MerchantAPICallPreHandler(ConfigManager.Instance.GetProperties(), defaultSoapHandler, credential);
-            string payload = soapHandler.GetPayLoad();
+            string payload = soapHandler.GetPayload();
             XmlDocument xmlDoc = GetXmlDocument(payload);
             XmlNodeList xmlNodeListUsername = xmlDoc.GetElementsByTagName("Username");
             Assert.IsTrue(xmlNodeListUsername.Count > 0);
@@ -227,11 +227,11 @@ namespace PayPal.UnitTest
             accountConfig = new Dictionary<string, string>();
             accountConfig.Add("account1.apiUsername", Constants.APIUserName);
             accountConfig.Add("account1.apiPassword", Constants.APIPassword);
-            accountConfig.Add("account1.applicationId", Constants.ApplicationID);
+            accountConfig.Add("account1.applicationId", Constants.ApplicationId);
             accountConfig.Add("account1.apiSignature", Constants.APISignature);
             accountConfig.Add("account2.apiUsername", Constants.CertificateAPIUserName);
             accountConfig.Add("account2.apiPassword", Constants.CertificateAPIPassword);
-            accountConfig.Add("account2.applicationId", Constants.ApplicationID);
+            accountConfig.Add("account2.applicationId", Constants.ApplicationId);
             accountConfig.Add("account2.apiCertificate", Constants.CertificatePath);
             accountConfig.Add("account2.privateKeyPassword", Constants.CertificatePassword);
         }
@@ -244,7 +244,7 @@ namespace PayPal.UnitTest
             Dictionary<string, string> headers = soapHandler.GetHeaderMap();
             Assert.IsNotNull(headers);
             Assert.IsTrue(headers.Count > 0);
-            Assert.AreEqual(Constants.APIUserName, headers[BaseConstants.PayPalSecurityUserIDHeader]);
+            Assert.AreEqual(Constants.APIUserName, headers[BaseConstants.PayPalSecurityUserIdHeader]);
             Assert.AreEqual(Constants.APIPassword, headers[BaseConstants.PayPalSecurityPasswordHeader]);
             Assert.AreEqual(Constants.APISignature, headers[BaseConstants.PayPalSecuritySignatureHeader]);
             Assert.AreEqual(BaseConstants.SOAP, headers[BaseConstants.PayPalRequestDataFormatHeader]);
@@ -259,7 +259,7 @@ namespace PayPal.UnitTest
             Dictionary<string, string> headers = soapHandler.GetHeaderMap();
             Assert.IsNotNull(headers);
             Assert.IsTrue(headers.Count > 0);
-            Assert.AreEqual(Constants.CertificateAPIUserName, headers[BaseConstants.PayPalSecurityUserIDHeader]);
+            Assert.AreEqual(Constants.CertificateAPIUserName, headers[BaseConstants.PayPalSecurityUserIdHeader]);
             Assert.AreEqual(Constants.CertificateAPIPassword, headers[BaseConstants.PayPalSecurityPasswordHeader]);
             Assert.AreEqual(BaseConstants.SOAP, headers[BaseConstants.PayPalRequestDataFormatHeader]);
             Assert.AreEqual(BaseConstants.SOAP, headers[BaseConstants.PayPalResponseDataFormatHeader]);
@@ -267,11 +267,11 @@ namespace PayPal.UnitTest
         }
 
         [TestMethod]
-        public void GetPayLoadSignature()
+        public void GetPayloadSignature()
         {
             credential = credentialMngr.GetCredentials(ConfigManager.Instance.GetProperties(), Constants.APIUserName);
             soapHandler = new MerchantAPICallPreHandler(ConfigManager.Instance.GetProperties(), defaultSoapHandler, credential);
-            string payload = soapHandler.GetPayLoad();
+            string payload = soapHandler.GetPayload();
             XmlDocument xmlDoc = GetXmlDocument(payload);
             XmlNodeList xmlNodeListUsername = xmlDoc.GetElementsByTagName("Username");
             Assert.IsTrue(xmlNodeListUsername.Count > 0);
@@ -288,11 +288,11 @@ namespace PayPal.UnitTest
         }
 
         [TestMethod]
-        public void GetPayLoadForCertificate()
+        public void GetPayloadForCertificate()
         {
             credential = credentialMngr.GetCredentials(ConfigManager.Instance.GetProperties(), Constants.CertificateAPIUserName);
             soapHandler = new MerchantAPICallPreHandler(ConfigManager.Instance.GetProperties(), defaultSoapHandler, credential);
-            string payload = soapHandler.GetPayLoad();
+            string payload = soapHandler.GetPayload();
             XmlDocument xmlDoc = GetXmlDocument(payload);
             XmlNodeList xmlNodeListUsername = xmlDoc.GetElementsByTagName("Username");
             Assert.IsTrue(xmlNodeListUsername.Count > 0);

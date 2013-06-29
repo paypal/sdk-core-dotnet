@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using PayPal.Manager;
 
-namespace PayPal.OpenIDConnect
+namespace PayPal.OpenIdConnect
 {
     public class Session
     {
@@ -28,13 +28,13 @@ namespace PayPal.OpenIDConnect
                 config = ConfigManager.GetConfigWithDefaults(apiContext.Config);
             }
             string baseURL = null;
-            if (config.ContainsKey(BaseConstants.OpenIDRedirectURI))
+            if (config.ContainsKey(BaseConstants.OpenIdRedirectURI))
             {
-                baseURL = config[BaseConstants.OpenIDRedirectURI];
+                baseURL = config[BaseConstants.OpenIdRedirectURI];
             }
             else
             {
-                baseURL = BaseConstants.OpenIDRedirectURIConstant;
+                baseURL = BaseConstants.OpenIdRedirectURIConstant;
             }
             if (baseURL.EndsWith("/"))
             {
@@ -55,7 +55,7 @@ namespace PayPal.OpenIDConnect
                 scope.Add("openid");
             }
             StringBuilder strBuilder = new StringBuilder();
-            strBuilder.Append("client_id=").Append(HttpUtility.UrlEncode((config.ContainsKey(BaseConstants.ClientID)) ? config[BaseConstants.ClientID] : string.Empty)).Append("&response_type=").Append("code").Append("&scope=");
+            strBuilder.Append("client_id=").Append(HttpUtility.UrlEncode((config.ContainsKey(BaseConstants.ClientId)) ? config[BaseConstants.ClientId] : string.Empty)).Append("&response_type=").Append("code").Append("&scope=");
             StringBuilder scpBuilder = new StringBuilder();
             foreach (string str in scope)
             {
@@ -69,7 +69,7 @@ namespace PayPal.OpenIDConnect
 
         /// <summary>
         /// Returns the URL to which the user must be redirected to logout from the
-        /// OpenID provider (i.e. PayPal)
+        /// OpenId provider (i.e. PayPal)
         /// </summary>
         /// <param name="redirectURI"></param>
         /// <param name="idToken"></param>
@@ -88,13 +88,13 @@ namespace PayPal.OpenIDConnect
                 config = ConfigManager.GetConfigWithDefaults(apiContext.Config);
             }
             string baseURL = null;
-            if (config.ContainsKey(BaseConstants.OpenIDRedirectURI))
+            if (config.ContainsKey(BaseConstants.OpenIdRedirectURI))
             {
-                baseURL = config[BaseConstants.OpenIDRedirectURI];
+                baseURL = config[BaseConstants.OpenIdRedirectURI];
             }
             else
             {
-                baseURL = BaseConstants.OpenIDRedirectURIConstant;
+                baseURL = BaseConstants.OpenIdRedirectURIConstant;
             }
             if (baseURL.EndsWith("/"))
             {
