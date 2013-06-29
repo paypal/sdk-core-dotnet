@@ -33,10 +33,10 @@ namespace PayPal.NUnitTest
 
             // code you will get back as part of the url after redirection
             param.SetCode("wm7qvCMoGwMbtuytIQPhpGn9Gac7nmwVraQIgNp9uQIovP5c-wGn8oB0LmUnhlhse4at4T8XGwXufb7D94YWgIsZpBSzXMwdFkxp4u2oH9dy3HW4");
-            Tokeninfo info = Tokeninfo.CreateFromAuthorizationCode(apiContxt, param);
-            UserinfoParameters userinfoParams = new UserinfoParameters();
-            userinfoParams.setAccessToken(info.access_token);
-            Userinfo userinfo = Userinfo.GetUserinfo(apiContxt, userinfoParams);
+            TokenInfo info = TokenInfo.CreateFromAuthorizationCode(apiContxt, param);
+            UserInfoParameters userInfoParams = new UserInfoParameters();
+            userInfoParams.SetAccessToken(info.access_token);
+            UserInfo userInformation = UserInfo.GetUserInfo(apiContxt, userInfoParams);
         }
     }
 }
@@ -66,10 +66,10 @@ namespace PayPal.UnitTest
 
             // code you will get back as part of the url after redirection
             param.SetCode("wm7qvCMoGwMbtuytIQPhpGn9Gac7nmwVraQIgNp9uQIovP5c-wGn8oB0LmUnhlhse4at4T8XGwXufb7D94YWgIsZpBSzXMwdFkxp4u2oH9dy3HW4");
-            Tokeninfo infoToken = Tokeninfo.CreateFromAuthorizationCode(apiContxt, param);
-            UserinfoParameters userinfoParams = new UserinfoParameters();
-            userinfoParams.setAccessToken(infoToken.access_token);
-            Userinfo userinfo = Userinfo.GetUserinfo(apiContxt, userinfoParams);
+            TokenInfo infoToken = TokenInfo.CreateFromAuthorizationCode(apiContxt, param);
+            UserInfoParameters userInfoParams = new UserInfoParameters();
+            userInfoParams.SetAccessToken(infoToken.access_token);
+            UserInfo userInformation = UserInfo.GetUserInfo(apiContxt, userInfoParams);
         }
     }
 }

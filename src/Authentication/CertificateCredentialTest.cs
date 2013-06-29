@@ -53,7 +53,7 @@ namespace PayPal.NUnitTest
         }
 
         [Test]
-        public void setAndGetThirdPartyAuthorizationForSubject()
+        public void SetAndGetThirdPartyAuthorizationForSubject()
         {
             IThirdPartyAuthorization thirdPartyAuthorization = new SubjectAuthorization("Subject");
             certCredential.ThirdPartyAuthorization = thirdPartyAuthorization;

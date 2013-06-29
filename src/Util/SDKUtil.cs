@@ -26,10 +26,10 @@ namespace PayPal.Util
                 //Form a object array using the passed Map
                 parameters = splitParameters(pattern, ((CreateFromRefreshTokenParameters)parameters[0]).ContainerMap);
             }
-            else if (parameters != null && parameters.Length == 1 && parameters[0] is UserinfoParameters)
+            else if (parameters != null && parameters.Length == 1 && parameters[0] is UserInfoParameters)
             {
                 //Form a object array using the passed Map
-                parameters = splitParameters(pattern, ((UserinfoParameters)parameters[0]).ContainerMap);
+                parameters = splitParameters(pattern, ((UserInfoParameters)parameters[0]).ContainerMap);
             }
             else if (parameters != null && parameters.Length == 1 && parameters[0] is Dictionary<string, string>)
             {

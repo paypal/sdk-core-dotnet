@@ -37,18 +37,18 @@ The PayPal Core SDK for .NET
     
     CreateFromAuthorizationCodeParameters param = new CreateFromAuthorizationCodeParameters();
     param.setCode("code");
-    Tokeninfo info = Tokeninfo.CreateFromAuthorizationCode(apiContext, param);
+    TokenInfo info = TokenInfo.CreateFromAuthorizationCode(apiContext, param);
     string accessToken = info.access_token;
 
    * The access token is valid for a predefined duration and can be used for seamless XO or for retrieving user information
 
     ...
 
-    Tokeninfo info = new Tokeninfo();
+    TokenInfo info = new TokenInfo();
     info.refresh_token = "refreshToken";
-    UserinfoParameters param = new UserinfoParameters();
+    UserInfoParameters param = new UserInfoParameters();
     param.setAccessToken(info.access_token);
-    Userinfo userInfo = Userinfo.GetUserinfo(apiContext, param);
+    UserInfo userInfo = UserInfo.GetUserInfo(apiContext, param);
 
    * If the access token has expired, you can obtain a new access token using the refresh token from the 3'rd step.
 
@@ -56,7 +56,7 @@ The PayPal Core SDK for .NET
     
     CreateFromRefreshTokenParameters param = new CreateFromRefreshTokenParameters();
     param.setScope("openid"); // Optional
-    Tokeninfo info = new Tokeninfo(); // Create Token info object; setting the refresh token
+    TokenInfo info = new TokenInfo(); // Create TokenInfo object; setting the refresh token
     info.refresh_token = "refreshToken";
     
     info.CreateFromRefreshToken(apiContext, param);

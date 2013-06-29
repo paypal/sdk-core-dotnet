@@ -12,7 +12,7 @@ using PayPal.Util;
 
 namespace PayPal.OpenIdConnect
 {
-    public class Userinfo
+    public class UserInfo
     {
         /// <summary>
         /// Subject - Identifier for the End-User at the Issuer.
@@ -72,7 +72,7 @@ namespace PayPal.OpenIdConnect
         /// <summary>
         /// Time zone database representing the End-User's time zone
         /// </summary>
-        private string zoneinfoValue;
+        private string zoneInfoValue;
 
         /// <summary>
         /// End-User's locale.
@@ -256,11 +256,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return zoneinfoValue;
+                return zoneInfoValue;
             }
             set
             {
-                zoneinfoValue = value;
+                zoneInfoValue = value;
             }
         }
 
@@ -358,34 +358,34 @@ namespace PayPal.OpenIdConnect
         /// <summary>
         /// Explicit default constructor
         /// </summary>
-        public Userinfo() { }
+        public UserInfo() { }
 
         /// <summary>
         /// Returns user details
-        /// <param name="userinfoParameters">Query parameters used for API call</param>
+        /// <param name="userInfoParams">Query parameters used for API call</param>
         /// </summary>
-        public static Userinfo GetUserinfo(UserinfoParameters userinfoParameters)
+        public static UserInfo GetUserInfo(UserInfoParameters userInfoParams)
         {
             string pattern = "v1/identity/openidconnect/userinfo?schema={0}&access_token={1}";
-            object[] parameters = new object[] { userinfoParameters };
+            object[] parameters = new object[] { userInfoParams };
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payload = string.Empty;
-            return PayPalResource.ConfigureAndExecute<Userinfo>(null, HttpMethod.GET,
+            return PayPalResource.ConfigureAndExecute<UserInfo>(null, HttpMethod.GET,
                     resourcePath, null, payload);
         }
 
         /// <summary>
         /// Returns user details
         /// <param name="apiContext">APIContext to be used for the call.</param>
-        /// <param name="userinfoParameters">Query parameters used for API call</param>
+        /// <param name="userInfoParams">Query parameters used for API call</param>
         /// </summary>
-        public static Userinfo GetUserinfo(APIContext apiContext, UserinfoParameters userinfoParameters)
+        public static UserInfo GetUserInfo(APIContext apiContext, UserInfoParameters userInfoParams)
         {
             string pattern = "v1/identity/openidconnect/userinfo?schema={0}&access_token={1}";
-            object[] parameters = new object[] { userinfoParameters };
+            object[] parameters = new object[] { userInfoParams };
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payload = string.Empty;
-            return PayPalResource.ConfigureAndExecute<Userinfo>(apiContext,
+            return PayPalResource.ConfigureAndExecute<UserInfo>(apiContext,
                     HttpMethod.GET, resourcePath, null, payload);
         }
     }
