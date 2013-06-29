@@ -15,11 +15,11 @@ namespace PayPal.Manager
         private Dictionary<string, string> configValues;
 
         private static readonly Dictionary<string, string> defaultConfig;
-            
+
         /// <summary>
-        ///  Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
+        /// Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
         /// </summary>
-        static ConfigManager()
+        static ConfigManager() 
         {
             defaultConfig = new Dictionary<string, string>();
             // Default connection timeout in milliseconds
@@ -27,11 +27,12 @@ namespace PayPal.Manager
             defaultConfig[BaseConstants.HttpConnectionRetryConfig] = "1";
             defaultConfig[BaseConstants.ClientIPAddressConfig] = "127.0.0.1";
         }
+
 #if NET_2_0 || NET_3_5
         /// <summary>
         /// Singleton instance of the ConfigManager
         /// </summary>
-        private static readonly ConfigManager SingletonInstance = new ConfigManager();
+        private static readonly ConfigManager singletonInstance = new ConfigManager();
 
         /// <summary>
         /// Gets the Singleton instance of ConnectionManager
@@ -40,7 +41,7 @@ namespace PayPal.Manager
         {
             get
             {
-                return SingletonInstance;
+                return singletonInstance;
             }
         }
 #elif NET_4_0
@@ -55,6 +56,7 @@ namespace PayPal.Manager
         /// </summary>
         public static ConfigManager Instance { get { return laze.Value; } }  
 #endif
+
         /// <summary>
         /// Private constructor
         /// </summary>
@@ -130,7 +132,7 @@ namespace PayPal.Manager
             {
                 if (!ret.ContainsKey(key))
                 {
-                    ret.Add(key, defaultConfig[key]);
+                    ret.Add(key, ConfigManager.defaultConfig[key]);
                 }
             }
             return ret;

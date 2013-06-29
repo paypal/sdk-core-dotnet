@@ -157,7 +157,7 @@ namespace PayPal
             }
         }
 
-#if NET_3_5
+#if NET_2_0 || NET_3_5
         private static bool Is64BitProcess
         {
             get { return IntPtr.Size == 8; }
@@ -200,7 +200,7 @@ namespace PayPal
         {
             string osHeader = string.Empty;
 
-#if NET_3_5
+#if NET_2_0 || NET_3_5
             if (Is64BitOperatingSystem)
             {
                 osHeader += "bit=" + 64 + ";";

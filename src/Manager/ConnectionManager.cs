@@ -28,7 +28,7 @@ namespace PayPal.Manager
         /// <summary>
         /// Singleton instance of ConnectionManager
         /// </summary>
-        private static readonly ConnectionManager SingletonInstance = new ConnectionManager();
+        private static readonly ConnectionManager singletonInstance = new ConnectionManager();
 
         /// <summary>
         /// Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
@@ -42,7 +42,7 @@ namespace PayPal.Manager
         {
             get
             {
-                return SingletonInstance;
+                return singletonInstance;
             }
         }
 #elif NET_4_0
@@ -57,6 +57,7 @@ namespace PayPal.Manager
         /// </summary>
         public static ConnectionManager Instance { get { return laze.Value; } }  
 #endif
+
         /// <summary>
         /// Private constructor, private to prevent direct instantiation
         /// </summary>
