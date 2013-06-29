@@ -12,22 +12,22 @@ namespace PayPal.Authentication
         /// <summary>
         /// Username credential
         /// </summary>
-        private string usrName;
+        private string userNameCredential;
 
         /// <summary>
         /// Password credential
         /// </summary>
-        private string pssWord;              
+        private string passwordCredential;              
 
         /// <summary>
         /// Certificate file
         /// </summary>
-        private string certFile;
+        private string fileCertificate;
 
         /// <summary>
         /// Password of the Certificate's Private Key
         /// </summary>
-        private string priKeyPassword;
+        private string pvtKeyPassword;
 
         /// <summary>
         /// Third Party Authorization
@@ -38,25 +38,26 @@ namespace PayPal.Authentication
         ///  Application ID
         /// </summary>
         private string appID;
+
         /// <summary>
         /// CertificateCredential constructor
         /// </summary>
         /// <param name="usrName"></param>
-        /// <param name="pasWord"></param>
+        /// <param name="passwordCredential"></param>
         /// <param name="certFile"></param>
-        /// <param name="priKeyPassword"></param>
-        public CertificateCredential(string usrName, string pasWord, string certFile, string priKeyPassword) 
+        /// <param name="pvtKeyPassword"></param>
+        public CertificateCredential(string userNameCredential, string passwordCredential, string certFile, string pvtKeyPassword)
             : base()
         {
-            if (string.IsNullOrEmpty(usrName) || string.IsNullOrEmpty(pasWord) ||
-                string.IsNullOrEmpty(certFile) || string.IsNullOrEmpty(priKeyPassword))
+            if (string.IsNullOrEmpty(userNameCredential) || string.IsNullOrEmpty(passwordCredential) ||
+                string.IsNullOrEmpty(certFile) || string.IsNullOrEmpty(pvtKeyPassword))
             {
                 throw new ArgumentException("Certificate Credential arguments cannot be null");
             }
-            this.usrName = usrName;
-            this.pssWord = pasWord;
-            this.certFile = certFile;
-            this.priKeyPassword = priKeyPassword;
+            this.userNameCredential = userNameCredential;
+            this.passwordCredential = passwordCredential;
+            this.fileCertificate = certFile;
+            this.pvtKeyPassword = pvtKeyPassword;
         }                    
 
         /// <summary>
@@ -105,24 +106,24 @@ namespace PayPal.Authentication
         }
 
         /// <summary>
-        /// Gets the Username credential
+        /// Gets the Username
         /// </summary>
         public string UserName
         {
             get
             {
-                return usrName;
+                return userNameCredential;
             }
         }
        
         /// <summary>
-        /// Gets the Password credential
+        /// Gets the Password
         /// </summary>
         public string Password
         {
             get
             {
-                return pssWord;
+                return passwordCredential;
             }
         }
 
@@ -133,7 +134,7 @@ namespace PayPal.Authentication
         {
             get
             {
-                return this.certFile;
+                return this.fileCertificate;
             }
         }
 
@@ -144,7 +145,7 @@ namespace PayPal.Authentication
         {
             get
             {
-                return this.priKeyPassword;
+                return this.pvtKeyPassword;
             }
         }
     }

@@ -13,32 +13,33 @@ namespace PayPal.Util
         {
             if (parameters != null && parameters.Length == 1 && parameters[0] is QueryParameters)
             {
-                // Form a object array using the passed Map
+                //Form a object array using the passed Map
                 parameters = splitParameters(pattern, ((QueryParameters)parameters[0]).GetMap());
             }
             else if (parameters != null && parameters.Length == 1 && parameters[0] is CreateFromAuthorizationCodeParameters)
             {
-                // Form a object array using the passed Map
+                //Form a object array using the passed Map
                 parameters = splitParameters(pattern, ((CreateFromAuthorizationCodeParameters)parameters[0]).ContainerMap);
             }
             else if (parameters != null && parameters.Length == 1 && parameters[0] is CreateFromRefreshTokenParameters)
             {
-                // Form a object array using the passed Map
+                //Form a object array using the passed Map
                 parameters = splitParameters(pattern, ((CreateFromRefreshTokenParameters)parameters[0]).ContainerMap);
             }
             else if (parameters != null && parameters.Length == 1 && parameters[0] is UserinfoParameters)
             {
-                // Form a object array using the passed Map
+                //Form a object array using the passed Map
                 parameters = splitParameters(pattern, ((UserinfoParameters)parameters[0]).ContainerMap);
             }
             else if (parameters != null && parameters.Length == 1 && parameters[0] is Dictionary<string, string>)
             {
                 parameters = splitParameters(pattern, (Dictionary<string, string>)parameters[0]);
             }
-            // Perform a simple message formatting
+
+            //Perform a simple message formatting
             string formatString = string.Format(pattern, parameters);
 
-            // Process the resultant string for removing nulls
+            //Process the resultant string for removing nulls
             return RemoveNullsFromQueryString(formatString);
         }
         
@@ -48,7 +49,7 @@ namespace PayPal.Util
             {
                 string[] parts = formatString.Split('?');
 
-                // Process the query string part
+                //Process the query string part
                 if (parts.Length == 2)
                 {
                     string queryString = parts[1];
@@ -90,18 +91,15 @@ namespace PayPal.Util
             return formatString;
         }
 
-        /*
-	    * Split the URI and form a Object array using the query string and values
-	    * in the provided map. The return object array is populated only if the map
-	    * contains valid value for the query name. The object array contains null
-	    * values if there is no value found in the map
-	    * 
-	    * @param pattern
-	    *            URI pattern
-	    * @param parameters
-	    *            Map containing the query name and value
-	    * @return Object array
-	    */
+        /// <summary>
+        /// Split the URI and form a Object array using the query string and values
+        /// in the provided map. The return object array is populated only if the map
+        /// contains valid value for the query name. The object array contains null
+        /// values if there is no value found in the map
+        /// </summary>
+        /// <param name="pattern"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
 	    private static Object[] splitParameters(string pattern, Dictionary<string, string> parameters)
         {		    
             List<Object> objectList = new List<Object>();

@@ -2,6 +2,11 @@ using System.Collections.Generic;
 using PayPal.Manager;
 
 #if NUnit
+/* NuGet Install
+ * Visual Studio 2005
+    * Install NUnit -OutputDirectory .\packages
+    * Add reference from NUnit.2.6.2
+ */
 using NUnit.Framework;
 
 namespace PayPal.NUnitTest

@@ -12,12 +12,12 @@ namespace PayPal.Authentication
         /// <summary>
         /// Username credential
         /// </summary> 
-        private string usrName;
+        private string userNameCredential;
                 
         /// <summary>
         /// Password credential
         /// </summary>
-        private string pssWord;
+        private string passwordCredential;
 
         /// <summary>
         /// Signature
@@ -37,33 +37,32 @@ namespace PayPal.Authentication
         /// <summary>
         /// SignatureCredential constructor
         /// </summary>
-        /// <param name="usrName"></param>
-        /// <param name="pssword"></param>
+        /// <param name="userNameCredential"></param>
+        /// <param name="passwordCredential"></param>
         /// <param name="sign"></param>
-        public SignatureCredential(string usrName, string pssword, string sign) 
+        public SignatureCredential(string userNameCredential, string passwordCredential, string sign) 
             : base()
         {
-            if (string.IsNullOrEmpty(usrName) || string.IsNullOrEmpty(pssword) ||
+            if (string.IsNullOrEmpty(userNameCredential) || string.IsNullOrEmpty(passwordCredential) ||
                 string.IsNullOrEmpty(sign))
             {
                 throw new ArgumentException("Signature Credential arguments cannot be null");
             }
-            this.usrName = usrName;
-            this.pssWord = pssword;
+            this.userNameCredential = userNameCredential;
+            this.passwordCredential = passwordCredential;
             this.sign = sign;
         }
 
         /// <summary>
         /// SignatureCredential constructor overload
         /// </summary>
-        /// <param name="usrName"></param>
-        /// <param name="pasWord"></param>
+        /// <param name="userNameCredential"></param>
+        /// <param name="passwordCredential"></param>
         /// <param name="sign"></param>
-        /// <param name="thrdPartyAuthorization"></param>
-     
-        public SignatureCredential(string usrName, string pasWord, string sign, 
+        /// <param name="thrdPartyAuthorization"></param>     
+        public SignatureCredential(string userNameCredential, string passwordCredential, string sign, 
             IThirdPartyAuthorization thrdPartyAuthorization)
-            : this(usrName, pasWord, sign)
+            : this(userNameCredential, passwordCredential, sign)
         {
             this.ThirdPartyAuthorization = thrdPartyAuthorization;
         }
@@ -105,7 +104,7 @@ namespace PayPal.Authentication
         {
             get
             {
-                return usrName;
+                return userNameCredential;
             }
         }
 
@@ -116,7 +115,7 @@ namespace PayPal.Authentication
         {
             get
             {
-                return pssWord;
+                return passwordCredential;
             }
         }
         

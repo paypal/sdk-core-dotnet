@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 /* NuGet Install
- * Visual Studio 2005 or  2008
+ * Visual Studio 2005 or 2008
     * Install log4net -OutputDirectory .\packages
-    * Add reference from the folder "net35-full"
+    * Add reference from "net20-full" for Visual Studio 2005 or "net35-full" for Visual Studio 2008
  * Visual Studio 2010 or higher
     * Install-Package log4net
     * Reference is auto-added 
@@ -39,17 +39,17 @@ namespace PayPal.NVP
             Dictionary<string, string> headers = new Dictionary<string, string>();
             try
             {
-                OAuthGenerator sigGenerator = new OAuthGenerator(signCredential.UserName, signCredential.Password);
-                sigGenerator.SetHttpPMethod(HttpMethod.POST);
-                sigGenerator.SetToken(tokenAuthorize.AccessToken);
-                sigGenerator.SetTokenSecret(tokenAuthorize.AccessTokenSecret);
+                OAuthGenerator generatorOAuth = new OAuthGenerator(signCredential.UserName, signCredential.Password);
+                generatorOAuth.SetHttpPMethod(HttpMethod.POST);
+                generatorOAuth.SetToken(tokenAuthorize.AccessToken);
+                generatorOAuth.SetTokenSecret(tokenAuthorize.AccessTokenSecret);
                 string tokenTimeStamp = Timestamp;
-                sigGenerator.SetTokenTimestamp(tokenTimeStamp);
+                generatorOAuth.SetTokenTimestamp(tokenTimeStamp);
                 logger.Debug("token = " + tokenAuthorize.AccessToken + " tokenSecret=" + tokenAuthorize.AccessTokenSecret + " uri=" + endpointURL);
-                sigGenerator.SetRequestURI(endpointURL);
+                generatorOAuth.SetRequestURI(endpointURL);
 
                 //Compute Signature
-                string sign = sigGenerator.ComputeSignature();
+                string sign = generatorOAuth.ComputeSignature();
                 logger.Debug("Permissions signature: " + sign);
                 string authorization = "token=" + tokenAuthorize.AccessToken + ",signature=" + sign + ",timestamp=" + tokenTimeStamp;
                 logger.Debug("Authorization string: " + authorization);

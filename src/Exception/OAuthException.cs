@@ -5,37 +5,37 @@ namespace PayPal.Exception
         /// <summary>
         /// OAuth Exception Short Message
         /// </summary>
-        private string oauthExcptnMessage;
+        private string oauthExceptionMessageShort;
 
         /// <summary>
         /// OAuth Exception Long Message
         /// </summary>
-        private string oauthExcptnLongMessage;
+        private string oauthExceptionMessageLong;
 
         public OAuthException(string oauthExceptionMessage, System.Exception exception)
         {
-            this.OAuthExceptionMessage = oauthExceptionMessage;
+            this.OAuthExceptionShortMessage = oauthExceptionMessage;
             this.OAuthExceptionLongMessage = exception.Message;
         }
 
         public OAuthException(string oauthExceptionMessage)
         {
-            this.OAuthExceptionMessage = oauthExceptionMessage;
+            this.OAuthExceptionShortMessage = oauthExceptionMessage;
         }
 
         /// <summary>
         /// Gets and sets OAuth Exception Short Message
         /// </summary>
-        public string OAuthExceptionMessage
+        public string OAuthExceptionShortMessage
         {
             get
             {
-                return this.oauthExcptnMessage;
+                return this.oauthExceptionMessageShort;
 
             }
             set
             {
-                this.oauthExcptnMessage = value;
+                this.oauthExceptionMessageShort = value;
             }
         }
 
@@ -46,12 +46,12 @@ namespace PayPal.Exception
         {
             get
             {
-                return this.oauthExcptnLongMessage;
+                return this.oauthExceptionMessageLong;
 
             }
             set
             {
-                this.oauthExcptnLongMessage = value;
+                this.oauthExceptionMessageLong = value;
             }
         }
     }

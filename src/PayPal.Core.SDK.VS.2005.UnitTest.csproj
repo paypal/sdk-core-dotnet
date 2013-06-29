@@ -32,6 +32,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIServiceTest.cs" />
@@ -45,10 +46,15 @@
     <Compile Include="Manager\ConfigManagerTest.cs" />
     <Compile Include="Manager\ConnectionManagerTest.cs" />
     <Compile Include="Manager\CredentialManagerTest.cs" />
-    <Compile Include="NVP\CertificateHttpHeaderAuthStrategyTest.cs" />
+    <Compile Include="NVP\CertificateHttpHeaderAuthStrategyNVPTest.cs" />
     <Compile Include="NVP\PlatformAPICallPreHandlerTest.cs" />
-    <Compile Include="NVP\SignatureHttpHeaderAuthStrategyTest.cs" />
+    <Compile Include="NVP\SignatureHttpHeaderAuthStrategyNVPTest.cs" />
     <Compile Include="OpenIDTest.cs" />
+    <Compile Include="SOAP\CertificateHttpHeaderAuthStrategyTest.cs" />
+    <Compile Include="SOAP\CertificateSOAPHeaderAuthStrategyTest.cs" />
+    <Compile Include="SOAP\MerchantAPICallPreHandlerTest.cs" />
+    <Compile Include="SOAP\SignatureHttpHeaderAuthStrategyTest.cs" />
+    <Compile Include="SOAP\SignatureSOAPHeaderAuthStrategyTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="PayPal.Core.SDK.VS.2005.csproj">

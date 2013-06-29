@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Net;
 /* NuGet Install
- * Visual Studio 2005 or  2008
+ * Visual Studio 2005 or 2008
     * Install Newtonsoft.Json -OutputDirectory .\packages
-    * Add reference from the folder "net35"
+    * Add reference from "net20" for Visual Studio 2005 or "net35" for Visual Studio 2008
  * Visual Studio 2010 or higher
     * Install-Package Newtonsoft.Json
     * Reference is auto-added 
 */
 using Newtonsoft.Json;
 /* NuGet Install
- * Visual Studio 2005 or  2008
+ * Visual Studio 2005 or 2008
     * Install log4net -OutputDirectory .\packages
-    * Add reference from the folder "net35-full"
+    * Add reference from "net20-full" for Visual Studio 2005 or "net35-full" for Visual Studio 2008
  * Visual Studio 2010 or higher
     * Install-Package log4net
     * Reference is auto-added 

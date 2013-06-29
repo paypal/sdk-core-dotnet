@@ -27,102 +27,82 @@ namespace PayPal.Util
             containerMap = new Dictionary<string, string>();
         }
 
-        /**
-         * @return the containerMap
-         */
+        /// <summary>
+        /// Returns the Container Map
+        /// </summary>
+        /// <returns></returns>        
         public Dictionary<string, string> GetMap()
         {
             return containerMap;
         }
 
-        /**
-         * Set the count
-         * 
-         * @param count
-         *            Number of items to return.
-         */
+        /// <summary>
+        /// Sets the count
+        /// </summary>
+        /// <param name="counter"></param>
         public void SetCount(string counter)
         {
             containerMap.Add(count, counter);
         }
 
-        /**
-         * Set the startID
-         * 
-         * @param startid
-         *            Resource ID that indicates the starting resource to return.
-         */
+        /// <summary>
+        /// Sets the Start ID
+        /// </summary>
+        /// <param name="startingID"></param>
         public void SetStartId(string startingID)
         {
             containerMap.Add(startID, startingID);
         }
 
-        /**
-         * Set the start index
-         * 
-         * @param startIndex
-         *            Start index of the resources to be returned. Typically used to
-         *            jump to a specific position in the resource history based on
-         *            its order.
-         */
+        /// <summary>
+        /// Sets the Start Index
+        /// </summary>
+        /// <param name="startingIndex"></param>
         public void SetStartIndex(string startingIndex)
         {
             containerMap.Add(startIndex, startingIndex);
         }
 
-        /**
-         * Set the starttime
-         * 
-         * @param starttime
-         *            Resource creation time that indicates the start of a range of
-         *            results.
-         */
+        /// <summary>
+        /// Sets the Start Time
+        /// </summary>
+        /// <param name="startingTime"></param>
         public void SetStartTime(string startingTime)
         {
             containerMap.Add(startTime, startingTime);
         }
 
-        /**
-         * Set the endtime
-         * 
-         * @param endTime
-         *            Resource creation time that indicates the end of a range of
-         *            results.
-         */
+        /// <summary>
+        /// Sets the Endt Time
+        /// </summary>
+        /// <param name="endingTime"></param>
         public void SetEndTime(string endingTime)
         {
             containerMap.Add(endTime, endingTime);
         }
 
-        /**
-         * Set the payee id
-         * 
-         * @param payeeId
-         *            PayeeId
-         */
-        public void SetPayeeId(string payID)
+        /// <summary>
+        /// Set the Payee ID
+        /// </summary>
+        /// <param name="payID"></param>
+        public void SetPayeeID(string payID)
         {
             containerMap.Add(payeeID, payID);
         }
 
-        /**
-         * Set the sort by field
-         * 
-         * @param sortBy
-         *            Sort based on create_time or update_time.
-         */
+        /// <summary>
+        /// Sets the Sort By Field
+        /// </summary>
+        /// <param name="sortingBy"></param>
         public void SetSortBy(string sortingBy)
         {
             containerMap.Add(sortBy, sortingBy);
         }
 
-        /**
-         * Set the sort order
-         * 
-         * @param sortOrder
-         *            Sort based on order of results. Options include asc for
-         *            ascending order or dec for descending order.
-         */
+        /// <summary>
+        /// Sets the Sort Order
+        /// </summary>
+        /// <param name="sortingOrder"></param>
         public void SetSortOrder(string sortingOrder)
         {
             containerMap.Add(sortOrder, sortingOrder);

@@ -16,12 +16,12 @@ namespace PayPal.NVP
         /// <summary>
         /// API method
         /// </summary>
-	    private readonly string method;
+	    private readonly string apiMethod;
 
         /// <summary>
         /// Raw payload from stubs
         /// </summary>
-		private readonly string rawPayLoad;
+		private readonly string rawPayload;
 
 	    /// <summary>
 	    /// API Username for authentication
@@ -71,30 +71,30 @@ namespace PayPal.NVP
         /// <summary>
 	    /// Private constructor
 	    /// </summary>
-	    /// <param name="rawPayLoad"></param>
+	    /// <param name="rawPayoad"></param>
 	    /// <param name="serviceName"></param>
 	    /// <param name="method"></param>
-        private PlatformAPICallPreHandler(string rawPayLoad, string serviceName, string method, Dictionary<string, string> config)
+        private PlatformAPICallPreHandler(string rawPayoad, string serviceName, string method, Dictionary<string, string> config)
             : base()
         {
-            this.rawPayLoad = rawPayLoad;
+            this.rawPayload = rawPayoad;
 		    this.serviceName = serviceName;
-		    this.method = method;
+		    this.apiMethod = method;
             this.config = (config == null) ? ConfigManager.Instance.GetProperties() : config;
 	    }
 
         /// <summary>
         /// NVPAPICallPreHandler
         /// </summary>
-        /// <param name="rawPayLoad"></param>
+        /// <param name="rawPayload"></param>
         /// <param name="serviceName"></param>
         /// <param name="method"></param>
         /// <param name="apiUserName"></param>
         /// <param name="accessToken"></param>
         /// <param name="accesstokenSecret"></param>
-	    public PlatformAPICallPreHandler(Dictionary<string, string> config, string rawPayLoad, string serviceName, string method,
+	    public PlatformAPICallPreHandler(Dictionary<string, string> config, string rawPayload, string serviceName, string method,
             string apiUserName, string accessToken, string accesstokenSecret)
-            : this(rawPayLoad, serviceName, method, config)
+            : this(rawPayload, serviceName, method, config)
         {
             try
             {
@@ -213,7 +213,7 @@ namespace PayPal.NVP
         /// <returns></returns>
 	    public string GetPayLoad() 
         {
-		    return rawPayLoad;
+		    return rawPayload;
 	    }
 
         /// <summary>
@@ -256,7 +256,7 @@ namespace PayPal.NVP
                 {
                     endpoint = endpoint + "/";
                 }
-                endpoint = endpoint + serviceName + "/" + method;
+                endpoint = endpoint + serviceName + "/" + apiMethod;
             }
             return endpoint;
         }
