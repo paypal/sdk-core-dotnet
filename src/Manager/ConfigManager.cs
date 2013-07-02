@@ -10,9 +10,10 @@ namespace PayPal.Manager
     /// </summary>
     public sealed class ConfigManager
     {
-        private SDKConfigHandler configHandler;
-
-        private Dictionary<string, string> configValues;
+        /// <summary>
+        /// The configValue is readonly as it should not changed outside constructor (but the content can)
+        /// </summary>
+        private readonly Dictionary<string, string> configValues;
 
         private static readonly Dictionary<string, string> defaultConfig;
 
@@ -62,21 +63,21 @@ namespace PayPal.Manager
         /// </summary>
         private ConfigManager()
         {
-            configHandler = (SDKConfigHandler)ConfigurationManager.GetSection("paypal");
+            SDKConfigHandler configHandler = (SDKConfigHandler)ConfigurationManager.GetSection("paypal");
             if (configHandler == null)
             {
                 throw new ConfigException("Cannot parse *.Config file. Ensure you have configured the 'paypal' section correctly.");
             }
             this.configValues = new Dictionary<string, string>();
 
-            NameValueConfigurationCollection settings = this.configHandler.Settings;
+            NameValueConfigurationCollection settings = configHandler.Settings;
             foreach (string key in settings.AllKeys)
             {
                 this.configValues.Add(settings[key].Name, settings[key].Value);
             }
 
             int index = 0;
-            foreach (ConfigurationElement element in this.configHandler.Accounts)
+            foreach (ConfigurationElement element in configHandler.Accounts)
             {
                 Account account = (Account)element;
                 if (!string.IsNullOrEmpty(account.APIUserName))
@@ -117,7 +118,9 @@ namespace PayPal.Manager
         /// <returns></returns>
         public Dictionary<string, string> GetProperties()
         {
-            return this.configValues;
+            // returns a copy of the configuration properties
+            return new Dictionary<string, string>(this.configValues);
+
         }
     
         /// <summary>

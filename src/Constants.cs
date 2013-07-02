@@ -9,7 +9,7 @@ namespace PayPal
         public const string CertificateAPIUserName = "certuser_biz_api1.paypal.com";	    
         public const string CertificateAPIPassword = "D6JNKKULHN3G5B8A";
         // sdk-cert.p12 is in Resources folder
-        public const string CertificatePath = @"E:\Rajani\PayPal\Git Clone\sdk-core-dotnet\src\Resources\sdk-cert.p12";
+        public const string CertificatePath = @"C:\Upgrade\sdk-core-dotnet\src\Resources\sdk-cert.p12";
         public const string CertificatePassword = "password";
 	    
 	    public const string ApplicationId = "APP-80W284485P519543T";
