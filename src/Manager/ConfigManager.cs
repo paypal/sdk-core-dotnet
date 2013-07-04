@@ -11,7 +11,7 @@ namespace PayPal.Manager
     public sealed class ConfigManager
     {
         /// <summary>
-        /// The configValue is readonly as it should not changed outside constructor (but the content can)
+        /// The configValue is readonly as it should not be changed outside constructor (but the content can)
         /// </summary>
         private readonly Dictionary<string, string> configValues;
 
