@@ -47,7 +47,7 @@ namespace PayPal.Manager
                 return singletonInstance;
             }
         }
-#elif NET_4_0
+#elif NET_4_0 || NET_4_5
         /// <summary>
         /// System.Lazy type guarantees thread-safe lazy-construction
         /// static holder for instance, need to use lambda to construct since constructor private

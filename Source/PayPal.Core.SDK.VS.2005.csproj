@@ -1,55 +1,46 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C8310F61-1725-4992-BB9D-C7F7031F47E2}</ProjectGuid>
+    <ProjectGuid>{7CD6456F-7828-45EA-90A1-C1E26900C476}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PayPal</RootNamespace>
     <AssemblyName>PayPalCoreSDK</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\build\bin\Debug\.NET Framework 3.5\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET_3_5</DefineConstants>
+    <OutputPath>..\Build\bin\Debug\.NET Framework 2.0\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET_2_0</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\build\bin\Release\.NET Framework 3.5\</OutputPath>
-    <DefineConstants>TRACE;NET_3_5</DefineConstants>
+    <OutputPath>..\Build\bin\Release\.NET Framework 2.0\</OutputPath>
+    <DefineConstants>TRACE;NET_2_0</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\log4net.2.0.0\lib\net35-full\log4net.dll</HintPath>
+      <HintPath>packages\log4net.2.0.0\lib\net20-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\Newtonsoft.Json.5.0.6\lib\net35\Newtonsoft.Json.dll</HintPath>
+      <HintPath>packages\Newtonsoft.Json.5.0.6\lib\net20\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Management" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -60,8 +51,12 @@
     <Compile Include="Authentication\CertificateCredential.cs" />
     <Compile Include="Authentication\ICredential.cs" />
     <Compile Include="Authentication\IThirdPartyAuthorization.cs" />
-    <Compile Include="Authentication\SignatureCredential.cs" />
-    <Compile Include="Authentication\SubjectAuthorization.cs" />
+    <Compile Include="Authentication\SignatureCredential.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Authentication\SubjectAuthorization.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Authentication\TokenAuthorization.cs" />
     <Compile Include="BaseConstants.cs" />
     <Compile Include="BasePayPalService.cs" />
@@ -73,9 +68,7 @@
     <Compile Include="Exception\OAuthException.cs" />
     <Compile Include="Exception\PayPalException.cs" />
     <Compile Include="HttpConnection.cs" />
-    <Compile Include="HttpMethod.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="HttpMethod.cs" />
     <Compile Include="IAPICallPreHandler.cs" />
     <Compile Include="IAuthenticationStrategy.cs" />
     <Compile Include="IPNMessage.cs" />
@@ -114,7 +107,7 @@
     <Compile Include="Util\ReflectionUtil.cs" />
     <Compile Include="Util\SDKUtil.cs" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

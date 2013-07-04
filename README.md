@@ -1,7 +1,7 @@
 Repository
 ----------
-*	Visual Studio 2010, 2008, and 2005 PayPal Core SDK C#.NET Class Libraries
-*	Visual Studio Test C#.NET 2010, 2008, and 2005
+*	Visual Studio 2012, 2010, 2008, and 2005 PayPal Core SDK C#.NET Class Libraries
+*	Visual Studio Test C#.NET 2012, 2010, 2008, and 2005
 *	NUnit Test C#.NET Visual Studio 2005
 
 
@@ -71,13 +71,13 @@ License
 
 log4net 1.2.10 using NuGet
 --------------------------
-*   Visual Studio 2010 and 2012:
+*   Visual Studio 2012 and 2010:
 *   Go to Menu --> Tools --> Library Package Manager --> Package Manager Console
 *   Select NuGet official package source from the Package source dropdown box in the Package Manager Console
 *   Enter at PM> 
 *   Install-Package log4net
 	
-*   Visual Studio 2005 and 2008
+*   Visual Studio 2008 and 2005:
 *   NuGet Install Arguments: 
 *   Install log4net -OutputDirectory .\packages
 
@@ -169,26 +169,33 @@ Check if .NET Framework 4.0 or higher is installed in the Computer from Control 
 Or else
 
 Run the following command from Windows Command Prompt:
-dir  /b  %windir%\Microsoft.NET\Framework\v*
+wmic product where "Name like 'Microsoft .Net%'" get Name, Version
+	
+Please wait for the command to execute, it may take more than a minute to execute
+Running the aforesaid command should list the .NET Framework versions installed as in this particular case:
 
-Running the aforesaid command should list the .NET Framework versions installed as follows:
-v1.0.3705
-v1.1.4322
-v2.0.50727
-v3.0
-v3.5
-v4.0.30319
+Name                                                Version
+Microsoft .NET Compact Framework 1.0 SP3 Developer  1.0.4292
+Microsoft .NET Framework 4.5                        4.5.50709
+Microsoft .NET Framework 4.5 Multi-Targeting Pack   4.5.50709
+Microsoft .NET Framework 2.0 SDK (x64) - ENU        2.0.50727
+Microsoft .NET Framework 4 Multi-Targeting Pack     4.0.30319
+Microsoft .NET Framework 4.5 SDK                    4.5.50709
+Microsoft .NET Compact Framework 2.0 SP2            2.0.7045
+Microsoft .NET Compact Framework 3.5                3.5.7283
+Microsoft .NET Framework 1.1                        1.1.4322
+Microsoft .NET Compact Framework 1.0 SP3            1.0.4294
 
 Note: Most Windows machines may have .NET Framework 4.0 or higher installed as part of Windows (Recommended) Update.
 
 If V4.X is not installed, then download and install
 
-*	.NET Framework 4 (Standalone Installer) - (Free to download):
+*	.NET Framework 4 or higher (Standalone Installer) - (Free to download):
 	http://www.microsoft.com/en-in/download/details.aspx?id=17718
 
 Or else
 
-*	.NET Framework 4 (Web Installer) - (Free to download):
+*	.NET Framework 4 or higher (Web Installer) - (Free to download):
 	http://www.microsoft.com/en-in/download/details.aspx?id=17851
 
 
@@ -272,7 +279,7 @@ Add the references to the dependencies downloaded and installed to the Packages 
 Caution:
 If Solution got selected during NuGet Install, the package will not be installed to Project Directory i.e., $(ProjectDir), instead it will be downloaded to the Visual Studio IDE folder for which access may be denied depending on the folder permissions
 
-Access to the path, 'C:\Program Files (x86)\Microsoft Visual Studio 8\Common7\IDE\Packages\log4net\lib\1.0' is denied.
+Access to the path, 'C:\Program Files (x86)\Microsoft Visual Studio 8\Common7\IDE\Packages\log4net\lib\1.0' is denied
 
 The package installed to wrong folder, 'C:\Program Files (x86)\Microsoft Visual Studio 8\Common7\IDE'
 
@@ -284,16 +291,35 @@ install log4net -OutputDirectory .\packages
 On clicking OK, the output window should display: "Successfully installed"
 
 
+Unit Test
+---------
+*	Visual Studio Test C#.NET Project 2012, 2010, 2008, and 2005
+*	NUnit Test C#.NET Project only for Visual Studio 2005 Professional Edition as Visual Studio Unit Test feature is not available in Visual Studio 2005 Professional Edition
+    - Note: Visual Studio 2005 Professional Edition users can still run the Visual Studio 2005 Unit Test using Visual Studio Agents 2010 or higher
+
+*   Visual Studio Agents 2010 - ISO: http://www.microsoft.com/en-us/download/details.aspx?id=1334
+	- Visual Studio Agents 2010 includes Test Controller 2010, Test Agent 2010 and Lab Agent 2010. Test Controller 2010 and Test Agent 2010 collectively enable scale-out load generation, distributed data collection, and distributed test execution. Lab Agent 2010 manages testing, workflow and network isolation for virtual machines used with Visual Studio Lab Management 2010. 
+
+Or
+
+*   Agents for Visual Studio 2012 Update 3: http://www.microsoft.com/en-us/download/details.aspx?id=38186
+    - Agents for Visual Studio 2012 is the essential suite of agents and controllers that you can use to build and test applications across the desktop, the server, and the cloud
+
+
 Build Output Path
 -----------------
+*	Visual Studio 2012
+	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\.NET Framework 4.5
+	- Release Configuration: In the root of folder of .git: Build\bin\Release\.NET Framework 4.5
+	
 *	Visual Studio 2010
-	- Debug Configuration: build\bin\Debug\.NET Framework 4.0
-	- Release Configuration: build\bin\Release\.NET Framework 4.0
+	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\.NET Framework 4.0
+	- Release Configuration: In the root of folder of .git: Build\bin\Release\.NET Framework 4.0
 
 *	Visual Studio 2008
-	- Debug Configuration: build\bin\Debug\.NET Framework 3.5
-	- Release Configuration: build\bin\Release\.NET Framework 3.5
+	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\.NET Framework 3.5
+	- Release Configuration: In the root of folder of .git: Build\bin\Release\.NET Framework 3.5
 
 *	Visual Studio 2005
-	- Debug Configuration: build\bin\Debug\.NET Framework 2.0
-	- Release Configuration: build\bin\Release\.NET Framework 2.0
+	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\.NET Framework 2.0
+	- Release Configuration: In the root of folder of .git: Build\bin\Release\.NET Framework 2.0
