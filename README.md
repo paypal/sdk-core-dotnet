@@ -1,14 +1,14 @@
 Repository
 ----------
-*	Visual Studio 2012, 2010, 2008, and 2005 PayPal Core SDK C#.NET Class Libraries
-*	Visual Studio Test C#.NET 2012, 2010, 2008, and 2005
-*	NUnit Test C#.NET Visual Studio 2005
+*	Visual Studio 2012, 2010, 2008, and 2005 PayPal Core SDK Class Libraries - C#.NET
+*	Visual Studio Test 2012, 2010, 2008, and 2005 - C#.NET
+*	NUnit Test only for Visual Studio 2005 Professional Edition users - C#.NET
 
 
 Prerequisites
 -------------
 *	Visual Studio 2005 or higher
-*	NUnit  2.6.2
+*	NUnit  2.6.2 only for Visual Studio 2005 Professional Edition users
 *	log4net 1.2.10
 *	NuGet 2.2 or higher for NuGet Installation of log4net [Note: NuGet 2.2 requires .NET Framework 4.0 or higher]
 
@@ -96,25 +96,25 @@ NuGet - Installing NuGet in Visual Studio 2012 and 2010
 NuGet - Installing NuGet in Visual Studio 2012 and 2010:
 Go to Menu -> Tools
 
-Select Extensions and Updates? (Extension Manager... in Visual Studio 2010)
+Select Extensions and Updates (Extension Manager... in Visual Studio 2010)
 
 Enter NuGet in the search box and click Online (Online Gallery in Visual Studio 2010)
 
-Let it Retrieve information?
+Let it Retrieve information
 
 Select the retrieved NuGet Package Manager, and click Download
 
-Let it Download?
+Let it Download
 
 Click Install on the VSIX (Visual Studio Extension in Visual Studio 2010) Installer NuGet Package Manager
 
-Let it do Installing?
+Let it do Installing
 
 Click Close
 
 Click Restart Now
 
-Go to Menu -> Tools, select Options?
+Go to Menu -> Tools, select Options
 
 Verify the following on the Options pop-up
 Click Package Manager -> Package Sources
@@ -137,11 +137,10 @@ After successful installation, note that the dependencies are downloaded and ins
 
 If the Packages folder was not included in the project - Select the project, click Show All Files, and expand the packages folder
 
-Also, go to Menu -> Tools -> Library Package Manager, select Manage NuGet Packages for Solution?
+Also, go to Menu -> Tools -> Library Package Manager, select Manage NuGet Packages for Solution
 
 Manage NuGet Packages
 log4net
-PayPal Adaptive Accounts SDK for .NET
 PayPal Core SDK for .NET
 
 Also on Manage NuGet Packages, search for PayPal
@@ -161,7 +160,7 @@ NuGet - Integrating NuGet with Visual Studio 2008 and 2005
 
 Prerequisites:
 *	.NET Framework 4.0 or higher
-*	NuGet 2.2
+*	NuGet 2.2 or higher [Note: NuGet 2.2 requires .NET Framework 4.0 or higher]
 	
 
 Check if .NET Framework 4.0 or higher is installed in the Computer from Control Panel -> Get programs
@@ -206,7 +205,7 @@ Save NuGet.exe to a folder viz., 'C:\NuGet' and add its path to the Environment 
 Visual Studio 2008 or 2005
 Go to Menu -> Tools
 
-Select External Tools?
+Select External Tools
 
 External Tools
 
@@ -235,9 +234,9 @@ On Clicking Apply and OK, let the NuGet Install be added (as External Command 6)
 Menu -> Tools, clicking NuGet Install will pop up for NuGet Install Arguments and Command Line
 
 Also, let the NuGet Toolbar be added to Visual Studio
-Right-click on Visual Studio Menu and select Customize?
+Right-click on Visual Studio Menu and select Customize
 
-Customize by clicking New?
+Customize by clicking New
 
 Enter Toolbar name: NuGet 
 Click OK
@@ -305,6 +304,11 @@ Or
 *   Agents for Visual Studio 2012 Update 3: http://www.microsoft.com/en-us/download/details.aspx?id=38186
     - Agents for Visual Studio 2012 is the essential suite of agents and controllers that you can use to build and test applications across the desktop, the server, and the cloud
 
+*	Note: Please copy the directory path of "sdk-cert.p12" file in the Unit Test/NUnit Test Project Resources folder
+*	In <Root folder>\sdk-core-dotnet\Source\App.config:
+	- apiCertificate="<Root folder>\sdk-core-dotnet\Source\Resources\sdk-cert.p12"
+*	And in <Root folder>\sdk-core-dotnet\Source\Constants.cs:
+	- public const string CertificatePath = @"<Root folder>\sdk-core-dotnet\Source\Resources\sdk-cert.p12";
 
 Build Output Path
 -----------------
