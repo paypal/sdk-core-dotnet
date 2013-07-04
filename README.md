@@ -287,13 +287,13 @@ On clicking OK, the output window should display: "Successfully installed"
 Build Output Path
 -----------------
 *	Visual Studio 2012
-	Debug Configuration: build\bin\Debug\.NET Framework 4.0\
-	Release Configuration: build\bin\Release\.NET Framework 4.0\
+*	Debug Configuration: build\bin\Debug\.NET Framework 4.0\
+*	Release Configuration: build\bin\Release\.NET Framework 4.0\
 
 *	Visual Studio 2008
-	Debug Configuration: build\bin\Debug\.NET Framework 3.5\
-	Release Configuration: build\bin\Release\.NET Framework 3.5\
+*	Debug Configuration: build\bin\Debug\.NET Framework 3.5\
+*	Release Configuration: build\bin\Release\.NET Framework 3.5\
 
 *	Visual Studio 2005
-	Debug Configuration: build\bin\Debug\.NET Framework 2.0\
-	Release Configuration: build\bin\Release\.NET Framework 2.0\
+*	Debug Configuration: build\bin\Debug\.NET Framework 2.0\
+*	Release Configuration: build\bin\Release\.NET Framework 2.0\
