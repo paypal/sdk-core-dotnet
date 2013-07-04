@@ -107,13 +107,6 @@
     <Compile Include="Util\ReflectionUtil.cs" />
     <Compile Include="Util\SDKUtil.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="LICENSE.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="CHANGELOG.md" />
-    <None Include="README.md" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
