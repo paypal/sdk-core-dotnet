@@ -10,7 +10,7 @@ Prerequisites
 *	Visual Studio 2005 or higher
 *	NUnit  2.6.2
 *	log4net 1.2.10
-*   NuGet 2.2 or higher for NuGet Installation of log4net [Note: NuGet 2.2 requires .NET Framework 4.0 or higher]
+*	NuGet 2.2 or higher for NuGet Installation of log4net [Note: NuGet 2.2 requires .NET Framework 4.0 or higher]
 
 
 The PayPal Core SDK for .NET
@@ -169,7 +169,7 @@ Check if .NET Framework 4.0 or higher is installed in the Computer from Control 
 Or else
 
 Run the following command from Windows Command Prompt:
->dir  /b  %windir%\Microsoft.NET\Framework\v*
+dir  /b  %windir%\Microsoft.NET\Framework\v*
 
 Running the aforesaid command should list the .NET Framework versions installed as follows:
 v1.0.3705
@@ -287,13 +287,13 @@ On clicking OK, the output window should display: "Successfully installed"
 Build Output Path
 -----------------
 *	Visual Studio 2012
-*	Debug Configuration: build\bin\Debug\.NET Framework 4.0\
-*	Release Configuration: build\bin\Release\.NET Framework 4.0\
+	- Debug Configuration: build\bin\Debug\.NET Framework 4.0
+	- Release Configuration: build\bin\Release\.NET Framework 4.0
 
 *	Visual Studio 2008
-*	Debug Configuration: build\bin\Debug\.NET Framework 3.5\
-*	Release Configuration: build\bin\Release\.NET Framework 3.5\
+	- Debug Configuration: build\bin\Debug\.NET Framework 3.5
+	- Release Configuration: build\bin\Release\.NET Framework 3.5
 
 *	Visual Studio 2005
-*	Debug Configuration: build\bin\Debug\.NET Framework 2.0\
-*	Release Configuration: build\bin\Release\.NET Framework 2.0\
+	- Debug Configuration: build\bin\Debug\.NET Framework 2.0
+	- Release Configuration: build\bin\Release\.NET Framework 2.0
