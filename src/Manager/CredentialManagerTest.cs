@@ -99,19 +99,11 @@ namespace PayPal.UnitTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(MissingCredentialException))]
+        [ExpectedException(typeof(MissingCredentialException), "Missing credentials for i-do-not-exist_api1.paypal.com")]
         public void LoadCredentialForNonExistentAccount()
         {
-            try
-            {
-                credentialMngr = CredentialManager.Instance;
-                credential = credentialMngr.GetCredentials(ConfigManager.Instance.GetProperties(), "i-do-not-exist_api1.paypal.com");
-            }
-            catch (MissingCredentialException ex)
-            {
-                Assert.AreEqual("Missing credentials for i-do-not-exist_api1.paypal.com", ex.Message);
-                throw;
-            }
+            credentialMngr = CredentialManager.Instance;
+            credential = credentialMngr.GetCredentials(ConfigManager.Instance.GetProperties(), "i-do-not-exist_api1.paypal.com");
         }
     }
 }

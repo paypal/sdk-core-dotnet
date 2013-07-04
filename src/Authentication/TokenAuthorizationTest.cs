@@ -30,18 +30,10 @@ namespace PayPal.UnitTest
     public class TokenAuthorizationTest
     {
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentException), "TokenAuthorization arguments cannot be empty")]
         public void ArgumentExceptionTest()
         {
-            try
-            {
-                TokenAuthorization toknAuthorization = new TokenAuthorization(null, null);
-            }
-            catch (ArgumentException ex)
-            {
-                Assert.AreEqual("TokenAuthorization arguments cannot be empty", ex.Message);
-                throw;
-            }
+            TokenAuthorization toknAuthorization = new TokenAuthorization(null, null);
         }
     }
 }

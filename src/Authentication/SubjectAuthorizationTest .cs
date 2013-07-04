@@ -30,18 +30,10 @@ namespace PayPal.UnitTest
     public class SubjectAuthorizationTest
     {
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentException), "SubjectAuthorization arguments cannot be null or empty")]
         public void ArgumentExceptionTest()
         {
-            try
-            {
-                SubjectAuthorization subAuthorization = new SubjectAuthorization(null);
-            }
-            catch (ArgumentException ex)
-            {
-                Assert.AreEqual("SubjectAuthorization arguments cannot be null or empty", ex.Message);
-                throw;
-            }
+            SubjectAuthorization subAuthorization = new SubjectAuthorization(null);   
         }
     }
 }

@@ -142,18 +142,10 @@ namespace PayPal.UnitTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentException), "Certificate Credential arguments cannot be null")]
         public void CertificateCredentialArgumentException()
         {
-            try
-            {
-                certCredential = new CertificateCredential(null, null, null, null);
-            }
-            catch (ArgumentException ex)
-            {
-                Assert.AreEqual("Certificate Credential arguments cannot be null", ex.Message);
-                throw;
-            }
+            certCredential = new CertificateCredential(null, null, null, null);            
         }
     }
 }

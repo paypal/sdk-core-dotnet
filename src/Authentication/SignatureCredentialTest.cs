@@ -130,18 +130,10 @@ namespace PayPal.UnitTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentException), "Signature Credential arguments cannot be null")]
         public void SignatureCredentialArgumentException()
         {
-            try
-            {
-                signCredential = new SignatureCredential(null, null, null);
-            }
-            catch (ArgumentException ex)
-            {
-                Assert.AreEqual("Signature Credential arguments cannot be null", ex.Message);
-                throw;
-            }
+            signCredential = new SignatureCredential(null, null, null);
         }
     }
 }

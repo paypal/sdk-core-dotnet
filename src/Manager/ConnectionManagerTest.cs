@@ -61,19 +61,11 @@ namespace PayPal.UnitTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ConfigException))]
+        [ExpectedException(typeof(ConfigException), "Invalid URI Not a url")]
         public void CreateNewConnectionWithInvalidURL()
         {
-            try
-            {
-                connectionMngr = ConnectionManager.Instance;
-                httpRequest = connectionMngr.GetConnection(ConfigManager.Instance.GetProperties(), "Not a url");
-            }
-            catch (ConfigException ex)
-            {
-                Assert.AreEqual("Invalid URI Not a url", ex.Message);
-                throw;
-            }
+            connectionMngr = ConnectionManager.Instance;
+            httpRequest = connectionMngr.GetConnection(ConfigManager.Instance.GetProperties(), "Not a url");            
         }
     }
 }

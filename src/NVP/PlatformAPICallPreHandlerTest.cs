@@ -252,24 +252,15 @@ namespace PayPal.UnitTest
             Assert.AreEqual(BaseConstants.PlatformSandboxEndpoint + "servicename/method", platformHandler.GetEndpoint());
 
         }
-
-
+        
         [TestMethod]
-        [ExpectedException(typeof(ConfigException))]
+        [ExpectedException(typeof(ConfigException), "You must specify one of mode or endpoint in the configuration")]
         public void GetEndpointForDefaultModeWithoutEndpoint()
         {
-            try
-            {
-                Dictionary<string, string> config = new Dictionary<string, string>(accountConfig);
+            Dictionary<string, string> config = new Dictionary<string, string>(accountConfig);
 
-                PlatformAPICallPreHandler platformHandler = new PlatformAPICallPreHandler(config, "payload", "servicename", "method", Constants.APIUserName, "accessToken", "tokenSecret");
-                platformHandler.GetEndpoint();
-            }
-            catch (ConfigException ex)
-            {
-                Assert.AreEqual("You must specify one of mode or endpoint in the configuration", ex.Message);
-                throw;
-            }
+            PlatformAPICallPreHandler platformHandler = new PlatformAPICallPreHandler(config, "payload", "servicename", "method", Constants.APIUserName, "accessToken", "tokenSecret");
+            platformHandler.GetEndpoint();
         }
 
         [TestMethod]

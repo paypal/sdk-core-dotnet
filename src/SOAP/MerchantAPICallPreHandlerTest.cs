@@ -364,22 +364,14 @@ namespace PayPal.UnitTest
 
 
         [TestMethod]
-        [ExpectedException(typeof(ConfigException))]
+        [ExpectedException(typeof(ConfigException), "You must specify one of mode(live/sandbox) OR endpoint in the configuration")]
         public void GetEndpointForDefaultModeWithoutEndpoint()
         {
-            try
-            {
-                Dictionary<string, string> config = new Dictionary<string, string>(accountConfig);
+            Dictionary<string, string> config = new Dictionary<string, string>(accountConfig);
 
-                credential = credentialMngr.GetCredentials(config, Constants.CertificateAPIUserName);
-                MerchantAPICallPreHandler soapHandler = new MerchantAPICallPreHandler(config, defaultSoapHandler, credential);
-                soapHandler.GetEndpoint();
-            }
-            catch (ConfigException ex)
-            {
-                Assert.AreEqual("You must specify one of mode(live/sandbox) OR endpoint in the configuration", ex.Message);
-                throw;
-            }
+            credential = credentialMngr.GetCredentials(config, Constants.CertificateAPIUserName);
+            MerchantAPICallPreHandler soapHandler = new MerchantAPICallPreHandler(config, defaultSoapHandler, credential);
+            soapHandler.GetEndpoint();
         }
 
         [TestMethod]
