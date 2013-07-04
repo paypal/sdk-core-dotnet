@@ -286,7 +286,7 @@ On clicking OK, the output window should display: "Successfully installed"
 
 Build Output Path
 -----------------
-*	Visual Studio 2012
+*	Visual Studio 2010
 	- Debug Configuration: build\bin\Debug\.NET Framework 4.0
 	- Release Configuration: build\bin\Release\.NET Framework 4.0
 
