@@ -14,30 +14,30 @@ namespace PayPal.OpenIdConnect
 	public class Error
     {
         /// <summary>
-        /// A single ASCII error code from the following enum.
+        /// A single ASCII error code from the following enum
         /// </summary>
-        private string errorValue;
+        private string errorCode;
 
         /// <summary>
-        /// A resource Id that indicates the starting resource in the returned results.
+        /// A resource Id that indicates the starting resource in the returned results
         /// </summary>
-        private string error_descriptionValue;
+        private string errorDescription;
 
         /// <summary>
-        /// A URI identifying a human-readable web page with information about the error, used to provide the client developer with additional information about the error.
+        /// A URI identifying a human-readable web page with information about the error, used to provide the client developer with additional information about the error
         /// </summary>
-        private string error_uriValue;
+        private string errorUri;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string error
         {
             get
             {
-                return errorValue;
+                return errorCode;
             }
             set
             {
-                errorValue = value;
+                errorCode = value;
             }
         }
 
@@ -46,11 +46,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return error_descriptionValue;
+                return errorDescription;
             }
             set
             {
-                error_descriptionValue = value;
+                errorDescription = value;
             }
         }
 
@@ -59,11 +59,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return error_uriValue;
+                return errorUri;
             }
             set
             {
-                error_uriValue = value;
+                errorUri = value;
             }
         }
 

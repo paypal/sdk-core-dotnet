@@ -9,15 +9,15 @@ namespace PayPal
         /// <summary>
         /// Endpoint url
         /// </summary>
-        protected string endpointURL;
+        protected string endpointUrl;
 
         /// <summary>
         /// AbstractCertificateHttpHeaderAuthStrategy constructor
         /// </summary>
         /// <param name="endPointUrl"></param>
-        public AbstractSignatureHttpHeaderAuthStrategy(string endpointURL)
+        public AbstractSignatureHttpHeaderAuthStrategy(string endpointUrl)
         {
-            this.endpointURL = endpointURL;
+            this.endpointUrl = endpointUrl;
         }
 
         /// <summary>

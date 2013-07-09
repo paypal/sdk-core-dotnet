@@ -61,7 +61,7 @@ namespace PayPal.UnitTest
             scopeList.Add("openid");
             scopeList.Add("email");
             string redirectURI = "http://google.com";
-            string redirectURL = Session.GetRedirectURL(redirectURI, scopeList, apiContxt);
+            string redirectURL = Session.GetRedirectUrl(redirectURI, scopeList, apiContxt);
             CreateFromAuthorizationCodeParameters param = new CreateFromAuthorizationCodeParameters();
 
             // code you will get back as part of the url after redirection

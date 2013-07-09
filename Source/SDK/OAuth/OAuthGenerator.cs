@@ -18,7 +18,7 @@ namespace PayPal.Authentication
         private string token;
         private byte[] consumerSecret;
         private byte[] tokenSecret;
-        private string requestURI;
+        private string requestUri;
         private string tokenTimestamp;
         private HttpMethod methodHttp;
         private ArrayList queryParameters;
@@ -68,18 +68,18 @@ namespace PayPal.Authentication
         /// Sets URI for signature computation
         /// </summary>
         /// <param name="uri"></param>
-        public void SetRequestURI(string uri)
+        public void SetRequestUri(string uri)
         {
-            this.requestURI = NormalizeURI(uri);
+            this.requestUri = NormalizeUri(uri);
         }
 
         /// <summary>
         /// Sets token Timestamp
         /// </summary>
-        /// <param name="timestamp"></param>
-        public void SetTokenTimestamp(string timestamp)
+        /// <param name="tokenTimeStamp"></param>
+        public void SetTokenTimestamp(string tokenTimeStamp)
         {
-            this.tokenTimestamp = timestamp;
+            this.tokenTimestamp = tokenTimeStamp;
         }
 
         //TODO: Remove me
@@ -126,7 +126,7 @@ namespace PayPal.Authentication
             }
 
             if (token == string.Empty || tokenSecret.Length == 0
-                || requestURI == string.Empty || tokenTimestamp == string.Empty)
+                || requestUri == string.Empty || tokenTimestamp == string.Empty)
             {
                 throw new OAuthException(
                         "AuthToken or TokenSecret or Request URI or Timestamp not set.");
@@ -137,10 +137,10 @@ namespace PayPal.Authentication
             {
                 string consumerSec = System.Text.Encoding.GetEncoding(method).GetString(consumerSecret);
                 //TODO: Why encode consumersecret twice?
-                string key = PayPalURLEncoder.encode(consumerSec, method);
+                string key = PayPalUrlEncoder.encode(consumerSec, method);
                 key += delimiter;
                 string tokenSec = System.Text.Encoding.GetEncoding(method).GetString(tokenSecret);
-                key += PayPalURLEncoder.encode(tokenSec, method);
+                key += PayPalUrlEncoder.encode(tokenSec, method);
                 StringBuilder paramString = new StringBuilder();
                 ArrayList oAuthParams = queryParameters;
                 oAuthParams.Add(new Parameter("oauth_consumer_key", consumerKey));
@@ -158,8 +158,8 @@ namespace PayPal.Authentication
                         paramString.Append(delimiter);
                 }
                 string signatureBase = this.methodHttp + delimiter;
-                signatureBase += PayPalURLEncoder.encode(requestURI, method) + delimiter;
-                signatureBase += PayPalURLEncoder.encode(paramString.ToString(), method);
+                signatureBase += PayPalUrlEncoder.encode(requestUri, method) + delimiter;
+                signatureBase += PayPalUrlEncoder.encode(paramString.ToString(), method);
                 Encoding encoding = System.Text.Encoding.ASCII;
                 byte[] encodedKey = encoding.GetBytes(key);
                 using (HMACSHA1 keyDigest = new HMACSHA1(encodedKey))
@@ -191,13 +191,13 @@ namespace PayPal.Authentication
         }
 
         /// <summary>
-        /// NormalizeURI normalizes the given URI as per OAuth spec
+        /// NormalizeUri normalizes the given URI as per OAuth spec
         /// </summary>
         /// <param name="uri"></param>
         /// <returns></returns>
-        private string NormalizeURI(string uri)
+        private string NormalizeUri(string uri)
         {
-            string normalizedURI = string.Empty, port = string.Empty, scheme = string.Empty, path = string.Empty, authority = string.Empty;
+            string normalizedUri = string.Empty, port = string.Empty, scheme = string.Empty, path = string.Empty, authority = string.Empty;
             int i, j, k;
 
             try
@@ -237,21 +237,21 @@ namespace PayPal.Authentication
                 if (k != -1)
                     path = uri.Substring(k);
 
-                normalizedURI = scheme.ToLower();
-                normalizedURI += "://";
-                normalizedURI += authority.ToLower();
+                normalizedUri = scheme.ToLower();
+                normalizedUri += "://";
+                normalizedUri += authority.ToLower();
 
                 if (scheme != null && port.Length > 0)
                 {
                     if (scheme.Equals("http") && Convert.ToInt32(port) != 80)
                     {
-                        normalizedURI += ":";
-                        normalizedURI += port;
+                        normalizedUri += ":";
+                        normalizedUri += port;
                     }
                     else if (scheme.Equals("https") && Convert.ToInt32(port) != 443)
                     {
-                        normalizedURI += ":";
-                        normalizedURI += port;
+                        normalizedUri += ":";
+                        normalizedUri += port;
                     }
                 }
             }
@@ -263,8 +263,8 @@ namespace PayPal.Authentication
             {
                 throw new OAuthException("Out Of Range.", are);
             }
-            normalizedURI += path;
-            return normalizedURI;
+            normalizedUri += path;
+            return normalizedUri;
         }
 
         /// <summary>

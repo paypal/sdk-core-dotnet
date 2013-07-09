@@ -9,7 +9,7 @@ namespace PayPal.Util
 {
     public class SDKUtil
     {
-        public static string FormatURIPath(string pattern, Object[] parameters)
+        public static string FormatUriPath(string pattern, Object[] parameters)
         {
             if (parameters != null && parameters.Length == 1 && parameters[0] is QueryParameters)
             {

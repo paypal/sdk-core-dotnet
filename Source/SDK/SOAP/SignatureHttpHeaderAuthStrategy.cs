@@ -25,7 +25,7 @@ namespace PayPal.SOAP
         /// Constructor
         /// </summary>
         /// <param name="endPointUrl"></param>
-        public SignatureHttpHeaderAuthStrategy(string endpointURL) : base(endpointURL) { }
+        public SignatureHttpHeaderAuthStrategy(string endpointUrl) : base(endpointUrl) { }
 
 	    /// <summary>
         /// Processing for TokenAuthorization using SignatureCredential
@@ -45,8 +45,8 @@ namespace PayPal.SOAP
                 signGenerator.SetTokenSecret(tokenAuthorize.AccessTokenSecret);
                 string tokenTimeStamp = Timestamp;
                 signGenerator.SetTokenTimestamp(tokenTimeStamp);
-                logger.Debug("token = " + tokenAuthorize.AccessToken + " tokenSecret=" + tokenAuthorize.AccessTokenSecret + " uri=" + endpointURL);
-                signGenerator.SetRequestURI(endpointURL);
+                logger.Debug("token = " + tokenAuthorize.AccessToken + " tokenSecret=" + tokenAuthorize.AccessTokenSecret + " uri=" + endpointUrl);
+                signGenerator.SetRequestUri(endpointUrl);
                 
                 //Compute Signature
                 string sign = signGenerator.ComputeSignature();

@@ -44,8 +44,8 @@ namespace PayPal.NVP
                 signGenerator.SetTokenSecret(tokenAuthorize.AccessTokenSecret);
                 string tokenTimeStamp = Timestamp;
                 signGenerator.SetTokenTimestamp(tokenTimeStamp);
-                logger.Debug("token = " + tokenAuthorize.AccessToken + " tokenSecret=" + tokenAuthorize.AccessTokenSecret + " uri=" + endpointURL);
-                signGenerator.SetRequestURI(endpointURL);
+                logger.Debug("token = " + tokenAuthorize.AccessToken + " tokenSecret=" + tokenAuthorize.AccessTokenSecret + " uri=" + endpointUrl);
+                signGenerator.SetRequestUri(endpointUrl);
 
                 //Compute Signature
                 string sign = signGenerator.ComputeSignature();

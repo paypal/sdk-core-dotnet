@@ -12,7 +12,7 @@ namespace PayPal.OpenIdConnect
         /// <summary>
         /// Redirect URI used in query parameters
         /// </summary>
-        private const string RedirectURI = "redirect_uri";
+        private const string RedirectUri = "redirect_uri";
 
         /// <summary>
         /// Grant Type used in query parameters
@@ -22,7 +22,7 @@ namespace PayPal.OpenIdConnect
         /// <summary>
         /// Backing map
         /// </summary>
-        private Dictionary<string, string> MapContainer;
+        private Dictionary<string, string> mapContainer;
 
         /// <summary>
         /// Backing map
@@ -31,14 +31,13 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return this.MapContainer;
+                return this.mapContainer;
             }
             set
             {
-                this.MapContainer = value;
+                this.mapContainer = value;
             }
         }
-
 
         public CreateFromAuthorizationCodeParameters()
         {
@@ -58,10 +57,10 @@ namespace PayPal.OpenIdConnect
         /// <summary>
         /// Set the Redirect URI
         /// </summary>
-        /// <param name="redirectURI"></param>
-        public void SetRedirectURI(string redirectURI)
+        /// <param name="redirectUri"></param>
+        public void SetRedirectUri(string redirectUri)
         {
-            ContainerMap.Add(RedirectURI, redirectURI);
+            ContainerMap.Add(RedirectUri, redirectUri);
         }
 
         /// <summary>

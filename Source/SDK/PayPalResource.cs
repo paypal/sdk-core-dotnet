@@ -71,7 +71,7 @@ namespace PayPal
                 {
                     config = ConfigManager.GetConfigWithDefaults(apiContext.Config);
                 }
-                baseUri = GetBaseURI(config);
+                baseUri = GetBaseUri(config);
                 bool success = Uri.TryCreate(baseUri, resource, out uniformResourceIdentifier);
 
                 RESTConfiguration restConfiguration = new RESTConfiguration(config, headersMap);
@@ -151,26 +151,26 @@ namespace PayPal
         /// </summary>
         /// <param name="config">configuration map</param>
         /// <returns>Uri</returns>
-        private static Uri GetBaseURI(Dictionary<string, string> config)
+        private static Uri GetBaseUri(Dictionary<string, string> config)
         {
-            Uri baseURI = null;
+            Uri baseUri = null;
             if (config.ContainsKey("endpoint"))
             {
-                baseURI = new Uri(config["endpoint"]);
+                baseUri = new Uri(config["endpoint"]);
             }
             else if (config.ContainsKey("mode"))
             {
                 switch (config["mode"].ToLower())
                 {
                     case "sandbox":
-                        baseURI = new Uri(BaseConstants.RESTSandboxEndpoint);
+                        baseUri = new Uri(BaseConstants.RESTSandboxEndpoint);
                         break;
                     case "live":
-                        baseURI = new Uri(BaseConstants.RESTLiveEndpoint);
+                        baseUri = new Uri(BaseConstants.RESTLiveEndpoint);
                         break;
                 }
             }
-            return baseURI;
+            return baseUri;
         }
     }
 }

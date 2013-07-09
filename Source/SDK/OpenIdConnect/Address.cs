@@ -14,40 +14,40 @@ namespace PayPal.OpenIdConnect
 	public class Address
     {
         /// <summary>
-        /// Full street address component, which may include house number, street name.
+        /// Street address component, which may include house number, and street name
         /// </summary>
-        private string street_addressValue;
+        private string street;
 
         /// <summary>
-        /// City or locality component.
+        /// City or locality component
         /// </summary>
-        private string localityValue;
+        private string localityName;
 
         /// <summary>
-        /// State, province, prefecture or region component.
+        /// State, province, prefecture or region component
         /// </summary>
-        private string regionValue;
+        private string regionName;
 
         /// <summary>
-        /// Zip code or postal code component.
+        /// Zip code or postal code component
         /// </summary>
-        private string postal_codeValue;
+        private string post;
 
         /// <summary>
         /// Country name component.
         /// </summary>
-        private string countryValue;
+        private string countryName;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string street_address
         {
             get
             {
-                return street_addressValue;
+                return street;
             }
             set
             {
-                street_addressValue = value;
+                street = value;
             }
         }
         
@@ -56,11 +56,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return localityValue;
+                return localityName;
             }
             set
             {
-                localityValue = value;
+                localityName = value;
             }
         }
    
@@ -69,11 +69,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return regionValue;
+                return regionName;
             }
             set
             {
-                regionValue = value;
+                regionName = value;
             }
         }
 
@@ -82,11 +82,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return postal_codeValue;
+                return post;
             }
             set
             {
-                postal_codeValue = value;
+                post = value;
             }
         }
 
@@ -95,11 +95,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return countryValue;
+                return countryName;
             }
             set
             {
-                countryValue = value;
+                countryName = value;
             }
         }
 

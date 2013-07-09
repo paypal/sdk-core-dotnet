@@ -130,9 +130,9 @@ namespace PayPal
         // Configuration key suffix for Client Secret
         public const string ClientSecret = "clientSecret";
 
-        public const string OpenIdRedirectURI = "openid.RedirectUri";
+        public const string OpenIdRedirectUri = "openid.RedirectUri";
 
-        public const string OpenIdRedirectURIConstant = "https://www.paypal.com/webapps/auth/protocol/openidconnect";
+        public const string OpenIdRedirectUriConstant = "https://www.paypal.com/webapps/auth/protocol/openidconnect";
 
         public const string OAuthEndpoint = "oauth.EndPoint";
         

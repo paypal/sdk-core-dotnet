@@ -8,17 +8,18 @@ namespace PayPal.OpenIdConnect
     public class Session
     {
         /// <summary>
-        /// Returns the PayPal URL to which the user must be redirected to start the 
-        /// authentication / authorization process.
+        /// Returns the PayPal URL to which the user must be redirected to start the authentication / authorization process
         /// </summary>
-        /// <param name="redirectURI"></param>
+        /// <param name="redirectUri"></param>
         /// <param name="scope"></param>
         /// <param name="apiContext"></param>
         /// <returns></returns>
-        public static string GetRedirectURL(string redirectURI, List<string> scope, APIContext apiContext)
+        public static string GetRedirectUrl(string redirectUri, List<string> scope, APIContext apiContext)
         {
-            string redirectURL = null;
+            string redirectUrl = null;
+            string baseUrl = null;
             Dictionary<string, string> config = null;
+
             if (apiContext.Config == null)
             {
                 config = ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());
@@ -27,18 +28,18 @@ namespace PayPal.OpenIdConnect
             {
                 config = ConfigManager.GetConfigWithDefaults(apiContext.Config);
             }
-            string baseURL = null;
-            if (config.ContainsKey(BaseConstants.OpenIdRedirectURI))
+            
+            if (config.ContainsKey(BaseConstants.OpenIdRedirectUri))
             {
-                baseURL = config[BaseConstants.OpenIdRedirectURI];
+                baseUrl = config[BaseConstants.OpenIdRedirectUri];
             }
             else
             {
-                baseURL = BaseConstants.OpenIdRedirectURIConstant;
+                baseUrl = BaseConstants.OpenIdRedirectUriConstant;
             }
-            if (baseURL.EndsWith("/"))
+            if (baseUrl.EndsWith("/"))
             {
-                baseURL = baseURL.Substring(0, baseURL.Length - 1);
+                baseUrl = baseUrl.Substring(0, baseUrl.Length - 1);
             }
             if (scope == null || scope.Count <= 0)
             {
@@ -54,31 +55,32 @@ namespace PayPal.OpenIdConnect
             {
                 scope.Add("openid");
             }
-            StringBuilder strBuilder = new StringBuilder();
-            strBuilder.Append("client_id=").Append(HttpUtility.UrlEncode((config.ContainsKey(BaseConstants.ClientId)) ? config[BaseConstants.ClientId] : string.Empty)).Append("&response_type=").Append("code").Append("&scope=");
+            StringBuilder builder = new StringBuilder();
+            builder.Append("client_id=").Append(HttpUtility.UrlEncode((config.ContainsKey(BaseConstants.ClientId)) ? config[BaseConstants.ClientId] : string.Empty)).Append("&response_type=").Append("code").Append("&scope=");
             StringBuilder scpBuilder = new StringBuilder();
             foreach (string str in scope)
             {
                 scpBuilder.Append(str).Append(" ");
             }
-            strBuilder.Append(HttpUtility.UrlEncode(scpBuilder.ToString()));
-            strBuilder.Append("&redirect_uri=").Append(HttpUtility.UrlEncode(redirectURI));
-            redirectURL = baseURL + "/v1/authorize?" + strBuilder.ToString();
-            return redirectURL;
+            builder.Append(HttpUtility.UrlEncode(scpBuilder.ToString()));
+            builder.Append("&redirect_uri=").Append(HttpUtility.UrlEncode(redirectUri));
+            redirectUrl = baseUrl + "/v1/authorize?" + builder.ToString();
+            return redirectUrl;
         }
 
         /// <summary>
-        /// Returns the URL to which the user must be redirected to logout from the
-        /// OpenId provider (i.e. PayPal)
+        /// Returns the URL to which the user must be redirected to logout from the OpenId provider (i.e., PayPal)
         /// </summary>
-        /// <param name="redirectURI"></param>
+        /// <param name="redirectUri"></param>
         /// <param name="idToken"></param>
         /// <param name="apiContext"></param>
         /// <returns></returns>
-        public static string GetLogoutUrl(string redirectURI, string idToken, APIContext apiContext)
+        public static string GetLogoutUrl(string redirectUri, string idToken, APIContext apiContext)
         {
-            string logoutURL = null;
+            string logoutUrl = null;
+            string baseUrl = null;
             Dictionary<string, string> config = null;
+
             if (apiContext.Config == null)
             {
                 config = ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());
@@ -87,27 +89,27 @@ namespace PayPal.OpenIdConnect
             {
                 config = ConfigManager.GetConfigWithDefaults(apiContext.Config);
             }
-            string baseURL = null;
-            if (config.ContainsKey(BaseConstants.OpenIdRedirectURI))
+            
+            if (config.ContainsKey(BaseConstants.OpenIdRedirectUri))
             {
-                baseURL = config[BaseConstants.OpenIdRedirectURI];
+                baseUrl = config[BaseConstants.OpenIdRedirectUri];
             }
             else
             {
-                baseURL = BaseConstants.OpenIdRedirectURIConstant;
+                baseUrl = BaseConstants.OpenIdRedirectUriConstant;
             }
-            if (baseURL.EndsWith("/"))
+            if (baseUrl.EndsWith("/"))
             {
-                baseURL = baseURL.Substring(0, baseURL.Length - 1);
+                baseUrl = baseUrl.Substring(0, baseUrl.Length - 1);
             }
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("id_token=")
                     .Append(HttpUtility.UrlEncode(idToken))
                     .Append("&redirect_uri=")
-                    .Append(HttpUtility.UrlEncode(redirectURI))
+                    .Append(HttpUtility.UrlEncode(redirectUri))
                     .Append("&logout=true");
-            logoutURL = baseURL + "/v1/endsession?" + stringBuilder.ToString();
-            return logoutURL;
+            logoutUrl = baseUrl + "/v1/endsession?" + stringBuilder.ToString();
+            return logoutUrl;
         }
     }
 }

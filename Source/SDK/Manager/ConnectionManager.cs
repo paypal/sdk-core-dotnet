@@ -80,7 +80,7 @@ namespace PayPal.Manager
             catch (UriFormatException ex)
             {
                 logger.Error(ex.Message);
-                throw new ConfigException("Invalid URI " + url);
+                throw new ConfigException("Invalid URI: " + url);
             }
 
             // Set connection timeout

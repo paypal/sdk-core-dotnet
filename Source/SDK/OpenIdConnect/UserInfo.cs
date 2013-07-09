@@ -15,109 +15,109 @@ namespace PayPal.OpenIdConnect
     public class UserInfo
     {
         /// <summary>
-        /// Subject - Identifier for the End-User at the Issuer.
+        /// Subject - Identifier for the End-User at the Issuer
         /// </summary>
-        private string user_idValue;
+        private string userId;
 
         /// <summary>
-        /// Subject - Identifier for the End-User at the Issuer.
+        /// Subject - Identifier for the End-User at the Issuer
         /// </summary>
-        private string subValue;
+        private string subject;
 
         /// <summary>
-        /// End-User's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User's locale and preferences.
+        /// End-User's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User's locale and preferences
         /// </summary>
-        private string nameValue;
+        private string fullName;
 
         /// <summary>
         /// Given name(s) or first name(s) of the End-User
         /// </summary>
-        private string given_nameValue;
+        private string givenName;
 
         /// <summary>
-        /// Surname(s) or last name(s) of the End-User.
+        /// Surname(s) or last name(s) of the End-User
         /// </summary>
-        private string family_nameValue;
+        private string familyName;
 
         /// <summary>
-        /// Middle name(s) of the End-User.
+        /// Middle name(s) of the End-User
         /// </summary>
-        private string middle_nameValue;
+        private string middleName;
 
         /// <summary>
-        /// URL of the End-User's profile picture.
+        /// URL of the End-User's profile picture
         /// </summary>
-        private string pictureValue;
+        private string profilePicture;
 
         /// <summary>
-        /// End-User's preferred e-mail address.
+        /// End-User's preferred e-mail address
         /// </summary>
-        private string emailValue;
+        private string emailAddress;
 
         /// <summary>
-        /// True if the End-User's e-mail address has been verified; otherwise false.
+        /// True if the End-User's e-mail address has been verified; otherwise false
         /// </summary>
-        private bool email_verifiedValue;
+        private bool emailVerified;
 
         /// <summary>
         /// End-User's gender.
         /// </summary>
-        private string genderValue;
+        private string userGender;
 
         /// <summary>
-        /// End-User's birthday, represented as an YYYY-MM-DD format. They year MAY be 0000, indicating it is omited. To represent only the year, YYYY format would be used.
+        /// End-User's birthday, represented as an YYYY-MM-DD format. They year MAY be 0000, indicating it is omited. To represent only the year, YYYY format would be used
         /// </summary>
-        private string birthdateValue;
+        private string dateOfBirth;
 
         /// <summary>
         /// Time zone database representing the End-User's time zone
         /// </summary>
-        private string zoneInfoValue;
+        private string zoneInformation;
 
         /// <summary>
         /// End-User's locale.
         /// </summary>
-        private string localeValue;
+        private string localeName;
 
         /// <summary>
-        /// End-User's preferred telephone number.
+        /// End-User's preferred telephone number
         /// </summary>
-        private string phone_numberValue;
+        private string phoneNumber;
 
         /// <summary>
-        /// End-User's preferred address.
+        /// End-User's preferred address
         /// </summary>
-        private Address addressValue;
+        private Address userAddress;
         /// <summary>
-        /// Verified account status.
+        /// Verified account status
         /// </summary>
-        private bool verified_accountValue;
+        private bool verifiedAccount;
 
         /// <summary>
         /// Account type.
         /// </summary>
-        private string account_typeValue;
+        private string accountType;
 
         /// <summary>
         /// Account holder age range.
         /// </summary>
-        private string age_rangeValue;
+        private string ageRange;
 
         /// <summary>
         /// Account payer identifier.
         /// </summary>
-        private string payer_idValue;
+        private string payerId;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string user_id
         {
             get
             {
-                return user_idValue;
+                return userId;
             }
             set
             {
-                user_idValue = value;
+                userId = value;
             }
         }
 
@@ -126,11 +126,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return subValue;
+                return subject;
             }
             set
             {
-                subValue = value;
+                subject = value;
             }
         }
 
@@ -139,11 +139,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return nameValue;
+                return fullName;
             }
             set
             {
-                nameValue = value;
+                fullName = value;
             }
         }
 
@@ -152,11 +152,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return given_nameValue;
+                return givenName;
             }
             set
             {
-                given_nameValue = value;
+                givenName = value;
             }
         }
         
@@ -165,11 +165,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return family_nameValue;
+                return familyName;
             }
             set
             {
-                family_nameValue = value;
+                familyName = value;
             }
         }
 
@@ -178,11 +178,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return middle_nameValue;
+                return middleName;
             }
             set
             {
-                middle_nameValue = value;
+                middleName = value;
             }
         }
 
@@ -191,11 +191,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return pictureValue;
+                return profilePicture;
             }
             set
             {
-                pictureValue = value;
+                profilePicture = value;
             }
         }
 
@@ -204,11 +204,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return emailValue;
+                return emailAddress;
             }
             set
             {
-                emailValue = value;
+                emailAddress = value;
             }
         }
 
@@ -217,11 +217,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return email_verifiedValue;
+                return emailVerified;
             }
             set
             {
-                email_verifiedValue = value;
+                emailVerified = value;
             }
         }
 
@@ -230,11 +230,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return genderValue;
+                return userGender;
             }
             set
             {
-                genderValue = value;
+                userGender = value;
             }
         }
 
@@ -243,11 +243,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return birthdateValue;
+                return dateOfBirth;
             }
             set
             {
-                birthdateValue = value;
+                dateOfBirth = value;
             }
         }
 
@@ -256,11 +256,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return zoneInfoValue;
+                return zoneInformation;
             }
             set
             {
-                zoneInfoValue = value;
+                zoneInformation = value;
             }
         }
 
@@ -269,11 +269,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return localeValue;
+                return localeName;
             }
             set
             {
-                localeValue = value;
+                localeName = value;
             }
         }
 
@@ -282,11 +282,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return phone_numberValue;
+                return phoneNumber;
             }
             set
             {
-                phone_numberValue = value;
+                phoneNumber = value;
             }
         }
 
@@ -295,11 +295,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return addressValue;
+                return userAddress;
             }
             set
             {
-                addressValue = value;
+                userAddress = value;
             }
         }
         
@@ -308,11 +308,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return verified_accountValue;
+                return verifiedAccount;
             }
             set
             {
-                verified_accountValue = value;
+                verifiedAccount = value;
             }
         }
 
@@ -321,11 +321,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return account_typeValue;
+                return accountType;
             }
             set
             {
-                account_typeValue = value;
+                accountType = value;
             }
         }
         
@@ -334,11 +334,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return age_rangeValue;
+                return ageRange;
             }
             set
             {
-                age_rangeValue = value;
+                ageRange = value;
             }
         }
 
@@ -347,11 +347,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return payer_idValue;
+                return payerId;
             }
             set
             {
-                payer_idValue = value;
+                payerId = value;
             }
         }
 
@@ -368,7 +368,7 @@ namespace PayPal.OpenIdConnect
         {
             string pattern = "v1/identity/openidconnect/userinfo?schema={0}&access_token={1}";
             object[] parameters = new object[] { userInfoParams };
-            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+            string resourcePath = SDKUtil.FormatUriPath(pattern, parameters);
             string payload = string.Empty;
             return PayPalResource.ConfigureAndExecute<UserInfo>(null, HttpMethod.GET,
                     resourcePath, null, payload);
@@ -383,7 +383,7 @@ namespace PayPal.OpenIdConnect
         {
             string pattern = "v1/identity/openidconnect/userinfo?schema={0}&access_token={1}";
             object[] parameters = new object[] { userInfoParams };
-            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+            string resourcePath = SDKUtil.FormatUriPath(pattern, parameters);
             string payload = string.Empty;
             return PayPalResource.ConfigureAndExecute<UserInfo>(apiContext,
                     HttpMethod.GET, resourcePath, null, payload);

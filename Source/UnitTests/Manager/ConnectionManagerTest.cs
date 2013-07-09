@@ -31,7 +31,7 @@ namespace PayPal.NUnitTest
         }
 
         [Test, ExpectedException(typeof(ConfigException))]
-        public void CreateNewConnectionWithInvalidURL()
+        public void CreateNewConnectionWithInvalidUrl()
         {
             connectionMngr = ConnectionManager.Instance;
             httpRequest = connectionMngr.GetConnection(ConfigManager.Instance.GetProperties(), "Not a url");
@@ -62,7 +62,7 @@ namespace PayPal.UnitTest
 
         [TestMethod]
         [ExpectedException(typeof(ConfigException), "Invalid URI Not a url")]
-        public void CreateNewConnectionWithInvalidURL()
+        public void CreateNewConnectionWithInvalidUrl()
         {
             connectionMngr = ConnectionManager.Instance;
             httpRequest = connectionMngr.GetConnection(ConfigManager.Instance.GetProperties(), "Not a url");            

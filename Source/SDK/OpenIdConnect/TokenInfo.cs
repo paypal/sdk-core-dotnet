@@ -17,35 +17,40 @@ namespace PayPal.OpenIdConnect
     public class TokenInfo
     {
         /// <summary>
-        /// OPTIONAL, if identical to the scope requested by the client; otherwise, REQUIRED.
+        /// OPTIONAL, if identical to the scope requested by the client otherwise, REQUIRED
         /// </summary>
-        private string scopeValue;
+        private string scopeRequested;
 
         /// <summary>
-        /// The access token issued by the authorization server.
+        /// The access token issued by the authorization server
         /// </summary>
-        private string access_tokenValue;
+        private string accessToken;
 
         /// <summary>
-        /// The refresh token, which can be used to obtain new access tokens using the same authorization grant as described in OAuth2.0 RFC6749 in Section 6.
+        /// The refresh token, which can be used to obtain new access tokens using the same authorization grant as described in OAuth2.0 RFC6749 in Section 6
         /// </summary>
-        private string refresh_tokenValue;
+        private string refreshToken;
 
         /// <summary>
-        /// The type of the token issued as described in OAuth2.0 RFC6749 (Section 7.1).  Value is case insensitive.
+        /// The type of the token issued as described in OAuth2.0 RFC6749 (Section 7.1), value is case insensitive
         /// </summary>
-        private string token_typeValue;
+        private string tokenType;
+
+        /// <summary>
+        /// The lifetime in seconds of the access token
+        /// </summary>
+        private int expiresIn;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string scope
         {
             get
             {
-                return scopeValue;
+                return scopeRequested;
             }
             set
             {
-                scopeValue = value;
+                scopeRequested = value;
             }
         }
         
@@ -54,11 +59,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return access_tokenValue;
+                return accessToken;
             }
             set
             {
-                access_tokenValue = value;
+                accessToken = value;
             }
         }
 
@@ -67,11 +72,11 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return refresh_tokenValue;
+                return refreshToken;
             }
             set
             {
-                refresh_tokenValue = value;
+                refreshToken = value;
             }
         }
 
@@ -80,28 +85,24 @@ namespace PayPal.OpenIdConnect
         {
             get
             {
-                return token_typeValue;
+                return tokenType;
             }
             set
             {
-                token_typeValue = value;
+                tokenType = value;
             }
         }
-        /// <summary>
-        /// The lifetime in seconds of the access token.
-        /// </summary>
-        private int expires_inValue;
-
+       
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int expires_in
         {
             get
             {
-                return expires_inValue;
+                return expiresIn;
             }
             set
             {
-                expires_inValue = value;
+                expiresIn = value;
             }
         }
 
@@ -113,11 +114,11 @@ namespace PayPal.OpenIdConnect
         /// <summary>
         /// Constructor overload
         /// </summary>
-        public TokenInfo(string access_token, string token_type, int expires_in)
+        public TokenInfo(string accessToken, string tokenType, int expiresIn)
         {
-            this.access_token = access_token;
-            this.token_type = token_type;
-            this.expires_in = expires_in;
+            this.access_token = accessToken;
+            this.token_type = tokenType;
+            this.expires_in = expiresIn;
         }
 
         /// <summary>
@@ -128,13 +129,12 @@ namespace PayPal.OpenIdConnect
         {
             string pattern = "v1/identity/openidconnect/tokenservice ?grant_type={0}&code={1}&redirect_uri={2}";
             object[] parameters = new object[] { createFromAuthorizationCodeParameters };
-            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+            string resourcePath = SDKUtil.FormatUriPath(pattern, parameters);
             string payload = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
             resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
             Dictionary<string, string> headersMap = new Dictionary<string, string>();
             headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
-            return PayPalResource.ConfigureAndExecute<TokenInfo>(null, HttpMethod.POST,
-                    resourcePath, headersMap, payload);
+            return PayPalResource.ConfigureAndExecute<TokenInfo>(null, HttpMethod.POST,resourcePath, headersMap, payload);
         }
 
         /// <summary>
@@ -146,13 +146,12 @@ namespace PayPal.OpenIdConnect
         {
             string pattern = "v1/identity/openidconnect/tokenservice ?grant_type={0}&code={1}&redirect_uri={2}";
             object[] parameters = new object[] { createFromAuthorizationCodeParameters };
-            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+            string resourcePath = SDKUtil.FormatUriPath(pattern, parameters);
             string payload = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
             resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
             Dictionary<string, string> headersMap = new Dictionary<string, string>();
             headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
-            return PayPalResource.ConfigureAndExecute<TokenInfo>(apiContext, HttpMethod.POST,
-                    resourcePath, headersMap, payload);
+            return PayPalResource.ConfigureAndExecute<TokenInfo>(apiContext, HttpMethod.POST, resourcePath, headersMap, payload);
         }
 
         /// <summary>
@@ -164,13 +163,12 @@ namespace PayPal.OpenIdConnect
             string pattern = "v1/identity/openidconnect/tokenservice ?grant_type={0}&refresh_token={1}&scope={2}&client_id={3}&client_secret={4}";
             createFromRefreshTokenParameters.SetRefreshToken(HttpUtility.UrlEncode(refresh_token));
             object[] parameters = new object[] { createFromRefreshTokenParameters };
-            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+            string resourcePath = SDKUtil.FormatUriPath(pattern, parameters);
             string payload = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
             resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
             Dictionary<string, string> headersMap = new Dictionary<string, string>();
             headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
-            return PayPalResource.ConfigureAndExecute<TokenInfo>(null, HttpMethod.POST,
-                    resourcePath, headersMap, payload);
+            return PayPalResource.ConfigureAndExecute<TokenInfo>(null, HttpMethod.POST, resourcePath, headersMap, payload);
         }
 
         /// <summary>
@@ -183,13 +181,12 @@ namespace PayPal.OpenIdConnect
             string pattern = "v1/identity/openidconnect/tokenservice ?grant_type={0}&refresh_token={1}&scope={2}&client_id={3}&client_secret={4}";
             createFromRefreshTokenParameters.SetRefreshToken(HttpUtility.UrlEncode(refresh_token));
             object[] parameters = new object[] { createFromRefreshTokenParameters };
-            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+            string resourcePath = SDKUtil.FormatUriPath(pattern, parameters);
             string payload = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
             resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
             Dictionary<string, string> headersMap = new Dictionary<string, string>();
             headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
-            return PayPalResource.ConfigureAndExecute<TokenInfo>(apiContext,
-                    HttpMethod.POST, resourcePath, headersMap, payload);
+            return PayPalResource.ConfigureAndExecute<TokenInfo>(apiContext, HttpMethod.POST, resourcePath, headersMap, payload);
         }
     }
 }

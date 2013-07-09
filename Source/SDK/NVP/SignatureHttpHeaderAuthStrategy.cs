@@ -25,7 +25,7 @@ namespace PayPal.NVP
         /// SignatureHttpHeaderAuthStrategy
         /// </summary>
         /// <param name="endPointUrl"></param>
-        public SignatureHttpHeaderAuthStrategy(string endpointURL) : base(endpointURL) { }
+        public SignatureHttpHeaderAuthStrategy(string endpointUrl) : base(endpointUrl) { }
         	    
         /// <summary>
         /// Processing TokenAuthorization} using SignatureCredential
@@ -45,8 +45,8 @@ namespace PayPal.NVP
                 generatorOAuth.SetTokenSecret(tokenAuthorize.AccessTokenSecret);
                 string tokenTimeStamp = Timestamp;
                 generatorOAuth.SetTokenTimestamp(tokenTimeStamp);
-                logger.Debug("token = " + tokenAuthorize.AccessToken + " tokenSecret=" + tokenAuthorize.AccessTokenSecret + " uri=" + endpointURL);
-                generatorOAuth.SetRequestURI(endpointURL);
+                logger.Debug("token = " + tokenAuthorize.AccessToken + " tokenSecret=" + tokenAuthorize.AccessTokenSecret + " uri=" + endpointUrl);
+                generatorOAuth.SetRequestUri(endpointUrl);
 
                 //Compute Signature
                 string sign = generatorOAuth.ComputeSignature();

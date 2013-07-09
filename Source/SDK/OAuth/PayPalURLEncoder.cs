@@ -3,7 +3,7 @@ using System.Text;
 
 namespace PayPal.OAuth
 {
-    public class PayPalURLEncoder
+    public class PayPalUrlEncoder
     {
         public const string Digits = "0123456789abcdef";
 

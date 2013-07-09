@@ -9,7 +9,7 @@ namespace PayPal
         /// <summary>
         /// Endpoint url
         /// </summary>
-        protected string endpointURL;
+        protected string endpointUrl;
 
         /// <summary>
         /// AbstractCertificateHttpHeaderAuthStrategy constructor
@@ -17,7 +17,7 @@ namespace PayPal
         /// <param name="endpointUrl"></param>
         public AbstractCertificateHttpHeaderAuthStrategy(string endpointUrl)
         {
-            this.endpointURL = endpointUrl;
+            this.endpointUrl = endpointUrl;
         }
 
         /// <summary>
