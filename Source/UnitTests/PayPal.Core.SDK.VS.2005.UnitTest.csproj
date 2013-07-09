@@ -49,7 +49,6 @@
     <Compile Include="NVP\CertificateHttpHeaderAuthStrategyNVPTest.cs" />
     <Compile Include="NVP\PlatformAPICallPreHandlerTest.cs" />
     <Compile Include="NVP\SignatureHttpHeaderAuthStrategyNVPTest.cs" />
-    <Compile Include="OpenIdTest.cs" />
     <Compile Include="SOAP\CertificateHttpHeaderAuthStrategyTest.cs" />
     <Compile Include="SOAP\CertificateSOAPHeaderAuthStrategyTest.cs" />
     <Compile Include="SOAP\MerchantAPICallPreHandlerTest.cs" />
@@ -57,14 +56,14 @@
     <Compile Include="SOAP\SignatureSOAPHeaderAuthStrategyTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="PayPal.Core.SDK.VS.2005.csproj">
+    <None Include="App.config" />
+    <None Include="Resources\sdk-cert.p12" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SDK\PayPal.Core.SDK.VS.2005.csproj">
       <Project>{7CD6456F-7828-45EA-90A1-C1E26900C476}</Project>
       <Name>PayPal.Core.SDK.VS.2005</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="Resources\sdk-cert.p12" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
