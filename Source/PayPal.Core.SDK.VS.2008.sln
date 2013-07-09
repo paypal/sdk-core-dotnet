@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayPal.Core.SDK.VS.2008", "PayPal.Core.SDK.VS.2008.csproj", "{C8310F61-1725-4992-BB9D-C7F7031F47E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayPal.Core.SDK.VS.2008", "SDK\PayPal.Core.SDK.VS.2008.csproj", "{C8310F61-1725-4992-BB9D-C7F7031F47E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayPal.Core.SDK.VS.2008.UnitTest", "PayPal.Core.SDK.VS.2008.UnitTest.csproj", "{424358F6-7044-4ECC-9B7F-60CE51B3899E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayPal.Core.SDK.VS.2008.UnitTest", "UnitTests\PayPal.Core.SDK.VS.2008.UnitTest.csproj", "{424358F6-7044-4ECC-9B7F-60CE51B3899E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

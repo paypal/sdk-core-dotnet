@@ -133,9 +133,9 @@ Go to Solution Explorer and note the existing references
 
 After successful installation, note that the new references get added automatically
 
-After successful installation, note that the dependencies are downloaded and installed to the Packages folder of the project directory - Select the project and click Show All Files, and expand the Packages folder
+After successful installation, note that the dependencies are downloaded and installed to the 'packages' folder of the project directory - Select the project and click Show All Files, and expand the 'packages' folder
 
-If the Packages folder was not included in the project - Select the project, click Show All Files, and expand the packages folder
+If the 'packages' folder was not included in the project - Select the project, click Show All Files, and expand the 'packages' folder
 
 Also, go to Menu -> Tools -> Library Package Manager, select Manage NuGet Packages for Solution
 
@@ -220,7 +220,7 @@ Command (Having set the Environment Variables Path): NuGet.exe
 Arguments: install your.package.name -outputDirectory .\packages
 
 Ensure the following:
-Initial directory: Select Project Directory i.e., $(ProjectDir)
+Initial directory: Select Project Directory i.e., $(ProjectDir) or Select Solution Directory i.e., $(SolutionDir)
 Use Output window: Check
 Prompt for arguments: Check
 
@@ -262,32 +262,21 @@ Click the NuGet Toolbar Install Package
 
 Clicking on the NuGet Toolbar Install Package will pop up for NuGet Install Arguments and Command Line
 
-NuGet Install: PayPalAdaptiveAccountsSDK
-
 Enter Arguments: 
-install log4net -OutputDirectory .\packages
- 
+Install log4net -OutputDirectory .\packages
+
+On clicking OK, the output window should display: "Successfully installed"
+
 Menu View -> Output (Ctrl+Alt+O)
  
-After successful installation, note that the dependencies are downloaded and installed to the Packages folder of the Project Directory i.e., $(ProjectDir) - Select the project and click Show All Files, and expand the Packages folder
+After successful installation, note that the dependencies are downloaded and installed to the 'packages' folder of the Project Directory i.e., $(ProjectDir) or Select Solution Directory i.e., $(SolutionDir) - Select the project and click Show All Files, and expand the 'packages' folder
 
-If the Packages folder was not included in the project - Select the project, click Show All Files, and expand the Packages folder
+If the 'packages' folder was not included in the project - Select the project, click Show All Files, and expand the 'packages' folder
 
-Add the references to the dependencies downloaded and installed to the Packages folder
+Add the references to the dependencies downloaded and installed to the 'packages' folder
 
 Caution:
-If Solution got selected during NuGet Install, the package will not be installed to Project Directory i.e., $(ProjectDir), instead it will be downloaded to the Visual Studio IDE folder for which access may be denied depending on the folder permissions
-
-Access to the path, 'C:\Program Files (x86)\Microsoft Visual Studio 8\Common7\IDE\Packages\log4net\lib\1.0' is denied
-
-The package installed to wrong folder, 'C:\Program Files (x86)\Microsoft Visual Studio 8\Common7\IDE'
-
-PayPal Packages in NuGet Gallery
-
-Enter Arguments:
-install log4net -OutputDirectory .\packages
- 
-On clicking OK, the output window should display: "Successfully installed"
+If Solution (.sln) has focus instead of Project (.csproj) during NuGet Install (having Initial directory selected as Project Directory i.e., $(ProjectDir)), the package will not be installed to Project Directory, instead it will be downloaded to the Visual Studio IDE folder for which access may be denied depending on the folder permissions
 
 
 Unit Test

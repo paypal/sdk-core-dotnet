@@ -1,26 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>
-    </ProductVersion>
+    <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{38C18868-538A-4A6E-A242-59B5E07E2FCD}</ProjectGuid>
+    <ProjectGuid>{9D24D054-4203-429A-835B-7C42B06030A2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PayPal.UnitTest</RootNamespace>
-    <AssemblyName>PayPalCoreSDKVS2010UnitTest</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <RootNamespace>PayPal.NUnit</RootNamespace>
+    <AssemblyName>PayPalCoreSDKVS2005NUnitTest</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET_4_0</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NUnit</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -28,38 +23,19 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;NUnit</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <HintPath>packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Management" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-  </ItemGroup>
-  <ItemGroup>
-    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
-      <Visible>False</Visible>
-    </CodeAnalysisDependentAssemblyPaths>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIServiceTest.cs" />
@@ -67,18 +43,16 @@
     <Compile Include="Authentication\SignatureCredentialTest.cs" />
     <Compile Include="Authentication\SubjectAuthorizationTest .cs" />
     <Compile Include="Authentication\TokenAuthorizationTest.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="DefaultSOAPAPICallHandlerTest.cs" />
     <Compile Include="IPNMessageTest.cs" />
-    <Compile Include="Manager\ConfigManagerTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Manager\ConfigManagerTest.cs" />
     <Compile Include="Manager\ConnectionManagerTest.cs" />
     <Compile Include="Manager\CredentialManagerTest.cs" />
     <Compile Include="NVP\CertificateHttpHeaderAuthStrategyNVPTest.cs" />
     <Compile Include="NVP\PlatformAPICallPreHandlerTest.cs" />
     <Compile Include="NVP\SignatureHttpHeaderAuthStrategyNVPTest.cs" />
     <Compile Include="OpenIdTest.cs" />
-    <Compile Include="Constants.cs" />
     <Compile Include="SOAP\CertificateHttpHeaderAuthStrategyTest.cs" />
     <Compile Include="SOAP\CertificateSOAPHeaderAuthStrategyTest.cs" />
     <Compile Include="SOAP\MerchantAPICallPreHandlerTest.cs" />
@@ -86,16 +60,17 @@
     <Compile Include="SOAP\SignatureSOAPHeaderAuthStrategyTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <ProjectReference Include="PayPal.Core.SDK.VS.2005.csproj">
+      <Project>{7CD6456F-7828-45EA-90A1-C1E26900C476}</Project>
+      <Name>PayPal.Core.SDK.VS.2005</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
     <None Include="Resources\sdk-cert.p12" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="PayPal.Core.SDK.VS.2010.csproj">
-      <Project>{1BD91BCF-1DDF-4F1F-A510-C9F4001A50A8}</Project>
-      <Name>PayPal.Core.SDK.VS.2010</Name>
-    </ProjectReference>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

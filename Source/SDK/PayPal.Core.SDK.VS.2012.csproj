@@ -10,32 +10,35 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PayPal</RootNamespace>
     <AssemblyName>PayPalCoreSDK</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Build\bin\Debug\.NET Framework 4.0\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET_4_0</DefineConstants>
+    <OutputPath>..\Build\bin\Debug\.NET Framework 4.5\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET_4_5</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\Build\bin\Release\.NET Framework 4.0\</OutputPath>
-    <DefineConstants>TRACE;NET_4_0</DefineConstants>
+    <OutputPath>..\Build\bin\Release\.NET Framework 4.5\</OutputPath>
+    <DefineConstants>TRACE;NET_4_5</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
-      <HintPath>packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -85,15 +88,15 @@
     <Compile Include="OAuthTokenCredential.cs" />
     <Compile Include="OAuth\OAuthGenerator.cs" />
     <Compile Include="OAuth\PayPalURLEncoder.cs" />
+    <Compile Include="OpenIdConnect\Address.cs" />
+    <Compile Include="OpenIdConnect\CreateFromAuthorizationCodeParameters.cs" />
+    <Compile Include="OpenIdConnect\CreateFromRefreshTokenParameters.cs" />
+    <Compile Include="OpenIdConnect\Error.cs" />
+    <Compile Include="OpenIdConnect\Session.cs" />
+    <Compile Include="OpenIdConnect\TokenInfo.cs" />
+    <Compile Include="OpenIdConnect\UserInfo.cs" />
+    <Compile Include="OpenIdConnect\UserInfoParameters.cs" />
     <Compile Include="PayPalResource.cs" />
-    <Compile Include="PayPal\OpenIdConnect\Address.cs" />
-    <Compile Include="PayPal\OpenIdConnect\CreateFromAuthorizationCodeParameters.cs" />
-    <Compile Include="PayPal\OpenIdConnect\CreateFromRefreshTokenParameters.cs" />
-    <Compile Include="PayPal\OpenIdConnect\Error.cs" />
-    <Compile Include="PayPal\OpenIdConnect\Session.cs" />
-    <Compile Include="PayPal\OpenIdConnect\TokenInfo.cs" />
-    <Compile Include="PayPal\OpenIdConnect\UserInfo.cs" />
-    <Compile Include="PayPal\OpenIdConnect\UserInfoParameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RESTConfiguration.cs" />
     <Compile Include="SOAP\CertificateHttpHeaderAuthStrategy.cs" />
@@ -107,6 +110,9 @@
     <Compile Include="Util\ReflectionEnumUtil.cs" />
     <Compile Include="Util\ReflectionUtil.cs" />
     <Compile Include="Util\SDKUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
