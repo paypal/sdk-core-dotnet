@@ -125,9 +125,12 @@ namespace PayPal.OpenidConnect
 		string payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
 		resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
 		Dictionary<string, string> headersMap = new Dictionary<string, string>();
-		headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
-		return PayPalResource.ConfigureAndExecute<Tokeninfo>(null, HttpMethod.POST,
-				resourcePath, headersMap, payLoad);
+       	headersMap.Add(BaseConstants.CONTENT_TYPE_HEADER, "application/x-www-form-urlencoded");
+        APIContext apiContext = new APIContext();
+        apiContext.HeadersMap = headersMap;
+        apiContext.MaskRequestId = true;
+		return PayPalResource.ConfigureAndExecute<Tokeninfo>(apiContext, HttpMethod.POST,
+				resourcePath, payLoad);
 	}
 
 	/// <summary>
@@ -143,9 +146,11 @@ namespace PayPal.OpenidConnect
 		string payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
 		resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
 		Dictionary<string, string> headersMap = new Dictionary<string, string>();
-		headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
+        headersMap.Add(BaseConstants.CONTENT_TYPE_HEADER, "application/x-www-form-urlencoded");
+        apiContext.HeadersMap = headersMap;
+        apiContext.MaskRequestId = true;
 		return PayPalResource.ConfigureAndExecute<Tokeninfo>(apiContext, HttpMethod.POST,
-				resourcePath, headersMap, payLoad);
+				resourcePath, payLoad);
 	}
 
 	/// <summary>
@@ -161,9 +166,12 @@ namespace PayPal.OpenidConnect
 		string payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
 		resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
 		Dictionary<string, string> headersMap = new Dictionary<string, string>();
-		headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
-		return PayPalResource.ConfigureAndExecute<Tokeninfo>(null, HttpMethod.POST,
-				resourcePath, headersMap, payLoad);
+        headersMap.Add(BaseConstants.CONTENT_TYPE_HEADER, "application/x-www-form-urlencoded");
+        APIContext apiContext = new APIContext();
+        apiContext.HeadersMap = headersMap;
+        apiContext.MaskRequestId = true;
+		return PayPalResource.ConfigureAndExecute<Tokeninfo>(apiContext, HttpMethod.POST,
+				resourcePath, payLoad);
 	}
 
 	/// <summary>
@@ -180,9 +188,11 @@ namespace PayPal.OpenidConnect
 		string payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
 		resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
 		Dictionary<string, string> headersMap = new Dictionary<string, string>();
-		headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
+        headersMap.Add(BaseConstants.CONTENT_TYPE_HEADER, "application/x-www-form-urlencoded");
+        apiContext.HeadersMap = headersMap;
+        apiContext.MaskRequestId = true;
 		return PayPalResource.ConfigureAndExecute<Tokeninfo>(apiContext,
-				HttpMethod.POST, resourcePath, headersMap, payLoad);
+				HttpMethod.POST, resourcePath, payLoad);
 	}
 	}
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
 using PayPal.OpenidConnect;
+using PayPal.Exception;
 
 namespace PayPal.Util
 {
@@ -45,6 +46,74 @@ namespace PayPal.Util
 
             // Process the resultant string for removing nulls
             return RemoveNullsFromQueryString(formatString);
+        }
+
+        /// <summary>
+        /// Formats the URI path for REST calls. Replaces any occurrences of the form
+        /// {name} in pattern with the corresponding value of key name in the passed
+        /// Dictionary
+        /// </summary>
+        /// <param name="pattern">URI pattern with named place holders</param>
+        /// <param name="pathParameters">Dictionary</param>
+        /// <returns>Processed URI path</returns>
+        public static string FormatURIPath(string pattern, Dictionary<string, string> pathParameters)
+        {
+            return FormatURIPath(pattern, pathParameters, null);
+        }
+
+        /// <summary>
+        /// Formats the URI path for REST calls. Replaces any occurrences of the form
+        /// {name} in pattern with the corresponding value of key name in the passed
+        /// Dictionary. Query parameters are appended to the end of the URI path
+        /// </summary>
+        /// <param name="pattern">URI pattern with named place holders</param>
+        /// <param name="pathParameters">Dictionary of Path parameters</param>
+        /// <param name="queryParameters">Dictionary for Query parameters</param>
+        /// <returns>Processed URI path</returns>
+        public static string FormatURIPath(string pattern, Dictionary<string, string> pathParameters, Dictionary<string, string> queryParameters)
+        {
+            string formattedURIPath = null;
+            if (!String.IsNullOrEmpty(pattern) && pathParameters != null && pathParameters.Count > 0)
+            {
+                foreach (KeyValuePair<string, string> entry in pathParameters)
+                {
+                    // do something with entry.Value or entry.Key
+                    string placeHolderName = "{" + entry.Key.Trim() + "}";
+                    if (pattern.Contains(placeHolderName))
+                    {
+                        pattern = pattern.Replace(placeHolderName, entry.Value.Trim());
+                    }
+                }
+            }
+            formattedURIPath = pattern;
+            if (queryParameters != null && queryParameters.Count > 0)
+            {
+                StringBuilder stringBuilder = new StringBuilder(formattedURIPath);
+                if (stringBuilder.ToString().Contains("?"))
+                {
+                    if (!(stringBuilder.ToString().EndsWith("?") || stringBuilder.ToString().EndsWith("&")))
+                    {
+                        stringBuilder.Append("&");
+                    }
+                }
+                else
+                {
+                    stringBuilder.Append("?");
+                }
+                foreach (KeyValuePair<string, string> entry in queryParameters)
+                {
+                    stringBuilder.Append(HttpUtility.UrlEncode(entry.Key, Encoding.UTF8)).Append("=").Append(HttpUtility.UrlEncode(entry.Value, Encoding.UTF8)).Append("&");
+                }
+                formattedURIPath = stringBuilder.ToString();
+            }
+            if (formattedURIPath.Contains("{") || formattedURIPath.Contains("}"))
+            {
+                throw new PayPalException("Unable to formatURI Path : "
+                    + formattedURIPath
+                    + ", unable to replace placeholders with the map : "
+                    + pathParameters);
+            }
+            return formattedURIPath;
         }
 
         private static string RemoveNullsFromQueryString(string formatString)

@@ -351,8 +351,10 @@ namespace PayPal.OpenidConnect
 		object[] parameters = new object[] { userinfoParameters };
 		string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
 		string payLoad = "";
-		return PayPalResource.ConfigureAndExecute<Userinfo>(null, HttpMethod.GET,
-				resourcePath, null, payLoad);
+        APIContext apiContext = new APIContext();
+        apiContext.MaskRequestId = true;
+        return PayPalResource.ConfigureAndExecute<Userinfo>(apiContext, HttpMethod.GET,
+				resourcePath, payLoad);
 	}
 
 	/// <summary>
@@ -367,7 +369,7 @@ namespace PayPal.OpenidConnect
 		string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
 		string payLoad = "";
 		return PayPalResource.ConfigureAndExecute<Userinfo>(apiContext,
-				HttpMethod.GET, resourcePath, null, payLoad);
+				HttpMethod.GET, resourcePath, payLoad);
 	}
 	}
 }

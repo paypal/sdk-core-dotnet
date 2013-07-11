@@ -79,7 +79,7 @@
     <Compile Include="PayPal\OpenidConnect\Tokeninfo.cs" />
     <Compile Include="PayPal\OpenidConnect\Userinfo.cs" />
     <Compile Include="PayPal\OpenidConnect\UserinfoParameters.cs" />
-    <Compile Include="RESTConfiguration.cs" />
+    <Compile Include="RESTAPICallPreHandler.cs" />
     <Compile Include="SOAP\CertificateHttpHeaderAuthStrategy.cs" />
     <Compile Include="SOAP\CertificateSOAPHeaderAuthStrategy.cs" />
     <Compile Include="BaseConstants.cs" />
@@ -100,6 +100,7 @@
     <Compile Include="SOAP\SignatureSOAPHeaderAuthStrategy.cs" />
     <Compile Include="SOAP\MerchantAPICallPreHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserAgentHeader.cs" />
     <Compile Include="Util\NVPUtil.cs">
       <SubType>Code</SubType>
     </Compile>

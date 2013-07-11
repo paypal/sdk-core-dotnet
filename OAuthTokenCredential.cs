@@ -178,12 +178,16 @@ namespace PayPal
                 httpRequest.Method = "POST";
                 httpRequest.Accept = "*/*";
                 httpRequest.ContentType = "application/x-www-form-urlencoded";
-                httpRequest.UserAgent = RESTConfiguration.FormUserAgentHeader();
+                UserAgentHeader userAgentHeader = new UserAgentHeader(PayPalResource.SdkID, PayPalResource.SdkVersion);
+                Dictionary<string, string> userAgentMap = userAgentHeader.GetHeader();
+                foreach (KeyValuePair<string, string> entry in userAgentMap)
+                {
+                    httpRequest.UserAgent = entry.Value;
+                }
                 foreach (KeyValuePair<string, string> header in headers)
                 {
                     httpRequest.Headers.Add(header.Key, header.Value);
                 }
-
                 HttpConnection httpConnection = new HttpConnection(config);
                 response = httpConnection.Execute(postRequest, httpRequest);
                 JObject deserializedObject = (JObject)JsonConvert.DeserializeObject(response);
