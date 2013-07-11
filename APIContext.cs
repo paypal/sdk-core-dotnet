@@ -25,6 +25,8 @@ namespace PayPal
         /// </summary>
         private Dictionary<string, string> configValue;
 
+        private Dictionary<string, string> httpHeaders;
+
         public APIContext()
         {
 
@@ -104,6 +106,18 @@ namespace PayPal
             set
             {
                 this.configValue = value;
+            }
+        }
+
+        public Dictionary<string, string> HeadersMap
+        {
+            get
+            {
+                return httpHeaders;
+            }
+            set
+            {
+                this.httpHeaders = value;
             }
         }
     }

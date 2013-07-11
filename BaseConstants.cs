@@ -137,6 +137,16 @@ namespace PayPal
 
         public const string OAUTH_ENDPOINT = "oauth.EndPoint";
 
+        public const string USER_AGENT_HEADER = "User-Agent";
+
+        public const string CONTENT_TYPE_HEADER = "Content-Type";
+
+        public const string CONTENT_TYPE_JSON = "application/json";
+
+        public const string AUTHORIZATION_HEADER = "Authorization";
+
+        public const string PAYPAL_REQUEST_ID_HEADER = "PayPal-Request-Id";
+
 
         public static class ErrorMessages
         {
