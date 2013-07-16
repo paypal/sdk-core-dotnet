@@ -184,7 +184,12 @@ namespace PayPal
             httpRequest.Method = "POST";
             httpRequest.Accept = "*/*";
             httpRequest.ContentType = "application/x-www-form-urlencoded";
-            httpRequest.UserAgent = RESTConfiguration.FormUserAgentHeader();
+            UserAgentHeader userAgentHeader = new UserAgentHeader(PayPalResource.SDKId, PayPalResource.SDKVersion);
+            Dictionary<string, string> userAgentMap = userAgentHeader.GetHeader();
+            foreach (KeyValuePair<string, string> entry in userAgentMap)
+            {
+                httpRequest.UserAgent = entry.Value;
+            }
             foreach (KeyValuePair<string, string> header in headers)
             {
                 httpRequest.Headers.Add(header.Key, header.Value);

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace PayPal.OpenIdConnect
 {
-    public class UserInfoParameters
+    public class UserinfoParameters
     {
         /// <summary>
         /// Schema used in query parameters
@@ -22,7 +22,7 @@ namespace PayPal.OpenIdConnect
         /// </summary>
         private Dictionary<string, string> mapContainer;
 
-        public UserInfoParameters()
+        public UserinfoParameters()
         {
             ContainerMap = new Dictionary<string, string>();
             ContainerMap.Add(Schema, "openid");

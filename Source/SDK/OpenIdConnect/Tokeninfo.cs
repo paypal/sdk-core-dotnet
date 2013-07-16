@@ -14,7 +14,7 @@ using PayPal.Util;
 
 namespace PayPal.OpenIdConnect
 {
-    public class TokenInfo
+    public class Tokeninfo
     {
         /// <summary>
         /// OPTIONAL, if identical to the scope requested by the client otherwise, REQUIRED
@@ -109,12 +109,12 @@ namespace PayPal.OpenIdConnect
         /// <summary>
         /// Explicit default constructor
         /// </summary>
-        public TokenInfo() { }
+        public Tokeninfo() { }
 
         /// <summary>
         /// Constructor overload
         /// </summary>
-        public TokenInfo(string accessToken, string tokenType, int expiresIn)
+        public Tokeninfo(string accessToken, string tokenType, int expiresIn)
         {
             this.access_token = accessToken;
             this.token_type = tokenType;
@@ -125,7 +125,7 @@ namespace PayPal.OpenIdConnect
         /// Creates an Access Token from an Authorization Code.
         /// <param name="createFromAuthorizationCodeParameters">Query parameters used for API call</param>
         /// </summary>
-        public static TokenInfo CreateFromAuthorizationCode(CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters)
+        public static Tokeninfo CreateFromAuthorizationCode(CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters)
         {
             string pattern = "v1/identity/openidconnect/tokenservice ?grant_type={0}&code={1}&redirect_uri={2}";
             object[] parameters = new object[] { createFromAuthorizationCodeParameters };
@@ -134,7 +134,7 @@ namespace PayPal.OpenIdConnect
             resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
             Dictionary<string, string> headersMap = new Dictionary<string, string>();
             headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
-            return PayPalResource.ConfigureAndExecute<TokenInfo>(null, HttpMethod.POST,resourcePath, headersMap, payload);
+            return PayPalResource.ConfigureAndExecute<Tokeninfo>(null, HttpMethod.POST,resourcePath, headersMap, payload);
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace PayPal.OpenIdConnect
         /// <param name="apiContext">APIContext to be used for the call.</param>
         /// <param name="createFromAuthorizationCodeParameters">Query parameters used for API call</param>
         /// </summary>
-        public static TokenInfo CreateFromAuthorizationCode(APIContext apiContext, CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters)
+        public static Tokeninfo CreateFromAuthorizationCode(APIContext apiContext, CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters)
         {
             string pattern = "v1/identity/openidconnect/tokenservice ?grant_type={0}&code={1}&redirect_uri={2}";
             object[] parameters = new object[] { createFromAuthorizationCodeParameters };
@@ -151,14 +151,14 @@ namespace PayPal.OpenIdConnect
             resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
             Dictionary<string, string> headersMap = new Dictionary<string, string>();
             headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
-            return PayPalResource.ConfigureAndExecute<TokenInfo>(apiContext, HttpMethod.POST, resourcePath, headersMap, payload);
+            return PayPalResource.ConfigureAndExecute<Tokeninfo>(apiContext, HttpMethod.POST, resourcePath, headersMap, payload);
         }
 
         /// <summary>
         /// Creates an Access Token from an Refresh Token.
         /// <param name="createFromRefreshTokenParameters">Query parameters used for API call</param>
         /// </summary>
-        public TokenInfo CreateFromRefreshToken(CreateFromRefreshTokenParameters createFromRefreshTokenParameters)
+        public Tokeninfo CreateFromRefreshToken(CreateFromRefreshTokenParameters createFromRefreshTokenParameters)
         {
             string pattern = "v1/identity/openidconnect/tokenservice ?grant_type={0}&refresh_token={1}&scope={2}&client_id={3}&client_secret={4}";
             createFromRefreshTokenParameters.SetRefreshToken(HttpUtility.UrlEncode(refresh_token));
@@ -168,7 +168,7 @@ namespace PayPal.OpenIdConnect
             resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
             Dictionary<string, string> headersMap = new Dictionary<string, string>();
             headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
-            return PayPalResource.ConfigureAndExecute<TokenInfo>(null, HttpMethod.POST, resourcePath, headersMap, payload);
+            return PayPalResource.ConfigureAndExecute<Tokeninfo>(null, HttpMethod.POST, resourcePath, headersMap, payload);
         }
 
         /// <summary>
@@ -176,7 +176,7 @@ namespace PayPal.OpenIdConnect
         /// <param name="apiContext">APIContext to be used for the call</param>
         /// <param name="createFromRefreshTokenParameters">Query parameters used for API call</param>
         /// </summary>
-        public TokenInfo CreateFromRefreshToken(APIContext apiContext, CreateFromRefreshTokenParameters createFromRefreshTokenParameters)
+        public Tokeninfo CreateFromRefreshToken(APIContext apiContext, CreateFromRefreshTokenParameters createFromRefreshTokenParameters)
         {
             string pattern = "v1/identity/openidconnect/tokenservice ?grant_type={0}&refresh_token={1}&scope={2}&client_id={3}&client_secret={4}";
             createFromRefreshTokenParameters.SetRefreshToken(HttpUtility.UrlEncode(refresh_token));
@@ -186,7 +186,7 @@ namespace PayPal.OpenIdConnect
             resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
             Dictionary<string, string> headersMap = new Dictionary<string, string>();
             headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
-            return PayPalResource.ConfigureAndExecute<TokenInfo>(apiContext, HttpMethod.POST, resourcePath, headersMap, payload);
+            return PayPalResource.ConfigureAndExecute<Tokeninfo>(apiContext, HttpMethod.POST, resourcePath, headersMap, payload);
         }
     }
 }

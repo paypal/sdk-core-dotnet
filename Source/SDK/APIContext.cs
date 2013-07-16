@@ -26,6 +26,11 @@ namespace PayPal
         private Dictionary<string, string> dynamicConfig;
 
         /// <summary>
+        /// HTTP Headers
+        /// </summary>
+        private Dictionary<string, string> httpHeaders;
+
+        /// <summary>
         /// Explicit default constructor
         /// </summary>
         public APIContext() { }
@@ -116,6 +121,21 @@ namespace PayPal
             set
             {
                 this.dynamicConfig = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets and sets HTTP Headers
+        /// </summary>
+        public Dictionary<string, string> HeadersMap
+        {
+            get
+            {
+                return this.httpHeaders;
+            }
+            set
+            {
+                this.httpHeaders = value;
             }
         }
     }

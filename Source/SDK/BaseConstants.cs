@@ -59,8 +59,10 @@ namespace PayPal
         // PayPal Sandbox Email Address Header
         public const string PayPalSandboxEmailAddressHeader = "X-PAYPAL-SANDBOX-EMAIL-ADDRESS";
 
-        // Allowed application modes
+        // Allowed application mode - Live
         public const string LiveMode = "live";
+
+        // Allowe application mode - sandbox
         public const string SandboxMode = "sandbox";
 
         // Endpoints for various APIs        
@@ -130,11 +132,29 @@ namespace PayPal
         // Configuration key suffix for Client Secret
         public const string ClientSecret = "clientSecret";
 
+        // OpenId Redirect URI config key
         public const string OpenIdRedirectUri = "openid.RedirectUri";
 
+        // OpenId Redirect URI default value
         public const string OpenIdRedirectUriConstant = "https://www.paypal.com/webapps/auth/protocol/openidconnect";
 
+        // OAuth endpoint config key
         public const string OAuthEndpoint = "oauth.EndPoint";
+
+        // User Agent HTTP Header
+        public const string USER_AGENT_HEADER = "User-Agent";
+
+        // Content Type HTTP Header
+        public const string CONTENT_TYPE_HEADER = "Content-Type";
+
+        // Application - Json Content Type
+        public const string CONTENT_TYPE_JSON = "application/json";
+
+        // Authorization HTTP Header
+        public const string AUTHORIZATION_HEADER = "Authorization";
+
+        // PayPal Request Id HTTP Header
+        public const string PAYPAL_REQUEST_ID_HEADER = "PayPal-Request-Id";
         
         public static class ErrorMessages
         {

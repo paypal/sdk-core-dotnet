@@ -12,7 +12,7 @@ using PayPal.Util;
 
 namespace PayPal.OpenIdConnect
 {
-    public class UserInfo
+    public class Userinfo
     {
         /// <summary>
         /// Subject - Identifier for the End-User at the Issuer
@@ -358,19 +358,19 @@ namespace PayPal.OpenIdConnect
         /// <summary>
         /// Explicit default constructor
         /// </summary>
-        public UserInfo() { }
+        public Userinfo() { }
 
         /// <summary>
         /// Returns user details
         /// <param name="userInfoParams">Query parameters used for API call</param>
         /// </summary>
-        public static UserInfo GetUserInfo(UserInfoParameters userInfoParams)
+        public static Userinfo GetUserInfo(UserinfoParameters userInfoParams)
         {
             string pattern = "v1/identity/openidconnect/userinfo?schema={0}&access_token={1}";
             object[] parameters = new object[] { userInfoParams };
             string resourcePath = SDKUtil.FormatUriPath(pattern, parameters);
             string payload = string.Empty;
-            return PayPalResource.ConfigureAndExecute<UserInfo>(null, HttpMethod.GET,
+            return PayPalResource.ConfigureAndExecute<Userinfo>(null, HttpMethod.GET,
                     resourcePath, null, payload);
         }
 
@@ -379,13 +379,13 @@ namespace PayPal.OpenIdConnect
         /// <param name="apiContext">APIContext to be used for the call.</param>
         /// <param name="userInfoParams">Query parameters used for API call</param>
         /// </summary>
-        public static UserInfo GetUserInfo(APIContext apiContext, UserInfoParameters userInfoParams)
+        public static Userinfo GetUserInfo(APIContext apiContext, UserinfoParameters userInfoParams)
         {
             string pattern = "v1/identity/openidconnect/userinfo?schema={0}&access_token={1}";
             object[] parameters = new object[] { userInfoParams };
             string resourcePath = SDKUtil.FormatUriPath(pattern, parameters);
             string payload = string.Empty;
-            return PayPalResource.ConfigureAndExecute<UserInfo>(apiContext,
+            return PayPalResource.ConfigureAndExecute<Userinfo>(apiContext,
                     HttpMethod.GET, resourcePath, null, payload);
         }
     }
