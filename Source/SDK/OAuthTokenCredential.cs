@@ -26,6 +26,13 @@ using PayPal.Manager;
 
 namespace PayPal
 {
+    /// <summary>
+    /// OAuthTokenCredential is used for generation of OAuth Token used by PayPal
+    /// REST API service. clientId and clientSecret are required by the class to
+    /// generate OAuth Token, the resulting token is of the form "Bearer xxxxxx". The
+    /// class has two constructors, one of it taking an additional Dictionary
+    /// used for dynamic configuration.
+    /// </summary>
     public class OAuthTokenCredential
     {
         private const string OAuthTokenPath = "/v1/oauth2/token";
@@ -93,7 +100,7 @@ namespace PayPal
             this.clientSecret = clientSecret;
             if (config != null)
             {
-                ConfigManager.GetConfigWithDefaults(config);
+                this.config = ConfigManager.GetConfigWithDefaults(config);
             }
             else
             {

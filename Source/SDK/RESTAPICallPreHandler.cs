@@ -8,6 +8,10 @@ using System.Runtime.InteropServices;
 
 namespace PayPal
 {
+    /// <summary>
+    /// RESTApiCallPreHandler requires a configuration system to function properly. Pass
+    /// a config Dictionary for dynamic configuration.
+    /// </summary>
     public class RESTAPICallPreHandler : IAPICallPreHandler
     {
         /// <summary>
