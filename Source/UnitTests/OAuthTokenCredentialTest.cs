@@ -1,8 +1,11 @@
 ﻿using PayPal;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 
+#if NUnit
+
+#else
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace PayPal.UnitTest
 {
     
@@ -34,7 +37,7 @@ namespace PayPal.UnitTest
             }
         }
 
-        #region Additional test attributes
+#region Additional test attributes
         // 
         //You can use the following additional attributes as you write your tests:
         //
@@ -101,3 +104,6 @@ namespace PayPal.UnitTest
         }
     }
 }
+
+#endif
+

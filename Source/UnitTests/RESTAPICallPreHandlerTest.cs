@@ -1,9 +1,13 @@
 ﻿using PayPal;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using System;
 using System.Collections.Generic;
 using PayPal.Authentication;
 
+#if NUnit
+
+#else
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace PayPal.UnitTest
 {
     
@@ -94,3 +98,5 @@ namespace PayPal.UnitTest
         
     }
 }
+#endif
+

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using PayPal.Manager;
 using PayPal.Exception;
-using System.Management;
-using System.Runtime.InteropServices;
 
 namespace PayPal
 {

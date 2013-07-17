@@ -52,6 +52,8 @@
     <Compile Include="NVP\CertificateHttpHeaderAuthStrategyNVPTest.cs" />
     <Compile Include="NVP\PlatformAPICallPreHandlerTest.cs" />
     <Compile Include="NVP\SignatureHttpHeaderAuthStrategyNVPTest.cs" />
+    <Compile Include="OAuthTokenCredentialTest.cs" />
+    <Compile Include="RESTAPICallPreHandlerTest.cs" />
     <Compile Include="SOAP\CertificateHttpHeaderAuthStrategyTest.cs" />
     <Compile Include="SOAP\CertificateSOAPHeaderAuthStrategyTest.cs" />
     <Compile Include="SOAP\MerchantAPICallPreHandlerTest.cs" />

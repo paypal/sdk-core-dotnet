@@ -101,12 +101,13 @@
     <Compile Include="OpenIdConnect\UserInfoParameters.cs" />
     <Compile Include="PayPalResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RESTConfiguration.cs" />
+    <Compile Include="RESTAPICallPreHandler.cs" />
     <Compile Include="SOAP\CertificateHttpHeaderAuthStrategy.cs" />
     <Compile Include="SOAP\CertificateSOAPHeaderAuthStrategy.cs" />
     <Compile Include="SOAP\MerchantAPICallPreHandler.cs" />
     <Compile Include="SOAP\SignatureHttpHeaderAuthStrategy.cs" />
     <Compile Include="SOAP\SignatureSOAPHeaderAuthStrategy.cs" />
+    <Compile Include="UserAgentHeader.cs" />
     <Compile Include="Util\NVPUtil.cs" />
     <Compile Include="Util\QueryParameters.cs" />
     <Compile Include="Util\ReadCert.cs" />
