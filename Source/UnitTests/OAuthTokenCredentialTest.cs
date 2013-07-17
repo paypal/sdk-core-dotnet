@@ -1,29 +1,25 @@
-﻿using PayPal;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using PayPal;
 
 #if NUnit
+/* NuGet Install
+ * Visual Studio 2005
+    * Install NUnit -OutputDirectory .\packages
+    * Add reference from NUnit.2.6.2
+ */
+using NUnit.Framework;
 
-#else
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-namespace PayPal.UnitTest
+namespace PayPal.NUnitTest
 {
-    
-    
-    /// <summary>
-    ///This is a test class for OAuthTokenCredentialTest and is intended
-    ///to contain all OAuthTokenCredentialTest Unit Tests
-    ///</summary>
-    [TestClass()]
-    public class OAuthTokenCredentialTest
+    [TestFixture]
+    class OAuthTokenCredentialTest
     {
-
-
         private TestContext testContextInstance;
 
         /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
+        /// Gets or sets the test context which provides
+        /// information about and functionality for the current test run
         ///</summary>
         public TestContext TestContext
         {
@@ -37,7 +33,71 @@ namespace PayPal.UnitTest
             }
         }
 
-#region Additional test attributes
+        /// <summary>
+        /// A test for GetAccessToken
+        ///</summary>
+        [Test]
+        public void GetAccessTokenTest()
+        {
+            Dictionary<string, string> config = new Dictionary<string, string>();
+            config.Add("endpoint", "https://api.sandbox.paypal.com");
+            string clientId = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM";
+            string clientSecret = "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM";
+            OAuthTokenCredential target = new OAuthTokenCredential(clientId, clientSecret, config);
+            string expected = string.Empty;
+            string actual;
+            actual = target.GetAccessToken();
+            Assert.AreEqual(true, actual.StartsWith("Bearer "));
+        }
+
+        /// <summary>
+        /// A test for GetAccessToken
+        /// </summary>
+        [Test, ExpectedException(typeof(Exception.PayPalException))]
+        public void GetAccessTokenInvalidEndpointTest()
+        {
+            Dictionary<string, string> config = new Dictionary<string, string>();
+            config.Add("endpoint", "https://localhost.sandbox.paypal.com");
+            string clientId = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM";
+            string clientSecret = "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM";
+            OAuthTokenCredential target = new OAuthTokenCredential(clientId, clientSecret, config);
+            string expected = string.Empty;
+            string actual;
+            actual = target.GetAccessToken();
+            Assert.AreEqual(true, actual.StartsWith("Bearer "));
+        }
+    }
+}
+#else
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+namespace PayPal.UnitTest
+{  
+    /// <summary>
+    /// This is a test class for OAuthTokenCredentialTest and is intended
+    /// to contain all OAuthTokenCredentialTest Unit Tests
+    ///</summary>
+    [TestClass()]
+    public class OAuthTokenCredentialTest
+    {
+        private TestContext testContextInstance;
+
+        /// <summary>
+        /// Gets or sets the test context which provides
+        /// nformation about and functionality for the current test run.
+        ///</summary>
+        public TestContext TestContext
+        {
+            get
+            {
+                return testContextInstance;
+            }
+            set
+            {
+                testContextInstance = value;
+            }
+        }
+
+        #region Additional test attributes
         // 
         //You can use the following additional attributes as you write your tests:
         //

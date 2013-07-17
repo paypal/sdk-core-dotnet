@@ -385,8 +385,7 @@ namespace PayPal.OpenIdConnect
             object[] parameters = new object[] { userInfoParams };
             string resourcePath = SDKUtil.FormatUriPath(pattern, parameters);
             string payload = string.Empty;
-            return PayPalResource.ConfigureAndExecute<Userinfo>(apiContext,
-                    HttpMethod.GET, resourcePath, null, payload);
+            return PayPalResource.ConfigureAndExecute<Userinfo>(apiContext, HttpMethod.GET, resourcePath, null, payload);
         }
     }
 }
