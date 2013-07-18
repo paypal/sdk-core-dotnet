@@ -57,6 +57,7 @@
     <Compile Include="SOAP\MerchantAPICallPreHandlerTest.cs" />
     <Compile Include="SOAP\SignatureHttpHeaderAuthStrategyTest.cs" />
     <Compile Include="SOAP\SignatureSOAPHeaderAuthStrategyTest.cs" />
+    <Compile Include="Util\SDKUtilTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
