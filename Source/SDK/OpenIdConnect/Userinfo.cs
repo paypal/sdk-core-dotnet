@@ -362,30 +362,30 @@ namespace PayPal.OpenIdConnect
 
         /// <summary>
         /// Returns user details
-        /// <param name="userInfoParams">Query parameters used for API call</param>
+        /// <param name="userinfoParameters">Query parameters used for API call</param>
         /// </summary>
-        public static Userinfo GetUserInfo(UserinfoParameters userInfoParams)
+        public static Userinfo GetUserinfo(UserinfoParameters userinfoParameters)
         {
-            string pattern = "v1/identity/openidconnect/userinfo?schema={0}&access_token={1}";
-            object[] parameters = new object[] { userInfoParams };
-            string resourcePath = SDKUtil.FormatUriPath(pattern, parameters);
-            string payload = string.Empty;
-            return PayPalResource.ConfigureAndExecute<Userinfo>(null, HttpMethod.GET,
-                    resourcePath, null, payload);
+            return GetUserinfo(null, userinfoParameters);
         }
 
         /// <summary>
         /// Returns user details
         /// <param name="apiContext">APIContext to be used for the call.</param>
-        /// <param name="userInfoParams">Query parameters used for API call</param>
+        /// <param name="userinfoParameters">Query parameters used for API call</param>
         /// </summary>
-        public static Userinfo GetUserInfo(APIContext apiContext, UserinfoParameters userInfoParams)
+        public static Userinfo GetUserinfo(APIContext apiContext, UserinfoParameters userinfoParameters)
         {
             string pattern = "v1/identity/openidconnect/userinfo?schema={0}&access_token={1}";
-            object[] parameters = new object[] { userInfoParams };
+            object[] parameters = new object[] { userinfoParameters };
             string resourcePath = SDKUtil.FormatUriPath(pattern, parameters);
-            string payload = string.Empty;
-            return PayPalResource.ConfigureAndExecute<Userinfo>(apiContext, HttpMethod.GET, resourcePath, null, payload);
+            string payLoad = "";
+            if (apiContext == null)
+            {
+                apiContext = new APIContext();
+            }
+            apiContext.MaskRequestId = true;
+            return PayPalResource.ConfigureAndExecute<Userinfo>(apiContext, HttpMethod.GET, resourcePath, payLoad);
         }
     }
 }

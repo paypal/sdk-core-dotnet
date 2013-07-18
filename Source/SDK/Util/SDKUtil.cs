@@ -10,7 +10,6 @@ namespace PayPal.Util
 {
     public class SDKUtil
     {
-
         /// <summary>
         /// Formats the URI path for REST calls.
         /// </summary>
@@ -25,26 +24,26 @@ namespace PayPal.Util
                 if (parameters != null && parameters.Length == 1 && parameters[0] is QueryParameters)
                 {
                     //Form a object array using the passed Map
-                    parameters = splitParameters(pattern, ((QueryParameters)parameters[0]).GetMap());
+                    parameters = SplitParameters(pattern, ((QueryParameters)parameters[0]).GetMap());
                 }
                 else if (parameters != null && parameters.Length == 1 && parameters[0] is CreateFromAuthorizationCodeParameters)
                 {
                     //Form a object array using the passed Map
-                    parameters = splitParameters(pattern, ((CreateFromAuthorizationCodeParameters)parameters[0]).ContainerMap);
+                    parameters = SplitParameters(pattern, ((CreateFromAuthorizationCodeParameters)parameters[0]).ContainerMap);
                 }
                 else if (parameters != null && parameters.Length == 1 && parameters[0] is CreateFromRefreshTokenParameters)
                 {
                     //Form a object array using the passed Map
-                    parameters = splitParameters(pattern, ((CreateFromRefreshTokenParameters)parameters[0]).ContainerMap);
+                    parameters = SplitParameters(pattern, ((CreateFromRefreshTokenParameters)parameters[0]).ContainerMap);
                 }
                 else if (parameters != null && parameters.Length == 1 && parameters[0] is UserinfoParameters)
                 {
                     //Form a object array using the passed Map
-                    parameters = splitParameters(pattern, ((UserinfoParameters)parameters[0]).ContainerMap);
+                    parameters = SplitParameters(pattern, ((UserinfoParameters)parameters[0]).ContainerMap);
                 }
                 else if (parameters != null && parameters.Length == 1 && parameters[0] is Dictionary<string, string>)
                 {
-                    parameters = splitParameters(pattern, (Dictionary<string, string>)parameters[0]);
+                    parameters = SplitParameters(pattern, (Dictionary<string, string>)parameters[0]);
                 }
 
                 //Perform a simple message formatting
@@ -64,9 +63,9 @@ namespace PayPal.Util
         /// <param name="pattern">URI pattern with named place holders</param>
         /// <param name="pathParameters">Dictionary</param>
         /// <returns>Processed URI path</returns>
-        public static string FormatURIPath(string pattern, Dictionary<string, string> pathParameters)
+        public static string FormatUriPath(string pattern, Dictionary<string, string> pathParameters)
         {
-            return FormatURIPath(pattern, pathParameters, null);
+            return FormatUriPath(pattern, pathParameters, null);
         }
 
         /// <summary>
@@ -78,7 +77,7 @@ namespace PayPal.Util
         /// <param name="pathParameters">Dictionary of Path parameters</param>
         /// <param name="queryParameters">Dictionary for Query parameters</param>
         /// <returns>Processed URI path</returns>
-        public static string FormatURIPath(string pattern, Dictionary<string, string> pathParameters, Dictionary<string, string> queryParameters)
+        public static string FormatUriPath(string pattern, Dictionary<string, string> pathParameters, Dictionary<string, string> queryParameters)
         {
             string formattedURIPath = null;
             if (!String.IsNullOrEmpty(pattern) && pathParameters != null && pathParameters.Count > 0)
@@ -181,7 +180,7 @@ namespace PayPal.Util
         /// <param name="pattern"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        private static Object[] splitParameters(string pattern, Dictionary<string, string> parameters)
+        private static Object[] SplitParameters(string pattern, Dictionary<string, string> parameters)
         {
             List<Object> objectList = new List<Object>();
             string[] query = pattern.Split('?');

@@ -94,7 +94,7 @@ namespace PayPal.UnitTest
 
             UserinfoParameters userinfoParams = new UserinfoParameters();
             userinfoParams.SetAccessToken(info.access_token);
-            Userinfo userinfo = Userinfo.GetUserInfo(apiContext, userinfoParams);
+            Userinfo userinfo = Userinfo.GetUserinfo(apiContext, userinfoParams);
             Assert.AreEqual(userinfo != null, true);
         }
 

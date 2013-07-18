@@ -71,7 +71,8 @@ namespace PayPal.UnitTest
         [TestMethod()]
         public void FormatUriPathForNullTest()
         {
-            string nullString = SDKUtil.FormatUriPath(null, null);
+            Object[] parameters = null;
+            string nullString = SDKUtil.FormatUriPath(null, parameters);
             Assert.IsNull(nullString);
         }
 
@@ -81,8 +82,9 @@ namespace PayPal.UnitTest
         [TestMethod()]
         public void FormatURIPathNoPatternTest()
         {
+            Dictionary<string, string> pathParameters = null;
             string pattern = "/a/b/c";
-            string uriPath = SDKUtil.FormatUriPath(pattern, null);
+            string uriPath = SDKUtil.FormatUriPath(pattern, pathParameters);
             Assert.AreEqual(uriPath, pattern);
         }
 
@@ -156,7 +158,7 @@ namespace PayPal.UnitTest
             Dictionary<string, string> pathParameters = new Dictionary<string, string>();
             pathParameters.Add("first", "value1");
             pathParameters.Add("second", "value2");
-            String uriPath = SDKUtil.FormatURIPath(pattern, pathParameters);
+            String uriPath = SDKUtil.FormatUriPath(pattern, pathParameters);
             Assert.AreEqual(uriPath, "/a/b/value1/value2");
         }
 
@@ -170,7 +172,7 @@ namespace PayPal.UnitTest
             Dictionary<string, string> pathParameters = new Dictionary<string, string>();
             pathParameters.Add("first", "value1");
             pathParameters.Add("second", "value2");
-            string uriPath = SDKUtil.FormatURIPath(pattern, pathParameters);
+            string uriPath = SDKUtil.FormatUriPath(pattern, pathParameters);
             Assert.AreEqual(uriPath, "/a/b/value1/value2/");
         }
 
@@ -181,7 +183,7 @@ namespace PayPal.UnitTest
         public void FormatURIPathMapNullMapTest()
         {
             string pattern = "/a/b/first/second";
-            string uriPath = SDKUtil.FormatURIPath(pattern,
+            string uriPath = SDKUtil.FormatUriPath(pattern,
                     (Dictionary<string, string>)null);
             Assert.AreEqual(uriPath, "/a/b/first/second");
         }
@@ -196,7 +198,7 @@ namespace PayPal.UnitTest
             Dictionary<string, string> pathParameters = new Dictionary<string, string>();
             pathParameters.Add("invalid1", "value1");
             pathParameters.Add("invalid2", "value2");
-            string uriPath = SDKUtil.FormatURIPath(pattern, pathParameters);
+            string uriPath = SDKUtil.FormatUriPath(pattern, pathParameters);
             Assert.AreEqual(uriPath, "/a/b/first/second");
         }
 
@@ -210,7 +212,7 @@ namespace PayPal.UnitTest
             string pattern = "/a/b/{first}/{second}";
             Dictionary<string, string> pathParameters = new Dictionary<string, string>();
             pathParameters.Add("first", "value1");
-            SDKUtil.FormatURIPath(pattern, pathParameters);
+            SDKUtil.FormatUriPath(pattern, pathParameters);
         }
 
         /// <summary>
@@ -224,7 +226,7 @@ namespace PayPal.UnitTest
             pathParameters.Add("first", "value1");
             pathParameters.Add("second", "value2");
             Dictionary<string, string> queryParameters = null;
-            string uriPath = SDKUtil.FormatURIPath(pattern, pathParameters,
+            string uriPath = SDKUtil.FormatUriPath(pattern, pathParameters,
                     queryParameters);
             Assert.AreEqual(uriPath, "/a/b/value1/value2");
         }
@@ -240,7 +242,7 @@ namespace PayPal.UnitTest
             pathParameters.Add("first", "value1");
             pathParameters.Add("second", "value2");
             Dictionary<string, string> queryParameters = new Dictionary<string, string>();
-            string uriPath = SDKUtil.FormatURIPath(pattern, pathParameters,
+            string uriPath = SDKUtil.FormatUriPath(pattern, pathParameters,
                     queryParameters);
             Assert.AreEqual(uriPath, "/a/b/value1/value2");
         }
@@ -256,7 +258,7 @@ namespace PayPal.UnitTest
             Dictionary<string, string> queryParameters = new Dictionary<string, string>();
             queryParameters.Add("query1", "value1");
             queryParameters.Add("query2", "value2");
-            string uriPath = SDKUtil.FormatURIPath(pattern, pathParameters,
+            string uriPath = SDKUtil.FormatUriPath(pattern, pathParameters,
                     queryParameters);
             Assert.AreEqual(uriPath,
                     "/a/b/first/second?query1=value1&query2=value2&");
@@ -273,7 +275,7 @@ namespace PayPal.UnitTest
             Dictionary<string, string> queryParameters = new Dictionary<string, string>();
             queryParameters.Add("query1", "value1");
             queryParameters.Add("query2", "value2");
-            string uriPath = SDKUtil.FormatURIPath(pattern, pathParameters,
+            string uriPath = SDKUtil.FormatUriPath(pattern, pathParameters,
                     queryParameters);
             Assert.AreEqual(uriPath,
                     "/a/b/first/second?query1=value1&query2=value2&");
@@ -290,7 +292,7 @@ namespace PayPal.UnitTest
             Dictionary<string, string> queryParameters = new Dictionary<string, string>();
             queryParameters.Add("query1", "value&1");
             queryParameters.Add("query2", "value2");
-            string uriPath = SDKUtil.FormatURIPath(pattern, pathParameters,
+            string uriPath = SDKUtil.FormatUriPath(pattern, pathParameters,
                     queryParameters);
             Assert.AreEqual(uriPath,
                     "/a/b/first/second?query1=value%261&query2=value2&");
@@ -307,7 +309,7 @@ namespace PayPal.UnitTest
             Dictionary<string, string> queryParameters = new Dictionary<string, string>();
             queryParameters.Add("query1", "value1");
             queryParameters.Add("query2", "value2");
-            string uriPath = SDKUtil.FormatURIPath(pattern, pathParameters,
+            string uriPath = SDKUtil.FormatUriPath(pattern, pathParameters,
                     queryParameters);
             Assert.AreEqual(uriPath,
                     "/a/b/first/second?alreadypresent=value&query1=value1&query2=value2&");
