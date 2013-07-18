@@ -139,7 +139,7 @@ namespace PayPal.OpenIdConnect
         {
             string pattern = "v1/identity/openidconnect/tokenservice?grant_type={0}&code={1}&redirect_uri={2}";
             object[] parameters = new object[] { createFromAuthorizationCodeParameters };
-            string resourcePath = SDKUtil.FormatUriPath(pattern, parameters);
+            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
             resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
             Dictionary<string, string> headersMap = new Dictionary<string, string>();
@@ -172,7 +172,7 @@ namespace PayPal.OpenIdConnect
             string pattern = "v1/identity/openidconnect/tokenservice?grant_type={0}&refresh_token={1}&scope={2}&client_id={3}&client_secret={4}";
             createFromRefreshTokenParameters.SetRefreshToken(HttpUtility.UrlEncode(refresh_token));
             object[] parameters = new object[] { createFromRefreshTokenParameters };
-            string resourcePath = SDKUtil.FormatUriPath(pattern, parameters);
+            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
             resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
             Dictionary<string, string> headersMap = new Dictionary<string, string>();

@@ -90,7 +90,7 @@ namespace PayPal.UnitTest
         {
             NameValueCollection nvc = HttpUtility.ParseQueryString(ipnMsg);
             IPNMessage ipn = new IPNMessage(nvc);
-            NameValueCollection ipnMap = ipn.IPNMap;
+            NameValueCollection ipnMap = ipn.IpnMap;
             Assert.IsNotNull(ipnMap);
         }
 
@@ -108,7 +108,7 @@ namespace PayPal.UnitTest
         {
             NameValueCollection nvc = HttpUtility.ParseQueryString(ipnMsg);
             IPNMessage ipn = new IPNMessage(nvc);
-            string parameter = ipn.IPNValue("fees_payer");
+            string parameter = ipn.IpnValue("fees_payer");
             Assert.AreEqual("EACHRECEIVER", parameter);
         }
 

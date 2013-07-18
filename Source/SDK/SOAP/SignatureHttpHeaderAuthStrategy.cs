@@ -33,14 +33,12 @@ namespace PayPal.SOAP
 	    /// <param name="signCredential"></param>
 	    /// <param name="tokenAuthorize"></param>
 	    /// <returns></returns>
-	    protected internal override Dictionary<string, string> ProcessTokenAuthorization(
-			    SignatureCredential signCredential, TokenAuthorization tokenAuthorize)
+	    protected internal override Dictionary<string, string> ProcessTokenAuthorization(SignatureCredential signCredential, TokenAuthorization tokenAuthorize)
     	{
             Dictionary<string, string> headers = new Dictionary<string, string>();
             try
             {   
                 OAuthGenerator signGenerator = new OAuthGenerator(signCredential.UserName, signCredential.Password);
-                signGenerator.SetHttpPMethod(HttpMethod.POST);
                 signGenerator.SetToken(tokenAuthorize.AccessToken);
                 signGenerator.SetTokenSecret(tokenAuthorize.AccessTokenSecret);
                 string tokenTimeStamp = Timestamp;

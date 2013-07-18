@@ -80,7 +80,7 @@ namespace PayPal
         /// IPNMessage constructor
         /// </summary>
         /// <param name="nvc"></param>
-        [Obsolete("use IPNMessage(byte[] parameters) instead")]
+        //[Obsolete("'IPNMessage(NameValueCollection nvc)' is obsolete: 'The recommended alternative is IPNMessage(byte[] parameters).'")]
         public IPNMessage(NameValueCollection nvc)
         {
             this.config = ConfigManager.Instance.GetProperties();
@@ -182,23 +182,25 @@ namespace PayPal
             }
         }
 
+        //TODO: To be renamed as 'IPNMap' as per .NET Naming Conventions
         /// <summary>
         /// Gets the IPN request NameValueCollection
         /// </summary>
-        public NameValueCollection IPNMap
+        public NameValueCollection IpnMap
         {
             get
             {
                 return nvcMap;
             }
         }
-      
+
+        //TODO: To be renamed as 'IPNValue' as per .NET Naming Conventions
         /// <summary>
         /// Gets the IPN request parameter value for the given name
         /// </summary>
         /// <param name="ipnName"></param>
         /// <returns></returns>
-        public string IPNValue(string ipnName)
+        public string IpnValue(string ipnName)
         {
             return this.nvcMap[ipnName];
         }

@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace PayPal
 {
-    public static class JSONFormatter
+    public static class JsonFormatter
     {  
         public static string ConvertToJson<T>(T t) 
         {

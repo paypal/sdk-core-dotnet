@@ -73,7 +73,7 @@
     <Compile Include="IAPICallPreHandler.cs" />
     <Compile Include="IAuthenticationStrategy.cs" />
     <Compile Include="IPNMessage.cs" />
-    <Compile Include="JSONFormatter.cs" />
+    <Compile Include="JsonFormatter.cs" />
     <Compile Include="LogManagerWrapper.cs" />
     <Compile Include="Manager\ConfigManager.cs" />
     <Compile Include="Manager\ConnectionManager.cs" />

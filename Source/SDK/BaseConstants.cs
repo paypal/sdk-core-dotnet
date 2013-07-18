@@ -10,8 +10,9 @@ namespace PayPal
         // Log file
         public const string PayPalLogFile = "PAYPALLOGFILE";
 
+        //TODO: To be renamed as 'EncodingFormat' as per .NET Naming Conventions
         // Encoding Format
-        public static readonly Encoding EncodingFormat = Encoding.UTF8;
+        public static readonly Encoding ENCODING_FORMAT = Encoding.UTF8;
         
         // Account Prefix
         public const string AccountPrefix = "acct";

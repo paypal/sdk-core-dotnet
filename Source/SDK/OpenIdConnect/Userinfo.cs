@@ -378,7 +378,7 @@ namespace PayPal.OpenIdConnect
         {
             string pattern = "v1/identity/openidconnect/userinfo?schema={0}&access_token={1}";
             object[] parameters = new object[] { userinfoParameters };
-            string resourcePath = SDKUtil.FormatUriPath(pattern, parameters);
+            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = "";
             if (apiContext == null)
             {

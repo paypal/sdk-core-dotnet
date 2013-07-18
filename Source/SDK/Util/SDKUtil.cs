@@ -10,13 +10,14 @@ namespace PayPal.Util
 {
     public class SDKUtil
     {
+        //TODO: To be renamed as 'FormatUriPath' as per .NET Naming Conventions
         /// <summary>
         /// Formats the URI path for REST calls.
         /// </summary>
         /// <param name="pattern">URI path with placeholders that can be replaced with string's Format method</param>
         /// <param name="parameters">Parameters holding actual values for placeholders; They can be wrapper objects for specific query strings like QueryParameters, CreateFromAuthorizationCodeParameters, CreateFromRefreshTokenParameters, UserinfoParameters parameters or a simple Dictionary</param>
         /// <returns>Processed URI path, or null if pattern or parameters is null</returns>
-        public static string FormatUriPath(string pattern, Object[] parameters)
+        public static string FormatURIPath(string pattern, Object[] parameters)
         {
             string formatString = pattern;
             if (pattern != null && parameters != null)
@@ -55,6 +56,7 @@ namespace PayPal.Util
             return formatString;
         }
 
+        //TODO: To be renamed as 'FormatUriPath' as per .NET Naming Conventions
         /// <summary>
         /// Formats the URI path for REST calls. Replaces any occurrences of the form
         /// {name} in pattern with the corresponding value of key name in the passed
@@ -63,11 +65,12 @@ namespace PayPal.Util
         /// <param name="pattern">URI pattern with named place holders</param>
         /// <param name="pathParameters">Dictionary</param>
         /// <returns>Processed URI path</returns>
-        public static string FormatUriPath(string pattern, Dictionary<string, string> pathParameters)
+        public static string FormatURIPath(string pattern, Dictionary<string, string> pathParameters)
         {
-            return FormatUriPath(pattern, pathParameters, null);
+            return FormatURIPath(pattern, pathParameters, null);
         }
 
+        //TODO: To be renamed as 'FormatUriPath' as per .NET Naming Conventions
         /// <summary>
         /// Formats the URI path for REST calls. Replaces any occurrences of the form
         /// {name} in pattern with the corresponding value of key name in the passed
@@ -77,7 +80,7 @@ namespace PayPal.Util
         /// <param name="pathParameters">Dictionary of Path parameters</param>
         /// <param name="queryParameters">Dictionary for Query parameters</param>
         /// <returns>Processed URI path</returns>
-        public static string FormatUriPath(string pattern, Dictionary<string, string> pathParameters, Dictionary<string, string> queryParameters)
+        public static string FormatURIPath(string pattern, Dictionary<string, string> pathParameters, Dictionary<string, string> queryParameters)
         {
             string formattedURIPath = null;
             if (!String.IsNullOrEmpty(pattern) && pathParameters != null && pathParameters.Count > 0)
