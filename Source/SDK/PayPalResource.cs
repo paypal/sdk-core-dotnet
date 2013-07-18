@@ -254,7 +254,5 @@ namespace PayPal
             restAPICallPreHandler.Payload = payLoad;
             return (IAPICallPreHandler)restAPICallPreHandler;
         }
-
-        public static string payload { get; set; }
     }
 }
