@@ -42,9 +42,9 @@ namespace PayPal
                     headers.Add(BaseConstants.PayPalSecurityPasswordHeader, credential.Password);
                 }
             }
-            catch (OAuthException ae)
+            catch (OAuthException oex)
             {
-                throw ae;
+                throw oex;
             }
             return headers;
         }

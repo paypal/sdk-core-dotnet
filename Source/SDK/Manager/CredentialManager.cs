@@ -14,7 +14,6 @@ namespace PayPal.Manager
         /// <summary>
         /// Logger
         /// </summary>
-        //private static ILog logger = LogManagerWrapper.GetLogger(typeof(CredentialManager));
         private static Log4netWrapper logger = Log4netWrapper.GetLogger(typeof(CredentialManager));
 
 

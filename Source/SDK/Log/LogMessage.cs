@@ -29,7 +29,18 @@ namespace PayPal.Log
 
         public override string ToString()
         {
-            return string.Format(Provider, Format, Args);
+            string formatted = string.Empty;
+
+            if (Args.Length > 0)
+            {
+                formatted = string.Format(Provider, Format, Args);
+            }
+            else
+            {
+                formatted = Format;
+            }            
+
+            return formatted;
         }
     }
 }

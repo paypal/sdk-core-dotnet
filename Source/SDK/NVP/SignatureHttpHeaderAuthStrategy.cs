@@ -11,7 +11,6 @@ namespace PayPal.NVP
         /// <summary>
         /// Logger
         /// </summary>
-        //private static ILog logger = LogManagerWrapper.GetLogger(typeof(SignatureHttpHeaderAuthStrategy));
         private static Log4netWrapper logger = Log4netWrapper.GetLogger(typeof(SignatureHttpHeaderAuthStrategy));
 
 
@@ -49,9 +48,9 @@ namespace PayPal.NVP
                 logger.DebugFormat("Authorization string: " + authorization);
                 headers.Add(BaseConstants.PayPalAuthorizationPlatformHeader, authorization);
             }
-            catch (OAuthException ae)
+            catch (OAuthException oex)
             {
-                throw ae;
+                throw oex;
             }
             return headers;
         }

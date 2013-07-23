@@ -11,7 +11,6 @@ namespace PayPal.NVP
         /// <summary>
         /// Logger
         /// </summary>
-        //private static ILog logger = LogManagerWrapper.GetLogger(typeof(CertificateHttpHeaderAuthStrategy));
         private static Log4netWrapper logger = Log4netWrapper.GetLogger(typeof(CertificateHttpHeaderAuthStrategy));
 
         /// <summary>

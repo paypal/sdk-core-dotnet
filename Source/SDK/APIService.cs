@@ -71,13 +71,12 @@ namespace PayPal
             {
                 httpRequest.Headers.Add(header.Key, header.Value);
             }  
-            //if (logger.IsDebugEnabled)
+
+            foreach (string headerName in httpRequest.Headers)
             {
-                foreach (string headerName in httpRequest.Headers)
-                {
-                    logger.DebugFormat(headerName + ":" + httpRequest.Headers[headerName]);
-                }
+                logger.DebugFormat(headerName + ":" + httpRequest.Headers[headerName]);
             }
+           
             //Adding payload to HttpWebRequest object
             using (StreamWriter myWriter = new StreamWriter(httpRequest.GetRequestStream()))
             {

@@ -22,7 +22,6 @@ namespace PayPal
         /// <summary>
         /// Logs output statements, errors, debug info to a text file    
         /// </summary>
-        //private static ILog logger = LogManagerWrapper.GetLogger(typeof(PayPalResource));
         private static Log4netWrapper logger = Log4netWrapper.GetLogger(typeof(PayPalResource));
 
         private static ArrayList retryCodes = new ArrayList(new HttpStatusCode[] 
@@ -187,14 +186,10 @@ namespace PayPal
                     {
                         httpRequest.Headers.Add(entry.Key, entry.Value);
                     }
-
-                    // Debugging
-                    //if (logger.IsDebugEnabled)
+                    
+                    foreach (string headerName in httpRequest.Headers)
                     {
-                        foreach (string headerName in httpRequest.Headers)
-                        {
-                            logger.DebugFormat(headerName + ":" + httpRequest.Headers[headerName]);
-                        }
+                        logger.DebugFormat(headerName + ":" + httpRequest.Headers[headerName]);
                     }
 
                     // Execute call

@@ -200,9 +200,9 @@ namespace PayPal.NVP
                     }
                 }
             }
-            catch (OAuthException ae)
+            catch (OAuthException oex)
             {
-                throw ae;
+                throw oex;
             }
             return headers;
         }

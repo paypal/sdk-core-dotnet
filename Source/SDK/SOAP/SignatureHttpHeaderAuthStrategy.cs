@@ -45,9 +45,9 @@ namespace PayPal.SOAP
                 logger.DebugFormat("Authorization string: " + authorization);
                 headers.Add(BaseConstants.PayPalAuthorizationMerchantHeader, authorization);
             }
-            catch (OAuthException ae)
+            catch (OAuthException oex)
             {
-                throw ae; ;
+                throw oex;
             }
 		    return headers;
 	    }

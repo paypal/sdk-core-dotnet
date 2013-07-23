@@ -11,7 +11,6 @@ namespace PayPal.SOAP
         /// <summary>
         /// Logger
         /// </summary>
-        //private static ILog logger = LogManagerWrapper.GetLogger(typeof(CertificateHttpHeaderAuthStrategy));
         private static Log4netWrapper logger = Log4netWrapper.GetLogger(typeof(CertificateHttpHeaderAuthStrategy));
 
         /// <summary>
@@ -46,9 +45,9 @@ namespace PayPal.SOAP
                 logger.DebugFormat("Authorization string: " + authorization);
                 headers.Add(BaseConstants.PayPalAuthorizationMerchantHeader, authorization);
             }
-            catch (OAuthException ae)
+            catch (OAuthException oex)
             {
-                throw ae;
+                throw oex;
             }
             return headers;
         }

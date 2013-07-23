@@ -7,7 +7,6 @@ namespace PayPal.Exception
         /// <summary>
         /// Logger
         /// </summary>
-        //private static ILog logger = LogManagerWrapper.GetLogger(typeof(ConfigException));
         private static Log4netWrapper logger = Log4netWrapper.GetLogger(typeof(ConfigException));
 
 		/// <summary>

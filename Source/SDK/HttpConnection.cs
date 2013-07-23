@@ -14,7 +14,6 @@ namespace PayPal
         /// <summary>
         /// Logger
         /// </summary>
-        //private static ILog logger = LogManagerWrapper.GetLogger(typeof(ConnectionManager));
         private static Log4netWrapper logger = Log4netWrapper.GetLogger(typeof(HttpConnection));
 
         private static ArrayList retryCodes = new ArrayList(new HttpStatusCode[] 
@@ -50,7 +49,7 @@ namespace PayPal
                                     writerStream.Write(payload);
                                     writerStream.Flush();
                                     writerStream.Close();
-                                    logger.DebugFormat(payload);
+                                    logger.InfoFormat(payload);
                                 }
 
                             }
