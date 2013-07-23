@@ -11,15 +11,6 @@ using System.Net;
     * Reference is auto-added 
 */
 using Newtonsoft.Json;
-/* NuGet Install
- * Visual Studio 2005 or 2008
-    * Install log4net -OutputDirectory .\packages
-    * Add reference from "net20-full" for Visual Studio 2005 or "net35-full" for Visual Studio 2008
- * Visual Studio 2010 or higher
-    * Install-Package log4net
-    * Reference is auto-added 
-*/
-using log4net;
 using PayPal.Manager;
 using PayPal.Exception;
 
@@ -30,7 +21,8 @@ namespace PayPal
         /// <summary>
         /// Logs output statements, errors, debug info to a text file    
         /// </summary>
-        private static ILog logger = LogManagerWrapper.GetLogger(typeof(PayPalResource));
+        //private static ILog logger = LogManagerWrapper.GetLogger(typeof(PayPalResource));
+        private static Logger logger = Logger.GetLogger(typeof(PayPalResource));
 
         private static ArrayList retryCodes = new ArrayList(new HttpStatusCode[] 
                                                 { HttpStatusCode.GatewayTimeout,
@@ -196,11 +188,11 @@ namespace PayPal
                     }
 
                     // Debugging
-                    if (logger.IsDebugEnabled)
+                    //if (logger.IsDebugEnabled)
                     {
                         foreach (string headerName in httpRequest.Headers)
                         {
-                            logger.Debug(headerName + ":" + httpRequest.Headers[headerName]);
+                            logger.DebugFormat(headerName + ":" + httpRequest.Headers[headerName]);
                         }
                     }
 

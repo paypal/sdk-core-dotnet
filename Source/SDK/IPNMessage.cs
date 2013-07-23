@@ -5,15 +5,6 @@ using System.Collections.Specialized;
 using System.Net;
 using System.Web;
 using System.IO;
-/* NuGet Install
- * Visual Studio 2005 or 2008
-    * Install log4net -OutputDirectory .\packages
-    * Add reference from "net20-full" for Visual Studio 2005 or "net35-full" for Visual Studio 2008
- * Visual Studio 2010 or higher
-    * Install-Package log4net
-    * Reference is auto-added 
-*/
-using log4net;
 using PayPal.Exception;
 using PayPal.Manager;
 
@@ -49,7 +40,8 @@ namespace PayPal
         /// <summary>
         /// Logger
         /// </summary>
-        private static ILog logger = LogManagerWrapper.GetLogger(typeof(IPNMessage));
+        //private static ILog logger = LogManagerWrapper.GetLogger(typeof(IPNMessage));
+        private static Logger logger = Logger.GetLogger(typeof(IPNMessage));
                 
         /// <summary>
         /// Initializing nvcMap and constructing query string
@@ -72,7 +64,7 @@ namespace PayPal
             }
             catch (System.Exception ex)
             {
-                logger.Debug(this.GetType().Name + " : " + ex.Message);
+                logger.Error(ex, this.GetType().Name + " : " + ex.Message);
             }
         }
 
@@ -145,13 +137,13 @@ namespace PayPal
                     }
                     else
                     {
-                        logger.Info("IPN validation failed. Got response: " + strResponse);
+                        logger.InfoFormat("IPN validation failed. Got response: " + strResponse);
                         this.ipnValidationResult = false;
                     }
                 }
                 catch (System.Exception ex)
                 {
-                    logger.Info(this.GetType().Name + " : " + ex.Message);
+                    logger.InfoFormat(this.GetType().Name + " : " + ex.Message);
 
                 }
                 return this.ipnValidationResult.HasValue ? this.ipnValidationResult.Value : false;

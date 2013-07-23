@@ -4,15 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
-/* NuGet Install
- * Visual Studio 2005 or 2008
-    * Install log4net -OutputDirectory .\packages
-    * Add reference from "net20-full" for Visual Studio 2005 or "net35-full" for Visual Studio 2008
- * Visual Studio 2010 or higher
-    * Install-Package log4net
-    * Reference is auto-added 
-*/
-using log4net;
 using PayPal.Manager;
 using PayPal.Exception;
 using PayPal.Authentication;
@@ -39,7 +30,8 @@ namespace PayPal
         /// <summary>
         /// Logger
         /// </summary>
-        private static ILog logger = LogManagerWrapper.GetLogger(typeof(APIService));
+        //private static ILog logger = LogManagerWrapper.GetLogger(typeof(APIService));
+        private static Logger logger = Logger.GetLogger(typeof(APIService));
 
         /// <summary>
         /// Retry codes
@@ -79,18 +71,18 @@ namespace PayPal
             {
                 httpRequest.Headers.Add(header.Key, header.Value);
             }  
-            if (logger.IsDebugEnabled)
+            //if (logger.IsDebugEnabled)
             {
                 foreach (string headerName in httpRequest.Headers)
                 {
-                    logger.Debug(headerName + ":" + httpRequest.Headers[headerName]);
+                    logger.DebugFormat(headerName + ":" + httpRequest.Headers[headerName]);
                 }
             }
             //Adding payload to HttpWebRequest object
             using (StreamWriter myWriter = new StreamWriter(httpRequest.GetRequestStream()))
             {
                 myWriter.Write(payload);
-                logger.Debug(payload);
+                logger.DebugFormat(payload);
             }
 
             if (apiCallHandler.GetCredential() is CertificateCredential)
@@ -124,8 +116,8 @@ namespace PayPal
                         using (StreamReader sr = new StreamReader(response.GetResponseStream()))
                         {
                             responseString = sr.ReadToEnd();
-                            logger.Debug("Service response");
-                            logger.Debug(responseString);
+                            logger.DebugFormat("Service response");
+                            logger.DebugFormat(responseString);
                             return responseString;
                         }
                     }
@@ -135,7 +127,7 @@ namespace PayPal
                 {
                     HttpStatusCode statusCode = ((HttpWebResponse)we.Response).StatusCode;
 
-                    logger.Info("Got " + statusCode.ToString() + " response from server");
+                    logger.InfoFormat("Got " + statusCode.ToString() + " response from server");
                     if (!RequiresRetry(we))
                     {
                         throw new ConnectionException("Invalid HTTP response " + we.Message);
