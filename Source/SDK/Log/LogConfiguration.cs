@@ -6,94 +6,105 @@ using System.Configuration;
 namespace PayPal.Log
 {
     /// <summary>
-    /// Configuration for PayPalCoreSDK.
+    /// Configuration for PayPalCoreSDK
     /// </summary>
     public static class LogConfiguration
     {
         internal static event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Key for the logging to be set for <appSettings><add key="PayPalLogKey" value="LOG4NET"/></appSettings> in configuration file
+        /// Key for the loggers to be set in <appSettings><add key="PayPalLog" value="Log4net"/></appSettings> in configuration file
         /// </summary>
-        public const string LoggingKey = "PayPalLogKey";
-
-        /// <summary>
-        /// Configures how the SDK should log events, if at all.
-        /// Changes to this setting will only take effect in newly-constructed clients.
-        /// 
-        /// The setting can be configured through App.config, for example:
-        /// <code>
-        /// &lt;appSettings&gt;
-        ///   &lt;add key="PayPalLogKey" value="log4net"/&gt;
-        /// &lt;/appSettings&gt;
-        /// </code>
-        /// </summary>
-        public static LoggerTypes Logging
-        {
-            get { return logTypes; }
-            set
-            {
-                logTypes = value;
-                OnPropertyChanged("Logging");
-            }
-        }
+        public const string PayPalLogKey = "PayPalLog";
 
         private static char[] splitters = new char[] { ',' };
 
-        private static LoggerTypes logTypes = GetLoggingSetting();
-
-        private static LoggerTypes GetLoggingSetting()
+        private static Loggers loggerTypes = GetLoggers();
+                
+        /// <summary>
+        /// Gets and sets the loggers
+        /// </summary>
+        public static Loggers Logging
         {
-            string value = GetConfig(LoggingKey);
+            get 
+            { 
+                return loggerTypes; 
+            }
+            set
+            {
+                loggerTypes = value;
+                OnPropertyChanged("Logging");
+            }
+        }        
+
+        private static Loggers GetLoggers()
+        {
+            string value = GetConfiguration(PayPalLogKey);
             if (string.IsNullOrEmpty(value))
-                return LoggerTypes.NONE;
+            {
+                return Loggers.None;
+            }
 
             string[] settings = value.Split(splitters, StringSplitOptions.RemoveEmptyEntries);
-            if (settings == null || settings.Length == 0)
-                return LoggerTypes.NONE;
 
-            LoggerTypes totalSetting = LoggerTypes.NONE;
+            if (settings == null || settings.Length == 0)
+            {
+                return Loggers.None;
+            }
+
+            Loggers loggerType = Loggers.None;
+
             foreach (string setting in settings)
             {
-                LoggerTypes l = ParseEnum<LoggerTypes>(setting);
-                totalSetting |= l;
+                Loggers loggerSet = ParseEnum<Loggers>(setting);
+                loggerType |= loggerSet;
             }
-            return totalSetting;
+
+            return loggerType;
         }
 
         private static void OnPropertyChanged(string name)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
+
             if (handler != null)
             {
                 handler(null, new PropertyChangedEventArgs(name));
             }
         }
 
-        private static string GetConfig(string name)
+        private static string GetConfiguration(string name)
         {
-            NameValueCollection appConfig = ConfigurationManager.AppSettings;
-            if (appConfig == null)
+            NameValueCollection appSetting = ConfigurationManager.AppSettings;
+
+            if (appSetting == null)
+            {
                 return null;
-            string value = appConfig[name];
+            }
+
+            string value = appSetting[name];
             return value;
         }
 
         private static bool GetConfigBool(string name)
         {
-            string value = GetConfig(name);
+            string value = GetConfiguration(name);
             bool result;
+
             if (bool.TryParse(value, out result))
+            {
                 return result;
+            }
+
             return default(bool);
         }
 
         private static T GetConfigEnum<T>(string name)
         {
-            Type type = typeof(T);
-            if (!type.IsEnum) throw new InvalidOperationException(string.Format("Type {0} must be enum ", type.FullName));
+            Type typeOfT = typeof(T);
+            if (!typeOfT.IsEnum) throw new InvalidOperationException(string.Format("Type {0} must be enum ", typeOfT.FullName));
 
-            string value = GetConfig(name);
+            string value = GetConfiguration(name);
             if (string.IsNullOrEmpty(value))
                 return default(T);
             T result = ParseEnum<T>(value);
@@ -102,13 +113,18 @@ namespace PayPal.Log
 
         private static T ParseEnum<T>(string value)
         {
-            T t;
-            if (TryParseEnum<T>(value, out t))
-                return t;
-            Type type = typeof(T);
+            T tObject;
+
+            if (TryParseEnum<T>(value, out tObject))
+            {
+                return tObject;
+            }
+
+            Type typeOfT = typeof(T);
             string messageFormat = "Unable to parse value {0} as enum of type {1}. Valid values are: {2}";
-            string enumNames = string.Join(", ", Enum.GetNames(type));
-            throw new InvalidEnumArgumentException(string.Format(messageFormat, value, type.FullName, enumNames));
+            string enumNames = string.Join(", ", Enum.GetNames(typeOfT));
+
+            throw new InvalidEnumArgumentException(string.Format(messageFormat, value, typeOfT.FullName, enumNames));
         }
 
         private static bool TryParseEnum<T>(string value, out T result)
@@ -120,8 +136,8 @@ namespace PayPal.Log
 
             try
             {
-                T t = (T)Enum.Parse(typeof(T), value, true);
-                result = t;
+                T tObject = (T)Enum.Parse(typeof(T), value, true);
+                result = tObject;
                 return true;
             }
             catch

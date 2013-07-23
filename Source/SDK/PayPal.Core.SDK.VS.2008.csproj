@@ -80,7 +80,14 @@
     <Compile Include="IAuthenticationStrategy.cs" />
     <Compile Include="IPNMessage.cs" />
     <Compile Include="JsonFormatter.cs" />
-    <Compile Include="Logger.cs" />
+    <Compile Include="Log\BaseLogger.cs" />
+    <Compile Include="Log\DiagnosticsWrapper.cs" />
+    <Compile Include="Log\Log4netReflection.cs" />
+    <Compile Include="Log\Log4netWrapper.cs" />
+    <Compile Include="Log\LogConfiguration.cs" />
+    <Compile Include="Log\Loggers.cs" />
+    <Compile Include="Log\LogMessage.cs" />
+    <Compile Include="Log\TraceSourceUtil.cs" />
     <Compile Include="Manager\ConfigManager.cs" />
     <Compile Include="Manager\ConnectionManager.cs" />
     <Compile Include="Manager\CredentialManager.cs" />
@@ -99,7 +106,6 @@
     <Compile Include="OpenIdConnect\TokenInfo.cs" />
     <Compile Include="OpenIdConnect\UserInfo.cs" />
     <Compile Include="OpenIdConnect\UserInfoParameters.cs" />
-    <Compile Include="PayPalConfiguration.cs" />
     <Compile Include="PayPalResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RESTAPICallPreHandler.cs" />

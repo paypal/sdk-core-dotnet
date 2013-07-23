@@ -9,31 +9,31 @@ namespace PayPal.Log
     /// </summary>
     internal class Log4netWrapper
     {
-        private static IDictionary<Type, Log4netWrapper> cachedLoggers = new Dictionary<Type, Log4netWrapper>();
+        private static IDictionary<Type, Log4netWrapper> loggerKeyValuePairs = new Dictionary<Type, Log4netWrapper>();
 
-        private List<BaseLogger> loggers;
+        private List<BaseLogger> loggerList;
 
-        private static Log4netWrapper emptyLogger = new Log4netWrapper();
+        private static Log4netWrapper wrapperLog4net = new Log4netWrapper();
 
         private Log4netWrapper()
         {
-            loggers = new List<BaseLogger>();
+            loggerList = new List<BaseLogger>();
         }
 
         private Log4netWrapper(Type type)
         {
-            loggers = new List<BaseLogger>();
+            loggerList = new List<BaseLogger>();
 
             Log4netReflection log4netLogger = new Log4netReflection(type);
-            loggers.Add(log4netLogger);
+            loggerList.Add(log4netLogger);
             DiagnosticsWrapper sdLogger = new DiagnosticsWrapper(type);
-            loggers.Add(sdLogger);
+            loggerList.Add(sdLogger);
 
             ConfigureLoggers();
-            LogConfiguration.PropertyChanged += ConfigsChanged;
+            LogConfiguration.PropertyChanged += ConfigurationChanged;
         }
 
-        private void ConfigsChanged(object sender, PropertyChangedEventArgs e)
+        private void ConfigurationChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e != null && string.Equals(e.PropertyName, "Logging", StringComparison.Ordinal))
             {
@@ -43,44 +43,50 @@ namespace PayPal.Log
 
         private void ConfigureLoggers()
         {
-            LoggerTypes logTypes = LogConfiguration.Logging;
+            Loggers loggerTypes = LogConfiguration.Logging;
 
-            foreach (BaseLogger il in loggers)
+            foreach (BaseLogger logger in loggerList)
             {
-                if (il is Log4netReflection)
+                if (logger is Log4netReflection)
                 {
-                    il.IsEnabled = (logTypes & LoggerTypes.LOG4NET) == LoggerTypes.LOG4NET;
+                    logger.IsEnabled = (loggerTypes & Loggers.Log4net) == Loggers.Log4net;
                 }
 
-                if (il is DiagnosticsWrapper)
+                if (logger is DiagnosticsWrapper)
                 {
-                    il.IsEnabled = (logTypes & LoggerTypes.DIAGNOSTICS) == LoggerTypes.DIAGNOSTICS;
+                    logger.IsEnabled = (loggerTypes & Loggers.Diagnostics) == Loggers.Diagnostics;
                 }
             }
         }
 
-        public static Log4netWrapper GetLogger(Type type)
+        public static Log4netWrapper GetLogger(Type givenType)
         {
-            if (type == null) throw new ArgumentNullException("type");
+            if (givenType == null) throw new ArgumentNullException("type");
 
-            Log4netWrapper l;
-            lock (cachedLoggers)
+            Log4netWrapper wrapper;
+            lock (loggerKeyValuePairs)
             {
-                if (!cachedLoggers.TryGetValue(type, out l))
+                if (!loggerKeyValuePairs.TryGetValue(givenType, out wrapper))
                 {
-                    l = new Log4netWrapper(type);
-                    cachedLoggers[type] = l;
+                    wrapper = new Log4netWrapper(givenType);
+                    loggerKeyValuePairs[givenType] = wrapper;
                 }
             }
-            return l;
+            return wrapper;
         }
 
-        public static Log4netWrapper EmptyLogger { get { return emptyLogger; } }
+        public static Log4netWrapper GetLog4netWrapper 
+        { 
+            get 
+            { 
+                return wrapperLog4net; 
+            } 
+        }
 
 
         public void Flush()
         {
-            foreach (BaseLogger logger in loggers)
+            foreach (BaseLogger logger in loggerList)
             {
                 logger.Flush();
             }
@@ -88,37 +94,45 @@ namespace PayPal.Log
 
         public void Error(System.Exception exception, string messageFormat, params object[] args)
         {
-            foreach (BaseLogger logger in loggers)
+            foreach (BaseLogger logger in loggerList)
             {
                 if (logger.IsEnabled && logger.IsErrorEnabled)
+                {
                     logger.Error(exception, messageFormat, args);
+                }
             }
         }
 
         public void Debug(System.Exception exception, string messageFormat, params object[] args)
         {
-            foreach (BaseLogger logger in loggers)
+            foreach (BaseLogger logger in loggerList)
             {
                 if (logger.IsEnabled && logger.IsDebugEnabled)
+                {
                     logger.Debug(exception, messageFormat, args);
+                }
             }
         }
 
         public void DebugFormat(string messageFormat, params object[] args)
         {
-            foreach (BaseLogger logger in loggers)
+            foreach (BaseLogger logger in loggerList)
             {
                 if (logger.IsEnabled && logger.IsDebugEnabled)
+                {
                     logger.DebugFormat(messageFormat, args);
+                }
             }
         }
 
         public void InfoFormat(string messageFormat, params object[] args)
         {
-            foreach (BaseLogger logger in loggers)
+            foreach (BaseLogger logger in loggerList)
             {
                 if (logger.IsEnabled && logger.IsInfoEnabled)
+                {
                     logger.InfoFormat(messageFormat, args);
+                }
             }
         }
 

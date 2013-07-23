@@ -10,7 +10,7 @@ namespace PayPal.Log
     internal class Log4netReflection : BaseLogger
     {
         enum LoadState { Uninitialized, Failed, Loading, Success };
-
+        
         static LoadState loadState = LoadState.Uninitialized;
         static readonly object LOCK = new object();
                 
@@ -81,7 +81,7 @@ namespace PayPal.Log
                         return;
                     }
 
-                    if ((LogConfiguration.Logging & LoggerTypes.LOG4NET) == LoggerTypes.LOG4NET)
+                    if ((LogConfiguration.Logging & Loggers.Log4net) == Loggers.Log4net)
                     {
                         Type xmlConfiguratorType = Type.GetType("log4net.Config.XmlConfigurator, log4net");
                         if (xmlConfiguratorType != null)
@@ -111,18 +111,13 @@ namespace PayPal.Log
             }
 
             if (logMangerType == null)
+            {
                 return;
+            }
 
             this.internalLogger = loggerMethodInfo.Invoke(null, new object[] { Assembly.GetCallingAssembly(), declaringType }); //Assembly.GetCallingAssembly()
         }
-
-        /// <summary>
-        /// Override the flush
-        /// </summary>
-        public override void Flush()
-        {
-        }
-
+       
         /// <summary>
         /// Override the wrapper for log4net ILog IsDebugEnabled
         /// </summary>
@@ -157,7 +152,25 @@ namespace PayPal.Log
                 }
                 return isErrorEnabled.Value;
             }
-        }      
+        }
+
+        /// <summary>
+        /// Simple wrapper around the log4net IsInfoEnabled property.
+        /// </summary>
+        public override bool IsInfoEnabled
+        {
+            get
+            {
+                if (!isInfoEnabled.HasValue)
+                {
+                    if (loadState != LoadState.Success || this.internalLogger == null || loggerType == null || systemStringFormatType == null || infoLevelPropertyValue == null)
+                        isInfoEnabled = false;
+                    else
+                        isInfoEnabled = Convert.ToBoolean(isEnabledForMethod.Invoke(this.internalLogger, new object[] { infoLevelPropertyValue }));
+                }
+                return isInfoEnabled.Value;
+            }
+        }
 
         /// <summary>
         /// Override the wrapper for log4net ILog Debug
@@ -214,22 +227,9 @@ namespace PayPal.Log
         }
 
         /// <summary>
-        /// Simple wrapper around the log4net IsInfoEnabled property.
+        /// Override the flush
         /// </summary>
-        public override bool IsInfoEnabled
-        {
-            get
-            {
-                if (!isInfoEnabled.HasValue)
-                {
-                    if (loadState != LoadState.Success || this.internalLogger == null || loggerType == null || systemStringFormatType == null || infoLevelPropertyValue == null)
-                        isInfoEnabled = false;
-                    else
-                        isInfoEnabled = Convert.ToBoolean(isEnabledForMethod.Invoke(this.internalLogger, new object[] { infoLevelPropertyValue }));
-                }
-                return isInfoEnabled.Value;
-            }
-        }
+        public override void Flush() { }                       
 
         /// <summary>
         /// Simple wrapper around the log4net InfoFormat method.

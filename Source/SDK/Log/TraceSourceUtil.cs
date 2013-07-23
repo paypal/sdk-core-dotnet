@@ -6,104 +6,119 @@ using System.Diagnostics;
 namespace PayPal.Log
 {
     /// <summary>
-    /// Trace Source utility for the specified Type or the base Type having listener
+    /// Trace Source utility for the given Type having listener or the closest "parent" TraceRoute that has listeners
     /// </summary>
     internal static class TraceSourceUtil
     {
-        private static object cacheLock = new object();
-        private static Dictionary<string, string> sourceToSourceWithListenersMap = new Dictionary<string, string>();
+        private static object syncLock = new object();
+        private static Dictionary<string, string> traceSourceWithListeners = new Dictionary<string, string>();
 
         /// <summary>
-        /// Gets a TraceSource for given Type with SourceLevels.All.
-        /// If there are no listeners configured for targetType or one of its "parents", returns null.
+        /// Gets the TraceSource for the given Type having SourceLevels.All
+        /// Returns null if there are no listeners configured for given Type or the closest "parent" TraceRoute that has listeners
         /// </summary>
-        /// <param name="targetType"></param>
+        /// <param name="givenType"></param>
         /// <returns></returns>
-        public static TraceSource GetTraceSource(Type targetType)
+        public static TraceSource GetTraceSource(Type givenType)
         {
-            return GetTraceSource(targetType, SourceLevels.All);
+            return GetTraceSource(givenType, SourceLevels.All);
         }
 
         /// <summary>
-        /// Gets a TraceSource for given Type and SourceLevels.
-        /// If there are no listeners configured for targetType or one of its "parents", returns null.
+        /// Gets the TraceSource for the given Type and SourceLevels
+        /// Returns null if there are no listeners configured for given Type or the closest "parent" TraceRoute that has listeners
         /// </summary>
-        /// <param name="targetType"></param>
+        /// <param name="givenType"></param>
         /// <param name="sourceLevels"></param>
         /// <returns></returns>
-        public static TraceSource GetTraceSource(Type targetType, SourceLevels sourceLevels)
+        public static TraceSource GetTraceSource(Type givenType, SourceLevels sourceLevels)
         {
-            TraceSource traceSource = GetTraceSourceWithListeners(targetType.FullName, sourceLevels);
-            return traceSource;
+            TraceSource sourceTrace = GetTraceSourceWithListeners(givenType.FullName, sourceLevels);
+            return sourceTrace;
         }
-
-
-        // Gets the name of the closest "parent" TraceRoute that has listeners, or null otherwise.
+        
+        /// <summary>
+        /// Gets the closest "parent" TraceRoute that has listeners, or null otherwise
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="sourceLevels"></param>
+        /// <returns></returns>
         private static TraceSource GetTraceSourceWithListeners(string name, SourceLevels sourceLevels)
         {
-            lock (cacheLock)
+            lock (syncLock)
             {
-                TraceSource traceSource = null;
-                string targetName;
-                if (!sourceToSourceWithListenersMap.TryGetValue(name, out targetName))
+                TraceSource sourceTrace = null;
+                string givenName;
+                if (!traceSourceWithListeners.TryGetValue(name, out givenName))
                 {
-                    traceSource = GetTraceSourceWithListeners_Locked(name, sourceLevels);
-                    targetName = traceSource == null ? null : traceSource.Name;
-                    sourceToSourceWithListenersMap[name] = targetName;
+                    sourceTrace = GetTraceSourceWithListenersSyncLock(name, sourceLevels);
+                    givenName = sourceTrace == null ? null : sourceTrace.Name;
+                    traceSourceWithListeners[name] = givenName;
                 }
-                else if (targetName != null)
+                else if (givenName != null)
                 {
-                    traceSource = new TraceSource(targetName, sourceLevels);
+                    sourceTrace = new TraceSource(givenName, sourceLevels);
                 }
-                return traceSource;
+                return sourceTrace;
             }
         }
 
-        // Gets the name of the closest "parent" TraceRoute that has listeners, or null otherwise.
-        private static TraceSource GetTraceSourceWithListeners_Locked(string name, SourceLevels sourceLevels)
+        /// <summary>
+        /// Gets the closest "parent" TraceRoute that has listeners, or null otherwise
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="sourceLevels"></param>
+        /// <returns></returns>
+        private static TraceSource GetTraceSourceWithListenersSyncLock(string name, SourceLevels sourceLevels)
         {
-            string[] parts = name.Split(new char[] { '.' }, StringSplitOptions.None);
+            string[] splitters = name.Split(new char[] { '.' }, StringSplitOptions.None);
+            List<string> nameSplitList = new List<string>();
+            StringBuilder builder = new StringBuilder();
 
-            List<string> namesToTest = new List<string>();
-            StringBuilder sb = new StringBuilder();
-            foreach (string part in parts)
+            foreach (string split in splitters)
             {
-                if (sb.Length > 0)
-                    sb.Append(".");
-                sb.Append(part);
+                if (builder.Length > 0)
+                {
+                    builder.Append(".");
+                }
 
-                string partialName = sb.ToString();
-                namesToTest.Add(partialName);
+                builder.Append(split);
+
+                string partialName = builder.ToString();
+                nameSplitList.Add(partialName);
             }
 
-            namesToTest.Reverse();
-            foreach (string testName in namesToTest)
+            nameSplitList.Reverse();
+
+            foreach (string nameSplit in nameSplitList)
             {
-                TraceSource ts = null;
-                ts = new TraceSource(testName, sourceLevels);
-                // no listeners? skip
-                if (ts.Listeners == null || ts.Listeners.Count == 0)
+                TraceSource sourceTrace = null;
+                sourceTrace = new TraceSource(nameSplit, sourceLevels);
+
+                if (sourceTrace.Listeners == null || sourceTrace.Listeners.Count == 0)
                 {
-                    ts.Close();
+                    sourceTrace.Close();
                     continue;
                 }
-                // more than one listener? use this TraceSource
-                if (ts.Listeners.Count > 1)
-                    return ts;
-                TraceListener listener = ts.Listeners[0];
-                // single listener isn't DefaultTraceListener? use this TraceRoute
-                if (!(listener is DefaultTraceListener))
-                    return ts;
-                // single listener is DefaultTraceListener but isn't named Default? use this TraceRoute
-                if (!string.Equals(listener.Name, "Default", StringComparison.Ordinal))
-                    return ts;
 
-                // not the TraceSource we're looking for, close it
-                ts.Close();
+                if (sourceTrace.Listeners.Count > 1)
+                {
+                    return sourceTrace;
+                }
+                TraceListener listenerTrace = sourceTrace.Listeners[0];
+
+                if (!(listenerTrace is DefaultTraceListener))
+                {
+                    return sourceTrace;
+                }
+                
+                if (!string.Equals(listenerTrace.Name, "Default", StringComparison.Ordinal))
+                {
+                    return sourceTrace;
+                }
+                sourceTrace.Close();
             }
 
-            // nothing found? no listeners are configured for any of the names, even the original,
-            // so return null to signify failure
             return null;
         }
     }

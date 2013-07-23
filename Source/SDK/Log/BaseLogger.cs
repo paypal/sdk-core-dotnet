@@ -10,28 +10,28 @@ namespace PayPal.Log
         /// <summary>
         /// Type specified
         /// </summary>
-        private Type typeSpecifying;
+        private Type typeGiven;
 
-        // Flag for logger
+        // Logger enable flag
         private bool isLoggerEnabled;
 
         /// <summary>
-        /// Specifying Type
+        /// Gets and sets the given Type
         /// </summary>
-        public Type SpecifyingType 
+        public Type GivenType 
         { 
             get 
             { 
-                return this.typeSpecifying; 
+                return this.typeGiven; 
             } 
             private set 
             { 
-                this.typeSpecifying = value; 
+                this.typeGiven = value; 
             } 
         }
            
         /// <summary>
-        /// Logger enable flag
+        /// Get logger enable flag
         /// </summary>
         public bool IsEnabled 
         { 
@@ -51,14 +51,10 @@ namespace PayPal.Log
         /// <param name="typeOfBase"></param>
         public BaseLogger(Type typeOfBase)
         {
-            SpecifyingType = typeOfBase;
+            GivenType = typeOfBase;
             IsEnabled = true;
         }
-
-        /// <summary>
-        /// Flush the loggers
-        /// </summary>
-        public abstract void Flush();
+                
 
         /// <summary>
         /// Virtual wrapper for log4net ILog IsDebugEnabled
@@ -114,7 +110,12 @@ namespace PayPal.Log
         /// <param name="exception"></param>
         /// <param name="messageFormat"></param>
         /// <param name="args"></param>
-        public abstract void Error(System.Exception exception, string messageFormat, params object[] args);              
+        public abstract void Error(System.Exception exception, string messageFormat, params object[] args);
+
+        /// <summary>
+        /// Abstract flush for loggers
+        /// </summary>
+        public abstract void Flush();
 
         /// <summary>
         /// Abstract wrapper for log4net ILog InfoFormat
