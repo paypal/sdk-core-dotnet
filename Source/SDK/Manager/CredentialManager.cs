@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using PayPal.Authentication;
 using PayPal.Exception;
+using PayPal.Log;
 
 namespace PayPal.Manager
 {
@@ -14,7 +15,7 @@ namespace PayPal.Manager
         /// Logger
         /// </summary>
         //private static ILog logger = LogManagerWrapper.GetLogger(typeof(CredentialManager));
-        private static Logger logger = Logger.GetLogger(typeof(CredentialManager));
+        private static Log4netWrapper logger = Log4netWrapper.GetLogger(typeof(CredentialManager));
 
 
         private static string accountPrefix = "account";

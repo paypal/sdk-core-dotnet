@@ -3,20 +3,17 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Configuration;
 
-namespace PayPal
+namespace PayPal.Log
 {
     /// <summary>
-    /// Configuration options that apply to the entire SDK.
+    /// Configuration for PayPalCoreSDK.
     /// </summary>
-    public static class PayPalConfiguration
+    public static class LogConfiguration
     {
         internal static event PropertyChangedEventHandler PropertyChanged;
 
-        #region Logging
-
         /// <summary>
-        /// Key for the Logging property.
-        /// <seealso cref="PayPal.PayPalConfiguration.Logging"/>
+        /// Key for the logging to be set for <appSettings><add key="PayPalLogKey" value="LOG4NET"/></appSettings> in configuration file
         /// </summary>
         public const string LoggingKey = "PayPalLogKey";
 
@@ -33,23 +30,25 @@ namespace PayPal
         /// </summary>
         public static LoggerTypes Logging
         {
-            get { return _logging; }
+            get { return logTypes; }
             set
             {
-                _logging = value;
+                logTypes = value;
                 OnPropertyChanged("Logging");
             }
         }
 
-        private static char[] validSeparators = new char[] { ' ', ',' };
-        private static LoggerTypes _logging = GetLoggingSetting();
+        private static char[] splitters = new char[] { ',' };
+
+        private static LoggerTypes logTypes = GetLoggingSetting();
+
         private static LoggerTypes GetLoggingSetting()
         {
             string value = GetConfig(LoggingKey);
             if (string.IsNullOrEmpty(value))
                 return LoggerTypes.NONE;
 
-            string[] settings = value.Split(validSeparators, StringSplitOptions.RemoveEmptyEntries);
+            string[] settings = value.Split(splitters, StringSplitOptions.RemoveEmptyEntries);
             if (settings == null || settings.Length == 0)
                 return LoggerTypes.NONE;
 
@@ -62,14 +61,6 @@ namespace PayPal
             return totalSetting;
         }
 
-        #endregion
-
-
-
-
-
-        #region Private general methods
-
         private static void OnPropertyChanged(string name)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
@@ -78,6 +69,7 @@ namespace PayPal
                 handler(null, new PropertyChangedEventArgs(name));
             }
         }
+
         private static string GetConfig(string name)
         {
             NameValueCollection appConfig = ConfigurationManager.AppSettings;
@@ -86,6 +78,7 @@ namespace PayPal
             string value = appConfig[name];
             return value;
         }
+
         private static bool GetConfigBool(string name)
         {
             string value = GetConfig(name);
@@ -94,10 +87,11 @@ namespace PayPal
                 return result;
             return default(bool);
         }
+
         private static T GetConfigEnum<T>(string name)
         {
             Type type = typeof(T);
-            if (!type.IsEnum) throw new InvalidOperationException(string.Format("Type {0} must be enum", type.FullName));
+            if (!type.IsEnum) throw new InvalidOperationException(string.Format("Type {0} must be enum ", type.FullName));
 
             string value = GetConfig(name);
             if (string.IsNullOrEmpty(value))
@@ -105,6 +99,7 @@ namespace PayPal
             T result = ParseEnum<T>(value);
             return result;
         }
+
         private static T ParseEnum<T>(string value)
         {
             T t;
@@ -134,29 +129,5 @@ namespace PayPal
                 return false;
             }
         }
-
-        #endregion
     }
-
-    /// <summary>
-    /// Comma separate the log types to enable multiple loggers
-    /// </summary>
-    [Flags]
-    public enum LoggerTypes
-    {
-        /// <summary>
-        /// No logging
-        /// </summary>
-        NONE = 0,
-        
-        /// <summary>
-        /// Log using log4net
-        /// </summary>
-        LOG4NET = 1,
-        
-        /// <summary>
-        /// Log using System.Diagnostics
-        /// </summary>
-        DIAGNOSTICS = 2
-    }   
 }

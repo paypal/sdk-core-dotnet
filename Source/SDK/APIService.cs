@@ -7,6 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 using PayPal.Manager;
 using PayPal.Exception;
 using PayPal.Authentication;
+using PayPal.Log;
 
 namespace PayPal
 {
@@ -30,8 +31,7 @@ namespace PayPal
         /// <summary>
         /// Logger
         /// </summary>
-        //private static ILog logger = LogManagerWrapper.GetLogger(typeof(APIService));
-        private static Logger logger = Logger.GetLogger(typeof(APIService));
+        private static Log4netWrapper logger = Log4netWrapper.GetLogger(typeof(APIService));
 
         /// <summary>
         /// Retry codes

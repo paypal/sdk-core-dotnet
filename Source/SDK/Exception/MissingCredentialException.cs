@@ -1,3 +1,5 @@
+using PayPal.Log;
+
 namespace PayPal.Exception
 {
     public class MissingCredentialException : System.Exception
@@ -6,7 +8,7 @@ namespace PayPal.Exception
         /// Logger
         /// </summary>
         //private static ILog logger = LogManagerWrapper.GetLogger(typeof(MissingCredentialException));
-        private static Logger logger = Logger.GetLogger(typeof(MissingCredentialException));
+        private static Log4netWrapper logger = Log4netWrapper.GetLogger(typeof(MissingCredentialException));
 
 		/// <summary>
 		/// Represents errors that occur during application execution

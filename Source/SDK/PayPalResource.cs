@@ -13,6 +13,7 @@ using System.Net;
 using Newtonsoft.Json;
 using PayPal.Manager;
 using PayPal.Exception;
+using PayPal.Log;
 
 namespace PayPal
 {
@@ -22,7 +23,7 @@ namespace PayPal
         /// Logs output statements, errors, debug info to a text file    
         /// </summary>
         //private static ILog logger = LogManagerWrapper.GetLogger(typeof(PayPalResource));
-        private static Logger logger = Logger.GetLogger(typeof(PayPalResource));
+        private static Log4netWrapper logger = Log4netWrapper.GetLogger(typeof(PayPalResource));
 
         private static ArrayList retryCodes = new ArrayList(new HttpStatusCode[] 
                                                 { HttpStatusCode.GatewayTimeout,

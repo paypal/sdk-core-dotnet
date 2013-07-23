@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using PayPal.Exception;
 using PayPal.Authentication;
+using PayPal.Log;
 
 namespace PayPal.NVP
 {
@@ -11,7 +12,7 @@ namespace PayPal.NVP
         /// Logger
         /// </summary>
         //private static ILog logger = LogManagerWrapper.GetLogger(typeof(SignatureHttpHeaderAuthStrategy));
-        private static Logger logger = Logger.GetLogger(typeof(SignatureHttpHeaderAuthStrategy));
+        private static Log4netWrapper logger = Log4netWrapper.GetLogger(typeof(SignatureHttpHeaderAuthStrategy));
 
 
         /// <summary>

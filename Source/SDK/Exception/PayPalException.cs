@@ -1,3 +1,5 @@
+using PayPal.Log;
+
 namespace PayPal.Exception
 {
     public class PayPalException : System.Exception
@@ -6,7 +8,7 @@ namespace PayPal.Exception
         /// Logs output statements, errors, debug info to a text file    
         /// </summary>
         //private static ILog logger = LogManagerWrapper.GetLogger(typeof(PayPalException));
-        private static Logger logger = Logger.GetLogger(typeof(PayPalException));
+        private static Log4netWrapper logger = Log4netWrapper.GetLogger(typeof(PayPalException));
 
         /// <summary>
 		/// Represents application configuration errors 

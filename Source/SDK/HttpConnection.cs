@@ -5,6 +5,7 @@ using System.Net;
 using System.IO;
 using PayPal.Exception;
 using PayPal.Manager;
+using PayPal.Log;
 
 namespace PayPal
 {
@@ -14,7 +15,7 @@ namespace PayPal
         /// Logger
         /// </summary>
         //private static ILog logger = LogManagerWrapper.GetLogger(typeof(ConnectionManager));
-        private static Logger logger = Logger.GetLogger(typeof(HttpConnection));
+        private static Log4netWrapper logger = Log4netWrapper.GetLogger(typeof(HttpConnection));
 
         private static ArrayList retryCodes = new ArrayList(new HttpStatusCode[] 
                                                 { HttpStatusCode.GatewayTimeout,
