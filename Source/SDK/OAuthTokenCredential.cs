@@ -67,7 +67,7 @@ namespace PayPal
         /// <summary>
         /// Logs output statements, errors, debug info to a text file    
         /// </summary>
-        private static Log4netLogger logger = Log4netLogger.GetLogger(typeof(OAuthTokenCredential));
+        private static Log4netLogger logger = Log4netLogger.GetLog4netLogger(typeof(OAuthTokenCredential));
 
         /// <summary>
         /// Client Id and Secret for the OAuth

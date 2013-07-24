@@ -53,8 +53,7 @@ namespace PayPal
         /// </summary>
         /// <param name="token"></param>
         /// <param name="requestId"></param>
-        public APIContext(string token, string requestId)
-            : this(token)
+        public APIContext(string token, string requestId) : this(token)
         {
             if (string.IsNullOrEmpty(requestId))
             {

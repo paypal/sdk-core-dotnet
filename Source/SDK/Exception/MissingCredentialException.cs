@@ -7,7 +7,7 @@ namespace PayPal.Exception
         /// <summary>
         /// Logger
         /// </summary>
-        private static Log4netLogger logger = Log4netLogger.GetLogger(typeof(MissingCredentialException));
+        private static Log4netLogger logger = Log4netLogger.GetLog4netLogger(typeof(MissingCredentialException));
 
 		/// <summary>
 		/// Represents errors that occur during application execution

@@ -15,14 +15,6 @@ namespace PayPal.Log
 
         private static Log4netLogger loggerLog4net = new Log4netLogger();
 
-        public static Log4netLogger GetLog4netLogger
-        {
-            get
-            {
-                return loggerLog4net;
-            }
-        }
-
         private Log4netLogger()
         {
             loggerList = new List<BaseLogger>();
@@ -65,7 +57,7 @@ namespace PayPal.Log
             }            
         }
 
-        public static Log4netLogger GetLogger(Type givenType)
+        public static Log4netLogger GetLog4netLogger(Type givenType)
         {
             if (givenType == null)
             {

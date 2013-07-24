@@ -11,7 +11,7 @@ namespace PayPal.SOAP
         /// <summary>
         /// Logger
         /// </summary>
-        private static Log4netLogger logger = Log4netLogger.GetLogger(typeof(CertificateHttpHeaderAuthStrategy));
+        private static Log4netLogger logger = Log4netLogger.GetLog4netLogger(typeof(CertificateHttpHeaderAuthStrategy));
 
         /// <summary>
         /// CertificateHttpHeaderAuthStrategy
