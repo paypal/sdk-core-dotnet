@@ -41,7 +41,7 @@ namespace PayPal
         /// <summary>
         /// Logger
         /// </summary>
-        private static Log4netLogger logger = Log4netLogger.GetLog4netLogger(typeof(IPNMessage));
+        private static Logger logger = Logger.GetLogger(typeof(IPNMessage));
                 
         /// <summary>
         /// Initializing nvcMap and constructing query string

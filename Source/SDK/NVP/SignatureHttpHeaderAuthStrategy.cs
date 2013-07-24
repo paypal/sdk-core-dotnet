@@ -11,7 +11,7 @@ namespace PayPal.NVP
         /// <summary>
         /// Logger
         /// </summary>
-        private static Log4netLogger logger = Log4netLogger.GetLog4netLogger(typeof(SignatureHttpHeaderAuthStrategy));
+        private static Logger logger = Logger.GetLogger(typeof(SignatureHttpHeaderAuthStrategy));
 
 
         /// <summary>

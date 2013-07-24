@@ -14,7 +14,7 @@ namespace PayPal.Manager
         /// <summary>
         /// Logger
         /// </summary>
-        private static Log4netLogger logger = Log4netLogger.GetLog4netLogger(typeof(CredentialManager));
+        private static Logger logger = Logger.GetLogger(typeof(CredentialManager));
 
 
         private static string accountPrefix = "account";

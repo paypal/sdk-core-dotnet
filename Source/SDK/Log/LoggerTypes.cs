@@ -6,7 +6,7 @@ namespace PayPal.Log
     /// Comma separate the log types to enable multiple loggers
     /// </summary>
     [Flags]
-    public enum Loggers
+    public enum LoggerTypes
     {
         /// <summary>
         /// No log

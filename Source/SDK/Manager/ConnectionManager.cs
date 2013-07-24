@@ -14,7 +14,7 @@ namespace PayPal.Manager
         /// <summary>
         /// Logger
         /// </summary>
-        private static Log4netLogger logger = Log4netLogger.GetLog4netLogger(typeof(ConnectionManager));
+        private static Logger logger = Logger.GetLogger(typeof(ConnectionManager));
 
 #if NET_2_0 || NET_3_5
         /// <summary>

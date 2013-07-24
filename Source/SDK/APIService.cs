@@ -31,7 +31,7 @@ namespace PayPal
         /// <summary>
         /// Logger
         /// </summary>
-        private static Log4netLogger logger = Log4netLogger.GetLog4netLogger(typeof(APIService));
+        private static Logger logger = Logger.GetLogger(typeof(APIService));
 
         /// <summary>
         /// Retry codes

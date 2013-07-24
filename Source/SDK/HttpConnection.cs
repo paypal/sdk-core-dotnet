@@ -14,7 +14,7 @@ namespace PayPal
         /// <summary>
         /// Logger
         /// </summary>
-        private static Log4netLogger logger = Log4netLogger.GetLog4netLogger(typeof(HttpConnection));
+        private static Logger logger = Logger.GetLogger(typeof(HttpConnection));
 
         private static ArrayList retryCodes = new ArrayList(new HttpStatusCode[] 
                                                 { HttpStatusCode.GatewayTimeout,

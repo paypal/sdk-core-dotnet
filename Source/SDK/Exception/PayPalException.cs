@@ -7,7 +7,7 @@ namespace PayPal.Exception
         /// <summary>
         /// Logs output statements, errors, debug info to a text file    
         /// </summary>
-        private static Log4netLogger logger = Log4netLogger.GetLog4netLogger(typeof(PayPalException));
+        private static Logger logger = Logger.GetLogger(typeof(PayPalException));
 
         /// <summary>
 		/// Represents application configuration errors 

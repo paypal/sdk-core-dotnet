@@ -18,69 +18,41 @@ namespace PayPal.Log
 
         private static char[] splitters = new char[] { ',' };
 
-        private static Loggers loggerTypes = GetLoggers();
+        private static LoggerTypes configurationLoggers = GetConfigurationLoggers();
 
-        //private static List<string> loggerList = GetLoggerList();
-
-        public static Loggers Logging
+        public static LoggerTypes LoggersInConfiguration
         {
             get
             {
-                return loggerTypes;
+                return configurationLoggers;
             }
-        }  
+        }
 
-        //public static List<string> LoggerList 
-        //{
-        //    get 
-        //    {
-        //        return loggerList; 
-        //    }          
-        //}          
-
-        private static Loggers GetLoggers()
+        private static LoggerTypes GetConfigurationLoggers()
         {
             string value = GetConfiguration(PayPalLogKey);
             if (string.IsNullOrEmpty(value))
             {
-                return Loggers.None;
+                return LoggerTypes.None;
             }
 
             string[] settings = value.Split(splitters, StringSplitOptions.RemoveEmptyEntries);
 
             if (settings == null || settings.Length == 0)
             {
-                return Loggers.None;
+                return LoggerTypes.None;
             }
 
-            Loggers loggerType = Loggers.None;
+            LoggerTypes loggerType = LoggerTypes.None;
 
             foreach (string setting in settings)
             {
-                Loggers loggerSet = ParseEnum<Loggers>(setting);
+                LoggerTypes loggerSet = ParseEnum<LoggerTypes>(setting);
                 loggerType |= loggerSet;
             }
 
             return loggerType;
-        }
-
-        //private static List<string> GetLoggerList()
-        //{
-        //    string value = GetConfiguration(PayPalLogKey);
-        //    if (string.IsNullOrEmpty(value))
-        //    {
-        //        return null;
-        //    }
-
-        //    string[] settings = value.Split(splitters, StringSplitOptions.RemoveEmptyEntries);
-
-        //    if (settings == null || settings.Length == 0)
-        //    {
-        //        return null;
-        //    }
-
-        //    return new List<string>(settings);
-        //}     
+        }     
 
         private static string GetConfiguration(string name)
         {
