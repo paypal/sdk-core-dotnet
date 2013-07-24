@@ -17,6 +17,30 @@ namespace PayPal.Log
             this.sourceTrace = TraceSourceUtil.GetTraceSource(givenType);
         }
 
+        public override bool IsDebugEnabled
+        {
+            get
+            {
+                return (sourceTrace != null);
+            }
+        }
+
+        public override bool IsErrorEnabled
+        {
+            get
+            {
+                return (sourceTrace != null);
+            }
+        }
+
+        public override bool IsInfoEnabled
+        {
+            get
+            {
+                return (sourceTrace != null);
+            }
+        }
+
         public override void Flush()
         {
             if (sourceTrace != null)
@@ -43,30 +67,6 @@ namespace PayPal.Log
         public override void InfoFormat(string message, params object[] arguments)
         {
             sourceTrace.TraceData(TraceEventType.Information, id++, new LogMessage(CultureInfo.InvariantCulture, message, arguments));
-        }
-
-        public override bool IsDebugEnabled 
-        { 
-            get 
-            { 
-                return (sourceTrace != null); 
-            } 
-        }
-
-        public override bool IsErrorEnabled 
-        { 
-            get 
-            { 
-                return (sourceTrace != null); 
-            } 
-        }
-
-        public override bool IsInfoEnabled 
-        { 
-            get 
-            { 
-                return (sourceTrace != null); 
-            } 
         }
     }
 }

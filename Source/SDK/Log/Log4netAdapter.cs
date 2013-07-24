@@ -174,7 +174,7 @@ namespace PayPal.Log
         }
 
         /// <summary>
-        /// Simple wrapper around the log4net IsInfoEnabled property.
+        /// Override the wrapper for log4net ILog IsInfoEnabled
         /// </summary>
         public override bool IsInfoEnabled
         {
@@ -198,6 +198,11 @@ namespace PayPal.Log
                 return isInfoEnabled.Value;
             }
         }
+
+        /// <summary>
+        /// Override the flush
+        /// </summary>
+        public override void Flush() { }        
 
         /// <summary>
         /// Override the wrapper for log4net ILog Debug
@@ -252,12 +257,7 @@ namespace PayPal.Log
                     new LogMessage(CultureInfo.InvariantCulture, messageFormat, args),
                     exception
                 });
-        }
-
-        /// <summary>
-        /// Override the flush
-        /// </summary>
-        public override void Flush() { }                       
+        }         
 
         /// <summary>
         /// Override the wrapper for log4net ILog InfoFormat

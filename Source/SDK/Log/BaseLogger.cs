@@ -53,8 +53,7 @@ namespace PayPal.Log
         {
             GivenType = typeOfBase;
             IsEnabled = true;
-        }
-                
+        }              
 
         /// <summary>
         /// Virtual wrapper for log4net ILog IsDebugEnabled

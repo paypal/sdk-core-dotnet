@@ -32,16 +32,23 @@ namespace PayPal.Log
         {
             loggerList = new List<BaseLogger>();
 
-            Log4netAdapter log4netLogger = new Log4netAdapter(givenType);
-            loggerList.Add(log4netLogger);
-            DiagnosticsLogger sdLogger = new DiagnosticsLogger(givenType);
-            loggerList.Add(sdLogger);
+            Log4netAdapter adapterLog4net = new Log4netAdapter(givenType);
+            loggerList.Add(adapterLog4net);
+
+            DiagnosticsLogger loggerDiagnostics = new DiagnosticsLogger(givenType);
+            loggerList.Add(loggerDiagnostics);
 
             ConfigureLoggers();            
         }       
 
         private void ConfigureLoggers()
         {
+            //List<string> configuredLoggers = LogConfiguration.LoggerList;
+            //foreach (string logger in configuredLoggers)
+            //{
+
+            //}
+
             Loggers loggerTypes = LogConfiguration.Logging;
 
             foreach (BaseLogger logger in loggerList)
@@ -55,7 +62,7 @@ namespace PayPal.Log
                 {
                     logger.IsEnabled = (loggerTypes & Loggers.Diagnostics) == Loggers.Diagnostics;
                 }
-            }
+            }            
         }
 
         public static Log4netLogger GetLogger(Type givenType)

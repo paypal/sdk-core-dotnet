@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Configuration;
+using System.Collections.Generic;
 
 namespace PayPal.Log
 {
@@ -18,17 +19,24 @@ namespace PayPal.Log
         private static char[] splitters = new char[] { ',' };
 
         private static Loggers loggerTypes = GetLoggers();
-                
-        /// <summary>
-        /// Gets and sets the loggers
-        /// </summary>
+
+        //private static List<string> loggerList = GetLoggerList();
+
         public static Loggers Logging
         {
-            get 
-            { 
-                return loggerTypes; 
-            }          
-        }        
+            get
+            {
+                return loggerTypes;
+            }
+        }  
+
+        //public static List<string> LoggerList 
+        //{
+        //    get 
+        //    {
+        //        return loggerList; 
+        //    }          
+        //}          
 
         private static Loggers GetLoggers()
         {
@@ -54,7 +62,25 @@ namespace PayPal.Log
             }
 
             return loggerType;
-        }      
+        }
+
+        //private static List<string> GetLoggerList()
+        //{
+        //    string value = GetConfiguration(PayPalLogKey);
+        //    if (string.IsNullOrEmpty(value))
+        //    {
+        //        return null;
+        //    }
+
+        //    string[] settings = value.Split(splitters, StringSplitOptions.RemoveEmptyEntries);
+
+        //    if (settings == null || settings.Length == 0)
+        //    {
+        //        return null;
+        //    }
+
+        //    return new List<string>(settings);
+        //}     
 
         private static string GetConfiguration(string name)
         {
