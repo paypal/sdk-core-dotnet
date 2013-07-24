@@ -34,7 +34,7 @@ namespace PayPal
 
         public const string SdkID = "rest-sdk-dotnet";
 
-        public const string SdkVersion = "0.7.1";
+        public const string SdkVersion = "0.7.2";
 
         public static T ConfigureAndExecute<T>(string accessToken, HttpMethod httpMethod, string resource, string payLoad)
         {
