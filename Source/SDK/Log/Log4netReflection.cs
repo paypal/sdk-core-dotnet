@@ -9,113 +9,116 @@ namespace PayPal.Log
     /// </summary>
     internal class Log4netReflection : BaseLogger
     {
-        enum LoadState { Uninitialized, Failed, Loading, Success };
-        
-        static LoadState loadState = LoadState.Uninitialized;
-        static readonly object LOCK = new object();
-                
-        static Type logMangerType;
-        static MethodInfo loggerMethodInfo;
+        enum Status { NotInitialized, Failure, Loading, Success };
 
-        static Type logType;
-        static MethodInfo logMethod;
+        static Status currentStatus = Status.NotInitialized;
+        static readonly object syncLock = new object();
 
-        static Type levelType;
-        static object debugLevelPropertyValue;
-        static object infoLevelPropertyValue;
-        static object errorLevelPropertyValue;
+        static Type log4netWrapperType;
 
-        static MethodInfo isEnabledForMethod;
-        static Type systemStringFormatType;
-        static Type loggerType;
+        static Type log4netLoggerManger;
+        static MethodInfo log4netLoggerMangerMethod;
+        private object log4netLoggerMangerMethodInvoke;
 
-        private object internalLogger;
+        static Type log4netILogger;
+
+        static Type log4netLevel;
+        static object log4netLevelDebug;
+        static object log4netLevelInfo;
+        static object log4netLevelError;
+
+        static MethodInfo log4netILoggerMethodLog;
+        static MethodInfo log4netILoggerMethodIsEnabledFor;
+
+        static Type log4netSystemStringFormat;              
+
         private bool? isErrorEnabled;
         private bool? isDebugEnabled;
         private bool? isInfoEnabled;
 
         /// <summary>
-        /// This should be a one time call to use reflection to find all the types and methods needed for the logging API.
+        /// Interrogate log4net
         /// </summary>
         private static void Reflect()
         {
-            lock (Log4netReflection.LOCK)
+            lock (Log4netReflection.syncLock)
             {
-                if (loadState != LoadState.Uninitialized)
+                if (currentStatus != Status.NotInitialized)
                 {
                     return;
                 }
 
-                loadState = LoadState.Loading;
+                currentStatus = Status.Loading;
                 try
                 {
-                    loggerType = Type.GetType("PayPal.Log.Log4netWrapper");
+                    log4netWrapperType = Type.GetType("PayPal.Log.Log4netWrapper");
+                    log4netLoggerManger = Type.GetType("log4net.Core.LoggerManager, log4net");
 
-                    logMangerType = Type.GetType("log4net.Core.LoggerManager, log4net");
-                    if (logMangerType == null)
+                    if (log4netLoggerManger == null)
                     {
-                        loadState = LoadState.Failed;
+                        currentStatus = Status.Failure;
                         return;
                     }
 
-                    loggerMethodInfo = logMangerType.GetMethod("GetLogger", new Type[] { typeof(Assembly), typeof(Type) });
+                    log4netLoggerMangerMethod = log4netLoggerManger.GetMethod("GetLogger", new Type[] { typeof(Assembly), typeof(Type) });
 
-                    logType = Type.GetType("log4net.Core.ILogger, log4net");
-                    levelType = Type.GetType("log4net.Core.Level, log4net");
-                    debugLevelPropertyValue = levelType.GetField("Debug").GetValue(null);
-                    infoLevelPropertyValue = levelType.GetField("Info").GetValue(null);
-                    errorLevelPropertyValue = levelType.GetField("Error").GetValue(null);
+                    log4netILogger = Type.GetType("log4net.Core.ILogger, log4net");
+                    log4netLevel = Type.GetType("log4net.Core.Level, log4net");
 
-                    systemStringFormatType = Type.GetType("log4net.Util.SystemStringFormat, log4net");
+                    log4netLevelDebug = log4netLevel.GetField("Debug").GetValue(null);
+                    log4netLevelInfo = log4netLevel.GetField("Info").GetValue(null);
+                    log4netLevelError = log4netLevel.GetField("Error").GetValue(null);
 
-                    logMethod = logType.GetMethod("Log", new Type[] { typeof(Type), levelType, typeof(object), typeof(System.Exception) });
-                    isEnabledForMethod = logType.GetMethod("IsEnabledFor", new Type[] { levelType });
+                    log4netSystemStringFormat = Type.GetType("log4net.Util.SystemStringFormat, log4net");
 
-                    if (loggerMethodInfo == null ||
-                        isEnabledForMethod == null ||
-                        logType == null ||
-                        levelType == null ||
-                        logMethod == null)
+                    log4netILoggerMethodLog = log4netILogger.GetMethod("Log", new Type[] { typeof(Type), log4netLevel, typeof(object), typeof(System.Exception) });
+                    log4netILoggerMethodIsEnabledFor = log4netILogger.GetMethod("IsEnabledFor", new Type[] { log4netLevel });
+
+                    if (log4netLoggerMangerMethod == null || 
+                        log4netILoggerMethodIsEnabledFor == null || 
+                        log4netILogger == null ||
+                        log4netLevel == null ||
+                        log4netILoggerMethodLog == null)
                     {
-                        loadState = LoadState.Failed;
+                        currentStatus = Status.Failure;
                         return;
                     }
 
                     if ((LogConfiguration.Logging & Loggers.Log4net) == Loggers.Log4net)
                     {
-                        Type xmlConfiguratorType = Type.GetType("log4net.Config.XmlConfigurator, log4net");
-                        if (xmlConfiguratorType != null)
+                        Type log4netXmlConfigurator = Type.GetType("log4net.Config.XmlConfigurator, log4net");
+                        if (log4netXmlConfigurator != null)
                         {
-                            MethodInfo configureMethod = xmlConfiguratorType.GetMethod("Configure", Type.EmptyTypes);
-                            if (configureMethod != null)
+                            MethodInfo log4netXmlConfiguratorMethod = log4netXmlConfigurator.GetMethod("Configure", Type.EmptyTypes);
+                            if (log4netXmlConfiguratorMethod != null)
                             {
-                                configureMethod.Invoke(null, null);
+                                log4netXmlConfiguratorMethod.Invoke(null, null);
                             }
                         }
                     }
 
-                    loadState = LoadState.Success;
+                    currentStatus = Status.Success;
                 }
                 catch
                 {
-                    loadState = LoadState.Failed;
+                    currentStatus = Status.Failure;
                 }
             }
         }
 
-        public Log4netReflection(Type declaringType) : base(declaringType)
+        public Log4netReflection(Type givenType) : base(givenType)
         {
-            if (loadState == LoadState.Uninitialized)
+            if (currentStatus == Status.NotInitialized)
             {
                 Reflect();
             }
 
-            if (logMangerType == null)
+            if (log4netLoggerManger == null)
             {
                 return;
             }
 
-            this.internalLogger = loggerMethodInfo.Invoke(null, new object[] { Assembly.GetCallingAssembly(), declaringType }); //Assembly.GetCallingAssembly()
+            this.log4netLoggerMangerMethodInvoke = log4netLoggerMangerMethod.Invoke(null, new object[] { Assembly.GetCallingAssembly(), givenType }); 
         }
        
         /// <summary>
@@ -127,10 +130,18 @@ namespace PayPal.Log
             {
                 if (!isDebugEnabled.HasValue)
                 {
-                    if (loadState != LoadState.Success || this.internalLogger == null || loggerType == null || systemStringFormatType == null || debugLevelPropertyValue == null)
+                    if (currentStatus != Status.Success ||
+                        this.log4netLoggerMangerMethodInvoke == null ||
+                        log4netWrapperType == null ||
+                        log4netSystemStringFormat == null ||
+                        log4netLevelDebug == null)
+                    {
                         isDebugEnabled = false;
+                    }
                     else
-                        isDebugEnabled = Convert.ToBoolean(isEnabledForMethod.Invoke(this.internalLogger, new object[] { debugLevelPropertyValue }));
+                    {
+                        isDebugEnabled = Convert.ToBoolean(log4netILoggerMethodIsEnabledFor.Invoke(this.log4netLoggerMangerMethodInvoke, new object[] { log4netLevelDebug }));
+                    }
                 }
                 return isDebugEnabled.Value;
             }
@@ -145,10 +156,18 @@ namespace PayPal.Log
             {
                 if (!isErrorEnabled.HasValue)
                 {
-                    if (loadState != LoadState.Success || this.internalLogger == null || loggerType == null || systemStringFormatType == null || errorLevelPropertyValue == null)
+                    if (currentStatus != Status.Success ||
+                        this.log4netLoggerMangerMethodInvoke == null ||
+                        log4netWrapperType == null ||
+                        log4netSystemStringFormat == null ||
+                        log4netLevelError == null)
+                    {
                         isErrorEnabled = false;
+                    }
                     else
-                        isErrorEnabled = Convert.ToBoolean(isEnabledForMethod.Invoke(this.internalLogger, new object[] { errorLevelPropertyValue }));
+                    {
+                        isErrorEnabled = Convert.ToBoolean(log4netILoggerMethodIsEnabledFor.Invoke(this.log4netLoggerMangerMethodInvoke, new object[] { log4netLevelError }));
+                    }
                 }
                 return isErrorEnabled.Value;
             }
@@ -163,10 +182,18 @@ namespace PayPal.Log
             {
                 if (!isInfoEnabled.HasValue)
                 {
-                    if (loadState != LoadState.Success || this.internalLogger == null || loggerType == null || systemStringFormatType == null || infoLevelPropertyValue == null)
+                    if (currentStatus != Status.Success ||
+                        this.log4netLoggerMangerMethodInvoke == null ||
+                        log4netWrapperType == null ||
+                        log4netSystemStringFormat == null ||
+                        log4netLevelInfo == null)
+                    {
                         isInfoEnabled = false;
+                    }
                     else
-                        isInfoEnabled = Convert.ToBoolean(isEnabledForMethod.Invoke(this.internalLogger, new object[] { infoLevelPropertyValue }));
+                    {
+                        isInfoEnabled = Convert.ToBoolean(log4netILoggerMethodIsEnabledFor.Invoke(this.log4netLoggerMangerMethodInvoke, new object[] { log4netLevelInfo }));
+                    }
                 }
                 return isInfoEnabled.Value;
             }
@@ -180,11 +207,11 @@ namespace PayPal.Log
         /// <param name="args"></param>
         public override void Debug(System.Exception exception, string messageFormat, params object[] args)
         {
-            logMethod.Invoke(
-                this.internalLogger,
+            log4netILoggerMethodLog.Invoke(
+                this.log4netLoggerMangerMethodInvoke,
                 new object[]
                 {
-                    loggerType, debugLevelPropertyValue,
+                    log4netWrapperType, log4netLevelDebug,
                     new LogMessage(CultureInfo.InvariantCulture, messageFormat, args),
                     exception
                 });
@@ -197,15 +224,15 @@ namespace PayPal.Log
         /// <param name="arguments"></param>
         public override void DebugFormat(string message, params object[] arguments)
         {
-            logMethod.Invoke(
-                this.internalLogger,
+            log4netILoggerMethodLog.Invoke(
+                this.log4netLoggerMangerMethodInvoke,
                 new object[]
                 {
-                    loggerType, debugLevelPropertyValue,
+                    log4netWrapperType, 
+                    log4netLevelDebug,
                     new LogMessage(CultureInfo.InvariantCulture, message, arguments),
                     null
                 });
-
         }
 
         /// <summary>
@@ -216,11 +243,12 @@ namespace PayPal.Log
         /// <param name="args"></param>
         public override void Error(System.Exception exception, string messageFormat, params object[] args)
         {
-            logMethod.Invoke(
-                this.internalLogger,
+            log4netILoggerMethodLog.Invoke(
+                this.log4netLoggerMangerMethodInvoke,
                 new object[]
                 {
-                    loggerType, errorLevelPropertyValue,
+                    log4netWrapperType, 
+                    log4netLevelError,
                     new LogMessage(CultureInfo.InvariantCulture, messageFormat, args),
                     exception
                 });
@@ -232,20 +260,23 @@ namespace PayPal.Log
         public override void Flush() { }                       
 
         /// <summary>
-        /// Simple wrapper around the log4net InfoFormat method.
+        /// Override the wrapper for log4net ILog InfoFormat
         /// </summary>
         /// <param name="message"></param>
         /// <param name="arguments"></param>
         public override void InfoFormat(string message, params object[] arguments)
         {
-            logMethod.Invoke(
-                this.internalLogger,
+            log4netILoggerMethodLog.Invoke
+            (
+                this.log4netLoggerMangerMethodInvoke,
                 new object[]
                 {
-                    loggerType, infoLevelPropertyValue,
+                    log4netWrapperType, 
+                    log4netLevelInfo,
                     new LogMessage(CultureInfo.InvariantCulture, message, arguments),
                     null
-                });
+                }
+            );
         }
     }
 }
