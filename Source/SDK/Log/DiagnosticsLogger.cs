@@ -7,14 +7,14 @@ namespace PayPal.Log
     /// <summary>
     /// System.Diagnostics wrapper
     /// </summary>
-    internal class DiagnosticsWrapper : BaseLogger
+    internal class DiagnosticsLogger : BaseLogger
     {
         volatile int id = 0;
         TraceSource sourceTrace;
 
-        public DiagnosticsWrapper(Type specifyingType) : base(specifyingType)
+        public DiagnosticsLogger(Type givenType) : base(givenType)
         {
-            this.sourceTrace = TraceSourceUtil.GetTraceSource(specifyingType);
+            this.sourceTrace = TraceSourceUtil.GetTraceSource(givenType);
         }
 
         public override void Flush()

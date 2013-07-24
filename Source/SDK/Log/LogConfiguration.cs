@@ -10,8 +10,6 @@ namespace PayPal.Log
     /// </summary>
     public static class LogConfiguration
     {
-        internal static event PropertyChangedEventHandler PropertyChanged;
-
         /// <summary>
         /// Key for the loggers to be set in <appSettings><add key="PayPalLog" value="Log4net"/></appSettings> in configuration file
         /// </summary>
@@ -29,12 +27,7 @@ namespace PayPal.Log
             get 
             { 
                 return loggerTypes; 
-            }
-            set
-            {
-                loggerTypes = value;
-                OnPropertyChanged("Logging");
-            }
+            }          
         }        
 
         private static Loggers GetLoggers()
@@ -61,17 +54,7 @@ namespace PayPal.Log
             }
 
             return loggerType;
-        }
-
-        private static void OnPropertyChanged(string name)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-
-            if (handler != null)
-            {
-                handler(null, new PropertyChangedEventArgs(name));
-            }
-        }
+        }      
 
         private static string GetConfiguration(string name)
         {

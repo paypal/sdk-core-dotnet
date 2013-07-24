@@ -7,39 +7,38 @@ namespace PayPal.Log
     /// <summary>
     /// Log4net wrapper to do without log4net in the SDK distribution
     /// </summary>
-    internal class Log4netWrapper
+    internal class Log4netLogger
     {
-        private static IDictionary<Type, Log4netWrapper> loggerKeyValuePairs = new Dictionary<Type, Log4netWrapper>();
+        private static IDictionary<Type, Log4netLogger> loggerKeyValuePairs = new Dictionary<Type, Log4netLogger>();
 
         private List<BaseLogger> loggerList;
 
-        private static Log4netWrapper wrapperLog4net = new Log4netWrapper();
+        private static Log4netLogger loggerLog4net = new Log4netLogger();
 
-        private Log4netWrapper()
+        public static Log4netLogger GetLog4netLogger
         {
-            loggerList = new List<BaseLogger>();
-        }
-
-        private Log4netWrapper(Type type)
-        {
-            loggerList = new List<BaseLogger>();
-
-            Log4netReflection log4netLogger = new Log4netReflection(type);
-            loggerList.Add(log4netLogger);
-            DiagnosticsWrapper sdLogger = new DiagnosticsWrapper(type);
-            loggerList.Add(sdLogger);
-
-            ConfigureLoggers();
-            LogConfiguration.PropertyChanged += ConfigurationChanged;
-        }
-
-        private void ConfigurationChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e != null && string.Equals(e.PropertyName, "Logging", StringComparison.Ordinal))
+            get
             {
-                ConfigureLoggers();
+                return loggerLog4net;
             }
         }
+
+        private Log4netLogger()
+        {
+            loggerList = new List<BaseLogger>();
+        }
+
+        private Log4netLogger(Type givenType)
+        {
+            loggerList = new List<BaseLogger>();
+
+            Log4netAdapter log4netLogger = new Log4netAdapter(givenType);
+            loggerList.Add(log4netLogger);
+            DiagnosticsLogger sdLogger = new DiagnosticsLogger(givenType);
+            loggerList.Add(sdLogger);
+
+            ConfigureLoggers();            
+        }       
 
         private void ConfigureLoggers()
         {
@@ -47,42 +46,36 @@ namespace PayPal.Log
 
             foreach (BaseLogger logger in loggerList)
             {
-                if (logger is Log4netReflection)
+                if (logger is Log4netAdapter)
                 {
                     logger.IsEnabled = (loggerTypes & Loggers.Log4net) == Loggers.Log4net;
                 }
 
-                if (logger is DiagnosticsWrapper)
+                if (logger is DiagnosticsLogger)
                 {
                     logger.IsEnabled = (loggerTypes & Loggers.Diagnostics) == Loggers.Diagnostics;
                 }
             }
         }
 
-        public static Log4netWrapper GetLogger(Type givenType)
+        public static Log4netLogger GetLogger(Type givenType)
         {
-            if (givenType == null) throw new ArgumentNullException("type");
+            if (givenType == null)
+            {
+                throw new ArgumentNullException("type");
+            }
 
-            Log4netWrapper wrapper;
+            Log4netLogger logger;
             lock (loggerKeyValuePairs)
             {
-                if (!loggerKeyValuePairs.TryGetValue(givenType, out wrapper))
+                if (!loggerKeyValuePairs.TryGetValue(givenType, out logger))
                 {
-                    wrapper = new Log4netWrapper(givenType);
-                    loggerKeyValuePairs[givenType] = wrapper;
+                    logger = new Log4netLogger(givenType);
+                    loggerKeyValuePairs[givenType] = logger;
                 }
             }
-            return wrapper;
+            return logger;
         }
-
-        public static Log4netWrapper GetLog4netWrapper 
-        { 
-            get 
-            { 
-                return wrapperLog4net; 
-            } 
-        }
-
 
         public void Flush()
         {

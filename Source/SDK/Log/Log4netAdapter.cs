@@ -7,14 +7,14 @@ namespace PayPal.Log
     /// <summary>
     /// Wrapper for reflected log4net logging methods
     /// </summary>
-    internal class Log4netReflection : BaseLogger
+    internal class Log4netAdapter : BaseLogger
     {
         enum Status { NotInitialized, Failure, Loading, Success };
 
         static Status currentStatus = Status.NotInitialized;
         static readonly object syncLock = new object();
 
-        static Type log4netWrapperType;
+        static Type log4netLoggerType;
 
         static Type log4netLoggerManger;
         static MethodInfo log4netLoggerMangerMethod;
@@ -41,7 +41,7 @@ namespace PayPal.Log
         /// </summary>
         private static void Reflect()
         {
-            lock (Log4netReflection.syncLock)
+            lock (Log4netAdapter.syncLock)
             {
                 if (currentStatus != Status.NotInitialized)
                 {
@@ -51,7 +51,7 @@ namespace PayPal.Log
                 currentStatus = Status.Loading;
                 try
                 {
-                    log4netWrapperType = Type.GetType("PayPal.Log.Log4netWrapper");
+                    log4netLoggerType = Type.GetType("PayPal.Log.Log4netLogger");
                     log4netLoggerManger = Type.GetType("log4net.Core.LoggerManager, log4net");
 
                     if (log4netLoggerManger == null)
@@ -106,7 +106,7 @@ namespace PayPal.Log
             }
         }
 
-        public Log4netReflection(Type givenType) : base(givenType)
+        public Log4netAdapter(Type givenType) : base(givenType)
         {
             if (currentStatus == Status.NotInitialized)
             {
@@ -132,7 +132,7 @@ namespace PayPal.Log
                 {
                     if (currentStatus != Status.Success ||
                         this.log4netLoggerMangerMethodInvoke == null ||
-                        log4netWrapperType == null ||
+                        log4netLoggerType == null ||
                         log4netSystemStringFormat == null ||
                         log4netLevelDebug == null)
                     {
@@ -158,7 +158,7 @@ namespace PayPal.Log
                 {
                     if (currentStatus != Status.Success ||
                         this.log4netLoggerMangerMethodInvoke == null ||
-                        log4netWrapperType == null ||
+                        log4netLoggerType == null ||
                         log4netSystemStringFormat == null ||
                         log4netLevelError == null)
                     {
@@ -184,7 +184,7 @@ namespace PayPal.Log
                 {
                     if (currentStatus != Status.Success ||
                         this.log4netLoggerMangerMethodInvoke == null ||
-                        log4netWrapperType == null ||
+                        log4netLoggerType == null ||
                         log4netSystemStringFormat == null ||
                         log4netLevelInfo == null)
                     {
@@ -211,7 +211,7 @@ namespace PayPal.Log
                 this.log4netLoggerMangerMethodInvoke,
                 new object[]
                 {
-                    log4netWrapperType, log4netLevelDebug,
+                    log4netLoggerType, log4netLevelDebug,
                     new LogMessage(CultureInfo.InvariantCulture, messageFormat, args),
                     exception
                 });
@@ -228,7 +228,7 @@ namespace PayPal.Log
                 this.log4netLoggerMangerMethodInvoke,
                 new object[]
                 {
-                    log4netWrapperType, 
+                    log4netLoggerType, 
                     log4netLevelDebug,
                     new LogMessage(CultureInfo.InvariantCulture, message, arguments),
                     null
@@ -247,7 +247,7 @@ namespace PayPal.Log
                 this.log4netLoggerMangerMethodInvoke,
                 new object[]
                 {
-                    log4netWrapperType, 
+                    log4netLoggerType, 
                     log4netLevelError,
                     new LogMessage(CultureInfo.InvariantCulture, messageFormat, args),
                     exception
@@ -271,7 +271,7 @@ namespace PayPal.Log
                 this.log4netLoggerMangerMethodInvoke,
                 new object[]
                 {
-                    log4netWrapperType, 
+                    log4netLoggerType, 
                     log4netLevelInfo,
                     new LogMessage(CultureInfo.InvariantCulture, message, arguments),
                     null
