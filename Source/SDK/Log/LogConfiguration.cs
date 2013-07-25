@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Configuration;
 using System.Collections.Generic;
+using PayPal.Exception;
 
 namespace PayPal.Log
 {
@@ -18,40 +19,43 @@ namespace PayPal.Log
 
         private static char[] splitters = new char[] { ',' };
 
-        private static LoggerTypes configurationLoggers = GetConfigurationLoggers();
-
-        public static LoggerTypes LoggersInConfiguration
+        private static List<string> configurationLoggerList = GetConfigurationLoggerList();
+               
+        public static List<string> LoggerListInConfiguration
         {
             get
             {
-                return configurationLoggers;
+                return configurationLoggerList;
             }
         }
 
-        private static LoggerTypes GetConfigurationLoggers()
+        private static List<string> GetConfigurationLoggerList()
         {
+            List<string> loggerList = new List<string>();
+
             string value = GetConfiguration(PayPalLogKey);
+
             if (string.IsNullOrEmpty(value))
             {
-                return LoggerTypes.None;
+                return null;
             }
 
-            string[] settings = value.Split(splitters, StringSplitOptions.RemoveEmptyEntries);
+            List<string> splitList = new List<string>(value.Split(splitters, StringSplitOptions.RemoveEmptyEntries));
 
-            if (settings == null || settings.Length == 0)
+            if (splitList == null || splitList.Count == 0)
             {
-                return LoggerTypes.None;
-            }
+                return null;
+            }                        
 
-            LoggerTypes loggerType = LoggerTypes.None;
-
-            foreach (string setting in settings)
+            foreach(string split in splitList)
             {
-                LoggerTypes loggerSet = ParseEnum<LoggerTypes>(setting);
-                loggerType |= loggerSet;
+                if (!loggerList.Contains(split.Trim()))
+                {
+                    loggerList.Add(split.Trim());
+                }
             }
 
-            return loggerType;
+            return loggerList;
         }     
 
         private static string GetConfiguration(string name)
@@ -79,52 +83,5 @@ namespace PayPal.Log
 
             return default(bool);
         }
-
-        private static T GetConfigEnum<T>(string name)
-        {
-            Type typeOfT = typeof(T);
-            if (!typeOfT.IsEnum) throw new InvalidOperationException(string.Format("Type {0} must be enum ", typeOfT.FullName));
-
-            string value = GetConfiguration(name);
-            if (string.IsNullOrEmpty(value))
-                return default(T);
-            T result = ParseEnum<T>(value);
-            return result;
-        }
-
-        private static T ParseEnum<T>(string value)
-        {
-            T tObject;
-
-            if (TryParseEnum<T>(value, out tObject))
-            {
-                return tObject;
-            }
-
-            Type typeOfT = typeof(T);
-            string messageFormat = "Unable to parse value {0} as enum of type {1}. Valid values are: {2}";
-            string enumNames = string.Join(", ", Enum.GetNames(typeOfT));
-
-            throw new InvalidEnumArgumentException(string.Format(messageFormat, value, typeOfT.FullName, enumNames));
-        }
-
-        private static bool TryParseEnum<T>(string value, out T result)
-        {
-            result = default(T);
-
-            if (string.IsNullOrEmpty(value))
-                return false;
-
-            try
-            {
-                T tObject = (T)Enum.Parse(typeof(T), value, true);
-                result = tObject;
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-    }
+    }   
 }

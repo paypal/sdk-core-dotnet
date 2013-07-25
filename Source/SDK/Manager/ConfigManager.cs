@@ -141,7 +141,7 @@ namespace PayPal.Manager
             return ret;
         }
 
-        public static string getDefault(string configKey)
+        public static string GetDefault(string configKey)
         {
             if (ConfigManager.defaultConfig.ContainsKey(configKey))
             {

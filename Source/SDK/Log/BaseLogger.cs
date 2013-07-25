@@ -48,11 +48,11 @@ namespace PayPal.Log
         /// <summary>
         /// Abstract base 'BaseLogger' contructor overload
         /// </summary>
-        /// <param name="typeOfBase"></param>
-        public BaseLogger(Type typeOfBase)
+        /// <param name="typeGiven"></param>
+        public BaseLogger(Type typeGiven)
         {
-            GivenType = typeOfBase;
-            IsEnabled = true;
+            this.GivenType = typeGiven;
+            this.IsEnabled = true;
         }              
 
         /// <summary>

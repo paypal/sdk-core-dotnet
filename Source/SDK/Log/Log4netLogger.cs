@@ -84,7 +84,7 @@ namespace PayPal.Log
                         return;
                     }
 
-                    if ((LogConfiguration.LoggersInConfiguration & LoggerTypes.Log4net) == LoggerTypes.Log4net)
+                    if (LogConfiguration.LoggerListInConfiguration.Contains("PayPal.Log.Log4netLogger"))
                     {
                         Type log4netXmlConfigurator = Type.GetType("log4net.Config.XmlConfigurator, log4net");
                         if (log4netXmlConfigurator != null)
@@ -96,7 +96,6 @@ namespace PayPal.Log
                             }
                         }
                     }
-
                     currentStatus = Status.Success;
                 }
                 catch

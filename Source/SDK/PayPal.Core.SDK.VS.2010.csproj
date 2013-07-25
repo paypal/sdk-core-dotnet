@@ -77,7 +77,6 @@
     <Compile Include="Log\BaseLogger.cs" />
     <Compile Include="Log\Log4netLogger.cs" />
     <Compile Include="Log\Logger.cs" />
-    <Compile Include="Log\LoggerTypes.cs" />
     <Compile Include="Log\DiagnosticsLogger.cs" />
     <Compile Include="Log\LogMessage.cs" />
     <Compile Include="Log\TraceSourceUtil.cs" />

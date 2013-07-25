@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
+using PayPal.Exception;
 
 namespace PayPal.Log
 {
@@ -14,30 +16,47 @@ namespace PayPal.Log
         {
             baseLoggerList = new List<BaseLogger>();
 
-            Log4netLogger loggerLog4net = new Log4netLogger(givenType);
-            baseLoggerList.Add(loggerLog4net);
+            if (LogConfiguration.LoggerListInConfiguration != null)
+            {
+                foreach (string loggerName in LogConfiguration.LoggerListInConfiguration)
+                {
+                    Type loggerType = Type.GetType(loggerName);
 
-            DiagnosticsLogger loggerDiagnostics = new DiagnosticsLogger(givenType);
-            baseLoggerList.Add(loggerDiagnostics);
+                    if (loggerType != null)
+                    {
+                        ConstructorInfo infoConstructor = loggerType.GetConstructor(new[] { typeof(Type) });
 
-            ConfigureLoggers();            
+                        if (infoConstructor != null)
+                        {
+                            try
+                            {
+                                object instance = infoConstructor.Invoke(new object[] { givenType });
+
+                                if (instance is BaseLogger)
+                                {
+                                    baseLoggerList.Add((BaseLogger)instance);
+                                }
+                            }
+                            catch
+                            {
+                                throw new ConfigException("Invalid Configuration. Please check 'PayPalLog' value in  <appSettings> section of your configuration file.");
+                            }                            
+                        }
+                    }
+                }
+
+                if (baseLoggerList.Count > 0)
+                {
+                    ConfigureLoggers();
+                }
+            }
         }       
 
         private void ConfigureLoggers()
-        {
-            LoggerTypes typesLogger = LogConfiguration.LoggersInConfiguration;
-
+        { 
             foreach (BaseLogger loggerBase in baseLoggerList)
             {
-                if (loggerBase is Log4netLogger)
-                {
-                    loggerBase.IsEnabled = (typesLogger & LoggerTypes.Log4net) == LoggerTypes.Log4net;
-                }
-
-                if (loggerBase is DiagnosticsLogger)
-                {
-                    loggerBase.IsEnabled = (typesLogger & LoggerTypes.Diagnostics) == LoggerTypes.Diagnostics;
-                }
+                loggerBase.IsEnabled = true;              
             }            
         }
 
@@ -45,7 +64,7 @@ namespace PayPal.Log
         {
             if (givenType == null)
             {
-                throw new ArgumentNullException("type");
+                throw new ArgumentNullException("Type cannot be null");
             }
 
             Logger log;
@@ -111,6 +130,5 @@ namespace PayPal.Log
                 }
             }
         }
-
     }
 }

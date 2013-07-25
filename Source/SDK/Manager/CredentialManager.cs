@@ -15,8 +15,7 @@ namespace PayPal.Manager
         /// Logger
         /// </summary>
         private static Logger logger = Logger.GetLogger(typeof(CredentialManager));
-
-
+        
         private static string accountPrefix = "account";
 
 #if NET_2_0 || NET_3_5
