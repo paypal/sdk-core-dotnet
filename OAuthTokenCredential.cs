@@ -83,14 +83,7 @@ namespace PayPal
         {
             this.clientID = clientID;
             this.clientSecret = clientSecret;
-            if (config != null)
-            {
-                ConfigManager.getConfigWithDefaults(config);
-            }
-            else
-            {
-                this.config = ConfigManager.getConfigWithDefaults(ConfigManager.Instance.GetProperties());
-            }
+            this.config = config != null ? ConfigManager.getConfigWithDefaults(config): ConfigManager.getConfigWithDefaults(ConfigManager.Instance.GetProperties());
         }
 
         public string GetAccessToken()
@@ -134,18 +127,6 @@ namespace PayPal
                 string base64ClientID = Convert.ToBase64String(bytes);
                 return base64ClientID;
             }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                throw new PayPalException(ex.Message, ex);
-            }
-            catch (ArgumentException ex)
-            {
-                throw new PayPalException(ex.Message, ex);
-            }
-            catch (NotSupportedException ex)
-            {
-                throw new PayPalException(ex.Message, ex);
-            }
             catch (System.Exception ex)
             {
                 throw new PayPalException(ex.Message, ex);
@@ -167,9 +148,25 @@ namespace PayPal
                 {
                     baseUri = new Uri(config[BaseConstants.END_POINT_CONFIG]);
                 }
+                else if (config.ContainsKey(BaseConstants.APPLICATION_MODE_CONFIG))
+                {
+                    string mode = config[BaseConstants.APPLICATION_MODE_CONFIG];
+                    if (mode.Equals(BaseConstants.LIVE_MODE))
+                    {
+                        baseUri = new Uri(BaseConstants.REST_LIVE_ENDPOINT);
+                    }
+                    else if (mode.Equals(BaseConstants.SANDBOX_MODE))
+                    {
+                        baseUri = new Uri(BaseConstants.REST_SANDBOX_ENDPOINT);
+                    }
+                    else
+                    {
+                        throw new ConfigException("You must specify one of mode(live/sandbox) OR endpoint in the configuration");
+                    }
+                }
                 bool success = Uri.TryCreate(baseUri, OAUTHTOKENPATH, out uniformResourceIdentifier);
                 ConnectionManager connManager = ConnectionManager.Instance;
-                HttpWebRequest httpRequest = connManager.GetConnection(ConfigManager.Instance.GetProperties(), uniformResourceIdentifier.AbsoluteUri);  
+                HttpWebRequest httpRequest = connManager.GetConnection(this.config, uniformResourceIdentifier.AbsoluteUri);  
               
                 
                 Dictionary<string, string> headers = new Dictionary<string, string>();
