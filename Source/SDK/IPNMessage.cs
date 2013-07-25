@@ -64,7 +64,7 @@ namespace PayPal
             }
             catch (System.Exception ex)
             {
-                logger.Error(ex, this.GetType().Name + " : " + ex.Message);
+                logger.Error(this.GetType().Name + ": " + ex.Message, ex);
             }
         }
 

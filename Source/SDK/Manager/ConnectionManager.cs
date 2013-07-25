@@ -71,7 +71,7 @@ namespace PayPal.Manager
             }
             catch (UriFormatException ex)
             {
-                logger.Error(ex, ex.Message);
+                logger.Error(ex.Message, ex);
                 throw new ConfigException("Invalid URI: " + url);
             }
 

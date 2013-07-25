@@ -78,57 +78,80 @@ namespace PayPal.Log
                 }
             }
             return log;
-        }
+        }                      
 
-        public void Flush()
-        {
-            foreach (BaseLogger loggerBase in baseLoggerList)
-            {
-                loggerBase.Flush();
-            }
-        }              
-
-        public void Debug(System.Exception exception, string messageFormat, params object[] args)
-        {
-            foreach (BaseLogger loggerBase in baseLoggerList)
-            {
-                if (loggerBase.IsEnabled && loggerBase.IsDebugEnabled)
-                {
-                    loggerBase.Debug(exception, messageFormat, args);
-                }
-            }
-        }
-
-        public void DebugFormat(string message, params object[] args)
+        /// <summary>
+        /// Call loggers' Debug
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="exception"></param>
+        public void Debug(string message, System.Exception exception)
         {
             foreach (BaseLogger loggerBase in baseLoggerList)
             {
                 if (loggerBase.IsEnabled && loggerBase.IsDebugEnabled)
                 {
-                    loggerBase.DebugFormat(message, args);
+                    loggerBase.Debug(message, exception);
+                }
+            }
+        }
+       
+        /// <summary>
+        /// Call loggers' DebugFormat
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        public void DebugFormat(string format, params object[] args)
+        {
+            foreach (BaseLogger loggerBase in baseLoggerList)
+            {
+                if (loggerBase.IsEnabled && loggerBase.IsDebugEnabled)
+                {
+                    loggerBase.DebugFormat(format, args);
                 }
             }
         }
 
-        public void Error(System.Exception exception, string messageFormat, params object[] args)
+        /// <summary>
+        /// Call loggers' Error
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="exception"></param>
+        public void Error(string message, System.Exception exception) 
         {
             foreach (BaseLogger loggerBase in baseLoggerList)
             {
                 if (loggerBase.IsEnabled && loggerBase.IsErrorEnabled)
                 {
-                    loggerBase.Error(exception, messageFormat, args);
+                    loggerBase.Error(message, exception);
                 }
             }
         }       
 
-        public void InfoFormat(string message, params object[] args)
+        /// <summary>
+        /// Call loggers' InfoFormat
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        public void InfoFormat(string format, params object[] args)
         {
             foreach (BaseLogger loggerBase in baseLoggerList)
             {
                 if (loggerBase.IsEnabled && loggerBase.IsInfoEnabled)
                 {
-                    loggerBase.InfoFormat(message, args);
+                    loggerBase.InfoFormat(format, args);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Flush the loggers
+        /// </summary>
+        public void Flush()
+        {
+            foreach (BaseLogger loggerBase in baseLoggerList)
+            {
+                loggerBase.Flush();
             }
         }
     }

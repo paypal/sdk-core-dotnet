@@ -20,24 +20,17 @@ namespace PayPal.Exception
 		/// <param name="message">The message that describes the error</param>
 		public MissingCredentialException(string message): base(message)
 		{
-			//if (logger.IsErrorEnabled)
-			{
-				logger.Error(this, message);
-			}
-		}
+            logger.Error(message, this);
+        }
         
 		/// <summary>
 		/// Represents errors that occur during application execution
 		/// </summary>
 		/// <param name="message">The message that describes the error</param>
-		/// <param name="cause">The exception that is the cause of the current exception</param>
-        public MissingCredentialException(string message, System.Exception cause)
-            : base(message, cause)
-		{
-			//if (logger.IsErrorEnabled) 
-			{
-                logger.Error(this, message);
-			}
-		}
+		/// <param name="innerException">The exception that is the cause of the current exception</param>
+        public MissingCredentialException(string message, System.Exception innerException): base(message, innerException)
+        {
+            logger.Error(message, this);
+        }
 	}
 }

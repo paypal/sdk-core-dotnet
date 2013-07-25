@@ -39,34 +39,57 @@ namespace PayPal.Log
             {
                 return (sourceTrace != null);
             }
+        }    
+
+        /// <summary>
+        /// Override the wrapper for System.Diagnostics TraceEventType.Verbose
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="exception"></param>
+        public override void Debug(string message, System.Exception exception)
+        {
+            sourceTrace.TraceData(TraceEventType.Verbose, id++, new LogMessage(message), exception);
+        }
+        
+        /// <summary>
+        /// Override the wrapper for System.Diagnostics TraceEventType.Verbose overload
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        public override void DebugFormat(string format, params object[] args)
+        {
+            sourceTrace.TraceData(TraceEventType.Verbose, id++, new LogMessage(format, args));
         }
 
+        /// <summary>
+        /// Override the wrapper for System.Diagnostics TraceEventType.Error
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="exception"></param>
+        public override void Error(string message, System.Exception exception)
+        {
+            sourceTrace.TraceData(TraceEventType.Error, id++, new LogMessage(message), exception);
+        }
+
+        /// <summary>
+        /// Override the wrapper for System.Diagnostics TraceEventType.Information
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        public override void InfoFormat(string format, params object[] args)
+        {
+            sourceTrace.TraceData(TraceEventType.Information, id++, new LogMessage(format, args));
+        }
+
+        /// <summary>
+        /// Override flush
+        /// </summary>
         public override void Flush()
         {
             if (sourceTrace != null)
             {
                 this.sourceTrace.Flush();
             }
-        }
-
-        public override void Error(System.Exception exception, string messageFormat, params object[] args)
-        {
-            sourceTrace.TraceData(TraceEventType.Error, id++, new LogMessage(CultureInfo.InvariantCulture, messageFormat, args), exception);
-        }
-
-        public override void Debug(System.Exception exception, string messageFormat, params object[] args)
-        {
-            sourceTrace.TraceData(TraceEventType.Verbose, id++, new LogMessage(CultureInfo.InvariantCulture, messageFormat, args), exception);
-        }
-
-        public override void DebugFormat(string messageFormat, params object[] args)
-        {
-            sourceTrace.TraceData(TraceEventType.Verbose, id++, new LogMessage(CultureInfo.InvariantCulture, messageFormat, args));
-        }
-
-        public override void InfoFormat(string message, params object[] arguments)
-        {
-            sourceTrace.TraceData(TraceEventType.Information, id++, new LogMessage(CultureInfo.InvariantCulture, message, arguments));
         }
     }
 }

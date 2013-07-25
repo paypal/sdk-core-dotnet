@@ -56,7 +56,7 @@ namespace PayPal.Log
         }              
 
         /// <summary>
-        /// Virtual wrapper for log4net ILog IsDebugEnabled
+        /// Virtual wrapper for IsDebugEnabled
         /// </summary>
         public virtual bool IsDebugEnabled
         {
@@ -67,7 +67,7 @@ namespace PayPal.Log
         }
 
         /// <summary>
-        /// Virtual wrapper for log4net ILog IsErrorEnabled
+        /// Virtual wrapper for IsErrorEnabled
         /// </summary>
         public virtual bool IsErrorEnabled 
         { 
@@ -78,7 +78,7 @@ namespace PayPal.Log
         }
 
         /// <summary>
-        /// Virtual wrapper for log4net ILog IsInfoEnabled
+        /// Virtual wrapper for IsInfoEnabled
         /// </summary>
         public virtual bool IsInfoEnabled 
         { 
@@ -89,38 +89,36 @@ namespace PayPal.Log
         }
 
         /// <summary>
-        /// Abstract wrapper for log4net ILog Debug
-        /// </summary>
-        /// <param name="exception"></param>
-        /// <param name="messageFormat"></param>
-        /// <param name="args"></param>
-        public abstract void Debug(System.Exception exception, string messageFormat, params object[] args);
-
-        /// <summary>
-        /// Abstract wrapper for log4net ILog DebugFormat
+        /// Abstract wrapper for Debug
         /// </summary>
         /// <param name="message"></param>
-        /// <param name="arguments"></param>
-        public abstract void DebugFormat(string message, params object[] arguments);
+        /// <param name="exception"></param>
+        public abstract void Debug(string message, System.Exception exception);
 
         /// <summary>
-        /// Abstract wrapper for log4net ILog Error
+        /// Abstract wrapper for DebugFormat
         /// </summary>
-        /// <param name="exception"></param>
-        /// <param name="messageFormat"></param>
+        /// <param name="format"></param>
         /// <param name="args"></param>
-        public abstract void Error(System.Exception exception, string messageFormat, params object[] args);
+        public abstract void DebugFormat(string format, params object[] args);
+
+        /// <summary>
+        /// Abstract wrapper for Error
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="exception"></param>
+        public abstract void Error(string message, System.Exception exception);             
+
+        /// <summary>
+        /// Abstract wrapper for InfoFormat
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        public abstract void InfoFormat(string format, params object[] args);
 
         /// <summary>
         /// Abstract flush for loggers
         /// </summary>
         public abstract void Flush();
-
-        /// <summary>
-        /// Abstract wrapper for log4net ILog InfoFormat
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="arguments"></param>
-        public abstract void InfoFormat(string message, params object[] arguments);
     }
 }

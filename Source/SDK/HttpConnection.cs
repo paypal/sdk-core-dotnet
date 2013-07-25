@@ -87,7 +87,7 @@ namespace PayPal
                             using (StreamReader readerStream = new StreamReader(ex.Response.GetResponseStream()))
                             {
                                 response = readerStream.ReadToEnd().Trim();
-                                logger.Error(ex, "Error Response: " + response);
+                                logger.Error("Error Response: " + response, ex);
                             }
                             logger.InfoFormat("Got " + statusCode.ToString() + " status code from server");
                         }

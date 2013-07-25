@@ -196,37 +196,14 @@ namespace PayPal.Log
                 }
                 return isInfoEnabled.Value;
             }
-        }
-
-        /// <summary>
-        /// Override the flush
-        /// </summary>
-        public override void Flush() { }        
-
+        }       
+               
         /// <summary>
         /// Override the wrapper for log4net ILog Debug
         /// </summary>
-        /// <param name="exception"></param>
-        /// <param name="messageFormat"></param>
-        /// <param name="args"></param>
-        public override void Debug(System.Exception exception, string messageFormat, params object[] args)
-        {
-            log4netILoggerMethodLog.Invoke(
-                this.log4netLoggerMangerMethodInvoke,
-                new object[]
-                {
-                    log4netLoggerType, log4netLevelDebug,
-                    new LogMessage(CultureInfo.InvariantCulture, messageFormat, args),
-                    exception
-                });
-        }
-
-        /// <summary>
-        /// Override the wrapper for log4net ILog DebugFormat
-        /// </summary>
         /// <param name="message"></param>
-        /// <param name="arguments"></param>
-        public override void DebugFormat(string message, params object[] arguments)
+        /// <param name="exception"></param>
+        public override void Debug(string message, System.Exception exception)
         {
             log4netILoggerMethodLog.Invoke(
                 this.log4netLoggerMangerMethodInvoke,
@@ -234,7 +211,25 @@ namespace PayPal.Log
                 {
                     log4netLoggerType, 
                     log4netLevelDebug,
-                    new LogMessage(CultureInfo.InvariantCulture, message, arguments),
+                    new LogMessage(message),
+                    exception
+                });
+        }
+
+        /// <summary>
+        /// Override the wrapper for log4net ILog DebugFormat
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        public override void DebugFormat(string format, params object[] args)
+        {
+            log4netILoggerMethodLog.Invoke(
+                this.log4netLoggerMangerMethodInvoke,
+                new object[]
+                {
+                    log4netLoggerType, 
+                    log4netLevelDebug,
+                    new LogMessage(format, args),
                     null
                 });
         }
@@ -242,10 +237,9 @@ namespace PayPal.Log
         /// <summary>
         /// Override the wrapper for log4net ILog Error
         /// </summary>
+        /// <param name="message"></param>
         /// <param name="exception"></param>
-        /// <param name="messageFormat"></param>
-        /// <param name="args"></param>
-        public override void Error(System.Exception exception, string messageFormat, params object[] args)
+        public override void Error(string message, System.Exception exception)
         {
             log4netILoggerMethodLog.Invoke(
                 this.log4netLoggerMangerMethodInvoke,
@@ -253,7 +247,7 @@ namespace PayPal.Log
                 {
                     log4netLoggerType, 
                     log4netLevelError,
-                    new LogMessage(CultureInfo.InvariantCulture, messageFormat, args),
+                    new LogMessage(message),
                     exception
                 });
         }         
@@ -261,9 +255,9 @@ namespace PayPal.Log
         /// <summary>
         /// Override the wrapper for log4net ILog InfoFormat
         /// </summary>
-        /// <param name="message"></param>
-        /// <param name="arguments"></param>
-        public override void InfoFormat(string message, params object[] arguments)
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        public override void InfoFormat(string format, params object[] args)
         {
             log4netILoggerMethodLog.Invoke
             (
@@ -272,10 +266,15 @@ namespace PayPal.Log
                 {
                     log4netLoggerType, 
                     log4netLevelInfo,
-                    new LogMessage(CultureInfo.InvariantCulture, message, arguments),
+                    new LogMessage(format, args),
                     null
                 }
             );
         }
+
+        /// <summary>
+        /// Override flush
+        /// </summary>
+        public override void Flush() { }    
     }
 }
