@@ -24,7 +24,8 @@ namespace PayPal.Log
 
                     if (loggerType != null)
                     {
-                        ConstructorInfo infoConstructor = loggerType.GetConstructor(new[] { typeof(Type) });
+                        Type[] types = { typeof(Type) };
+                        ConstructorInfo infoConstructor = loggerType.GetConstructor( types );
 
                         if (infoConstructor != null)
                         {
