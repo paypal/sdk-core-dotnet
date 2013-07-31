@@ -1,5 +1,8 @@
 ###CHANGE LOG
+#### V1.3.4 (Jul 31, 2013)
 
+   * Updating version for Reauthorization functionality.
+   
 #### V1.3.3 (Jul 24, 2013)
 
    * Updating version for REST User-Agent header for REST SDK bug fix (https://github.com/paypal/rest-api-sdk-dotnet/issues/7) 
