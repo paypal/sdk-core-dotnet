@@ -75,6 +75,16 @@ namespace PayPal
             ConnectionManager connMngr = ConnectionManager.Instance;
             HttpWebRequest httpRequest = connMngr.GetConnection(this.config, uri);
             httpRequest.Method = RequestMethod;
+            if (headers != null && headers.ContainsKey(BaseConstants.CONTENT_TYPE_HEADER))
+            {
+                httpRequest.ContentType = headers[BaseConstants.CONTENT_TYPE_HEADER].Trim();
+                headers.Remove(BaseConstants.CONTENT_TYPE_HEADER);
+            }
+            if (headers != null && headers.ContainsKey(BaseConstants.USER_AGENT_HEADER))
+            {
+                httpRequest.UserAgent = headers[BaseConstants.USER_AGENT_HEADER].Trim();
+                headers.Remove(BaseConstants.USER_AGENT_HEADER);
+            }
             foreach (KeyValuePair<string, string> header in headers)
             {
                 httpRequest.Headers.Add(header.Key, header.Value);
@@ -133,12 +143,21 @@ namespace PayPal
                 //Server responses in the range of 4xx and 5xx throw a WebException
                 catch (WebException we)
                 {
-                    HttpStatusCode statusCode = ((HttpWebResponse)we.Response).StatusCode;
-
-                    logger.Info("Got " + statusCode.ToString() + " response from server");
+                    string response = null;
+                    if (we.Response is HttpWebResponse)
+                    {
+                        HttpStatusCode statusCode = ((HttpWebResponse)we.Response).StatusCode;
+                        using (StreamReader readerStream = new StreamReader(we.Response.GetResponseStream()))
+                        {
+                            response = readerStream.ReadToEnd().Trim();
+                            logger.Error("Error Response: " + response);
+                        }
+                        logger.Info("Got " + statusCode.ToString() + " status code from server");
+                    }
                     if (!RequiresRetry(we))
                     {
-                        throw new ConnectionException("Invalid HTTP response " + we.Message);
+                        // Server responses in the range of 4xx and 5xx throw a WebException
+                        throw new ConnectionException("Invalid HTTP response " + we.Message, response);
                     }
                 }
                 catch(System.Exception ex)

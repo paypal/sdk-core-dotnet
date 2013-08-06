@@ -150,6 +150,9 @@ namespace PayPal
         // Application - Json Content Type
         public const string CONTENT_TYPE_JSON = "application/json";
 
+        // Application - Xml Content Type
+        public const string CONTENT_TYPE_XML = "text/xml";
+
         // Authorization HTTP Header
         public const string AUTHORIZATION_HEADER = "Authorization";
 

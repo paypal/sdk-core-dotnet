@@ -31,6 +31,11 @@ namespace PayPal
         private Dictionary<string, string> httpHeaders;
 
         /// <summary>
+        /// 
+        /// </summary>
+        private object applicationHeaderValue;
+
+        /// <summary>
         /// Explicit default constructor
         /// </summary>
         public APIContext() { }
@@ -136,6 +141,18 @@ namespace PayPal
             set
             {
                 this.httpHeaders = value;
+            }
+        }
+
+        public object ApplicationHeader
+        {
+            get
+            {
+                return this.applicationHeaderValue;
+            }
+            set
+            {
+                this.applicationHeaderValue = value;
             }
         }
     }

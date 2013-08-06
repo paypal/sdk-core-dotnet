@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.Text;
 using PayPal.OpenIdConnect;
 using PayPal.Exception;
+using System.Text.RegularExpressions;
 
 namespace PayPal.Util
 {
@@ -204,6 +205,93 @@ namespace PayPal.Util
                 }
             }
             return objectList.ToArray();
+        }
+
+        /// <summary>
+        /// Escapes invalid XML characters using & escapes
+        /// </summary>
+        /// <param name="textContent">Text content to escape</param>
+        /// <returns>Escaped XML string</returns>
+        public static string EscapeInvalidXmlCharsRegex(string textContent)
+        {
+            string response = null;
+            if (textContent != null && textContent.Length > 0)
+            {
+                response = Regex.Replace(
+                                Regex.Replace(
+                                    Regex.Replace(
+                                        Regex.Replace(
+                                            Regex.Replace(textContent, "&(?!(amp;|lt;|gt;|quot;|apos;))", "&amp;"),
+                                        "<", "&lt;"),
+                                    ">", "&gt;"),
+                                "\"", "&quot;"),
+                           "'", "&apos;");
+            }
+            return response;
+        }
+
+        /// <summary>
+        /// Escapes invalid XML characters using & escapes
+        /// </summary>
+        /// <param name="intContent">Integer content to escape</param>
+        /// <returns>Escaped XML string</returns>
+        public static string EscapeInvalidXmlCharsRegex(int? intContent)
+        {
+            string response = null;
+            if (intContent != null)
+            {
+                string textContent = intContent.ToString();
+                response = EscapeInvalidXmlCharsRegex(textContent);
+            }
+            return response;
+        }
+
+        /// <summary>
+        /// Escapes invalid XML characters using & escapes
+        /// </summary>
+        /// <param name="boolContent">Boolean content to escape</param>
+        /// <returns>Escaped XML string</returns>
+        public static string EscapeInvalidXmlCharsRegex(bool? boolContent)
+        {
+            string response = null;
+            if (boolContent != null)
+            {
+                string textContent = boolContent.ToString();
+                response = EscapeInvalidXmlCharsRegex(textContent);
+            }
+            return response;
+        }
+
+        /// <summary>
+        /// Escapes invalid XML characters using & escapes
+        /// </summary>
+        /// <param name="floatContent">Float content to escape</param>
+        /// <returns>Escaped XML string</returns>
+        public static string EscapeInvalidXmlCharsRegex(float? floatContent)
+        {
+            string response = null;
+            if (floatContent != null)
+            {
+                string textContent = floatContent.ToString();
+                response = EscapeInvalidXmlCharsRegex(textContent);
+            }
+            return response;
+        }
+
+        /// <summary>
+        /// Escapes invalid XML characters using & escapes
+        /// </summary>
+        /// <param name="doubleContent">Double content to escape</param>
+        /// <returns>Escaped XML string</returns>
+        public static string EscapeInvalidXmlCharsRegex(double? doubleContent)
+        {
+            string response = null;
+            if (doubleContent != null)
+            {
+                string textContent = doubleContent.ToString();
+                response = EscapeInvalidXmlCharsRegex(textContent);
+            }
+            return response;
         }
     }
 }
