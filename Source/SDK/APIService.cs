@@ -135,12 +135,10 @@ namespace PayPal
                 catch (WebException we)
                 {
                     HttpStatusCode statusCode = ((HttpWebResponse)we.Response).StatusCode;
-
                     logger.InfoFormat("Got " + statusCode.ToString() + " response from server");
 					string response = null;
                     if (we.Response is HttpWebResponse)
                     {
-                        HttpStatusCode statusCode = ((HttpWebResponse)we.Response).StatusCode;
                         using (StreamReader readerStream = new StreamReader(we.Response.GetResponseStream()))
                         {
                             response = readerStream.ReadToEnd().Trim();
