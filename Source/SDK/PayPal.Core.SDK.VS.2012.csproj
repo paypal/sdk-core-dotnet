@@ -76,8 +76,14 @@
     <Compile Include="IAPICallPreHandler.cs" />
     <Compile Include="IAuthenticationStrategy.cs" />
     <Compile Include="IPNMessage.cs" />
-    <Compile Include="JSONFormatter.cs" />
-    <Compile Include="LogManagerWrapper.cs" />
+    <Compile Include="JsonFormatter.cs" />
+    <Compile Include="Log\BaseLogger.cs" />
+    <Compile Include="Log\DiagnosticsLogger.cs" />
+    <Compile Include="Log\Log4netLogger.cs" />
+    <Compile Include="Log\LogConfiguration.cs" />
+    <Compile Include="Log\Logger.cs" />
+    <Compile Include="Log\LogMessage.cs" />
+    <Compile Include="Log\TraceSourceUtil.cs" />
     <Compile Include="Manager\ConfigManager.cs" />
     <Compile Include="Manager\ConnectionManager.cs" />
     <Compile Include="Manager\CredentialManager.cs" />
@@ -98,21 +104,19 @@
     <Compile Include="OpenIdConnect\UserInfoParameters.cs" />
     <Compile Include="PayPalResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RESTConfiguration.cs" />
+    <Compile Include="RESTAPICallPreHandler.cs" />
     <Compile Include="SOAP\CertificateHttpHeaderAuthStrategy.cs" />
     <Compile Include="SOAP\CertificateSOAPHeaderAuthStrategy.cs" />
     <Compile Include="SOAP\MerchantAPICallPreHandler.cs" />
     <Compile Include="SOAP\SignatureHttpHeaderAuthStrategy.cs" />
     <Compile Include="SOAP\SignatureSOAPHeaderAuthStrategy.cs" />
+    <Compile Include="UserAgentHeader.cs" />
     <Compile Include="Util\NVPUtil.cs" />
     <Compile Include="Util\QueryParameters.cs" />
     <Compile Include="Util\ReadCert.cs" />
     <Compile Include="Util\ReflectionEnumUtil.cs" />
     <Compile Include="Util\ReflectionUtil.cs" />
     <Compile Include="Util\SDKUtil.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

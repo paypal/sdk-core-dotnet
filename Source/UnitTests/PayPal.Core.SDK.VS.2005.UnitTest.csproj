@@ -26,6 +26,10 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.0\lib\net20-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Windows\assembly\GAC_MSIL\Microsoft.VisualStudio.QualityTools.UnitTestFramework\8.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
@@ -49,11 +53,15 @@
     <Compile Include="NVP\CertificateHttpHeaderAuthStrategyNVPTest.cs" />
     <Compile Include="NVP\PlatformAPICallPreHandlerTest.cs" />
     <Compile Include="NVP\SignatureHttpHeaderAuthStrategyNVPTest.cs" />
+    <Compile Include="OAuthTokenCredentialTest.cs" />
+    <Compile Include="OpenIdConnect\OpenIdTest.cs" />
+    <Compile Include="RESTAPICallPreHandlerTest.cs" />
     <Compile Include="SOAP\CertificateHttpHeaderAuthStrategyTest.cs" />
     <Compile Include="SOAP\CertificateSOAPHeaderAuthStrategyTest.cs" />
     <Compile Include="SOAP\MerchantAPICallPreHandlerTest.cs" />
     <Compile Include="SOAP\SignatureHttpHeaderAuthStrategyTest.cs" />
     <Compile Include="SOAP\SignatureSOAPHeaderAuthStrategyTest.cs" />
+    <Compile Include="Util\SDKUtilTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

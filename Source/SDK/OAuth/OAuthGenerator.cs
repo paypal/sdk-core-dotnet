@@ -82,38 +82,6 @@ namespace PayPal.Authentication
             this.tokenTimestamp = tokenTimeStamp;
         }
 
-        //TODO: Remove me
-        public void SetHttpPMethod(HttpMethod method)
-        {
-            this.methodHttp = method;
-        }
-
-        /// <summary>
-        /// Sets time stamp for signature computation
-        /// </summary>
-        /// <param name="method"></param>
-        public void SetHttpMethod(string method)
-        {
-            switch (method)
-            {
-                case "GET":
-                    this.methodHttp = HttpMethod.GET;
-                    break;
-                case "POST":
-                    this.methodHttp = HttpMethod.POST;
-                    break;
-                case "PUT":
-                    this.methodHttp = HttpMethod.PUT;
-                    break;
-                case "UPDATE":
-                    this.methodHttp = HttpMethod.UPDATE;
-                    break;
-                default:
-                    this.methodHttp = HttpMethod.POST;
-                    break;
-            }
-        }
-
         /// <summary>
         /// Computes OAuth Signature as per OAuth specification using signature
         /// </summary>
@@ -125,8 +93,7 @@ namespace PayPal.Authentication
                 throw new OAuthException("Consumer Secret or key not set.");
             }
 
-            if (token == string.Empty || tokenSecret.Length == 0
-                || requestUri == string.Empty || tokenTimestamp == string.Empty)
+            if (token == string.Empty || tokenSecret.Length == 0 || requestUri == string.Empty || tokenTimestamp == string.Empty)
             {
                 throw new OAuthException(
                         "AuthToken or TokenSecret or Request URI or Timestamp not set.");
@@ -136,7 +103,6 @@ namespace PayPal.Authentication
             try
             {
                 string consumerSec = System.Text.Encoding.GetEncoding(method).GetString(consumerSecret);
-                //TODO: Why encode consumersecret twice?
                 string key = PayPalUrlEncoder.encode(consumerSec, method);
                 key += delimiter;
                 string tokenSec = System.Text.Encoding.GetEncoding(method).GetString(tokenSecret);

@@ -36,6 +36,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -75,12 +78,15 @@
     <Compile Include="NVP\PlatformAPICallPreHandlerTest.cs" />
     <Compile Include="NVP\SignatureHttpHeaderAuthStrategyNVPTest.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="OAuthTokenCredentialTest.cs" />
     <Compile Include="OpenIdConnect\OpenIdTest.cs" />
+    <Compile Include="RESTAPICallPreHandlerTest.cs" />
     <Compile Include="SOAP\CertificateHttpHeaderAuthStrategyTest.cs" />
     <Compile Include="SOAP\CertificateSOAPHeaderAuthStrategyTest.cs" />
     <Compile Include="SOAP\MerchantAPICallPreHandlerTest.cs" />
     <Compile Include="SOAP\SignatureHttpHeaderAuthStrategyTest.cs" />
     <Compile Include="SOAP\SignatureSOAPHeaderAuthStrategyTest.cs" />
+    <Compile Include="Util\SDKUtilTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

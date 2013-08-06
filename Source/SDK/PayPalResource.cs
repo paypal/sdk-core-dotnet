@@ -11,17 +11,9 @@ using System.Net;
     * Reference is auto-added 
 */
 using Newtonsoft.Json;
-/* NuGet Install
- * Visual Studio 2005 or 2008
-    * Install log4net -OutputDirectory .\packages
-    * Add reference from "net20-full" for Visual Studio 2005 or "net35-full" for Visual Studio 2008
- * Visual Studio 2010 or higher
-    * Install-Package log4net
-    * Reference is auto-added 
-*/
-using log4net;
 using PayPal.Manager;
 using PayPal.Exception;
+using PayPal.Log;
 
 namespace PayPal
 {
@@ -30,7 +22,7 @@ namespace PayPal
         /// <summary>
         /// Logs output statements, errors, debug info to a text file    
         /// </summary>
-        private static ILog logger = LogManagerWrapper.GetLogger(typeof(PayPalResource));
+        private static Logger logger = Logger.GetLogger(typeof(PayPalResource));
 
         private static ArrayList retryCodes = new ArrayList(new HttpStatusCode[] 
                                                 { HttpStatusCode.GatewayTimeout,
@@ -50,9 +42,9 @@ namespace PayPal
         /// <param name="apiContext">APIContext object</param>
         /// <param name="httpMethod">HttpMethod type</param>
         /// <param name="resource">URI path of the resource</param>
-        /// <param name="payLoad">JSON request payload</param>
+        /// <param name="payload">JSON request payload</param>
         /// <returns>Response object or null otherwise for void API calls</returns>
-        public static T ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payLoad)
+        public static T ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payload)
         {
             Dictionary<string, string> config = null;
             String authorizationToken = null;
@@ -87,7 +79,7 @@ namespace PayPal
             requestId = apiContext.RequestId;
 
             // Create an instance of IAPICallPreHandler
-            IAPICallPreHandler apiCallPreHandler = createIAPICallPreHandler(config, headersMap, authorizationToken, requestId, payLoad);
+            IAPICallPreHandler apiCallPreHandler = createIAPICallPreHandler(config, headersMap, authorizationToken, requestId, payload);
 
             return ConfigureAndExecute<T>(config, apiCallPreHandler, httpMethod, resourcePath);
         }
@@ -99,13 +91,13 @@ namespace PayPal
         /// <param name="accessToken">OAuth AccessToken to be used for the call.</param>
         /// <param name="httpMethod">HttpMethod type</param>
         /// <param name="resource">URI path of the resource</param>
-        /// <param name="payLoad">JSON request payload</param>
+        /// <param name="payload">JSON request payload</param>
         /// <returns>Response object or null otherwise for void API calls</returns>
-        [Obsolete("Pass accessToken to APIContext object and use ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payLoad) version")]
-        public static T ConfigureAndExecute<T>(string accessToken, HttpMethod httpMethod, string resource, string payLoad)
+        [Obsolete("'ConfigureAndExecute<T>(string accessToken, HttpMethod httpMethod, string resource, string payload)' is obsolete: 'The recommended alternative is to pass accessToken to APIContext object and use ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payLoad) version.'")]
+        public static T ConfigureAndExecute<T>(string accessToken, HttpMethod httpMethod, string resource, string payload)
         {
             APIContext apiContext = new APIContext(accessToken);
-            return ConfigureAndExecute<T>(apiContext, httpMethod, resource, null, payLoad);
+            return ConfigureAndExecute<T>(apiContext, httpMethod, resource, null, payload);
         }
 
         /// <summary>
@@ -116,12 +108,11 @@ namespace PayPal
         /// <param name="httpMethod">HttpMethod type</param>
         /// <param name="resource">URI path of the resource</param>
         /// <param name="headersMap">HTTP Headers</param>
-        /// <param name="payLoad">JSON request payload</param>
+        /// <param name="payload">JSON request payload</param>
         /// <returns>Response object or null otherwise for void API calls</returns>
-        [Obsolete("Pass Custom HTTP-Headers to APIContext HeadersMap and use ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payLoad) version")]
-        public static T ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, Dictionary<string, string> headersMap, string payLoad)
+        [Obsolete("'ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, Dictionary<string, string> headersMap, string payload)' is obsolete: 'The recommended alternative is to pass Custom HTTP-Headers to APIContext HeadersMap and use ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payLoad) version.'")]
+        public static T ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, Dictionary<string, string> headersMap, string payload)
         {
-
             // Code refactored; Calls supported method with only one option to pass
             // Custom HTTP headers through APIContext object
             if (apiContext == null)
@@ -143,7 +134,7 @@ namespace PayPal
                 }
             }
             apiContext.HeadersMap = apiHeaders;
-            return ConfigureAndExecute<T>(apiContext, httpMethod, resource, payLoad);
+            return ConfigureAndExecute<T>(apiContext, httpMethod, resource, payload);
         }
 
         /// <summary>
@@ -195,14 +186,10 @@ namespace PayPal
                     {
                         httpRequest.Headers.Add(entry.Key, entry.Value);
                     }
-
-                    // Debugging
-                    if (logger.IsDebugEnabled)
+                    
+                    foreach (string headerName in httpRequest.Headers)
                     {
-                        foreach (string headerName in httpRequest.Headers)
-                        {
-                            logger.Debug(headerName + ":" + httpRequest.Headers[headerName]);
-                        }
+                        logger.DebugFormat(headerName + ":" + httpRequest.Headers[headerName]);
                     }
 
                     // Execute call

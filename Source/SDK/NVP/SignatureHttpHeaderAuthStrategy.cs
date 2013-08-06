@@ -1,16 +1,8 @@
 using System;
 using System.Collections.Generic;
-/* NuGet Install
- * Visual Studio 2005 or 2008
-    * Install log4net -OutputDirectory .\packages
-    * Add reference from "net20-full" for Visual Studio 2005 or "net35-full" for Visual Studio 2008
- * Visual Studio 2010 or higher
-    * Install-Package log4net
-    * Reference is auto-added 
-*/
-using log4net;
 using PayPal.Exception;
 using PayPal.Authentication;
+using PayPal.Log;
 
 namespace PayPal.NVP
 {
@@ -19,7 +11,8 @@ namespace PayPal.NVP
         /// <summary>
         /// Logger
         /// </summary>
-        private static ILog logger = LogManagerWrapper.GetLogger(typeof(SignatureHttpHeaderAuthStrategy));
+        private static Logger logger = Logger.GetLogger(typeof(SignatureHttpHeaderAuthStrategy));
+
 
         /// <summary>
         /// SignatureHttpHeaderAuthStrategy
@@ -40,24 +33,24 @@ namespace PayPal.NVP
             try
             {
                 OAuthGenerator generatorOAuth = new OAuthGenerator(signCredential.UserName, signCredential.Password);
-                generatorOAuth.SetHttpPMethod(HttpMethod.POST);
+                //generatorOAuth.SetHttpPMethod(HttpMethod.POST);
                 generatorOAuth.SetToken(tokenAuthorize.AccessToken);
                 generatorOAuth.SetTokenSecret(tokenAuthorize.AccessTokenSecret);
                 string tokenTimeStamp = Timestamp;
                 generatorOAuth.SetTokenTimestamp(tokenTimeStamp);
-                logger.Debug("token = " + tokenAuthorize.AccessToken + " tokenSecret=" + tokenAuthorize.AccessTokenSecret + " uri=" + endpointUrl);
+                logger.DebugFormat("token = " + tokenAuthorize.AccessToken + " tokenSecret=" + tokenAuthorize.AccessTokenSecret + " uri=" + endpointUrl);
                 generatorOAuth.SetRequestUri(endpointUrl);
 
                 //Compute Signature
                 string sign = generatorOAuth.ComputeSignature();
-                logger.Debug("Permissions signature: " + sign);
+                logger.DebugFormat("Permissions signature: " + sign);
                 string authorization = "token=" + tokenAuthorize.AccessToken + ",signature=" + sign + ",timestamp=" + tokenTimeStamp;
-                logger.Debug("Authorization string: " + authorization);
+                logger.DebugFormat("Authorization string: " + authorization);
                 headers.Add(BaseConstants.PayPalAuthorizationPlatformHeader, authorization);
             }
-            catch (OAuthException ae)
+            catch (OAuthException oex)
             {
-                throw ae;
+                throw oex;
             }
             return headers;
         }

@@ -11,14 +11,14 @@ namespace PayPal.Util
 {
     public class SDKUtil
     {
-
+        //TODO: To be renamed as 'FormatUriPath' as per .NET Naming Conventions
         /// <summary>
         /// Formats the URI path for REST calls.
         /// </summary>
         /// <param name="pattern">URI path with placeholders that can be replaced with string's Format method</param>
         /// <param name="parameters">Parameters holding actual values for placeholders; They can be wrapper objects for specific query strings like QueryParameters, CreateFromAuthorizationCodeParameters, CreateFromRefreshTokenParameters, UserinfoParameters parameters or a simple Dictionary</param>
         /// <returns>Processed URI path, or null if pattern or parameters is null</returns>
-        public static string FormatUriPath(string pattern, Object[] parameters)
+        public static string FormatURIPath(string pattern, Object[] parameters)
         {
             string formatString = pattern;
             if (pattern != null && parameters != null)
@@ -26,26 +26,26 @@ namespace PayPal.Util
                 if (parameters != null && parameters.Length == 1 && parameters[0] is QueryParameters)
                 {
                     //Form a object array using the passed Map
-                    parameters = splitParameters(pattern, ((QueryParameters)parameters[0]).GetMap());
+                    parameters = SplitParameters(pattern, ((QueryParameters)parameters[0]).GetMap());
                 }
                 else if (parameters != null && parameters.Length == 1 && parameters[0] is CreateFromAuthorizationCodeParameters)
                 {
                     //Form a object array using the passed Map
-                    parameters = splitParameters(pattern, ((CreateFromAuthorizationCodeParameters)parameters[0]).ContainerMap);
+                    parameters = SplitParameters(pattern, ((CreateFromAuthorizationCodeParameters)parameters[0]).ContainerMap);
                 }
                 else if (parameters != null && parameters.Length == 1 && parameters[0] is CreateFromRefreshTokenParameters)
                 {
                     //Form a object array using the passed Map
-                    parameters = splitParameters(pattern, ((CreateFromRefreshTokenParameters)parameters[0]).ContainerMap);
+                    parameters = SplitParameters(pattern, ((CreateFromRefreshTokenParameters)parameters[0]).ContainerMap);
                 }
                 else if (parameters != null && parameters.Length == 1 && parameters[0] is UserinfoParameters)
                 {
                     //Form a object array using the passed Map
-                    parameters = splitParameters(pattern, ((UserinfoParameters)parameters[0]).ContainerMap);
+                    parameters = SplitParameters(pattern, ((UserinfoParameters)parameters[0]).ContainerMap);
                 }
                 else if (parameters != null && parameters.Length == 1 && parameters[0] is Dictionary<string, string>)
                 {
-                    parameters = splitParameters(pattern, (Dictionary<string, string>)parameters[0]);
+                    parameters = SplitParameters(pattern, (Dictionary<string, string>)parameters[0]);
                 }
 
                 //Perform a simple message formatting
@@ -57,6 +57,7 @@ namespace PayPal.Util
             return formatString;
         }
 
+        //TODO: To be renamed as 'FormatUriPath' as per .NET Naming Conventions
         /// <summary>
         /// Formats the URI path for REST calls. Replaces any occurrences of the form
         /// {name} in pattern with the corresponding value of key name in the passed
@@ -70,6 +71,7 @@ namespace PayPal.Util
             return FormatURIPath(pattern, pathParameters, null);
         }
 
+        //TODO: To be renamed as 'FormatUriPath' as per .NET Naming Conventions
         /// <summary>
         /// Formats the URI path for REST calls. Replaces any occurrences of the form
         /// {name} in pattern with the corresponding value of key name in the passed
@@ -182,7 +184,7 @@ namespace PayPal.Util
         /// <param name="pattern"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        private static Object[] splitParameters(string pattern, Dictionary<string, string> parameters)
+        private static Object[] SplitParameters(string pattern, Dictionary<string, string> parameters)
         {
             List<Object> objectList = new List<Object>();
             string[] query = pattern.Split('?');

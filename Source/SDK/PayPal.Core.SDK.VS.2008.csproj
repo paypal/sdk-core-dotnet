@@ -79,8 +79,14 @@
     <Compile Include="IAPICallPreHandler.cs" />
     <Compile Include="IAuthenticationStrategy.cs" />
     <Compile Include="IPNMessage.cs" />
-    <Compile Include="JSONFormatter.cs" />
-    <Compile Include="LogManagerWrapper.cs" />
+    <Compile Include="JsonFormatter.cs" />
+    <Compile Include="Log\BaseLogger.cs" />
+    <Compile Include="Log\DiagnosticsLogger.cs" />
+    <Compile Include="Log\Log4netLogger.cs" />
+    <Compile Include="Log\LogConfiguration.cs" />
+    <Compile Include="Log\Logger.cs" />
+    <Compile Include="Log\LogMessage.cs" />
+    <Compile Include="Log\TraceSourceUtil.cs" />
     <Compile Include="Manager\ConfigManager.cs" />
     <Compile Include="Manager\ConnectionManager.cs" />
     <Compile Include="Manager\CredentialManager.cs" />

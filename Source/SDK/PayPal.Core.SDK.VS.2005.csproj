@@ -51,12 +51,8 @@
     <Compile Include="Authentication\CertificateCredential.cs" />
     <Compile Include="Authentication\ICredential.cs" />
     <Compile Include="Authentication\IThirdPartyAuthorization.cs" />
-    <Compile Include="Authentication\SignatureCredential.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Authentication\SubjectAuthorization.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Authentication\SignatureCredential.cs" />
+    <Compile Include="Authentication\SubjectAuthorization.cs" />
     <Compile Include="Authentication\TokenAuthorization.cs" />
     <Compile Include="BaseConstants.cs" />
     <Compile Include="BasePayPalService.cs" />
@@ -68,12 +64,20 @@
     <Compile Include="Exception\OAuthException.cs" />
     <Compile Include="Exception\PayPalException.cs" />
     <Compile Include="HttpConnection.cs" />
-    <Compile Include="HttpMethod.cs" />
+    <Compile Include="HttpMethod.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="IAPICallPreHandler.cs" />
     <Compile Include="IAuthenticationStrategy.cs" />
     <Compile Include="IPNMessage.cs" />
-    <Compile Include="JSONFormatter.cs" />
-    <Compile Include="LogManagerWrapper.cs" />
+    <Compile Include="JsonFormatter.cs" />
+    <Compile Include="Log\BaseLogger.cs" />
+    <Compile Include="Log\DiagnosticsLogger.cs" />
+    <Compile Include="Log\Log4netLogger.cs" />
+    <Compile Include="Log\LogConfiguration.cs" />
+    <Compile Include="Log\Logger.cs" />
+    <Compile Include="Log\LogMessage.cs" />
+    <Compile Include="Log\TraceSourceUtil.cs" />
     <Compile Include="Manager\ConfigManager.cs" />
     <Compile Include="Manager\ConnectionManager.cs" />
     <Compile Include="Manager\CredentialManager.cs" />

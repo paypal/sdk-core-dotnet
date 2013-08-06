@@ -1,16 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-/* NuGet Install
- * Visual Studio 2005 or 2008
-    * Install log4net -OutputDirectory .\packages
-    * Add reference from "net20-full" for Visual Studio 2005 or "net35-full" for Visual Studio 2008
- * Visual Studio 2010 or higher
-    * Install-Package log4net
-    * Reference is auto-added 
-*/
-using log4net;
 using PayPal.Exception;
+using PayPal.Log;
 
 namespace PayPal.Manager
 {
@@ -22,7 +14,7 @@ namespace PayPal.Manager
         /// <summary>
         /// Logger
         /// </summary>
-        private static ILog logger = LogManagerWrapper.GetLogger(typeof(ConnectionManager));
+        private static Logger logger = Logger.GetLogger(typeof(ConnectionManager));
 
 #if NET_2_0 || NET_3_5
         /// <summary>
@@ -79,7 +71,7 @@ namespace PayPal.Manager
             }
             catch (UriFormatException ex)
             {
-                logger.Error(ex.Message);
+                logger.Error(ex.Message, ex);
                 throw new ConfigException("Invalid URI: " + url);
             }
 
@@ -87,7 +79,7 @@ namespace PayPal.Manager
             int ConnectionTimeout = 0;
             if(!config.ContainsKey(BaseConstants.HttpConnectionTimeoutConfig) ||
                 !int.TryParse(config[BaseConstants.HttpConnectionTimeoutConfig], out ConnectionTimeout)) {
-                int.TryParse(ConfigManager.getDefault(BaseConstants.HttpConnectionTimeoutConfig), out ConnectionTimeout);
+                int.TryParse(ConfigManager.GetDefault(BaseConstants.HttpConnectionTimeoutConfig), out ConnectionTimeout);
             }            
             httpRequest.Timeout = ConnectionTimeout;
 

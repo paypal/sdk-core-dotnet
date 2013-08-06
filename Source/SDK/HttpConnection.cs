@@ -3,17 +3,9 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Net;
 using System.IO;
-/* NuGet Install
- * Visual Studio 2005 or 2008
-    * Install log4net -OutputDirectory .\packages
-    * Add reference from "net20-full" for Visual Studio 2005 or "net35-full" for Visual Studio 2008
- * Visual Studio 2010 or higher
-    * Install-Package log4net
-    * Reference is auto-added 
-*/
-using log4net;
 using PayPal.Exception;
 using PayPal.Manager;
+using PayPal.Log;
 
 namespace PayPal
 {
@@ -22,7 +14,7 @@ namespace PayPal
         /// <summary>
         /// Logger
         /// </summary>
-        private static ILog logger = LogManagerWrapper.GetLogger(typeof(ConnectionManager));
+        private static Logger logger = Logger.GetLogger(typeof(HttpConnection));
 
         private static ArrayList retryCodes = new ArrayList(new HttpStatusCode[] 
                                                 { HttpStatusCode.GatewayTimeout,
@@ -57,7 +49,7 @@ namespace PayPal
                                     writerStream.Write(payload);
                                     writerStream.Flush();
                                     writerStream.Close();
-                                    logger.Debug(payload);
+                                    logger.InfoFormat(payload);
                                 }
 
                             }
@@ -80,8 +72,8 @@ namespace PayPal
                             using (StreamReader readerStream = new StreamReader(responseWeb.GetResponseStream()))
                             {
                                 string response = readerStream.ReadToEnd().Trim();
-                                logger.Debug("Service response");
-                                logger.Debug(response);
+                                logger.DebugFormat("Service response");
+                                logger.DebugFormat(response);
                                 return response;
                             }
                         }
@@ -95,9 +87,9 @@ namespace PayPal
                             using (StreamReader readerStream = new StreamReader(ex.Response.GetResponseStream()))
                             {
                                 response = readerStream.ReadToEnd().Trim();
-                                logger.Error("Error Response: " + response);
+                                logger.Error("Error Response: " + response, ex);
                             }
-                            logger.Info("Got " + statusCode.ToString() + " status code from server");
+                            logger.InfoFormat("Got " + statusCode.ToString() + " status code from server");
                         }
                         if (!RequiresRetry(ex))
                         {

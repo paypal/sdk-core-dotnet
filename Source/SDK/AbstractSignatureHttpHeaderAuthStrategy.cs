@@ -43,9 +43,9 @@ namespace PayPal
                     headers.Add(BaseConstants.PayPalSecuritySignatureHeader,signCredential.Signature);
                 }
             }
-            catch (OAuthException ae)
+            catch (OAuthException oex)
             {
-                throw ae;
+                throw oex;
             }
             return headers;
         }

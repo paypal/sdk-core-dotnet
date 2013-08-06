@@ -5,17 +5,9 @@ using System.Collections.Specialized;
 using System.Net;
 using System.Web;
 using System.IO;
-/* NuGet Install
- * Visual Studio 2005 or 2008
-    * Install log4net -OutputDirectory .\packages
-    * Add reference from "net20-full" for Visual Studio 2005 or "net35-full" for Visual Studio 2008
- * Visual Studio 2010 or higher
-    * Install-Package log4net
-    * Reference is auto-added 
-*/
-using log4net;
 using PayPal.Exception;
 using PayPal.Manager;
+using PayPal.Log;
 
 namespace PayPal
 {
@@ -49,7 +41,7 @@ namespace PayPal
         /// <summary>
         /// Logger
         /// </summary>
-        private static ILog logger = LogManagerWrapper.GetLogger(typeof(IPNMessage));
+        private static Logger logger = Logger.GetLogger(typeof(IPNMessage));
                 
         /// <summary>
         /// Initializing nvcMap and constructing query string
@@ -72,7 +64,7 @@ namespace PayPal
             }
             catch (System.Exception ex)
             {
-                logger.Debug(this.GetType().Name + " : " + ex.Message);
+                logger.Error(this.GetType().Name + ": " + ex.Message, ex);
             }
         }
 
@@ -80,7 +72,7 @@ namespace PayPal
         /// IPNMessage constructor
         /// </summary>
         /// <param name="nvc"></param>
-        [Obsolete("use IPNMessage(byte[] parameters) instead")]
+        //[Obsolete("'IPNMessage(NameValueCollection nvc)' is obsolete: 'The recommended alternative is IPNMessage(byte[] parameters).'")]
         public IPNMessage(NameValueCollection nvc)
         {
             this.config = ConfigManager.Instance.GetProperties();
@@ -145,13 +137,13 @@ namespace PayPal
                     }
                     else
                     {
-                        logger.Info("IPN validation failed. Got response: " + strResponse);
+                        logger.InfoFormat("IPN validation failed. Got response: " + strResponse);
                         this.ipnValidationResult = false;
                     }
                 }
                 catch (System.Exception ex)
                 {
-                    logger.Info(this.GetType().Name + " : " + ex.Message);
+                    logger.InfoFormat(this.GetType().Name + " : " + ex.Message);
 
                 }
                 return this.ipnValidationResult.HasValue ? this.ipnValidationResult.Value : false;
@@ -182,23 +174,25 @@ namespace PayPal
             }
         }
 
+        //TODO: To be renamed as 'IPNMap' as per .NET Naming Conventions
         /// <summary>
         /// Gets the IPN request NameValueCollection
         /// </summary>
-        public NameValueCollection IPNMap
+        public NameValueCollection IpnMap
         {
             get
             {
                 return nvcMap;
             }
         }
-      
+
+        //TODO: To be renamed as 'IPNValue' as per .NET Naming Conventions
         /// <summary>
         /// Gets the IPN request parameter value for the given name
         /// </summary>
         /// <param name="ipnName"></param>
         /// <returns></returns>
-        public string IPNValue(string ipnName)
+        public string IpnValue(string ipnName)
         {
             return this.nvcMap[ipnName];
         }
