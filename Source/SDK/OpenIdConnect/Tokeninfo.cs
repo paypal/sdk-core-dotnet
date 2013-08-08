@@ -148,7 +148,7 @@ namespace PayPal.OpenIdConnect
             {
                 apiContext = new APIContext();
             }
-            apiContext.HeadersMap = headersMap;
+            apiContext.HTTPHeaders = headersMap;
             apiContext.MaskRequestId = true;
             return PayPalResource.ConfigureAndExecute<Tokeninfo>(apiContext, HttpMethod.POST, resourcePath, payLoad);
         }
@@ -181,7 +181,7 @@ namespace PayPal.OpenIdConnect
             {
                 apiContext = new APIContext();
             }
-            apiContext.HeadersMap = headersMap;
+            apiContext.HTTPHeaders = headersMap;
             apiContext.MaskRequestId = true;
             return PayPalResource.ConfigureAndExecute<Tokeninfo>(apiContext, HttpMethod.POST, resourcePath, payLoad);
         }

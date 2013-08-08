@@ -73,7 +73,7 @@ namespace PayPal
             resourcePath = resource;
 
             // Custom HTTP Headers
-            headersMap = apiContext.HeadersMap;
+            headersMap = apiContext.HTTPHeaders;
 
             // PayPal Request Id
             requestId = apiContext.RequestId;
@@ -121,7 +121,7 @@ namespace PayPal
             }
 
             // Merge headersMap argument with APIContext HeadersMap
-            Dictionary<string, string> apiHeaders = apiContext.HeadersMap;
+            Dictionary<string, string> apiHeaders = apiContext.HTTPHeaders;
             if (apiHeaders == null)
             {
                 apiHeaders = new Dictionary<string, string>();
@@ -133,7 +133,7 @@ namespace PayPal
                     apiHeaders.Add(header.Key.Trim(), header.Value.Trim());
                 }
             }
-            apiContext.HeadersMap = apiHeaders;
+            apiContext.HTTPHeaders = apiHeaders;
             return ConfigureAndExecute<T>(apiContext, httpMethod, resource, payload);
         }
 
@@ -198,6 +198,10 @@ namespace PayPal
                     if (typeof(T).Name.Equals("Object"))
                     {
                         return default(T);
+                    }
+                    else if (typeof(T).Name.Equals("String"))
+                    {
+                        return (T)Convert.ChangeType(response, typeof(T));
                     }
                     else
                     {

@@ -33,7 +33,7 @@ namespace PayPal
         /// <summary>
         /// 
         /// </summary>
-        private object applicationHeaderValue;
+        private XMLMessageSerializer soapHeaderValue;
 
         /// <summary>
         /// Explicit default constructor
@@ -131,7 +131,7 @@ namespace PayPal
         /// <summary>
         /// Gets and sets HTTP Headers
         /// </summary>
-        public Dictionary<string, string> HeadersMap
+        public Dictionary<string, string> HTTPHeaders
         {
             get
             {
@@ -143,15 +143,18 @@ namespace PayPal
             }
         }
 
-        public object ApplicationHeader
+        /// <summary>
+        /// SOAPHeader to set for SOAP APIs
+        /// </summary>
+        public XMLMessageSerializer SOAPHeader
         {
             get
             {
-                return this.applicationHeaderValue;
+                return this.soapHeaderValue;
             }
             set
             {
-                this.applicationHeaderValue = value;
+                this.soapHeaderValue = value;
             }
         }
     }

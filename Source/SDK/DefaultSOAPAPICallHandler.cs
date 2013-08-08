@@ -196,10 +196,7 @@ namespace PayPal
             this.ApiContext = apiContext;
             this.MethodName = methodName;
             this.Config = ConfigManager.GetConfigWithDefaults(apiContext.Config == null ? Config : apiContext.Config);
-            if (apiContext.ApplicationHeader is XMLMessageSerializer)
-            {
-                HeaderContent = (XMLMessageSerializer)apiContext.ApplicationHeader;
-            }
+            HeaderContent = apiContext.SOAPHeader;
             this.BodyContent = soapBodyContent;
         }
 
@@ -209,7 +206,7 @@ namespace PayPal
             Dictionary<string, string> headerDictionary = null;
             if (ApiContext != null)
             {
-                headerDictionary = ApiContext.HeadersMap;
+                headerDictionary = ApiContext.HTTPHeaders;
             }
             if (headerDictionary == null)
             {
