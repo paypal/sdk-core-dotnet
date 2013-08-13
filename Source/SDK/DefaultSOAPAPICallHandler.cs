@@ -173,6 +173,7 @@ namespace PayPal
                 this.attributeNamespaces = value;
             }
         }
+
         /// <summary>
         /// DefaultSOAPAPICallHandler acts as the base SOAPAPICallHandler.
 	    /// </summary>
@@ -231,10 +232,7 @@ namespace PayPal
                 {
                     payload = GetSOAPEnvelope();
                 }
-                catch (System.Exception exe)
-                {
-
-                }
+                catch { }
             }
             else
             {
