@@ -8,6 +8,7 @@ using PayPal.Manager;
     * Add reference from NUnit.2.6.2
  */
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace PayPal.NUnitTest
 {
@@ -47,8 +48,7 @@ namespace PayPal.NUnitTest
             Assert.AreEqual("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" ><soapenv:Header></soapenv:Header><soapenv:Body></soapenv:Body></soapenv:Envelope>", defaultSOAPHandler.GetPayload());
         }
 
-        [Test]
-        [ExpectedException(typeof(System.ArgumentNullException), "System.ArgumentNullException: Value cannot be null.")]
+        [Test, ExpectedException(typeof(System.ArgumentNullException))]
         public void DomNullConfigMapTest()
         {
             APIContext api = new APIContext();
@@ -112,7 +112,7 @@ namespace PayPal.NUnitTest
             Assert.AreEqual("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" ><soapenv:Header></soapenv:Header><soapenv:Body></soapenv:Body></soapenv:Envelope>", defaultHandler.GetPayload());
         }
 
-        private class XmlNamespacePrefixProvider : PayPal.DefaultSOAPAPICallHandler.XmlNamespaceProvider 
+        private class XmlNamespacePrefixProvider : DefaultSOAPAPICallHandler.XmlNamespaceProvider 
         {
             private Dictionary<string, string> namespaceMap;
 
