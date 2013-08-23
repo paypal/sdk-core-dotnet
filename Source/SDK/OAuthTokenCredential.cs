@@ -52,7 +52,7 @@ namespace PayPal
         /// <summary>
         /// Seconds for with access token is valid
         /// </summary>
-        private int aecondsToExpire;
+        private int secondsToExpire;
 
         /// <summary>
         /// Last time when access token was generated
@@ -63,6 +63,11 @@ namespace PayPal
         /// Dynamic configuration map
         /// </summary>
         private Dictionary<string, string> config;
+
+        /// <summary>
+        /// SDKVersion instance
+        /// </summary>
+        private SDKVersion SdkVersion;
 
         /// <summary>
         /// Logs output statements, errors, debug info to a text file    
@@ -79,6 +84,7 @@ namespace PayPal
             this.clientId = clientId;
             this.clientSecret = clientSecret;
             this.config = ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());
+            this.SdkVersion = new SDKVersionImpl();
         }
 
         /// <summary>
@@ -98,6 +104,7 @@ namespace PayPal
             {
                 this.config = ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());
             }
+            this.SdkVersion = new SDKVersionImpl();
         }
 
         public string GetAccessToken()
@@ -108,7 +115,7 @@ namespace PayPal
                 // If the token has not expired
                 // Set TTL as expiresTime - 60000
                 // If expired set accesstoken == null
-                if (((DateTime.Now.Millisecond - timeInMilliseconds) / 1000) > (aecondsToExpire - 120))
+                if (((DateTime.Now.Millisecond - timeInMilliseconds) / 1000) > (secondsToExpire - 120))
                 {
                     // regenerate token
                     accessToken = null;
@@ -183,7 +190,7 @@ namespace PayPal
             httpRequest.Method = "POST";
             httpRequest.Accept = "*/*";
             httpRequest.ContentType = "application/x-www-form-urlencoded";
-            UserAgentHeader userAgentHeader = new UserAgentHeader(PayPalResource.SDKId, PayPalResource.SDKVersion);
+            UserAgentHeader userAgentHeader = new UserAgentHeader(SdkVersion == null ? "" : SdkVersion.GetSDKId(), SdkVersion == null ? "" : SdkVersion.GetSDKVersion());
             Dictionary<string, string> userAgentMap = userAgentHeader.GetHeader();
             foreach (KeyValuePair<string, string> entry in userAgentMap)
             {
@@ -199,9 +206,25 @@ namespace PayPal
             JObject deserializedObject = (JObject)JsonConvert.DeserializeObject(response);
             string generatedToken = (string)deserializedObject["token_type"] + " " + (string)deserializedObject["access_token"];
             appId = (string)deserializedObject["app_id"];
-            aecondsToExpire = (int)deserializedObject["expires_in"];
+            secondsToExpire = (int)deserializedObject["expires_in"];
             timeInMilliseconds = DateTime.Now.Millisecond;
             return generatedToken;
         }
-    }    
+
+        private class SDKVersionImpl : SDKVersion
+        {
+
+            public string GetSDKId()
+            {
+                return BaseConstants.SdkId;
+            }
+
+            public string GetSDKVersion()
+            {
+                return BaseConstants.SdkVersion;
+            }
+        }
+    }
+
+    
 }

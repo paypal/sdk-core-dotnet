@@ -40,12 +40,12 @@ namespace PayPal
         /// <summary>
         /// UserAgentHeader Constructor
         /// </summary>
-        /// <param name="productId">Product Id</param>
-        /// <param name="productVersion">Product Version</param>
+        /// <param name="productId">Product Id, defaults to empty string if null or empty</param>
+        /// <param name="productVersion">Product Version, defaults to empty string if null or empty</param>
         public UserAgentHeader(string productId, string productVersion)
         {
-            this.productId = productId;
-            this.productVersion = productVersion;
+            this.productId = String.IsNullOrEmpty(productId) ? "" : productId;
+            this.productVersion = String.IsNullOrEmpty(productVersion) ? "" : productVersion;
         }
 
         /// <summary>

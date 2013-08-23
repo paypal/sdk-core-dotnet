@@ -159,6 +159,12 @@ namespace PayPal
 
         // PayPal Request Id HTTP Header
         public const string PAYPAL_REQUEST_ID_HEADER = "PayPal-Request-Id";
+
+        // DotNet SdkId for paypal-core
+        public const string SdkId = "paypal-core-dotnet";
+
+        // DotNet SdkVersion for paypal-core
+        public const string SdkVersion = "1.3.4";
         
         public static class ErrorMessages
         {

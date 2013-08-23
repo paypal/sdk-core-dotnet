@@ -31,10 +31,6 @@ namespace PayPal
                                                   HttpStatusCode.ServiceUnavailable,
                                                 });
 
-        public const string SDKId = "rest-sdk-dotnet";
-
-        public const string SDKVersion = "0.7.1";
-
         /// <summary>
         /// Configures and executes REST call: Supports JSON
         /// </summary>
@@ -79,7 +75,7 @@ namespace PayPal
             requestId = apiContext.RequestId;
 
             // Create an instance of IAPICallPreHandler
-            IAPICallPreHandler apiCallPreHandler = createIAPICallPreHandler(config, headersMap, authorizationToken, requestId, payload);
+            IAPICallPreHandler apiCallPreHandler = CreateIAPICallPreHandler(config, headersMap, authorizationToken, requestId, payload, apiContext.SdkVersion);
 
             return ConfigureAndExecute<T>(config, apiCallPreHandler, httpMethod, resourcePath);
         }
@@ -238,7 +234,7 @@ namespace PayPal
             return retryCodes.Contains(status);
         }
 
-        private static IAPICallPreHandler createIAPICallPreHandler(Dictionary<string, string> config, Dictionary<string, string> headersMap, string authorizationToken, string requestId, string payLoad)
+        private static IAPICallPreHandler CreateIAPICallPreHandler(Dictionary<string, string> config, Dictionary<string, string> headersMap, string authorizationToken, string requestId, string payLoad, SDKVersion sdkVersion)
         {
             RESTAPICallPreHandler restAPICallPreHandler = new RESTAPICallPreHandler(config, headersMap);
             restAPICallPreHandler.AuthorizationToken = authorizationToken;

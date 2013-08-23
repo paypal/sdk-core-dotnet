@@ -28,6 +28,11 @@ namespace PayPal
         private Dictionary<string, string> config;
 
         /// <summary>
+        /// SDKVersion instance
+        /// </summary>
+        private SDKVersion sVersion;
+
+        /// <summary>
         ///  Gets and sets the Authorization Token
         /// </summary>
         public string AuthorizationToken
@@ -71,6 +76,18 @@ namespace PayPal
             set
             {
                 pLoad = value;
+            }
+        }
+
+        public SDKVersion SdkVersion
+        {
+            get
+            {
+                return sVersion;
+            }
+            set
+            {
+                sVersion = value;
             }
         }
 
@@ -224,8 +241,7 @@ namespace PayPal
         /// <returns>User-Agent header value string</returns>
         protected Dictionary<string, string> FormUserAgentHeader()
         {
-            UserAgentHeader userAgentHeader = new UserAgentHeader(
-                PayPalResource.SDKId, PayPalResource.SDKVersion);
+            UserAgentHeader userAgentHeader = new UserAgentHeader((SdkVersion == null)? null : SdkVersion.GetSDKId(), (SdkVersion == null)? null : SdkVersion.GetSDKVersion());
             return userAgentHeader.GetHeader();
         }
 

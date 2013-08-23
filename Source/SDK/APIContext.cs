@@ -31,9 +31,14 @@ namespace PayPal
         private Dictionary<string, string> httpHeaders;
 
         /// <summary>
-        /// 
+        /// XMLMessageSerializer instance
         /// </summary>
         private XMLMessageSerializer soapHeaderValue;
+
+        /// <summary>
+        /// SDKVersion instance
+        /// </summary>
+        private SDKVersion sVersion;
 
         /// <summary>
         /// Explicit default constructor
@@ -155,6 +160,18 @@ namespace PayPal
             set
             {
                 this.soapHeaderValue = value;
+            }
+        }
+
+        public SDKVersion SdkVersion
+        {
+            get
+            {
+                return sVersion;
+            }
+            set
+            {
+                sVersion = value;
             }
         }
     }

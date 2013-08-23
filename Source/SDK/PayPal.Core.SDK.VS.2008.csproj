@@ -108,6 +108,7 @@
     <Compile Include="PayPalResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RESTAPICallPreHandler.cs" />
+    <Compile Include="SDKVersion.cs" />
     <Compile Include="SOAP\CertificateHttpHeaderAuthStrategy.cs" />
     <Compile Include="SOAP\CertificateSOAPHeaderAuthStrategy.cs" />
     <Compile Include="SOAP\MerchantAPICallPreHandler.cs" />
