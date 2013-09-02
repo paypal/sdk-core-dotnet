@@ -9,32 +9,34 @@ namespace PayPal.Log
     /// </summary>
     internal class Log4netLogger : BaseLogger
     {
-        enum Status { NotInitialized, Failure, Loading, Success };
+        private enum Status { NotInitialized, Failure, Loading, Success };
 
-        static Status currentStatus = Status.NotInitialized;
-        static readonly object syncLock = new object();
+        private static Status currentStatus = Status.NotInitialized;
+        private static readonly object syncLock = new object();
 
-        static Type log4netLoggerType;
+        private static Type paypalLogLogger;
 
-        static Type log4netLoggerManger;
-        static MethodInfo log4netLoggerMangerMethod;
-        private object log4netLoggerMangerMethodInvoke;
+        private static Type log4netCoreLoggerManager;
+        private static MethodInfo log4netCoreLoggerManagerGetMethodGetLogger;
+        private object log4netCoreLoggerManagerGetMethodGetLoggerInvoke;
 
-        static Type log4netILogger;
+        private static Type log4netCoreILogger;
 
-        static Type log4netLevel;
-        static object log4netLevelDebug;
-        static object log4netLevelInfo;
-        static object log4netLevelError;
+        private static Type log4netCoreLevel;
+        private static object log4netCoreLevelDebug;
+        private static object log4netCoreLevelError;
+        private static object log4netCoreLevelInfo;
+        private static object log4netCoreLevelWarn;
 
-        static MethodInfo log4netILoggerMethodLog;
-        static MethodInfo log4netILoggerMethodIsEnabledFor;
+        private static MethodInfo log4netCoreILoggerGetMethodLog;
+        private static MethodInfo log4netCoreILoggerGetMethodIsEnabledFor;
 
-        static Type log4netSystemStringFormat;              
+        private static Type log4netUtilSystemStringFormat;
 
-        private bool? isErrorEnabled;
         private bool? isDebugEnabled;
+        private bool? isErrorEnabled;
         private bool? isInfoEnabled;
+        private bool? isWarnEnabled;
 
         /// <summary>
         /// Interrogate log4net
@@ -51,34 +53,35 @@ namespace PayPal.Log
                 currentStatus = Status.Loading;
                 try
                 {
-                    log4netLoggerType = Type.GetType("PayPal.Log.Logger");
-                    log4netLoggerManger = Type.GetType("log4net.Core.LoggerManager, log4net");
+                    paypalLogLogger = Type.GetType("PayPal.Log.Logger");
+                    log4netCoreLoggerManager = Type.GetType("log4net.Core.LoggerManager, log4net");
 
-                    if (log4netLoggerManger == null)
+                    if (log4netCoreLoggerManager == null)
                     {
                         currentStatus = Status.Failure;
                         return;
                     }
 
-                    log4netLoggerMangerMethod = log4netLoggerManger.GetMethod("GetLogger", new Type[] { typeof(Assembly), typeof(Type) });
+                    log4netCoreLoggerManagerGetMethodGetLogger = log4netCoreLoggerManager.GetMethod("GetLogger", new Type[] { typeof(Assembly), typeof(Type) });
 
-                    log4netILogger = Type.GetType("log4net.Core.ILogger, log4net");
-                    log4netLevel = Type.GetType("log4net.Core.Level, log4net");
+                    log4netCoreILogger = Type.GetType("log4net.Core.ILogger, log4net");
+                    log4netCoreLevel = Type.GetType("log4net.Core.Level, log4net");
 
-                    log4netLevelDebug = log4netLevel.GetField("Debug").GetValue(null);
-                    log4netLevelInfo = log4netLevel.GetField("Info").GetValue(null);
-                    log4netLevelError = log4netLevel.GetField("Error").GetValue(null);
+                    log4netCoreLevelDebug = log4netCoreLevel.GetField("Debug").GetValue(null);
+                    log4netCoreLevelError = log4netCoreLevel.GetField("Error").GetValue(null);
+                    log4netCoreLevelInfo = log4netCoreLevel.GetField("Info").GetValue(null);
+                    log4netCoreLevelWarn = log4netCoreLevel.GetField("Warn").GetValue(null);
 
-                    log4netSystemStringFormat = Type.GetType("log4net.Util.SystemStringFormat, log4net");
+                    log4netUtilSystemStringFormat = Type.GetType("log4net.Util.SystemStringFormat, log4net");
 
-                    log4netILoggerMethodLog = log4netILogger.GetMethod("Log", new Type[] { typeof(Type), log4netLevel, typeof(object), typeof(System.Exception) });
-                    log4netILoggerMethodIsEnabledFor = log4netILogger.GetMethod("IsEnabledFor", new Type[] { log4netLevel });
+                    log4netCoreILoggerGetMethodLog = log4netCoreILogger.GetMethod("Log", new Type[] { typeof(Type), log4netCoreLevel, typeof(object), typeof(System.Exception) });
+                    log4netCoreILoggerGetMethodIsEnabledFor = log4netCoreILogger.GetMethod("IsEnabledFor", new Type[] { log4netCoreLevel });
 
-                    if (log4netLoggerMangerMethod == null || 
-                        log4netILoggerMethodIsEnabledFor == null || 
-                        log4netILogger == null ||
-                        log4netLevel == null ||
-                        log4netILoggerMethodLog == null)
+                    if (log4netCoreLoggerManagerGetMethodGetLogger == null || 
+                        log4netCoreILoggerGetMethodIsEnabledFor == null || 
+                        log4netCoreILogger == null ||
+                        log4netCoreLevel == null ||
+                        log4netCoreILoggerGetMethodLog == null)
                     {
                         currentStatus = Status.Failure;
                         return;
@@ -112,12 +115,12 @@ namespace PayPal.Log
                 Reflect();
             }
 
-            if (log4netLoggerManger == null)
+            if (log4netCoreLoggerManager == null)
             {
                 return;
             }
 
-            this.log4netLoggerMangerMethodInvoke = log4netLoggerMangerMethod.Invoke(null, new object[] { Assembly.GetCallingAssembly(), givenType }); 
+            this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke = log4netCoreLoggerManagerGetMethodGetLogger.Invoke(null, new object[] { Assembly.GetCallingAssembly(), givenType }); 
         }
        
         /// <summary>
@@ -130,16 +133,16 @@ namespace PayPal.Log
                 if (!isDebugEnabled.HasValue)
                 {
                     if (currentStatus != Status.Success ||
-                        this.log4netLoggerMangerMethodInvoke == null ||
-                        log4netLoggerType == null ||
-                        log4netSystemStringFormat == null ||
-                        log4netLevelDebug == null)
+                        this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke == null ||
+                        paypalLogLogger == null ||
+                        log4netUtilSystemStringFormat == null ||
+                        log4netCoreLevelDebug == null)
                     {
                         isDebugEnabled = false;
                     }
                     else
                     {
-                        isDebugEnabled = Convert.ToBoolean(log4netILoggerMethodIsEnabledFor.Invoke(this.log4netLoggerMangerMethodInvoke, new object[] { log4netLevelDebug }));
+                        isDebugEnabled = Convert.ToBoolean(log4netCoreILoggerGetMethodIsEnabledFor.Invoke(this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke, new object[] { log4netCoreLevelDebug }));
                     }
                 }
                 return isDebugEnabled.Value;
@@ -156,16 +159,16 @@ namespace PayPal.Log
                 if (!isErrorEnabled.HasValue)
                 {
                     if (currentStatus != Status.Success ||
-                        this.log4netLoggerMangerMethodInvoke == null ||
-                        log4netLoggerType == null ||
-                        log4netSystemStringFormat == null ||
-                        log4netLevelError == null)
+                        this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke == null ||
+                        paypalLogLogger == null ||
+                        log4netUtilSystemStringFormat == null ||
+                        log4netCoreLevelError == null)
                     {
                         isErrorEnabled = false;
                     }
                     else
                     {
-                        isErrorEnabled = Convert.ToBoolean(log4netILoggerMethodIsEnabledFor.Invoke(this.log4netLoggerMangerMethodInvoke, new object[] { log4netLevelError }));
+                        isErrorEnabled = Convert.ToBoolean(log4netCoreILoggerGetMethodIsEnabledFor.Invoke(this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke, new object[] { log4netCoreLevelError }));
                     }
                 }
                 return isErrorEnabled.Value;
@@ -182,22 +185,49 @@ namespace PayPal.Log
                 if (!isInfoEnabled.HasValue)
                 {
                     if (currentStatus != Status.Success ||
-                        this.log4netLoggerMangerMethodInvoke == null ||
-                        log4netLoggerType == null ||
-                        log4netSystemStringFormat == null ||
-                        log4netLevelInfo == null)
+                        this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke == null ||
+                        paypalLogLogger == null ||
+                        log4netUtilSystemStringFormat == null ||
+                        log4netCoreLevelInfo == null)
                     {
                         isInfoEnabled = false;
                     }
                     else
                     {
-                        isInfoEnabled = Convert.ToBoolean(log4netILoggerMethodIsEnabledFor.Invoke(this.log4netLoggerMangerMethodInvoke, new object[] { log4netLevelInfo }));
+                        isInfoEnabled = Convert.ToBoolean(log4netCoreILoggerGetMethodIsEnabledFor.Invoke(this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke, new object[] { log4netCoreLevelInfo }));
                     }
                 }
                 return isInfoEnabled.Value;
             }
+        }
+
+
+        /// <summary>
+        /// Override the wrapper for log4net ILog IsInfoEnabled
+        /// </summary>
+        public override bool IsWarnEnabled
+        {
+            get
+            {
+                if (!isWarnEnabled.HasValue)
+                {
+                    if (currentStatus != Status.Success ||
+                        this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke == null ||
+                        paypalLogLogger == null ||
+                        log4netUtilSystemStringFormat == null ||
+                        log4netCoreLevelWarn == null)
+                    {
+                        isWarnEnabled = false;
+                    }
+                    else
+                    {
+                        isWarnEnabled = Convert.ToBoolean(log4netCoreILoggerGetMethodIsEnabledFor.Invoke(this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke, new object[] { log4netCoreLevelWarn }));
+                    }
+                }
+                return isWarnEnabled.Value;
+            }
         }       
-               
+
         /// <summary>
         /// Override the wrapper for log4net ILog Debug
         /// </summary>
@@ -205,12 +235,12 @@ namespace PayPal.Log
         /// <param name="exception"></param>
         public override void Debug(string message, System.Exception exception)
         {
-            log4netILoggerMethodLog.Invoke(
-                this.log4netLoggerMangerMethodInvoke,
+            log4netCoreILoggerGetMethodLog.Invoke(
+                this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke,
                 new object[]
                 {
-                    log4netLoggerType, 
-                    log4netLevelDebug,
+                    paypalLogLogger, 
+                    log4netCoreLevelDebug,
                     new LogMessage(message),
                     exception
                 });
@@ -223,12 +253,12 @@ namespace PayPal.Log
         /// <param name="args"></param>
         public override void DebugFormat(string format, params object[] args)
         {
-            log4netILoggerMethodLog.Invoke(
-                this.log4netLoggerMangerMethodInvoke,
+            log4netCoreILoggerGetMethodLog.Invoke(
+                this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke,
                 new object[]
                 {
-                    log4netLoggerType, 
-                    log4netLevelDebug,
+                    paypalLogLogger, 
+                    log4netCoreLevelDebug,
                     new LogMessage(format, args),
                     null
                 });
@@ -241,16 +271,52 @@ namespace PayPal.Log
         /// <param name="exception"></param>
         public override void Error(string message, System.Exception exception)
         {
-            log4netILoggerMethodLog.Invoke(
-                this.log4netLoggerMangerMethodInvoke,
+            log4netCoreILoggerGetMethodLog.Invoke(
+                this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke,
                 new object[]
                 {
-                    log4netLoggerType, 
-                    log4netLevelError,
+                    paypalLogLogger, 
+                    log4netCoreLevelError,
                     new LogMessage(message),
                     exception
                 });
-        }         
+        }
+
+        /// <summary>
+        /// Override the wrapper for log4net ILog ErrorFormat
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        public override void ErrorFormat(string format, params object[] args)
+        {
+            log4netCoreILoggerGetMethodLog.Invoke(
+                this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke,
+                new object[]
+                {
+                    paypalLogLogger, 
+                    log4netCoreLevelError,
+                    new LogMessage(format, args),
+                    null
+                });
+        }  
+
+       /// <summary>
+        /// Override the wrapper for log4net ILog Info
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="exception"></param>
+        public override void Info(string message, System.Exception exception)
+        {
+            log4netCoreILoggerGetMethodLog.Invoke(
+                this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke,
+                new object[]
+                {
+                    paypalLogLogger, 
+                    log4netCoreLevelInfo,
+                    new LogMessage(message),
+                    exception
+                });
+        }
 
         /// <summary>
         /// Override the wrapper for log4net ILog InfoFormat
@@ -259,18 +325,53 @@ namespace PayPal.Log
         /// <param name="args"></param>
         public override void InfoFormat(string format, params object[] args)
         {
-            log4netILoggerMethodLog.Invoke
-            (
-                this.log4netLoggerMangerMethodInvoke,
+            log4netCoreILoggerGetMethodLog.Invoke(
+                this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke,
                 new object[]
                 {
-                    log4netLoggerType, 
-                    log4netLevelInfo,
+                    paypalLogLogger, 
+                    log4netCoreLevelInfo,
                     new LogMessage(format, args),
                     null
-                }
-            );
+                });
         }
+        
+        /// <summary>
+        /// Override the wrapper for log4net ILog Warn
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="exception"></param>
+        public override void Warn(string message, System.Exception exception)
+        {
+            log4netCoreILoggerGetMethodLog.Invoke(
+                this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke,
+                new object[]
+                {
+                    paypalLogLogger, 
+                    log4netCoreLevelWarn,
+                    new LogMessage(message),
+                    exception
+                });
+        }
+
+        /// <summary>
+        /// Override the wrapper for log4net ILog WarnFormat
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        public override void WarnFormat(string format, params object[] args)
+        {
+            log4netCoreILoggerGetMethodLog.Invoke(
+                this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke,
+                new object[]
+                {
+                    paypalLogLogger, 
+                    log4netCoreLevelWarn,
+                    new LogMessage(format, args),
+                    null
+                });
+        }
+
 
         /// <summary>
         /// Override flush

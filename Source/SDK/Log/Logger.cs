@@ -117,7 +117,7 @@ namespace PayPal.Log
         /// </summary>
         /// <param name="message"></param>
         /// <param name="exception"></param>
-        public void Error(string message, System.Exception exception) 
+        public void Error(string message, System.Exception exception)
         {
             foreach (BaseLogger loggerBase in baseLoggerList)
             {
@@ -126,7 +126,39 @@ namespace PayPal.Log
                     loggerBase.Error(message, exception);
                 }
             }
-        }       
+        }
+
+        /// <summary>
+        /// Call loggers' ErrorFormat
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        public void ErrorFormat(string format, params object[] args)
+        {
+            foreach (BaseLogger loggerBase in baseLoggerList)
+            {
+                if (loggerBase.IsEnabled && loggerBase.IsErrorEnabled)
+                {
+                    loggerBase.ErrorFormat(format, args);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Call loggers' Info
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="exception"></param>
+        public void Info(string message, System.Exception exception)
+        {
+            foreach (BaseLogger loggerBase in baseLoggerList)
+            {
+                if (loggerBase.IsEnabled && loggerBase.IsInfoEnabled)
+                {
+                    loggerBase.Info(message, exception);
+                }
+            }
+        }
 
         /// <summary>
         /// Call loggers' InfoFormat
@@ -140,6 +172,38 @@ namespace PayPal.Log
                 if (loggerBase.IsEnabled && loggerBase.IsInfoEnabled)
                 {
                     loggerBase.InfoFormat(format, args);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Call loggers' Warn
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="exception"></param>
+        public void Warn(string message, System.Exception exception)
+        {
+            foreach (BaseLogger loggerBase in baseLoggerList)
+            {
+                if (loggerBase.IsEnabled && loggerBase.IsWarnEnabled)
+                {
+                    loggerBase.Warn(message, exception);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Call loggers' WarnFormat
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        public void WarnFormat(string format, params object[] args)
+        {
+            foreach (BaseLogger loggerBase in baseLoggerList)
+            {
+                if (loggerBase.IsEnabled && loggerBase.IsWarnEnabled)
+                {
+                    loggerBase.WarnFormat(format, args);
                 }
             }
         }

@@ -89,6 +89,17 @@ namespace PayPal.Log
         }
 
         /// <summary>
+        /// Virtual wrapper for IsWarnEnabled
+        /// </summary>
+        public virtual bool IsWarnEnabled
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
         /// Abstract wrapper for Debug
         /// </summary>
         /// <param name="message"></param>
@@ -107,7 +118,21 @@ namespace PayPal.Log
         /// </summary>
         /// <param name="message"></param>
         /// <param name="exception"></param>
-        public abstract void Error(string message, System.Exception exception);             
+        public abstract void Error(string message, System.Exception exception);
+
+        /// <summary>
+        /// Abstract wrapper for ErrorFormat
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="exception"></param>
+        public abstract void ErrorFormat(string message, params object[] args);
+
+        /// <summary>
+        /// Abstract wrapper for Info
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        public abstract void Info(string format, System.Exception exception);
 
         /// <summary>
         /// Abstract wrapper for InfoFormat
@@ -115,6 +140,21 @@ namespace PayPal.Log
         /// <param name="format"></param>
         /// <param name="args"></param>
         public abstract void InfoFormat(string format, params object[] args);
+
+
+        /// <summary>
+        /// Abstract wrapper for Warn
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        public abstract void Warn(string format, System.Exception exception);
+
+        /// <summary>
+        /// Abstract wrapper for WarnFormat
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        public abstract void WarnFormat(string format, params object[] args);
 
         /// <summary>
         /// Abstract flush for loggers
