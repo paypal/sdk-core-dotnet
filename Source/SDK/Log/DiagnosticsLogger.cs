@@ -128,8 +128,7 @@ namespace PayPal.Log
         {
             sourceTrace.TraceData(TraceEventType.Warning, id++, new LogMessage(format, args));
         }
-
-
+        
         /// <summary>
         /// Override flush
         /// </summary>
