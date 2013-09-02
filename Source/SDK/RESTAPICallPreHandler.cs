@@ -153,11 +153,11 @@ namespace PayPal
 		     */
             if (!string.IsNullOrEmpty(AuthorizationToken))
             {
-                headers.Add(BaseConstants.AUTHORIZATION_HEADER, AuthorizationToken);
+                headers.Add(BaseConstants.AuthorizationHeader, AuthorizationToken);
             }
             else if (!string.IsNullOrEmpty(GetClientID()) && !string.IsNullOrEmpty(GetClientSecret()))
             {
-                headers.Add(BaseConstants.AUTHORIZATION_HEADER, "Basic " + EncodeToBase64(GetClientID(), GetClientSecret()));
+                headers.Add(BaseConstants.AuthorizationHeader, "Basic " + EncodeToBase64(GetClientID(), GetClientSecret()));
             }
 
             /*
@@ -166,7 +166,7 @@ namespace PayPal
              */
             if (!string.IsNullOrEmpty(RequestId))
             {
-                headers.Add(BaseConstants.PAYPAL_REQUEST_ID_HEADER, RequestId);
+                headers.Add(BaseConstants.PayPalRequestIdHeader, RequestId);
             }
 
             // Add User-Agent header for tracking in PayPal system

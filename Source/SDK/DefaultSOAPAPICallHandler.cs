@@ -213,7 +213,7 @@ namespace PayPal
             {
                 headerDictionary = new Dictionary<string, string>();
             }
-            headerDictionary.Add(BaseConstants.CONTENT_TYPE_HEADER, BaseConstants.CONTENT_TYPE_XML);
+            headerDictionary.Add(BaseConstants.ContentTypeHeader, BaseConstants.ContentTypeXML);
             return headerDictionary;
 	    }
 

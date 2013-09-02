@@ -143,22 +143,22 @@ namespace PayPal
         public const string OAuthEndpoint = "oauth.EndPoint";
 
         // User Agent HTTP Header
-        public const string USER_AGENT_HEADER = "User-Agent";
+        public const string UserAgentHeader = "User-Agent";
 
         // Content Type HTTP Header
-        public const string CONTENT_TYPE_HEADER = "Content-Type";
+        public const string ContentTypeHeader = "Content-Type";
 
         // Application - Json Content Type
-        public const string CONTENT_TYPE_JSON = "application/json";
+        public const string ContentTypeHeaderJson = "application/json";
 
         // Application - Xml Content Type
-        public const string CONTENT_TYPE_XML = "text/xml";
+        public const string ContentTypeXML = "text/xml";
 
         // Authorization HTTP Header
-        public const string AUTHORIZATION_HEADER = "Authorization";
+        public const string AuthorizationHeader = "Authorization";
 
         // PayPal Request Id HTTP Header
-        public const string PAYPAL_REQUEST_ID_HEADER = "PayPal-Request-Id";
+        public const string PayPalRequestIdHeader = "PayPal-Request-Id";
 
         // DotNet SdkId for paypal-core
         public const string SdkId = "paypal-core-dotnet";

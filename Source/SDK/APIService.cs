@@ -67,15 +67,15 @@ namespace PayPal
             ConnectionManager connMngr = ConnectionManager.Instance;
             HttpWebRequest httpRequest = connMngr.GetConnection(this.config, uri);
             httpRequest.Method = RequestMethod;
-            if (headers != null && headers.ContainsKey(BaseConstants.CONTENT_TYPE_HEADER))
+            if (headers != null && headers.ContainsKey(BaseConstants.ContentTypeHeader))
             {
-                httpRequest.ContentType = headers[BaseConstants.CONTENT_TYPE_HEADER].Trim();
-                headers.Remove(BaseConstants.CONTENT_TYPE_HEADER);
+                httpRequest.ContentType = headers[BaseConstants.ContentTypeHeader].Trim();
+                headers.Remove(BaseConstants.ContentTypeHeader);
             }
-            if (headers != null && headers.ContainsKey(BaseConstants.USER_AGENT_HEADER))
+            if (headers != null && headers.ContainsKey(BaseConstants.UserAgentHeader))
             {
-                httpRequest.UserAgent = headers[BaseConstants.USER_AGENT_HEADER].Trim();
-                headers.Remove(BaseConstants.USER_AGENT_HEADER);
+                httpRequest.UserAgent = headers[BaseConstants.UserAgentHeader].Trim();
+                headers.Remove(BaseConstants.UserAgentHeader);
             }
             foreach (KeyValuePair<string, string> header in headers)
             {
