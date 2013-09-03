@@ -25,7 +25,7 @@ namespace PayPal.Manager
             defaultConfig = new Dictionary<string, string>();
             // Default connection timeout in milliseconds
             defaultConfig[BaseConstants.HttpConnectionTimeoutConfig] = "30000";
-            defaultConfig[BaseConstants.HttpConnectionRetryConfig] = "1";
+            defaultConfig[BaseConstants.HttpConnectionRetryConfig] = "3";
             defaultConfig[BaseConstants.ClientIPAddressConfig] = "127.0.0.1";
         }
 

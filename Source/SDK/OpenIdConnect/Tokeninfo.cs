@@ -143,7 +143,7 @@ namespace PayPal.OpenIdConnect
             string payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
             resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
             Dictionary<string, string> headersMap = new Dictionary<string, string>();
-            headersMap.Add(BaseConstants.CONTENT_TYPE_HEADER, "application/x-www-form-urlencoded");
+            headersMap.Add(BaseConstants.ContentTypeHeader, "application/x-www-form-urlencoded");
             if (apiContext == null)
             {
                 apiContext = new APIContext();
@@ -176,7 +176,7 @@ namespace PayPal.OpenIdConnect
             string payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
             resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
             Dictionary<string, string> headersMap = new Dictionary<string, string>();
-            headersMap.Add(BaseConstants.CONTENT_TYPE_HEADER, "application/x-www-form-urlencoded");
+            headersMap.Add(BaseConstants.ContentTypeHeader, "application/x-www-form-urlencoded");
             if (apiContext == null)
             {
                 apiContext = new APIContext();

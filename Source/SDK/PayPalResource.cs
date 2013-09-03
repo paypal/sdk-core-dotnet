@@ -160,21 +160,21 @@ namespace PayPal
                     httpRequest.Method = httpMethod.ToString();
 
                     // Set custom content type (default to [application/json])
-                    if (headersMap != null && headersMap.ContainsKey(BaseConstants.CONTENT_TYPE_HEADER))
+                    if (headersMap != null && headersMap.ContainsKey(BaseConstants.ContentTypeHeader))
                     {
-                        httpRequest.ContentType = headersMap[BaseConstants.CONTENT_TYPE_HEADER].Trim();
-                        headersMap.Remove(BaseConstants.CONTENT_TYPE_HEADER);
+                        httpRequest.ContentType = headersMap[BaseConstants.ContentTypeHeader].Trim();
+                        headersMap.Remove(BaseConstants.ContentTypeHeader);
                     }
                     else
                     {
-                        httpRequest.ContentType = BaseConstants.CONTENT_TYPE_JSON;
+                        httpRequest.ContentType = BaseConstants.ContentTypeHeaderJson;
                     }
 
                     // Set User-Agent HTTP header
-                    if (headersMap.ContainsKey(BaseConstants.USER_AGENT_HEADER))
+                    if (headersMap.ContainsKey(BaseConstants.UserAgentHeader))
                     {
-                        httpRequest.UserAgent = headersMap[BaseConstants.USER_AGENT_HEADER];
-                        headersMap.Remove(BaseConstants.USER_AGENT_HEADER);
+                        httpRequest.UserAgent = headersMap[BaseConstants.UserAgentHeader];
+                        headersMap.Remove(BaseConstants.UserAgentHeader);
                     }
 
                     // Set Custom HTTP headers

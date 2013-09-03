@@ -16,12 +16,15 @@ namespace PayPal
         /// </summary>
         private static Logger logger = Logger.GetLogger(typeof(HttpConnection));
 
-        private static ArrayList retryCodes = new ArrayList(new HttpStatusCode[] 
-                                                { HttpStatusCode.GatewayTimeout,
-                                                  HttpStatusCode.RequestTimeout,
-                                                  HttpStatusCode.InternalServerError,
-                                                  HttpStatusCode.ServiceUnavailable,
-                                                });
+        private static List<HttpStatusCode> retryCodes = new List<HttpStatusCode>
+            (
+                new HttpStatusCode[] 
+                { HttpStatusCode.GatewayTimeout,
+                    HttpStatusCode.RequestTimeout,
+                    HttpStatusCode.InternalServerError,
+                    HttpStatusCode.ServiceUnavailable
+                }
+            );
 
         /// <summary>
         /// Dynamic Configuration
@@ -37,36 +40,36 @@ namespace PayPal
         {
             try
             {
-                if (!string.IsNullOrEmpty(payload))
-                {
-                    switch (httpRequest.Method)
-                    {
-                        case "POST":
-                            using (StreamWriter writerStream = new StreamWriter(httpRequest.GetRequestStream()))
-                            {
-                                if (!string.IsNullOrEmpty(payload))
-                                {
-                                    writerStream.Write(payload);
-                                    writerStream.Flush();
-                                    writerStream.Close();
-                                    logger.InfoFormat(payload);
-                                }
-
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                }
-
                 int retriesConfigured = config.ContainsKey(BaseConstants.HttpConnectionRetryConfig) ?
                     Convert.ToInt32(config[BaseConstants.HttpConnectionRetryConfig]) : 0;
                 int retries = 0;
 
                 do
-                {
+                { 
                     try
                     {
+                        if (!string.IsNullOrEmpty(payload))
+                        {
+                            switch (httpRequest.Method)
+                            {
+                                case "POST":
+                                    using (StreamWriter writerStream = new StreamWriter(httpRequest.GetRequestStream()))
+                                    {
+                                        if (!string.IsNullOrEmpty(payload))
+                                        {
+                                            writerStream.Write(payload);
+                                            writerStream.Flush();
+                                            writerStream.Close();
+                                            logger.InfoFormat(payload);
+                                        }
+
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+
                         using (WebResponse responseWeb = httpRequest.GetResponse())
                         {
                             using (StreamReader readerStream = new StreamReader(responseWeb.GetResponseStream()))

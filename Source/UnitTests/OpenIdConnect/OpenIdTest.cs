@@ -152,7 +152,7 @@ namespace PayPal.UnitTest
             List<string> scopelist = new List<string>();
             scopelist.Add("openid");
             scopelist.Add("email");
-            string redirectURI = "http://google.com";
+            string redirectURI = "http://www.paypal.com";
             string redirectURL = Session.GetRedirectUrl(redirectURI, scopelist, apiContext);
             Assert.AreEqual(redirectURL != null, true);
         }

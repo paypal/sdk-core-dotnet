@@ -55,7 +55,7 @@ namespace PayPal
         public Dictionary<string, string> GetHeader()
         {
             Dictionary<string, string> userAgentDictionary = new Dictionary<string, string>();
-            userAgentDictionary.Add(BaseConstants.USER_AGENT_HEADER, FormUserAgentHeader());
+            userAgentDictionary.Add(BaseConstants.UserAgentHeader, FormUserAgentHeader());
             return userAgentDictionary;
         }
 
