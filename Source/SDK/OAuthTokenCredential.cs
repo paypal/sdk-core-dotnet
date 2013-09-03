@@ -73,7 +73,7 @@ namespace PayPal
         /// Logs output statements, errors, debug info to a text file    
         /// </summary>
         private static Logger logger = Logger.GetLogger(typeof(OAuthTokenCredential));
-
+               
         /// <summary>
         /// Client Id and Secret for the OAuth
         /// </summary>
@@ -96,14 +96,7 @@ namespace PayPal
         {
             this.clientId = clientId;
             this.clientSecret = clientSecret;
-            if (config != null)
-            {
-                this.config = ConfigManager.GetConfigWithDefaults(config);
-            }
-            else
-            {
-                this.config = ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());
-            }
+            this.config = config != null ? ConfigManager.GetConfigWithDefaults(config) : ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties()); 
             this.SdkVersion = new SDKVersionImpl();
         }
 
@@ -148,18 +141,6 @@ namespace PayPal
                 string base64ClientId = Convert.ToBase64String(bytes);
                 return base64ClientId;
             }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                throw new PayPalException(ex.Message, ex);
-            }
-            catch (ArgumentException ex)
-            {
-                throw new PayPalException(ex.Message, ex);
-            }
-            catch (NotSupportedException ex)
-            {
-                throw new PayPalException(ex.Message, ex);
-            }
             catch (System.Exception ex)
             {
                 throw new PayPalException(ex.Message, ex);
@@ -180,9 +161,25 @@ namespace PayPal
             {
                 baseUri = new Uri(config[BaseConstants.EndpointConfig]);
             }
+            else if (config.ContainsKey(BaseConstants.ApplicationModeConfig))
+            {
+                string mode = config[BaseConstants.ApplicationModeConfig];
+                if (mode.Equals(BaseConstants.LiveMode))
+                {
+                    baseUri = new Uri(BaseConstants.RESTLiveEndpoint);
+                }
+                else if (mode.Equals(BaseConstants.SandboxMode))
+                {
+                    baseUri = new Uri(BaseConstants.RESTSandboxEndpoint);
+                }
+                else
+                {
+                    throw new ConfigException("You must specify one of mode(live/sandbox) OR endpoint in the configuration");
+                }
+            }
             bool success = Uri.TryCreate(baseUri, OAuthTokenPath, out uniformResourceIdentifier);
             ConnectionManager connManager = ConnectionManager.Instance;
-            HttpWebRequest httpRequest = connManager.GetConnection(ConfigManager.Instance.GetProperties(), uniformResourceIdentifier.AbsoluteUri);
+                HttpWebRequest httpRequest = connManager.GetConnection(this.config, uniformResourceIdentifier.AbsoluteUri);  
             
             Dictionary<string, string> headers = new Dictionary<string, string>();
             headers.Add("Authorization", "Basic " + base64ClientId);

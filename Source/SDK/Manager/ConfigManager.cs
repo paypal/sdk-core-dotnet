@@ -29,35 +29,32 @@ namespace PayPal.Manager
             defaultConfig[BaseConstants.ClientIPAddressConfig] = "127.0.0.1";
         }
 
-#if NET_2_0 || NET_3_5
         /// <summary>
         /// Singleton instance of the ConfigManager
         /// </summary>
-        private static readonly ConfigManager singletonInstance = new ConfigManager();
+        private static volatile ConfigManager singletonInstance;
+
+        private static object syncRoot = new Object();
+
 
         /// <summary>
-        /// Gets the Singleton instance of ConnectionManager
+        /// Gets the Singleton instance of the ConfigManager
         /// </summary>
         public static ConfigManager Instance
         {
             get
             {
+                if (singletonInstance == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (singletonInstance == null)
+                            singletonInstance = new ConfigManager();
+                    }
+                }
                 return singletonInstance;
             }
         }
-#elif NET_4_0 || NET_4_5
-        /// <summary>
-        /// System.Lazy type guarantees thread-safe lazy-construction
-        /// static holder for instance, need to use lambda to construct since constructor private
-        /// </summary>
-        private static readonly Lazy<ConfigManager> laze = new Lazy<ConfigManager>(() => new ConfigManager());
-
-        /// <summary>
-        /// Accessor for the Singleton instance of ConnectionManager
-        /// </summary>
-        public static ConfigManager Instance { get { return laze.Value; } }  
-#endif
-
         /// <summary>
         /// Private constructor
         /// </summary>
