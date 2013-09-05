@@ -87,13 +87,6 @@ namespace PayPal
                 logger.DebugFormat(headerName + ":" + httpRequest.Headers[headerName]);
             }
            
-            //Adding payload to HttpWebRequest object
-            using (StreamWriter myWriter = new StreamWriter(httpRequest.GetRequestStream()))
-            {
-                myWriter.Write(payload);
-                logger.DebugFormat(payload);
-            }
-
             if (apiCallHandler.GetCredential() is CertificateCredential)
             {
                 CertificateCredential certCredential = (CertificateCredential)apiCallHandler.GetCredential();
@@ -110,69 +103,10 @@ namespace PayPal
                 httpRequest.ClientCertificates.Add(x509);
             }
 
-            //Fire request. Retry if configured to do so
-            int numRetries = (this.config.ContainsKey(BaseConstants.HttpConnectionRetryConfig)) ?
-                    Convert.ToInt32(config[BaseConstants.HttpConnectionRetryConfig]) : 0;
-            int retries = 0;
+            HttpConnection connectionHttp = new HttpConnection(config);
+            string response = connectionHttp.Execute(payload, httpRequest);
 
-            do
-            {
-                try
-                {
-                    //Calling the plaftform API web service and getting the response
-                    using (WebResponse response = httpRequest.GetResponse())
-                    {
-                        using (StreamReader sr = new StreamReader(response.GetResponseStream()))
-                        {
-                            responseString = sr.ReadToEnd();
-                            logger.DebugFormat("Service response");
-                            logger.DebugFormat(responseString);
-                            return responseString;
-                        }
-                    }
-                }
-                //Server responses in the range of 4xx and 5xx throw a WebException
-                catch (WebException we)
-                {
-                    HttpStatusCode statusCode = ((HttpWebResponse)we.Response).StatusCode;
-                    logger.InfoFormat("Got " + statusCode.ToString() + " response from server");
-					string response = null;
-                    if (we.Response is HttpWebResponse)
-                    {
-                        using (StreamReader readerStream = new StreamReader(we.Response.GetResponseStream()))
-                        {
-                            response = readerStream.ReadToEnd().Trim();
-                            logger.Error("Error Response: " + response, we);
-                        }
-                        logger.InfoFormat("Got " + statusCode.ToString() + " status code from server");
-                    }
-                    if (!RequiresRetry(we))
-                    {
-                        // Server responses in the range of 4xx and 5xx throw a WebException
-                        throw new ConnectionException("Invalid HTTP response " + we.Message, response);
-                    }
-                }
-                catch(System.Exception ex)
-                {
-                    throw ex;
-                }
-            } while (retries++ < numRetries);
-            throw new ConnectionException("Invalid HTTP response");
-        }
-
-        /// <summary>
-        /// Returns true if a HTTP retry is required
-        /// </summary>
-        /// <param name="ex"></param>
-        /// <returns></returns>
-        private static bool RequiresRetry(WebException ex)
-        {
-            if (ex.Status != WebExceptionStatus.ProtocolError)
-            {
-                return false;
-            }
-            HttpStatusCode status = ((HttpWebResponse)ex.Response).StatusCode;
-            return retryCodes.Contains(status);
+            return response;
         }
     }
 }
