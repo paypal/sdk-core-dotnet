@@ -13,9 +13,9 @@ namespace PayPal.Log
     public static class LogConfiguration
     {
         /// <summary>
-        /// Key for the loggers to be set in <appSettings><add key="PayPalLog" value="Log4net"/></appSettings> in configuration file
+        /// Key for the loggers to be set in <appSettings><add key="PayPalLogger" value="PayPal.Log.DiagnosticsLogger, PayPal.Log.Log4netLogger"/></appSettings> in configuration file
         /// </summary>
-        public const string PayPalLogKey = "PayPalLog";
+        public const string PayPalLogKey = "PayPalLogger";
 
         private static char[] splitters = new char[] { ',' };
 

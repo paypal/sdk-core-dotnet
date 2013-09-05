@@ -33,7 +33,15 @@ namespace PayPal
             this.config = config;
         }
 
-        private  HttpWebRequest CopyRequest(HttpWebRequest httpRequest, Dictionary<string, string> config, string url)
+        
+        /// <summary>
+        /// Copying existing HttpWebRequest parameters to newly created HttpWebRequest, can't reuse the same HttpWebRequest for retries.
+        /// </summary>
+        /// <param name="httpRequest"></param>
+        /// <param name="config"></param>
+        /// <param name="url"></param>
+        /// <returns>HttpWebRequest</returns>
+        private HttpWebRequest CopyRequest(HttpWebRequest httpRequest, Dictionary<string, string> config, string url)
         {
            ConnectionManager connMngr = ConnectionManager.Instance;
                
@@ -41,7 +49,7 @@ namespace PayPal
                 newHttpRequest.Method = httpRequest.Method;
                 newHttpRequest.Accept = httpRequest.Accept;
                 newHttpRequest.ContentType = httpRequest.ContentType;
-                if (newHttpRequest.ContentLength > 0)
+                if (httpRequest.ContentLength > 0)
                 {
                     newHttpRequest.ContentLength = httpRequest.ContentLength;
                 }
@@ -51,7 +59,13 @@ namespace PayPal
                 return newHttpRequest;
 
         }
-
+        
+        /// <summary>
+        /// Copying existing HttpWebRequest headers into newly created HttpWebRequest
+        /// </summary>
+        /// <param name="httpRequest"></param>
+        /// <param name="newHttpRequest"></param>
+        /// <returns>HttpWebRequest</returns>
         private HttpWebRequest CopyHttpWebRequestHeaders(HttpWebRequest httpRequest, HttpWebRequest newHttpRequest)
         {
             string[] allKeys = httpRequest.Headers.AllKeys;
@@ -81,6 +95,13 @@ namespace PayPal
             }
             return newHttpRequest;
         }
+
+        /// <summary>
+        /// Executing API calls
+        /// </summary>
+        /// <param name="payLoad"></param>
+        /// <param name="httpRequest"></param>
+        /// <returns></returns>
         public string Execute(string payLoad, HttpWebRequest httpRequest)
         {
             int retriesConfigured = config.ContainsKey(BaseConstants.HttpConnectionRetryConfig) ?
@@ -90,13 +111,13 @@ namespace PayPal
             {
                 do
                 {
+                    if (retries > 0)
+                    {
+                        logger.Info("Retrying....");
+                        httpRequest = CopyRequest(httpRequest, config, httpRequest.RequestUri.ToString());
+                    }
                     try
                     {
-                        if (retries > 0)
-                        {
-                            logger.InfoFormat("Retrying....");
-                            httpRequest = CopyRequest(httpRequest, config, httpRequest.RequestUri.ToString());
-                        }
                         if (!string.IsNullOrEmpty(payLoad))
                         {
                             switch (httpRequest.Method)
@@ -109,7 +130,7 @@ namespace PayPal
                                             writerStream.Write(payLoad);
                                             writerStream.Flush();
                                             writerStream.Close();
-                                            logger.DebugFormat(payLoad);
+                                            logger.Debug(payLoad);
                                         }
 
                                     }
@@ -124,8 +145,8 @@ namespace PayPal
                             using (StreamReader readerStream = new StreamReader(responseWeb.GetResponseStream()))
                             {
                                 string response = readerStream.ReadToEnd().Trim();
-                                logger.DebugFormat("Service response");
-                                logger.DebugFormat(response);
+                                logger.Debug("Service response");
+                                logger.Debug(response);
                                 return response;
                             }
                         }
@@ -141,7 +162,7 @@ namespace PayPal
                                 response = readerStream.ReadToEnd().Trim();
                                 logger.Error("Error Response: " + response, ex);
                             }
-                            logger.InfoFormat("Got " + statusCode.ToString() + " status code from server");
+                            logger.Info("Got " + statusCode.ToString() + " status code from server");
                         }
                         if (!RequiresRetry(ex))
                         {
@@ -149,7 +170,6 @@ namespace PayPal
                             throw new ConnectionException("Invalid HTTP response " + ex.Message, response);
                         }
                     }
-
                 } while (retries++ < retriesConfigured);
             }
             catch (System.Exception ex)

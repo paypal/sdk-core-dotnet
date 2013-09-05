@@ -53,6 +53,15 @@ namespace PayPal.Log
         /// Override the wrapper for System.Diagnostics TraceEventType.Verbose
         /// </summary>
         /// <param name="message"></param>
+        public override void Debug(string message)
+        {
+            sourceTrace.TraceData(TraceEventType.Verbose, id++, new LogMessage(message));
+        }
+        
+        /// <summary>
+        /// Override the wrapper for System.Diagnostics TraceEventType.Verbose
+        /// </summary>
+        /// <param name="message"></param>
         /// <param name="exception"></param>
         public override void Debug(string message, System.Exception exception)
         {
@@ -67,6 +76,15 @@ namespace PayPal.Log
         public override void DebugFormat(string format, params object[] args)
         {
             sourceTrace.TraceData(TraceEventType.Verbose, id++, new LogMessage(format, args));
+        }
+
+        /// <summary>
+        /// Override the wrapper for System.Diagnostics TraceEventType.Error
+        /// </summary>
+        /// <param name="message"></param>
+        public override void Error(string message)
+        {
+            sourceTrace.TraceData(TraceEventType.Error, id++, new LogMessage(message));
         }
         
         /// <summary>
@@ -93,6 +111,15 @@ namespace PayPal.Log
         /// Override the wrapper for System.Diagnostics TraceEventType.Information
         /// </summary>
         /// <param name="message"></param>
+        public override void Info(string message)
+        {
+            sourceTrace.TraceData(TraceEventType.Information, id++, new LogMessage(message));
+        }
+        
+        /// <summary>
+        /// Override the wrapper for System.Diagnostics TraceEventType.Information
+        /// </summary>
+        /// <param name="message"></param>
         /// <param name="exception"></param>
         public override void Info(string message, System.Exception exception)
         {
@@ -109,6 +136,15 @@ namespace PayPal.Log
             sourceTrace.TraceData(TraceEventType.Information, id++, new LogMessage(format, args));
         }
 
+        /// <summary>
+        /// Override the wrapper for System.Diagnostics TraceEventType.Warning
+        /// </summary>
+        /// <param name="message"></param>
+        public override void Warn(string message)
+        {
+            sourceTrace.TraceData(TraceEventType.Warning, id++, new LogMessage(message));
+        }
+        
         /// <summary>
         /// Override the wrapper for System.Diagnostics TraceEventType.Warning
         /// </summary>

@@ -78,8 +78,23 @@ namespace PayPal.Log
                 }
             }
             return log;
-        }                      
+        }
 
+        /// <summary>
+        /// Call loggers' Debug
+        /// </summary>
+        /// <param name="message"></param>
+        public void Debug(string message)
+        {
+            foreach (BaseLogger loggerBase in baseLoggerList)
+            {
+                if (loggerBase.IsEnabled && loggerBase.IsDebugEnabled)
+                {
+                    loggerBase.Debug(message);
+                }
+            }
+        }
+        
         /// <summary>
         /// Call loggers' Debug
         /// </summary>
@@ -116,6 +131,21 @@ namespace PayPal.Log
         /// Call loggers' Error
         /// </summary>
         /// <param name="message"></param>
+        public void Error(string message)
+        {
+            foreach (BaseLogger loggerBase in baseLoggerList)
+            {
+                if (loggerBase.IsEnabled && loggerBase.IsErrorEnabled)
+                {
+                    loggerBase.Error(message);
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Call loggers' Error
+        /// </summary>
+        /// <param name="message"></param>
         /// <param name="exception"></param>
         public void Error(string message, System.Exception exception)
         {
@@ -148,6 +178,21 @@ namespace PayPal.Log
         /// Call loggers' Info
         /// </summary>
         /// <param name="message"></param>
+        public void Info(string message)
+        {
+            foreach (BaseLogger loggerBase in baseLoggerList)
+            {
+                if (loggerBase.IsEnabled && loggerBase.IsInfoEnabled)
+                {
+                    loggerBase.Info(message);
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Call loggers' Info
+        /// </summary>
+        /// <param name="message"></param>
         /// <param name="exception"></param>
         public void Info(string message, System.Exception exception)
         {
@@ -176,6 +221,21 @@ namespace PayPal.Log
             }
         }
 
+        /// <summary>
+        /// Call loggers' Warn
+        /// </summary>
+        /// <param name="message"></param>
+        public void Warn(string message)
+        {
+            foreach (BaseLogger loggerBase in baseLoggerList)
+            {
+                if (loggerBase.IsEnabled && loggerBase.IsWarnEnabled)
+                {
+                    loggerBase.Warn(message);
+                }
+            }
+        }
+        
         /// <summary>
         /// Call loggers' Warn
         /// </summary>

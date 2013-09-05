@@ -34,15 +34,6 @@ namespace PayPal
         private static Logger logger = Logger.GetLogger(typeof(APIService));
 
         /// <summary>
-        /// Retry codes
-        /// </summary>
-        private static ArrayList retryCodes = new ArrayList(new HttpStatusCode[] 
-                                                { HttpStatusCode.GatewayTimeout,
-                                                  HttpStatusCode.RequestTimeout,
-                                                  HttpStatusCode.InternalServerError,
-                                                  HttpStatusCode.ServiceUnavailable,
-                                                });
-        /// <summary>
         /// Constructor overload
         /// </summary>
         /// <param name="config"></param>

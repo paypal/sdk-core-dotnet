@@ -226,8 +226,25 @@ namespace PayPal.Log
                 }
                 return isWarnEnabled.Value;
             }
-        }       
+        }
 
+        /// <summary>
+        /// Override the wrapper for log4net ILog Debug
+        /// </summary>
+        /// <param name="message"></param>
+        public override void Debug(string message)
+        {
+            log4netCoreILoggerGetMethodLog.Invoke(
+                this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke,
+                new object[]
+                {
+                    paypalLogLogger, 
+                    log4netCoreLevelDebug,
+                    new LogMessage(message), 
+                    null
+                });
+        }
+        
         /// <summary>
         /// Override the wrapper for log4net ILog Debug
         /// </summary>
@@ -268,6 +285,23 @@ namespace PayPal.Log
         /// Override the wrapper for log4net ILog Error
         /// </summary>
         /// <param name="message"></param>
+        public override void Error(string message)
+        {
+            log4netCoreILoggerGetMethodLog.Invoke(
+                this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke,
+                new object[]
+                {
+                    paypalLogLogger, 
+                    log4netCoreLevelError,
+                    new LogMessage(message),
+                    null
+                });
+        }
+        
+        /// <summary>
+        /// Override the wrapper for log4net ILog Error
+        /// </summary>
+        /// <param name="message"></param>
         /// <param name="exception"></param>
         public override void Error(string message, System.Exception exception)
         {
@@ -298,9 +332,26 @@ namespace PayPal.Log
                     new LogMessage(format, args),
                     null
                 });
-        }  
+        }
 
-       /// <summary>
+        /// <summary>
+        /// Override the wrapper for log4net ILog Info
+        /// </summary>
+        /// <param name="message"></param>
+        public override void Info(string message)
+        {
+            log4netCoreILoggerGetMethodLog.Invoke(
+                this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke,
+                new object[]
+                {
+                    paypalLogLogger, 
+                    log4netCoreLevelInfo,
+                    new LogMessage(message),
+                    null
+                });
+        }
+
+        /// <summary>
         /// Override the wrapper for log4net ILog Info
         /// </summary>
         /// <param name="message"></param>
@@ -332,6 +383,23 @@ namespace PayPal.Log
                     paypalLogLogger, 
                     log4netCoreLevelInfo,
                     new LogMessage(format, args),
+                    null
+                });
+        }
+
+        /// <summary>
+        /// Override the wrapper for log4net ILog Warn
+        /// </summary>
+        /// <param name="message"></param>
+        public override void Warn(string message)
+        {
+            log4netCoreILoggerGetMethodLog.Invoke(
+                this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke,
+                new object[]
+                {
+                    paypalLogLogger, 
+                    log4netCoreLevelWarn,
+                    new LogMessage(message),
                     null
                 });
         }
