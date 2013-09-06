@@ -102,7 +102,7 @@ Or
 *	Visual Studio 2005
 	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\.NET Framework 2.0
 	- Release Configuration: In the root of folder of .git: Build\bin\Release\.NET Framework 2.0
-	- 
+
 ## License
 
 *	PayPal, Inc. SDK License - LICENSE.txt
