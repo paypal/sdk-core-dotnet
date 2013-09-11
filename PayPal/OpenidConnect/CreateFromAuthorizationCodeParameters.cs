@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PayPal.OpenidConnect
 {
-    public class CreateFromAuthorizationCodeParameters
+    public class CreateFromAuthorizationCodeParameters : ClientCredentials
     {
         
         /// <summary>

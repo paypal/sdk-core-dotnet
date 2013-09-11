@@ -1,4 +1,9 @@
 ###CHANGE LOG
+#### V1.3.5 (Sep 11, 2013)
+
+   * Adding new mandatory parameters - clientId and clientSecret to openid classes.
+   * Added scope for [seamless checkout] (https://developer.paypal.com/webapps/developer/docs/integration/direct/log-in-with-paypal/detailed/#seamlesscheckout) in Session.GetRedirectUrl().
+   
 #### V1.3.4 (Jul 31, 2013)
 
    * Updating version for Reauthorization functionality.
