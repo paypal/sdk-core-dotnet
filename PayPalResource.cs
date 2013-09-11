@@ -76,9 +76,10 @@ namespace PayPal
                 connMngr.GetConnection(config, uniformResourceIdentifier.ToString());
                 HttpWebRequest httpRequest = connMngr.GetConnection(config, uniformResourceIdentifier.ToString());
                 httpRequest.Method = httpMethod.ToString();
-                if (headersMap != null && headersMap.ContainsKey("Content-Type") && headersMap["Content-Type"].Equals("application/x-www-form-urlencoded"))
+                if (headers != null && headers.ContainsKey("Content-Type"))
                 {
-                    httpRequest.ContentType = "application/x-www-form-urlencoded";
+                    httpRequest.ContentType = headers["Content-Type"];
+                    headers.Remove("Content-Type");
                 }
                 else
                 {

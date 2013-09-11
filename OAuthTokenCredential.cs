@@ -190,5 +190,19 @@ namespace PayPal
                 timeInMilliseconds = DateTime.Now.Millisecond;
                 return generatedToken;
         }
+
+        public string GenerateBasicAuthHeader()
+        {
+            try
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(this.clientID + ":" + this.clientSecret);
+                string base64ClientID = Convert.ToBase64String(bytes);
+                return "Basic " + base64ClientID;
+            }
+            catch (System.Exception ex)
+            {
+                throw new PayPalException(ex.Message, ex);
+            }           
+        }
     }
 }
