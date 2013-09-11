@@ -72,6 +72,7 @@
     <Compile Include="OSVersionInfoClass.cs" />
     <Compile Include="PayPalResource.cs" />
     <Compile Include="PayPal\OpenidConnect\Address.cs" />
+    <Compile Include="PayPal\OpenidConnect\ClientCredentials.cs" />
     <Compile Include="PayPal\OpenidConnect\CreateFromAuthorizationCodeParameters.cs" />
     <Compile Include="PayPal\OpenidConnect\CreateFromRefreshTokenParameters.cs" />
     <Compile Include="PayPal\OpenidConnect\Error.cs" />

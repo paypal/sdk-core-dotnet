@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PayPal.OpenidConnect
 {
-    public class CreateFromRefreshTokenParameters
+    public class CreateFromRefreshTokenParameters : ClientCredentials
     {
 
         /// <summary>

@@ -119,13 +119,18 @@ namespace PayPal.OpenidConnect
 	/// </summary>
 	public static Tokeninfo CreateFromAuthorizationCode(CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters)
 	{
-		string pattern = "v1/identity/openidconnect/tokenservice ?grant_type={0}&code={1}&redirect_uri={2}";
+		string pattern = "v1/identity/openidconnect/tokenservice?grant_type={0}&code={1}&redirect_uri={2}";
 		object[] parameters = new object[] { createFromAuthorizationCodeParameters };
 		string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
 		string payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
 		resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
 		Dictionary<string, string> headersMap = new Dictionary<string, string>();
-		headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
+        if (createFromAuthorizationCodeParameters.getClientId() != null && createFromAuthorizationCodeParameters.getClientSecret() != null)
+        {
+            OAuthTokenCredential oauthTokenCredential = new OAuthTokenCredential(createFromAuthorizationCodeParameters.getClientId(), createFromAuthorizationCodeParameters.getClientSecret());
+            headersMap.Add("Authorization", oauthTokenCredential.GenerateBasicAuthHeader());
+        }
+        headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
 		return PayPalResource.ConfigureAndExecute<Tokeninfo>(null, HttpMethod.POST,
 				resourcePath, headersMap, payLoad);
 	}
@@ -137,12 +142,17 @@ namespace PayPal.OpenidConnect
 	/// </summary>
 	public static Tokeninfo CreateFromAuthorizationCode(APIContext apiContext, CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters)
 	{
-		string pattern = "v1/identity/openidconnect/tokenservice ?grant_type={0}&code={1}&redirect_uri={2}";
+		string pattern = "v1/identity/openidconnect/tokenservice?grant_type={0}&code={1}&redirect_uri={2}";
 		object[] parameters = new object[] { createFromAuthorizationCodeParameters };
 		string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
 		string payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
 		resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
 		Dictionary<string, string> headersMap = new Dictionary<string, string>();
+        if (createFromAuthorizationCodeParameters.getClientId() != null && createFromAuthorizationCodeParameters.getClientSecret() != null)
+        {
+            OAuthTokenCredential oauthTokenCredential = new OAuthTokenCredential(createFromAuthorizationCodeParameters.getClientId(), createFromAuthorizationCodeParameters.getClientSecret());
+            headersMap.Add("Authorization", oauthTokenCredential.GenerateBasicAuthHeader());
+        }
 		headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
 		return PayPalResource.ConfigureAndExecute<Tokeninfo>(apiContext, HttpMethod.POST,
 				resourcePath, headersMap, payLoad);
@@ -154,13 +164,18 @@ namespace PayPal.OpenidConnect
 	/// </summary>
 	public Tokeninfo CreateFromRefreshToken(CreateFromRefreshTokenParameters createFromRefreshTokenParameters)
 	{
-		string pattern = "v1/identity/openidconnect/tokenservice ?grant_type={0}&refresh_token={1}&scope={2}&client_id={3}&client_secret={4}";
+		string pattern = "v1/identity/openidconnect/tokenservice?grant_type={0}&refresh_token={1}&scope={2}&client_id={3}&client_secret={4}";
 		createFromRefreshTokenParameters.setRefreshToken(HttpUtility.UrlEncode(refresh_token));
 		object[] parameters = new object[] { createFromRefreshTokenParameters };
 		string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
 		string payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
 		resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
 		Dictionary<string, string> headersMap = new Dictionary<string, string>();
+        if (createFromRefreshTokenParameters.getClientId() != null && createFromRefreshTokenParameters.getClientSecret() != null)
+        {
+            OAuthTokenCredential oauthTokenCredential = new OAuthTokenCredential(createFromRefreshTokenParameters.getClientId(), createFromRefreshTokenParameters.getClientSecret());
+            headersMap.Add("Authorization", oauthTokenCredential.GenerateBasicAuthHeader());
+        }
 		headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
 		return PayPalResource.ConfigureAndExecute<Tokeninfo>(null, HttpMethod.POST,
 				resourcePath, headersMap, payLoad);
@@ -173,13 +188,18 @@ namespace PayPal.OpenidConnect
 	/// </summary>
 	public Tokeninfo CreateFromRefreshToken(APIContext apiContext, CreateFromRefreshTokenParameters createFromRefreshTokenParameters)
 	{
-		string pattern = "v1/identity/openidconnect/tokenservice ?grant_type={0}&refresh_token={1}&scope={2}&client_id={3}&client_secret={4}";
+		string pattern = "v1/identity/openidconnect/tokenservice?grant_type={0}&refresh_token={1}&scope={2}&client_id={3}&client_secret={4}";
 		createFromRefreshTokenParameters.setRefreshToken(HttpUtility.UrlEncode(refresh_token));
 		object[] parameters = new object[] { createFromRefreshTokenParameters };
 		string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
 		string payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
 		resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
 		Dictionary<string, string> headersMap = new Dictionary<string, string>();
+        if (createFromRefreshTokenParameters.getClientId() != null && createFromRefreshTokenParameters.getClientSecret() != null)
+        {
+            OAuthTokenCredential oauthTokenCredential = new OAuthTokenCredential(createFromRefreshTokenParameters.getClientId(), createFromRefreshTokenParameters.getClientSecret());
+            headersMap.Add("Authorization", oauthTokenCredential.GenerateBasicAuthHeader());
+        }
 		headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
 		return PayPalResource.ConfigureAndExecute<Tokeninfo>(apiContext,
 				HttpMethod.POST, resourcePath, headersMap, payLoad);

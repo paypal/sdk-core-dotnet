@@ -65,21 +65,20 @@ namespace PayPal
 
         public Dictionary<string, string> GetHeaders()
         {
-            Dictionary<string, string> headers = new Dictionary<string, string>();
             if (!string.IsNullOrEmpty(authorizationToken))
             {
-                headers.Add("Authorization", authorizationToken);
+                this.headersMap.Add("Authorization", authorizationToken);
             }
             else if (!string.IsNullOrEmpty(GetClientID()) && !string.IsNullOrEmpty(GetClientSecret()))
             {
-                headers.Add("Authorization", "Basic " + EncodeToBase64(GetClientID(), GetClientSecret()));
+                this.headersMap.Add("Authorization", "Basic " + EncodeToBase64(GetClientID(), GetClientSecret()));
             }
-            headers.Add("User-Agent", FormUserAgentHeader());
+            this.headersMap.Add("User-Agent", FormUserAgentHeader());
             if (!string.IsNullOrEmpty(requestId))
             {
-                headers.Add("PayPal-Request-Id", requestId);
+                this.headersMap.Add("PayPal-Request-Id", requestId);
             }
-            return headers;
+            return this.headersMap;
         }
 
         private String GetClientID()
