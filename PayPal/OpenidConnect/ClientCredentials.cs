@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PayPal.OpenidConnect
 {
-    public class ClientCredentials
+    public abstract class ClientCredentials
     {
         // Client ID 
         public string clientId;

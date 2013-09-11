@@ -130,8 +130,7 @@ namespace PayPal.OpenidConnect
             OAuthTokenCredential oauthTokenCredential = new OAuthTokenCredential(createFromAuthorizationCodeParameters.getClientId(), createFromAuthorizationCodeParameters.getClientSecret());
             headersMap.Add("Authorization", oauthTokenCredential.GenerateBasicAuthHeader());
         }
-       
-		headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
+        headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
 		return PayPalResource.ConfigureAndExecute<Tokeninfo>(null, HttpMethod.POST,
 				resourcePath, headersMap, payLoad);
 	}
