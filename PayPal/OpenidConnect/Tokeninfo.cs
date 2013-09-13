@@ -150,7 +150,7 @@ namespace PayPal.OpenidConnect
 		Dictionary<string, string> headersMap = new Dictionary<string, string>();
         if (createFromAuthorizationCodeParameters.getClientId() != null && createFromAuthorizationCodeParameters.getClientSecret() != null)
         {
-            OAuthTokenCredential oauthTokenCredential = new OAuthTokenCredential(createFromAuthorizationCodeParameters.getClientId(), createFromAuthorizationCodeParameters.getClientSecret());
+            OAuthTokenCredential oauthTokenCredential = new OAuthTokenCredential(createFromAuthorizationCodeParameters.getClientId(), createFromAuthorizationCodeParameters.getClientSecret(), apiContext.Config);
             headersMap.Add("Authorization", oauthTokenCredential.GenerateBasicAuthHeader());
         }
 		headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
@@ -197,7 +197,7 @@ namespace PayPal.OpenidConnect
 		Dictionary<string, string> headersMap = new Dictionary<string, string>();
         if (createFromRefreshTokenParameters.getClientId() != null && createFromRefreshTokenParameters.getClientSecret() != null)
         {
-            OAuthTokenCredential oauthTokenCredential = new OAuthTokenCredential(createFromRefreshTokenParameters.getClientId(), createFromRefreshTokenParameters.getClientSecret());
+            OAuthTokenCredential oauthTokenCredential = new OAuthTokenCredential(createFromRefreshTokenParameters.getClientId(), createFromRefreshTokenParameters.getClientSecret(), apiContext.Config);
             headersMap.Add("Authorization", oauthTokenCredential.GenerateBasicAuthHeader());
         }
 		headersMap.Add("Content-Type", "application/x-www-form-urlencoded");
