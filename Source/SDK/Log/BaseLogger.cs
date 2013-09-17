@@ -103,6 +103,12 @@ namespace PayPal.Log
         /// Abstract wrapper for Debug
         /// </summary>
         /// <param name="message"></param>
+        public abstract void Debug(string message);
+
+        /// <summary>
+        /// Abstract wrapper for Debug
+        /// </summary>
+        /// <param name="message"></param>
         /// <param name="exception"></param>
         public abstract void Debug(string message, System.Exception exception);
 
@@ -117,22 +123,34 @@ namespace PayPal.Log
         /// Abstract wrapper for Error
         /// </summary>
         /// <param name="message"></param>
+        public abstract void Error(string message);
+
+        /// <summary>
+        /// Abstract wrapper for Error
+        /// </summary>
+        /// <param name="message"></param>
         /// <param name="exception"></param>
         public abstract void Error(string message, System.Exception exception);
 
         /// <summary>
         /// Abstract wrapper for ErrorFormat
         /// </summary>
-        /// <param name="message"></param>
-        /// <param name="exception"></param>
-        public abstract void ErrorFormat(string message, params object[] args);
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        public abstract void ErrorFormat(string format, params object[] args);
 
         /// <summary>
         /// Abstract wrapper for Info
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="args"></param>
-        public abstract void Info(string format, System.Exception exception);
+        /// <param name="message"></param>
+        public abstract void Info(string message);
+
+        /// <summary>
+        /// Abstract wrapper for Info
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="exception"></param>
+        public abstract void Info(string message, System.Exception exception);
 
         /// <summary>
         /// Abstract wrapper for InfoFormat
@@ -141,13 +159,18 @@ namespace PayPal.Log
         /// <param name="args"></param>
         public abstract void InfoFormat(string format, params object[] args);
 
+        /// <summary>
+        /// Abstract wrapper for Warn
+        /// </summary>
+        /// <param name="message"></param>
+        public abstract void Warn(string message);
 
         /// <summary>
         /// Abstract wrapper for Warn
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="args"></param>
-        public abstract void Warn(string format, System.Exception exception);
+        /// <param name="message"></param>
+        /// <param name="exception"></param>
+        public abstract void Warn(string message, System.Exception exception);
 
         /// <summary>
         /// Abstract wrapper for WarnFormat
