@@ -1,3 +1,4 @@
+using System.IO;
 using PayPal.Manager;
 using PayPal.Authentication;
 using PayPal.Exception;
@@ -43,7 +44,7 @@ namespace PayPal.NUnitTest
             CertificateCredential certCredential = (CertificateCredential)credential;
             Assert.AreEqual(apiUsername, certCredential.UserName);
             Assert.AreEqual(Constants.CertificateAPIPassword, certCredential.Password);
-            Assert.AreEqual(Constants.CertificatePath, certCredential.CertificateFile);
+            Assert.AreEqual(Path.GetFileName(Constants.CertificatePath), Path.GetFileName(certCredential.CertificateFile));
             Assert.AreEqual(Constants.CertificatePassword, certCredential.PrivateKeyPassword);
             Assert.AreEqual(Constants.ApplicationId, certCredential.ApplicationId);
         }
@@ -58,6 +59,7 @@ namespace PayPal.NUnitTest
 }
 #else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 
 namespace PayPal.UnitTest
 {
@@ -93,7 +95,7 @@ namespace PayPal.UnitTest
             CertificateCredential certCredential = (CertificateCredential)credential;
             Assert.AreEqual(apiUsername, certCredential.UserName);
             Assert.AreEqual(Constants.CertificateAPIPassword, certCredential.Password);
-            Assert.AreEqual(Constants.CertificatePath, certCredential.CertificateFile);
+            Assert.AreEqual(Path.GetFileName(Constants.CertificatePath), Path.GetFileName(certCredential.CertificateFile));
             Assert.AreEqual(Constants.CertificatePassword, certCredential.PrivateKeyPassword);
             Assert.AreEqual(Constants.ApplicationId, certCredential.ApplicationId);
         }
