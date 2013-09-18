@@ -9,7 +9,7 @@ namespace PayPal
         public const string APISignature = "AFcWxV21C7fd0v3bYYYRCpSSRl31A7yDhhsPUU2XhtMoZXsWHFxu-RWy";
         public const string CertificateAPIUserName = "certuser_biz_api1.paypal.com";	    
         public const string CertificateAPIPassword = "D6JNKKULHN3G5B8A";               
-        public static string CertificatePath = Path.GetFullPath(@"Resources") + "\\sdk-cert.p12";
+        public static readonly string CertificatePath = Path.GetFullPath(@"Resources") + "\\sdk-cert.p12";
         public const string CertificatePassword = "password";	    
 	    public const string ApplicationId = "APP-80W284485P519543T";
 	    public const string APIEndpointNVP = "https://svcs.sandbox.paypal.com/";
