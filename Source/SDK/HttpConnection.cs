@@ -33,7 +33,6 @@ namespace PayPal
             this.config = config;
         }
 
-        
         /// <summary>
         /// Copying existing HttpWebRequest parameters to newly created HttpWebRequest, can't reuse the same HttpWebRequest for retries.
         /// </summary>
@@ -43,23 +42,22 @@ namespace PayPal
         /// <returns>HttpWebRequest</returns>
         private HttpWebRequest CopyRequest(HttpWebRequest httpRequest, Dictionary<string, string> config, string url)
         {
-           ConnectionManager connMngr = ConnectionManager.Instance;
-               
-                HttpWebRequest newHttpRequest = connMngr.GetConnection(config, url);
-                newHttpRequest.Method = httpRequest.Method;
-                newHttpRequest.Accept = httpRequest.Accept;
-                newHttpRequest.ContentType = httpRequest.ContentType;
-                if (httpRequest.ContentLength > 0)
-                {
-                    newHttpRequest.ContentLength = httpRequest.ContentLength;
-                }
-                newHttpRequest.UserAgent = httpRequest.UserAgent;
-                newHttpRequest.ClientCertificates = httpRequest.ClientCertificates;
-                newHttpRequest = CopyHttpWebRequestHeaders(httpRequest, newHttpRequest);
-                return newHttpRequest;
+            ConnectionManager connMngr = ConnectionManager.Instance;
 
+            HttpWebRequest newHttpRequest = connMngr.GetConnection(config, url);
+            newHttpRequest.Method = httpRequest.Method;
+            newHttpRequest.Accept = httpRequest.Accept;
+            newHttpRequest.ContentType = httpRequest.ContentType;
+            if (httpRequest.ContentLength > 0)
+            {
+                newHttpRequest.ContentLength = httpRequest.ContentLength;
+            }
+            newHttpRequest.UserAgent = httpRequest.UserAgent;
+            newHttpRequest.ClientCertificates = httpRequest.ClientCertificates;
+            newHttpRequest = CopyHttpWebRequestHeaders(httpRequest, newHttpRequest);
+            return newHttpRequest;
         }
-        
+
         /// <summary>
         /// Copying existing HttpWebRequest headers into newly created HttpWebRequest
         /// </summary>
@@ -73,7 +71,6 @@ namespace PayPal
             {
                 switch (key.ToLower(CultureInfo.InvariantCulture))
                 {
-                    // Skip all these reserved headers because we have to set them through properties
                     case "accept":
                     case "connection":
                     case "content-length":
@@ -176,7 +173,7 @@ namespace PayPal
             {
                 throw new PayPalException("Exception in HttpConnection Execute: " + ex.Message, ex);
             }
-            throw new PayPalException("Retried " + retriesConfigured + " times.... Exception in HttpConnection Execute. Check log for more details."  );
+            throw new PayPalException("Retried " + retriesConfigured + " times.... Exception in HttpConnection Execute. Check log for more details.");
         }
 
         /// <summary>
