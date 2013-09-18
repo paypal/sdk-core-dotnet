@@ -95,6 +95,7 @@
     <Compile Include="OAuth\OAuthGenerator.cs" />
     <Compile Include="OAuth\PayPalURLEncoder.cs" />
     <Compile Include="OpenIdConnect\Address.cs" />
+    <Compile Include="OpenIdConnect\ClientCredentials.cs" />
     <Compile Include="OpenIdConnect\CreateFromAuthorizationCodeParameters.cs" />
     <Compile Include="OpenIdConnect\CreateFromRefreshTokenParameters.cs" />
     <Compile Include="OpenIdConnect\Error.cs" />
