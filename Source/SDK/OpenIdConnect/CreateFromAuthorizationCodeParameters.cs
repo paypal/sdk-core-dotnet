@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace PayPal.OpenIdConnect
 {
-    public class CreateFromAuthorizationCodeParameters
+    public class CreateFromAuthorizationCodeParameters : ClientCredentials
     {        
         /// <summary>
         /// Code used in query parameters

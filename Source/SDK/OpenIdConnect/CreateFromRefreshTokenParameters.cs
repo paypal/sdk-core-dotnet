@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace PayPal.OpenIdConnect
 {
-    public class CreateFromRefreshTokenParameters
+    public class CreateFromRefreshTokenParameters : ClientCredentials
     {
         /// <summary>
         /// Scope used in query parameters
