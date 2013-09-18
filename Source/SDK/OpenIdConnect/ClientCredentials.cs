@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PayPal.OpenidConnect
+namespace PayPal.OpenIdConnect
 {
     public abstract class ClientCredentials
     {
