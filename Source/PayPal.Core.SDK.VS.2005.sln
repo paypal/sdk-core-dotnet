@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayPal.Core.SDK.VS.2005", "SDK\PayPal.Core.SDK.VS.2005.csproj", "{7CD6456F-7828-45EA-90A1-C1E26900C476}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayPal.Core.SDK.VS.2005.UnitTest", "UnitTests\PayPal.Core.SDK.VS.2005.UnitTest.csproj", "{B14448F9-EA7C-4418-882F-C5976F7719E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayPal.Core.SDK.VS.2005.NUnitTest", "UnitTests\PayPal.Core.SDK.VS.2005.NUnitTest.csproj", "{9D24D054-4203-429A-835B-7C42B06030A2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7CD6456F-7828-45EA-90A1-C1E26900C476}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CD6456F-7828-45EA-90A1-C1E26900C476}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CD6456F-7828-45EA-90A1-C1E26900C476}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CD6456F-7828-45EA-90A1-C1E26900C476}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B14448F9-EA7C-4418-882F-C5976F7719E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B14448F9-EA7C-4418-882F-C5976F7719E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B14448F9-EA7C-4418-882F-C5976F7719E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B14448F9-EA7C-4418-882F-C5976F7719E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D24D054-4203-429A-835B-7C42B06030A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D24D054-4203-429A-835B-7C42B06030A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D24D054-4203-429A-835B-7C42B06030A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D24D054-4203-429A-835B-7C42B06030A2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

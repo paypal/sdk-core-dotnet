@@ -1,0 +1,82 @@
+using System.Collections.Generic;
+using PayPal.SOAP;
+using PayPal.Authentication;
+
+#if NUnit
+/* NuGet Install
+ * Visual Studio 2005
+    * Install NUnit -OutputDirectory .\packages
+    * Add reference from NUnit.2.6.2
+ */
+using NUnit.Framework;
+
+namespace PayPal.NUnitTest
+{
+    [TestFixture]
+    class CertificateHttpHeaderAuthStrategyTest
+    {
+        CertificateHttpHeaderAuthStrategy certHttpHeaderAuthStrategy;
+        CertificateCredential certCredential;
+
+        [Test]
+        public void GenerateHeaderStrategyWithToken()
+        {
+            certHttpHeaderAuthStrategy = new CertificateHttpHeaderAuthStrategy(Constants.APIEndpointSOAP);
+            TokenAuthorization toknAuthorization = new TokenAuthorization(Constants.AccessToken, Constants.TokenSecret);
+            CertificateCredential certCredential = new CertificateCredential("testusername", "testpassword", "sdk-cert.p12", "KJAERUGBLVF6Y", toknAuthorization);
+            Dictionary<string, string> header = certHttpHeaderAuthStrategy.GenerateHeaderStrategy(certCredential);
+            string authHeader = header[BaseConstants.PayPalAuthorizationMerchantHeader];
+            string[] headers = authHeader.Split(',');
+            Assert.AreEqual("token=" + Constants.AccessToken, headers[0]);
+        }
+
+        [Test]
+        public void GenerateHeaderStrategyWithoutToken()
+        {
+            certHttpHeaderAuthStrategy = new CertificateHttpHeaderAuthStrategy(Constants.APIEndpointNVP);
+            certCredential = new CertificateCredential("testusername", "testpassword", "sdk-cert.p12", "KJAERUGBLVF6Y");
+            Dictionary<string, string> header = certHttpHeaderAuthStrategy.GenerateHeaderStrategy(certCredential);
+            string username = header[BaseConstants.PayPalSecurityUserIdHeader];
+            string password = header[BaseConstants.PayPalSecurityPasswordHeader];
+            Assert.AreEqual("testusername", username);
+            Assert.AreEqual("testpassword", password);
+        }
+    }
+}
+#else
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace PayPal.UnitTest
+{
+    [TestClass]
+    public class CertificateHttpHeaderAuthStrategyTest
+    {
+        CertificateHttpHeaderAuthStrategy certHttpHeaderAuthStrategy;
+        CertificateCredential certCredential;
+
+        [TestMethod]
+        public void GenerateHeaderStrategyWithToken()
+        {
+            certHttpHeaderAuthStrategy = new CertificateHttpHeaderAuthStrategy(Constants.APIEndpointSOAP);
+            TokenAuthorization toknAuthorization = new TokenAuthorization(Constants.AccessToken, Constants.TokenSecret);
+            CertificateCredential certCredential = new CertificateCredential("testusername", "testpassword", "sdk-cert.p12", "KJAERUGBLVF6Y", toknAuthorization);
+            Dictionary<string, string> header = certHttpHeaderAuthStrategy.GenerateHeaderStrategy(certCredential);
+            string authHeader = header[BaseConstants.PayPalAuthorizationMerchantHeader];
+            string[] headers = authHeader.Split(',');
+            Assert.AreEqual("token=" + Constants.AccessToken, headers[0]);
+        }
+
+        [TestMethod]
+        public void GenerateHeaderStrategyWithoutToken()
+        {
+            certHttpHeaderAuthStrategy = new CertificateHttpHeaderAuthStrategy(Constants.APIEndpointNVP);
+            certCredential = new CertificateCredential("testusername", "testpassword", "sdk-cert.p12", "KJAERUGBLVF6Y");
+            Dictionary<string, string> header = certHttpHeaderAuthStrategy.GenerateHeaderStrategy(certCredential);
+            string username = header[BaseConstants.PayPalSecurityUserIdHeader];
+            string password = header[BaseConstants.PayPalSecurityPasswordHeader];
+            Assert.AreEqual("testusername", username);
+            Assert.AreEqual("testpassword", password);
+        }
+    }
+}
+#endif
