@@ -1,8 +1,6 @@
-﻿using PayPal;
-
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using PayPal.Authentication;
+using PayPal;
 
 #if NUnit
 /* NuGet Install
@@ -63,6 +61,7 @@ namespace PayPal.NUnitTest
 }
 #else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace PayPal.UnitTest
 { 
     /// <summary>

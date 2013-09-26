@@ -60,7 +60,6 @@ namespace PayPal.NUnitTest
 #else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-
 namespace PayPal.UnitTest
 {
     [TestClass]
