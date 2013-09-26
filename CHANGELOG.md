@@ -1,4 +1,9 @@
 ###CHANGE LOG
+
+#### V1.4.0 (Sep 26, 2013)
+
+   * Updating core to support genio.
+
 #### V1.3.5 (Sep 11, 2013)
 
    * Adding new mandatory parameters - clientId and clientSecret to openid classes.
