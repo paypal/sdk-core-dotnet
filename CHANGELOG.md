@@ -1,5 +1,11 @@
 ###CHANGE LOG
 
+#### V1.4.1 (Sep 27, 2013)
+
+
+
+   * Support (Optimization) for target .NET Frameworks 2.0, 3.5, 4.0, and 4.5.
+   
 #### V1.4.0 (Sep 26, 2013)
 
    * Updating core to support genio.
