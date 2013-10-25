@@ -164,7 +164,7 @@ namespace PayPal
         public const string SdkId = "paypal-core-dotnet";
 
         // DotNet SdkVersion for paypal-core
-        public const string SdkVersion = "1.4.0";
+        public const string SdkVersion = "1.4.1";
         
         public static class ErrorMessages
         {
