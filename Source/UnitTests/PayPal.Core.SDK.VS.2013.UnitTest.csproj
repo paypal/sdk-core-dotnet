@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{38C18868-538A-4A6E-A242-59B5E07E2FCD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PayPal.UnitTest</RootNamespace>
+    <AssemblyName>PayPalCoreSDKVS2013UnitTest</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\UnitTestBuild\bin\Debug\net451\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\UnitTestBuild\bin\Release\net451\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="APIServiceTest.cs" />
+    <Compile Include="Authentication\CertificateCredentialTest.cs" />
+    <Compile Include="Authentication\SignatureCredentialTest.cs" />
+    <Compile Include="Authentication\SubjectAuthorizationTest .cs" />
+    <Compile Include="Authentication\TokenAuthorizationTest.cs" />
+    <Compile Include="DefaultSOAPAPICallHandlerTest.cs" />
+    <Compile Include="IPNMessageTest.cs" />
+    <Compile Include="Manager\ConfigManagerTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Manager\ConnectionManagerTest.cs" />
+    <Compile Include="Manager\CredentialManagerTest.cs" />
+    <Compile Include="NVP\CertificateHttpHeaderAuthStrategyNVPTest.cs" />
+    <Compile Include="NVP\PlatformAPICallPreHandlerTest.cs" />
+    <Compile Include="NVP\SignatureHttpHeaderAuthStrategyNVPTest.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="OAuthTokenCredentialTest.cs" />
+    <Compile Include="OpenIdConnect\OpenIdTest.cs" />
+    <Compile Include="RESTAPICallPreHandlerTest.cs" />
+    <Compile Include="SOAP\CertificateHttpHeaderAuthStrategyTest.cs" />
+    <Compile Include="SOAP\CertificateSOAPHeaderAuthStrategyTest.cs" />
+    <Compile Include="SOAP\MerchantAPICallPreHandlerTest.cs" />
+    <Compile Include="SOAP\SignatureHttpHeaderAuthStrategyTest.cs" />
+    <Compile Include="SOAP\SignatureSOAPHeaderAuthStrategyTest.cs" />
+    <Compile Include="Util\SDKUtilTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\sdk-cert.p12" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SDK\PayPal.Core.SDK.VS.2013.csproj">
+      <Project>{1bd91bcf-1ddf-4f1f-a510-c9f4001a50a8}</Project>
+      <Name>PayPal.Core.SDK.VS.2013</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
