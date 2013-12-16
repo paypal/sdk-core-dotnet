@@ -139,7 +139,7 @@ namespace PayPal
             {
                 osHeader += "bit=" + 32 + ";";
             }
-#elif NET_4_0 || NET_4_5
+#elif NET_4_0 || NET_4_5 || NET_4_5_1
             if (Environment.Is64BitOperatingSystem)
             {
                 osHeader += "bit=" + 64 + ";";
