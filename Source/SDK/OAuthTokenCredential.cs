@@ -15,6 +15,7 @@ using Newtonsoft.Json.Linq;
 using PayPal.Exception;
 using PayPal.Manager;
 using PayPal.Log;
+using System.Web;
 
 namespace PayPal
 {
@@ -191,7 +192,11 @@ namespace PayPal
             Dictionary<string, string> userAgentMap = userAgentHeader.GetHeader();
             foreach (KeyValuePair<string, string> entry in userAgentMap)
             {
-                httpRequest.UserAgent = entry.Value;
+                // aganzha
+                //iso-8859-1
+                var iso8851 = Encoding.GetEncoding("iso-8859-1", new EncoderReplacementFallback(string.Empty), new DecoderExceptionFallback());
+                var bytes = Encoding.Convert(Encoding.UTF8,iso8851, Encoding.UTF8.GetBytes(entry.Value));                
+                httpRequest.UserAgent = iso8851.GetString(bytes);
             }
             foreach (KeyValuePair<string, string> header in headers)
             {
