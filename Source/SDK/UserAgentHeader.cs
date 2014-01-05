@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Management;
 using System.Text;
-using System.Runtime.InteropServices;
 
 namespace PayPal
 {
@@ -73,17 +72,28 @@ namespace PayPal
             return header;
         }
 
+        /// <summary>
+        /// Returns Operating System Friendly Name. Returns an empty string if the query cannot read from the registry.
+        /// </summary>
         private static string OperatingSystemFriendlyName
         {
             get
             {
-                string result = string.Empty;
-                ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT Caption FROM Win32_OperatingSystem");
-                foreach (ManagementObject os in searcher.Get())
-                {
-                    result = os["Caption"].ToString();
+                //The query SELECT Caption FROM Win32_OperatingSyste gets the OS information from the registry. Azure does not have registry access. Wrapped in try catch.
+                try {
+                    string result = string.Empty;
+                    ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT Caption FROM Win32_OperatingSystem");
+                    foreach (ManagementObject os in searcher.Get())
+                    {
+                        result = os["Caption"].ToString();
+                    }
+                    return result;
+
                 }
-                return result;
+                catch (System.Exception) {
+                    return string.Empty;
+                }
+                
             }
         }
 
