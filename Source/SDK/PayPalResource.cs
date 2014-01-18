@@ -145,7 +145,7 @@ namespace PayPal
         /// <returns>Response object or null otherwise for void API calls</returns>
         private static T ConfigureAndExecute<T>(Dictionary<string, string> config, IAPICallPreHandler apiCallPreHandler, HttpMethod httpMethod, string resourcePath)
         {
-            var task = ConfigureAndExecute<T>(config, apiCallPreHandler, httpMethod, resourcePath);
+            var task = ConfigureAndExecuteAsync<T>(config, apiCallPreHandler, httpMethod, resourcePath);
             task.Wait();
             return task.Result;
         }
@@ -159,7 +159,7 @@ namespace PayPal
         /// <param name="httpMethod">HttpMethod type</param>
         /// <param name="resourcePath">URI path of the resource</param>
         /// <returns>Response object or null otherwise for void API calls</returns>
-        private static async Task<T> ConfigureAndExecute<T>(Dictionary<string, string> config, IAPICallPreHandler apiCallPreHandler, HttpMethod httpMethod, string resourcePath)
+        private static async Task<T> ConfigureAndExecuteAsync<T>(Dictionary<string, string> config, IAPICallPreHandler apiCallPreHandler, HttpMethod httpMethod, string resourcePath)
         {
             try
             {
