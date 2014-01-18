@@ -26,3 +26,7 @@ packages/
 
 #Allow NuGet.exe (do not ignore)
 !NuGet.exe
+
+#ncrunch
+*ncrunch*
+*crunch*.local.xml
