@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using PayPal.Manager;
 using System;
+using System.Threading.Tasks;
 
 namespace PayPal
 {
@@ -106,9 +107,21 @@ namespace PayPal
         /// <returns></returns>
         public string Call(IAPICallPreHandler apiCallHandler)
         {
+            var task = CallAsync(apiCallHandler);
+            task.Wait();
+            return task.Result;
+        }
+
+        /// <summary>
+        /// Call method exposed to user
+        /// </summary>
+        /// <param name="apiCallHandler"></param>
+        /// <returns></returns>
+        public async Task<string> CallAsync(IAPICallPreHandler apiCallHandler)
+        {
             APIService apiServ = new APIService(this.config);
             this.lastReq = apiCallHandler.GetPayload();
-            this.lastResp = apiServ.MakeRequestUsing(apiCallHandler);
+            this.lastResp = await apiServ.MakeRequestUsingAsync(apiCallHandler);
             return this.lastResp;
         }
     }
