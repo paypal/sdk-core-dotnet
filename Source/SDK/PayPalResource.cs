@@ -43,6 +43,22 @@ namespace PayPal
         /// <returns>Response object or null otherwise for void API calls</returns>
         public static T ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payload)
         {
+            var task = ConfigureAndExecuteAsync<T>(apiContext, httpMethod, resource, payload);
+            task.Wait();
+            return task.Result;
+        }
+
+        /// <summary>
+        /// Configures and executes REST call: Supports JSON
+        /// </summary>
+        /// <typeparam name="T">Generic Type parameter for response object</typeparam>
+        /// <param name="apiContext">APIContext object</param>
+        /// <param name="httpMethod">HttpMethod type</param>
+        /// <param name="resource">URI path of the resource</param>
+        /// <param name="payload">JSON request payload</param>
+        /// <returns>Response object or null otherwise for void API calls</returns>
+        public static async Task<T> ConfigureAndExecuteAsync<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payload)
+        {
             Dictionary<string, string> config = null;
             String authorizationToken = null;
             String resourcePath = null;
@@ -78,7 +94,7 @@ namespace PayPal
             // Create an instance of IAPICallPreHandler
             IAPICallPreHandler apiCallPreHandler = CreateIAPICallPreHandler(config, headersMap, authorizationToken, requestId, payload, apiContext.SdkVersion);
 
-            return ConfigureAndExecute<T>(config, apiCallPreHandler, httpMethod, resourcePath);
+            return await ConfigureAndExecuteAsync<T>(config, apiCallPreHandler, httpMethod, resourcePath);
         }
 
         /// <summary>
@@ -93,8 +109,25 @@ namespace PayPal
         [Obsolete("'ConfigureAndExecute<T>(string accessToken, HttpMethod httpMethod, string resource, string payload)' is obsolete: 'The recommended alternative is to pass accessToken to APIContext object and use ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payLoad) version.'")]
         public static T ConfigureAndExecute<T>(string accessToken, HttpMethod httpMethod, string resource, string payload)
         {
+            var task = ConfigureAndExecuteAsync<T>(accessToken, httpMethod, resource, payload);
+            task.Wait();
+            return task.Result;
+        }
+
+        /// <summary>
+        /// Configures and executes REST call: Supports JSON
+        /// </summary>
+        /// <typeparam name="T">Generic Type parameter for response object</typeparam>
+        /// <param name="accessToken">OAuth AccessToken to be used for the call.</param>
+        /// <param name="httpMethod">HttpMethod type</param>
+        /// <param name="resource">URI path of the resource</param>
+        /// <param name="payload">JSON request payload</param>
+        /// <returns>Response object or null otherwise for void API calls</returns>
+        [Obsolete("'ConfigureAndExecute<T>(string accessToken, HttpMethod httpMethod, string resource, string payload)' is obsolete: 'The recommended alternative is to pass accessToken to APIContext object and use ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payLoad) version.'")]
+        public static async Task<T> ConfigureAndExecuteAsync<T>(string accessToken, HttpMethod httpMethod, string resource, string payload)
+        {
             APIContext apiContext = new APIContext(accessToken);
-            return ConfigureAndExecute<T>(apiContext, httpMethod, resource, null, payload);
+            return await ConfigureAndExecuteAsync<T>(apiContext, httpMethod, resource, null, payload);
         }
 
         /// <summary>
@@ -109,6 +142,24 @@ namespace PayPal
         /// <returns>Response object or null otherwise for void API calls</returns>
         [Obsolete("'ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, Dictionary<string, string> headersMap, string payload)' is obsolete: 'The recommended alternative is to pass Custom HTTP-Headers to APIContext HeadersMap and use ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payLoad) version.'")]
         public static T ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, Dictionary<string, string> headersMap, string payload)
+        {
+            var task = ConfigureAndExecuteAsync<T>(apiContext, httpMethod, resource, headersMap, payload);
+            task.Wait();
+            return task.Result;
+        }
+
+        /// <summary>
+        /// Configures and executes REST call: Supports JSON
+        /// </summary>
+        /// <typeparam name="T">Generic Type parameter for response object</typeparam>
+        /// <param name="apiContext">APIContext object</param>
+        /// <param name="httpMethod">HttpMethod type</param>
+        /// <param name="resource">URI path of the resource</param>
+        /// <param name="headersMap">HTTP Headers</param>
+        /// <param name="payload">JSON request payload</param>
+        /// <returns>Response object or null otherwise for void API calls</returns>
+        [Obsolete("'ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, Dictionary<string, string> headersMap, string payload)' is obsolete: 'The recommended alternative is to pass Custom HTTP-Headers to APIContext HeadersMap and use ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payLoad) version.'")]
+        public static async Task<T> ConfigureAndExecuteAsync<T>(APIContext apiContext, HttpMethod httpMethod, string resource, Dictionary<string, string> headersMap, string payload)
         {
             // Code refactored; Calls supported method with only one option to pass
             // Custom HTTP headers through APIContext object
@@ -131,7 +182,7 @@ namespace PayPal
                 }
             }
             apiContext.HTTPHeaders = apiHeaders;
-            return ConfigureAndExecute<T>(apiContext, httpMethod, resource, payload);
+            return await ConfigureAndExecuteAsync<T>(apiContext, httpMethod, resource, payload);
         }
 
         /// <summary>
