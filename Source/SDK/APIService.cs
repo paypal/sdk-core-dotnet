@@ -8,6 +8,7 @@ using PayPal.Manager;
 using PayPal.Exception;
 using PayPal.Authentication;
 using PayPal.Log;
+using System.Threading.Tasks;
 
 namespace PayPal
 {
@@ -48,6 +49,18 @@ namespace PayPal
         /// <param name="apiCallHandler"></param>
         /// <returns></returns>
         public string MakeRequestUsing(IAPICallPreHandler apiCallHandler)
+        {
+            var task = MakeRequestUsingAsync(apiCallHandler);
+            task.Wait();
+            return task.Result;
+        }
+
+        /// <summary>
+        /// Makes a request to API service Async
+        /// </summary>
+        /// <param name="apiCallHandler"></param>
+        /// <returns></returns>
+        public async Task<string> MakeRequestUsingAsync(IAPICallPreHandler apiCallHandler)
         {
             string responseString = string.Empty;
             string uri = apiCallHandler.GetEndpoint();
@@ -95,7 +108,7 @@ namespace PayPal
             }
 
             HttpConnection connectionHttp = new HttpConnection(config);
-            string response = connectionHttp.Execute(payload, httpRequest);
+            string response = await connectionHttp.ExecuteAsync(payload, httpRequest);
 
             return response;
         }

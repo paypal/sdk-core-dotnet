@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using PayPal.Manager;
 using PayPal.Exception;
 using PayPal.Log;
+using System.Threading.Tasks;
 
 namespace PayPal
 {
@@ -144,6 +145,22 @@ namespace PayPal
         /// <returns>Response object or null otherwise for void API calls</returns>
         private static T ConfigureAndExecute<T>(Dictionary<string, string> config, IAPICallPreHandler apiCallPreHandler, HttpMethod httpMethod, string resourcePath)
         {
+            var task = ConfigureAndExecute<T>(config, apiCallPreHandler, httpMethod, resourcePath);
+            task.Wait();
+            return task.Result;
+        }
+
+        /// <summary>
+        /// Configures and executes REST call: Supports JSON 
+        /// </summary>
+        /// <typeparam name="T">Generic Type parameter for response object</typeparam>
+        /// <param name="config">Configuration Dictionary</param>
+        /// <param name="apiCallPreHandler">IAPICallPreHandler instance</param>
+        /// <param name="httpMethod">HttpMethod type</param>
+        /// <param name="resourcePath">URI path of the resource</param>
+        /// <returns>Response object or null otherwise for void API calls</returns>
+        private static async Task<T> ConfigureAndExecute<T>(Dictionary<string, string> config, IAPICallPreHandler apiCallPreHandler, HttpMethod httpMethod, string resourcePath)
+        {
             try
             {
                 string response = null;
@@ -190,7 +207,7 @@ namespace PayPal
 
                     // Execute call
                     HttpConnection connectionHttp = new HttpConnection(config);
-                    response = connectionHttp.Execute(apiCallPreHandler.GetPayload(), httpRequest);
+                    response = await connectionHttp.ExecuteAsync(apiCallPreHandler.GetPayload(), httpRequest);
                     if (typeof(T).Name.Equals("Object"))
                     {
                         return default(T);
