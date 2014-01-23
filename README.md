@@ -12,8 +12,8 @@ The PayPal Core SDK is a foundational library used by all of PayPal's C# SDKs. T
 
 This repository contains
 
-*	PayPal Core SDK Class Libraries for Visual Studio 2012, 2010, 2008, and 2005. (C#.NET)
-*	Visual Studio Test project for VS 2012, 2010, 2008, and 2005 (C#.NET)
+*	PayPal Core SDK Class Libraries for Visual Studio 2013, 2012, 2010, 2008, and 2005. (C#.NET)
+*	Visual Studio Test project for VS 2013, 2012, 2010, 2008, and 2005 (C#.NET)
 *	NUnit Test project - only for Visual Studio 2005 Professional Edition users (C#.NET)
 
 
@@ -67,7 +67,7 @@ This repository contains
 
 ## Unit Tests
 
-*	Visual Studio Test C#.NET Project 2012, 2010, 2008, and 2005
+*	Visual Studio Test C#.NET Project 2013, 2012, 2010, 2008, and 2005
 *	NUnit Test C#.NET Project only for Visual Studio 2005 Professional Edition as Visual Studio Unit Test feature is not available in Visual Studio 2005 Professional Edition
     - Note: Visual Studio 2005 Professional Edition users can still run the Visual Studio 2005 Unit Test using Visual Studio Agents 2010 or higher
 
@@ -87,21 +87,25 @@ Or
 
 ## Build Output Path
 
+*	Visual Studio 2013
+	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\net451
+	- Release Configuration: In the root of folder of .git: Build\bin\Release\net451
+	
 *	Visual Studio 2012
-	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\.NET Framework 4.5
-	- Release Configuration: In the root of folder of .git: Build\bin\Release\.NET Framework 4.5
+	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\net45
+	- Release Configuration: In the root of folder of .git: Build\bin\Release\net45
 	
 *	Visual Studio 2010
-	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\.NET Framework 4.0
-	- Release Configuration: In the root of folder of .git: Build\bin\Release\.NET Framework 4.0
+	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\net40
+	- Release Configuration: In the root of folder of .git: Build\bin\Release\net40
 
 *	Visual Studio 2008
-	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\.NET Framework 3.5
-	- Release Configuration: In the root of folder of .git: Build\bin\Release\.NET Framework 3.5
+	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\net35
+	- Release Configuration: In the root of folder of .git: Build\bin\Release\net35
 
 *	Visual Studio 2005
-	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\.NET Framework 2.0
-	- Release Configuration: In the root of folder of .git: Build\bin\Release\.NET Framework 2.0
+	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\net20
+	- Release Configuration: In the root of folder of .git: Build\bin\Release\net20
 
 ## License
 
