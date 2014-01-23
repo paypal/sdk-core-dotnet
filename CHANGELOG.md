@@ -1,5 +1,9 @@
 ###CHANGE LOG
 
+#### V1.4.2 (Jan 16, 2014)
+
+   * Fix for OS exception when used in Microsoft Azure.
+
 #### V1.4.1 (Sep 27, 2013)
 
 
