@@ -52,6 +52,7 @@ namespace PayPal.NUnitTest
 }
 #else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
 namespace PayPal.UnitTest
 {  
     /// <summary>
@@ -79,10 +80,28 @@ namespace PayPal.UnitTest
         }
 
         /// <summary>
+        ///A test for GetAccessTokenAsync
+        ///</summary>
+        [TestMethod()]
+        public async Task GetAccessTokenAsyncTest()
+        {
+            Dictionary<string, string> config = new Dictionary<string, string>();
+            config.Add("endpoint", "https://api.sandbox.paypal.com");
+            string clientId = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM";
+            string clientSecret = "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM";
+            OAuthTokenCredential target = new OAuthTokenCredential(clientId, clientSecret, config);
+            string expected = string.Empty;
+            string actual;
+            actual = await target.GetAccessTokenAsync();
+            Assert.AreEqual(true, actual.StartsWith("Bearer "));
+        }
+
+        /// <summary>
         /// A test for GetAccessToken
         /// </summary>
         [TestMethod()]
-        [ExpectedException(typeof(PayPal.Exception.PayPalException))]
+//        [ExpectedException(typeof(PayPal.Exception.PayPalException))]   // when based on Async we get System.AggregateException instead
+        [ExpectedException(typeof(System.AggregateException))]   // when based on Async we get System.AggregateException instead
         public void GetAccessTokenInvalidEndpointTest()
         {
             Dictionary<string, string> config = new Dictionary<string, string>();
@@ -93,6 +112,24 @@ namespace PayPal.UnitTest
             string expected = string.Empty;
             string actual;
             actual = target.GetAccessToken();
+            Assert.AreEqual(true, actual.StartsWith("Bearer "));
+        }
+
+        /// <summary>
+        /// A test for GetAccessTokenAsync
+        /// </summary>
+        [TestMethod()]
+        [ExpectedException(typeof(PayPal.Exception.PayPalException))]
+        public async Task GetAccessTokenInvalidEndpointAsyncTest()
+        {
+            Dictionary<string, string> config = new Dictionary<string, string>();
+            config.Add("endpoint", "https://localhost.sandbox.paypal.com");
+            string clientId = "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM";
+            string clientSecret = "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM";
+            OAuthTokenCredential target = new OAuthTokenCredential(clientId, clientSecret, config);
+            string expected = string.Empty;
+            string actual;
+            actual = await target.GetAccessTokenAsync();
             Assert.AreEqual(true, actual.StartsWith("Bearer "));
         }
     }

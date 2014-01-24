@@ -15,6 +15,7 @@ using Newtonsoft.Json.Linq;
 using PayPal.Exception;
 using PayPal.Manager;
 using PayPal.Log;
+using System.Threading.Tasks;
 
 namespace PayPal
 {
@@ -102,6 +103,13 @@ namespace PayPal
 
         public string GetAccessToken()
         {
+            var task = GetAccessTokenAsync();
+            task.Wait();
+            return task.Result;
+        }
+
+        public async Task<string> GetAccessTokenAsync()
+        {
             // If Access Token is not Null and time has lapsed
             if (accessToken != null)
             {
@@ -120,16 +128,23 @@ namespace PayPal
                 // Write Logic for passing in Detail to Identity Api Serv and
                 // computing the token
                 // Set the Value inside the accessToken and result
-                accessToken = GenerateAccessToken();
+                accessToken = await GenerateAccessTokenAsync();
             }
             return accessToken;
         }
 
         private string GenerateAccessToken()
         {
+            var task = GenerateAccessTokenAsync();
+            task.Wait();
+            return task.Result;
+        }
+
+        private async Task<string> GenerateAccessTokenAsync()
+        {
             string generatedToken = null;
             string base64ClientId = GenerateBase64String(clientId + ":" + clientSecret);
-            generatedToken = GenerateOAuthToken(base64ClientId);
+            generatedToken = await GenerateOAuthTokenAsync(base64ClientId);
             return generatedToken;
         }
 
@@ -148,6 +163,13 @@ namespace PayPal
         }
 
         private string GenerateOAuthToken(string base64ClientId)
+        {
+            var task = GenerateOAuthTokenAsync(base64ClientId);
+            task.Wait();
+            return task.Result;
+        }
+
+        private async Task<string> GenerateOAuthTokenAsync(string base64ClientId)
         {
             string response = null;
 
@@ -199,7 +221,7 @@ namespace PayPal
             }
 
             HttpConnection httpConnection = new HttpConnection(config);
-            response = httpConnection.Execute(postRequest, httpRequest);
+            response = await httpConnection.ExecuteAsync(postRequest, httpRequest);
             JObject deserializedObject = (JObject)JsonConvert.DeserializeObject(response);
             string generatedToken = (string)deserializedObject["token_type"] + " " + (string)deserializedObject["access_token"];
             appId = (string)deserializedObject["app_id"];

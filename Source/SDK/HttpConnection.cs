@@ -7,6 +7,7 @@ using PayPal.Exception;
 using PayPal.Manager;
 using System.Globalization;
 using PayPal.Log;
+using System.Threading.Tasks;
 
 namespace PayPal
 {
@@ -101,6 +102,19 @@ namespace PayPal
         /// <returns></returns>
         public string Execute(string payLoad, HttpWebRequest httpRequest)
         {
+            var task = ExecuteAsync(payLoad, httpRequest);
+            task.Wait();
+            return task.Result;
+        }
+
+        /// <summary>
+        /// Executing API calls Async
+        /// </summary>
+        /// <param name="payLoad"></param>
+        /// <param name="httpRequest"></param>
+        /// <returns></returns>
+        public async Task<string> ExecuteAsync(string payLoad, HttpWebRequest httpRequest)
+        {
             int retriesConfigured = config.ContainsKey(BaseConstants.HttpConnectionRetryConfig) ?
                    Convert.ToInt32(config[BaseConstants.HttpConnectionRetryConfig]) : 0;
             int retries = 0;
@@ -124,8 +138,8 @@ namespace PayPal
                                     {
                                         if (!string.IsNullOrEmpty(payLoad))
                                         {
-                                            writerStream.Write(payLoad);
-                                            writerStream.Flush();
+                                            await writerStream.WriteAsync(payLoad);
+                                            await writerStream.FlushAsync();
                                             writerStream.Close();
                                             logger.Debug(payLoad);
                                         }
@@ -137,11 +151,12 @@ namespace PayPal
                             }
                         }
 
-                        using (WebResponse responseWeb = httpRequest.GetResponse())
+                        using (WebResponse responseWeb = await httpRequest.GetResponseAsync())
                         {
                             using (StreamReader readerStream = new StreamReader(responseWeb.GetResponseStream()))
                             {
-                                string response = readerStream.ReadToEnd().Trim();
+                                string response = await readerStream.ReadToEndAsync();
+                                response = response.Trim();
                                 logger.Debug("Service response");
                                 logger.Debug(response);
                                 return response;
@@ -156,7 +171,8 @@ namespace PayPal
                             HttpStatusCode statusCode = ((HttpWebResponse)ex.Response).StatusCode;
                             using (StreamReader readerStream = new StreamReader(ex.Response.GetResponseStream()))
                             {
-                                response = readerStream.ReadToEnd().Trim();
+                                response = readerStream.ReadToEnd();
+                                response = response.Trim();
                                 logger.Error("Error Response: " + response, ex);
                             }
                             logger.Info("Got " + statusCode.ToString() + " status code from server");
