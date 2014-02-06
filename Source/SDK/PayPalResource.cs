@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using PayPal.Manager;
 using PayPal.Exception;
 using PayPal.Log;
+using System.Text;
 
 namespace PayPal
 {
@@ -173,7 +174,11 @@ namespace PayPal
                     // Set User-Agent HTTP header
                     if (headersMap.ContainsKey(BaseConstants.UserAgentHeader))
                     {
-                        httpRequest.UserAgent = headersMap[BaseConstants.UserAgentHeader];
+                        // aganzha
+                        //iso-8859-1
+                        var iso8851 = Encoding.GetEncoding("iso-8859-1", new EncoderReplacementFallback(string.Empty), new DecoderExceptionFallback());
+                        var bytes = Encoding.Convert(Encoding.UTF8, iso8851, Encoding.UTF8.GetBytes(headersMap[BaseConstants.UserAgentHeader]));
+                        httpRequest.UserAgent = iso8851.GetString(bytes);
                         headersMap.Remove(BaseConstants.UserAgentHeader);
                     }
 
