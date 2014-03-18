@@ -61,6 +61,12 @@ namespace PayPal
         private DateTime lastAccessTokenCreationDate;
 
         /// <summary>
+        /// Safety gap when checking the expiration of an already created access token in seconds.
+        /// The expiration must not lie in the past of now - the safety gap. 
+        /// </summary>
+        private int accessTokenExpirationCheckSafetyGapSeconds = 120;
+
+        /// <summary>
         /// Dynamic configuration map
         /// </summary>
         private Dictionary<string, string> config;
@@ -74,6 +80,34 @@ namespace PayPal
         /// Logs output statements, errors, debug info to a text file    
         /// </summary>
         private static Logger logger = Logger.GetLogger(typeof(OAuthTokenCredential));
+
+        /// <summary>
+        /// Returns the lifetime of a created access token as returned by PayPal in seconds. 
+        /// Is only set after an access token was created.
+        /// </summary>
+        public int AccessTokenLifetimeInSeconds // freeboarder: new property
+        {
+           get
+           {
+              return secondsToExpire;
+           }
+        }
+
+        /// <summary>
+        /// Safety gap when checking the expiration of an already created access token in seconds.
+        /// The expiration must not lie in the past of now - the safety gap. 
+        /// </summary>
+        public int AccessTokenExpirationCheckSafetyGapSeconds // freeboarder: new property
+        {
+           get
+           {
+              return accessTokenExpirationCheckSafetyGapSeconds;
+           }
+           set
+           {
+              accessTokenExpirationCheckSafetyGapSeconds = value;
+           }
+        }
                
         /// <summary>
         /// Client Id and Secret for the OAuth
@@ -111,7 +145,7 @@ namespace PayPal
                 // If expired set accesstoken == null
                 // freeboarder: Bugfix 
                double elapsedSeconds = (DateTime.Now - lastAccessTokenCreationDate).TotalSeconds;
-               if (elapsedSeconds > secondsToExpire - 120)
+               if (elapsedSeconds > secondsToExpire - accessTokenExpirationCheckSafetyGapSeconds)
                {
                   // regenerate token
                   accessToken = null;
