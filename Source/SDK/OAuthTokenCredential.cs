@@ -56,9 +56,9 @@ namespace PayPal
         private int secondsToExpire;
 
         /// <summary>
-        /// Last time when access token was generated
+        /// Last date when access token was generated
         /// </summary>
-        private long timeInMilliseconds;
+        private DateTime lastAccessTokenCreationDate;
 
         /// <summary>
         /// Dynamic configuration map
@@ -69,12 +69,12 @@ namespace PayPal
         /// SDKVersion instance
         /// </summary>
         private SDKVersion SdkVersion;
-
+       
         /// <summary>
         /// Logs output statements, errors, debug info to a text file    
         /// </summary>
         private static Logger logger = Logger.GetLogger(typeof(OAuthTokenCredential));
-               
+
         /// <summary>
         /// Client Id and Secret for the OAuth
         /// </summary>
@@ -101,6 +101,12 @@ namespace PayPal
             this.SdkVersion = new SDKVersionImpl();
         }
 
+        /// <summary>
+        /// Gets or creates an access token. If an access token was created before
+        /// and is not expired or expiring within a given safety gap, the existing
+        /// token is returned. 
+        /// </summary>
+        /// <returns></returns>
         public string GetAccessToken()
         {
             // If Access Token is not Null and time has lapsed
@@ -109,7 +115,8 @@ namespace PayPal
                 // If the token has not expired
                 // Set TTL as expiresTime - 60000
                 // If expired set accesstoken == null
-                if (((DateTime.Now.Millisecond - timeInMilliseconds) / 1000) > (secondsToExpire - 120))
+                double elapsedSeconds = (DateTime.Now - lastAccessTokenCreationDate).TotalSeconds;
+                if (elapsedSeconds > secondsToExpire - 120)
                 {
                     // regenerate token
                     accessToken = null;
@@ -209,13 +216,12 @@ namespace PayPal
             string generatedToken = (string)deserializedObject["token_type"] + " " + (string)deserializedObject["access_token"];
             appId = (string)deserializedObject["app_id"];
             secondsToExpire = (int)deserializedObject["expires_in"];
-            timeInMilliseconds = DateTime.Now.Millisecond;
+            lastAccessTokenCreationDate = DateTime.Now;
             return generatedToken;
         }
 
         private class SDKVersionImpl : SDKVersion
         {
-
             public string GetSDKId()
             {
                 return BaseConstants.SdkId;
@@ -227,6 +233,4 @@ namespace PayPal
             }
         }
     }
-
-    
 }
