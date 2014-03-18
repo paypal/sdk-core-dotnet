@@ -76,6 +76,18 @@ namespace PayPal
         private static Logger logger = Logger.GetLogger(typeof(OAuthTokenCredential));
 
         /// <summary>
+        /// Returns the lifetime of a created access token as returned by PayPal in seconds. 
+        /// Is only set after an access token was created.
+        /// </summary>
+        public int AccessTokenLifetimeInSeconds
+        {
+           get
+           {
+              return secondsToExpire;
+           }
+        }
+
+        /// <summary>
         /// Client Id and Secret for the OAuth
         /// </summary>
         /// <param name="clientId"></param>
