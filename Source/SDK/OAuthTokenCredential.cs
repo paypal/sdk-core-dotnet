@@ -61,6 +61,12 @@ namespace PayPal
         private DateTime lastAccessTokenCreationDate;
 
         /// <summary>
+        /// Safety gap when checking the expiration of an already created access token in seconds.
+        /// The expiration must not ly in the past of now - the safety gap. 
+        /// </summary>
+        private int accessTokenExpirationCheckSafetyGapSeconds = 120;
+
+        /// <summary>
         /// Dynamic configuration map
         /// </summary>
         private Dictionary<string, string> config;
@@ -69,7 +75,7 @@ namespace PayPal
         /// SDKVersion instance
         /// </summary>
         private SDKVersion SdkVersion;
-       
+
         /// <summary>
         /// Logs output statements, errors, debug info to a text file    
         /// </summary>
@@ -84,6 +90,22 @@ namespace PayPal
            get
            {
               return secondsToExpire;
+           }
+        }
+
+        /// <summary>
+        /// Safety gap when checking the expiration of an already created access token in seconds.
+        /// The expiration must not ly in the past of now - the safety gap. 
+        /// </summary>
+        public int AccessTokenExpirationCheckSafetyGapSeconds
+        {
+           get
+           {
+              return accessTokenExpirationCheckSafetyGapSeconds;
+           }
+           set
+           {
+              accessTokenExpirationCheckSafetyGapSeconds = value;
            }
         }
 
@@ -128,7 +150,7 @@ namespace PayPal
                 // Set TTL as expiresTime - 60000
                 // If expired set accesstoken == null
                 double elapsedSeconds = (DateTime.Now - lastAccessTokenCreationDate).TotalSeconds;
-                if (elapsedSeconds > secondsToExpire - 120)
+                if (elapsedSeconds > secondsToExpire - accessTokenExpirationCheckSafetyGapSeconds)
                 {
                     // regenerate token
                     accessToken = null;
