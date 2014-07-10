@@ -1,5 +1,9 @@
 ###CHANGE LOG
 
+#### V1.4.3 (July 10, 2014)
+
+   * Fix for subject population issue on credentials.
+
 #### V1.4.2 (Jan 16, 2014)
 
    * Fix for OS exception when used in Microsoft Azure.
