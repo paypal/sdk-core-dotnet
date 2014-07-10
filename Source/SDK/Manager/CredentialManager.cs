@@ -65,6 +65,7 @@ namespace PayPal.Manager
         {                        
             foreach (KeyValuePair<string, string> kvPair in config)
             {
+                //logger.Info(kvPair.Key + " " + kvPair.Value);
                 if(kvPair.Key.EndsWith(".apiUsername"))
                 {
                     if (apiUserName == null || apiUserName.Equals(kvPair.Value)) 
@@ -138,6 +139,11 @@ namespace PayPal.Manager
                 {
                     SubjectAuthorization subjectAuthorization = new SubjectAuthorization(accnt.SignatureSubject);
                     signCredential.ThirdPartyAuthorization = subjectAuthorization;
+                }
+                if (!string.IsNullOrEmpty(accnt.CertificateSubject))
+                {
+                    SubjectAuthorization subAuthorization = new SubjectAuthorization(accnt.CertificateSubject);
+                    signCredential.ThirdPartyAuthorization = subAuthorization;
                 }
                 credential = signCredential;
             }
