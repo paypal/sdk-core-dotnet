@@ -56,9 +56,15 @@ namespace PayPal
         private int secondsToExpire;
 
         /// <summary>
-        /// Last time when access token was generated
+        /// Last date when access token was generated
         /// </summary>
-        private long timeInMilliseconds;
+        private DateTime lastAccessTokenCreationDate;
+
+        /// <summary>
+        /// Safety gap when checking the expiration of an already created access token in seconds.
+        /// The expiration must not lie in the past of now - the safety gap. 
+        /// </summary>
+        private int accessTokenExpirationCheckSafetyGapSeconds = 120;
 
         /// <summary>
         /// Dynamic configuration map
@@ -74,6 +80,34 @@ namespace PayPal
         /// Logs output statements, errors, debug info to a text file    
         /// </summary>
         private static Logger logger = Logger.GetLogger(typeof(OAuthTokenCredential));
+
+        /// <summary>
+        /// Returns the lifetime of a created access token as returned by PayPal in seconds. 
+        /// Is only set after an access token was created.
+        /// </summary>
+        public int AccessTokenLifetimeInSeconds // freeboarder: new property
+        {
+           get
+           {
+              return secondsToExpire;
+           }
+        }
+
+        /// <summary>
+        /// Safety gap when checking the expiration of an already created access token in seconds.
+        /// The expiration must not lie in the past of now - the safety gap. 
+        /// </summary>
+        public int AccessTokenExpirationCheckSafetyGapSeconds // freeboarder: new property
+        {
+           get
+           {
+              return accessTokenExpirationCheckSafetyGapSeconds;
+           }
+           set
+           {
+              accessTokenExpirationCheckSafetyGapSeconds = value;
+           }
+        }
                
         /// <summary>
         /// Client Id and Secret for the OAuth
@@ -109,11 +143,13 @@ namespace PayPal
                 // If the token has not expired
                 // Set TTL as expiresTime - 60000
                 // If expired set accesstoken == null
-                if (((DateTime.Now.Millisecond - timeInMilliseconds) / 1000) > (secondsToExpire - 120))
-                {
-                    // regenerate token
-                    accessToken = null;
-                }
+                // freeboarder: Bugfix 
+               double elapsedSeconds = (DateTime.Now - lastAccessTokenCreationDate).TotalSeconds;
+               if (elapsedSeconds > secondsToExpire - accessTokenExpirationCheckSafetyGapSeconds)
+               {
+                  // regenerate token
+                  accessToken = null;
+               }
             }
             // If accessToken is Null, Compute it
             if (accessToken == null)
@@ -209,7 +245,7 @@ namespace PayPal
             string generatedToken = (string)deserializedObject["token_type"] + " " + (string)deserializedObject["access_token"];
             appId = (string)deserializedObject["app_id"];
             secondsToExpire = (int)deserializedObject["expires_in"];
-            timeInMilliseconds = DateTime.Now.Millisecond;
+            lastAccessTokenCreationDate = DateTime.Now;
             return generatedToken;
         }
 
