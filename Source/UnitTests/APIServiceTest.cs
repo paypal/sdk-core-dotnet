@@ -61,6 +61,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace PayPal.UnitTest
 {
     [TestClass]
+    [DeploymentItem("sdk-cert.p12")]
     public class APIServiceTest
     {
         private APIService service;

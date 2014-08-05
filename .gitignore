@@ -20,3 +20,6 @@ Desktop.ini
 
 # Mac crap
 .DS_Store
+
+#UnitTest Results
+Source/TestResults/

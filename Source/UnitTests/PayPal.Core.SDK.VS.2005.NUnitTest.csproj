@@ -83,4 +83,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>echo Copying certificate to unit test output directory...
+xcopy "$(ProjectDir)Resources\sdk-cert.p12" "$(OutDir)" /Y /Q</PostBuildEvent>
+  </PropertyGroup>
 </Project>
