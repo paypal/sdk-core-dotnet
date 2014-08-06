@@ -4,8 +4,7 @@ The PayPal Core SDK is a foundational library used by all of PayPal's C# SDKs. T
 
 ## Prerequisites
 
-*	Visual Studio 2005 or higher
-*	NUnit 2.6.2 for running test cases (only for Visual Studio 2005 Professional Edition users)
+*	Visual Studio 2008 or higher
 
 
 ## Repository
@@ -67,9 +66,7 @@ This repository contains
 
 ## Unit Tests
 
-*	Visual Studio Test C#.NET Project 2013, 2012, 2010, 2008, and 2005
-*	NUnit Test C#.NET Project only for Visual Studio 2005 Professional Edition as Visual Studio Unit Test feature is not available in Visual Studio 2005 Professional Edition
-    - Note: Visual Studio 2005 Professional Edition users can still run the Visual Studio 2005 Unit Test using Visual Studio Agents 2010 or higher
+*	Visual Studio Test C#.NET Project 2013, 2012, 2010, and 2008
 
 *   Visual Studio Agents 2010 - ISO: http://www.microsoft.com/en-us/download/details.aspx?id=1334
 	- Visual Studio Agents 2010 includes Test Controller 2010, Test Agent 2010 and Lab Agent 2010. Test Controller 2010 and Test Agent 2010 collectively enable scale-out load generation, distributed data collection, and distributed test execution. Lab Agent 2010 manages testing, workflow and network isolation for virtual machines used with Visual Studio Lab Management 2010. 
@@ -102,10 +99,6 @@ Or
 *	Visual Studio 2008
 	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\net35
 	- Release Configuration: In the root of folder of .git: Build\bin\Release\net35
-
-*	Visual Studio 2005
-	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\net20
-	- Release Configuration: In the root of folder of .git: Build\bin\Release\net20
 
 ## License
 
