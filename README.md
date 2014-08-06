@@ -1,6 +1,6 @@
 # The PayPal Core SDK for .NET
 
-The PayPal Core SDK is a foundational library used by all of PayPal's C# SDKs. This SDK provides functionality such as configuration, credential management, connection management, logging etc that are used by the other SDKs. This SDK is developed using .NET Framework 2.0 and should compile on later versions of the .NET Framework. The SDK is also distributed via [NuGet](http://www.nuget.org/packages/PayPalCoreSDK/).
+The PayPal Core SDK is a foundational library used by all of PayPal's C# SDKs. This SDK provides functionality such as configuration, credential management, connection management, logging, etc. that are used by the other SDKs. This SDK is developed using .NET Framework 3.5 and should compile on later versions of the .NET Framework. The SDK is also distributed via [NuGet](http://www.nuget.org/packages/PayPalCoreSDK/).
 
 ## Prerequisites
 
@@ -11,9 +11,8 @@ The PayPal Core SDK is a foundational library used by all of PayPal's C# SDKs. T
 
 This repository contains
 
-*	PayPal Core SDK Class Libraries for Visual Studio 2013, 2012, 2010, 2008, and 2005. (C#.NET)
-*	Visual Studio Test project for VS 2013, 2012, 2010, 2008, and 2005 (C#.NET)
-*	NUnit Test project - only for Visual Studio 2005 Professional Edition users (C#.NET)
+*	PayPal Core SDK Class Libraries for Visual Studio 2013, 2012, 2010, and 2008. (C# .NET)
+*	Visual Studio Test project for VS 2013, 2012, 2010, and 2008 (C# .NET)
 
 
 ## OpenId Connect Integration
@@ -23,19 +22,19 @@ This repository contains
    * Exchange the authorization code for an access token, refresh token, id token combo
 
 ```csharp	
-    Dictionary<string, string> configurationMap = new Dictionary<string, string>();
+    var configurationMap = new Dictionary<string, string>();
     configurationMap.Add("clientId", "...");
     configurationMap.Add("clientSecret", "...");
     configurationMap.Add("mode", "live");
 
-    APIContext apiContext = new APIContext();
+    var apiContext = new APIContext();
     apiContext.Config = configurationMap;
 
     ...
     
-    CreateFromAuthorizationCodeParameters codeParams = new CreateFromAuthorizationCodeParameters();
+    var codeParams = new CreateFromAuthorizationCodeParameters();
     codeParams.SetCode("code");
-    TokenInfo token = TokenInfo.CreateFromAuthorizationCode(apiContext, codeParams);
+    var token = TokenInfo.CreateFromAuthorizationCode(apiContext, codeParams);
     string accessToken = token.access_token;
 ```
 
@@ -44,11 +43,11 @@ This repository contains
 ```csharp
     ...
 
-    TokenInfo infoToken = new TokenInfo();
-    infoToken.refresh_token = "refreshToken";
-    UserInfoParameters infoUserParams = new UserInfoParameters();
-    infoUserParams.SetAccessToken(infoToken.access_token);
-    UserInfo infoUser = UserInfo.GetUserInfo(apiContext, infoUserParams);
+    var tokenInfo = new TokenInfo();
+    tokenInfo.refresh_token = "refreshToken";
+    var userInfoParams = new UserInfoParameters();
+    userInfoParams.SetAccessToken(tokenInfo.access_token);
+    var userInfo = UserInfo.GetUserInfo(apiContext, userInfoParams);
 ```
 
    * If the access token has expired, you can obtain a new access token using the refresh token from the 3'rd step
@@ -56,12 +55,12 @@ This repository contains
 ```csharp
     ...
     
-    CreateFromRefreshTokenParameters params = new CreateFromRefreshTokenParameters();
-    params.SetScope("openid"); // Optional
-    TokenInfo info = new TokenInfo(); // Create TokenInfo object; setting the refresh token
-    info.refresh_token = "refreshToken";
+    var refreshTokenParams = new CreateFromRefreshTokenParameters();
+    refreshTokenParams.SetScope("openid"); // Optional
+    var tokenInfo = new TokenInfo(); // Create TokenInfo object; setting the refresh token
+    tokenInfo.refresh_token = "refreshToken";
     
-    info.CreateFromRefreshToken(apiContext, params);
+    tokenInfo.CreateFromRefreshToken(apiContext, refreshTokenParams);
 ```
 
 ## Unit Tests
@@ -76,29 +75,14 @@ Or
 *   Agents for Visual Studio 2012 Update 3: http://www.microsoft.com/en-us/download/details.aspx?id=38186
     - Agents for Visual Studio 2012 is the essential suite of agents and controllers that you can use to build and test applications across the desktop, the server, and the cloud
 
-*	Note: Please copy the directory path of "sdk-cert.p12" file in the Unit Test/NUnit Test Project Resources folder
-*	In <Root folder>\sdk-core-dotnet\Source\App.config:
-	- apiCertificate="<Root folder>\sdk-core-dotnet\Source\Resources\sdk-cert.p12"
-*	And in <Root folder>\sdk-core-dotnet\Source\Constants.cs:
-	- public const string CertificatePath = @"<Root folder>\sdk-core-dotnet\Source\Resources\sdk-cert.p12";
-
 ## Build Output Path
 
-*	Visual Studio 2013
-	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\net451
-	- Release Configuration: In the root of folder of .git: Build\bin\Release\net451
-	
-*	Visual Studio 2012
-	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\net45
-	- Release Configuration: In the root of folder of .git: Build\bin\Release\net45
-	
-*	Visual Studio 2010
-	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\net40
-	- Release Configuration: In the root of folder of .git: Build\bin\Release\net40
-
-*	Visual Studio 2008
-	- Debug Configuration: In the root of folder of .git: Build\bin\Debug\net35
-	- Release Configuration: In the root of folder of .git: Build\bin\Release\net35
+| Visual Studio | Output Path                      |
+| ------------- | -------------------------------- |
+| 2013          | Build\bin\[Configuration]\net451 |
+| 2012          | Build\bin\[Configuration]\net45  |
+| 2010          | Build\bin\[Configuration]\net40  |
+| 2008          | Build\bin\[Configuration]\net35  |
 
 ## License
 
