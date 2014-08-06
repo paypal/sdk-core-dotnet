@@ -77,12 +77,12 @@ Or
 
 ## Build Output Path
 
-| Visual Studio | Output Path                      |
-| ------------- | -------------------------------- |
-| 2013          | Build\bin\[Configuration]\net451 |
-| 2012          | Build\bin\[Configuration]\net45  |
-| 2010          | Build\bin\[Configuration]\net40  |
-| 2008          | Build\bin\[Configuration]\net35  |
+| Visual Studio | Output Path                       |
+| ------------- | --------------------------------- |
+| 2013          | Build\bin\\[Configuration]\net451 |
+| 2012          | Build\bin\\[Configuration]\net45  |
+| 2010          | Build\bin\\[Configuration]\net40  |
+| 2008          | Build\bin\\[Configuration]\net35  |
 
 ## License
 
