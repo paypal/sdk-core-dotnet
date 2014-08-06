@@ -83,13 +83,13 @@ namespace PayPal
         }
 
         /// <summary>
-        /// Gets the lifetime of a created access token in seconds.
+        /// Gets or sets the lifetime of a created access token in seconds.
         /// Must first call <see cref="OAuthtokenCredentials.GetAccessToken()"/> to populate this property.
         /// </summary>
         public int AccessTokenExpirationInSeconds
         {
             get;
-            private set;
+            set;
         }
 
         /// <summary>
