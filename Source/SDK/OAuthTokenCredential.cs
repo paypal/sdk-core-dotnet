@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Net;
 /* NuGet Install
  * Visual Studio 2005 or 2008
     * Install Newtonsoft.Json -OutputDirectory .\packages
@@ -10,6 +6,11 @@ using System.Net;
     * Install-Package Newtonsoft.Json
     * Reference is auto-added 
 */
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PayPal.Exception;
@@ -28,48 +29,20 @@ namespace PayPal
     /// </summary>
     public class OAuthTokenCredential
     {
+        /// <summary>
+        /// Specifies the PayPal endpoint for sending an OAuth request.
+        /// </summary>
         private const string OAuthTokenPath = "/v1/oauth2/token";
-
-        /// <summary>
-        /// Client Id for OAuth
-        /// </summary>
-        private string clientId;
-
-        /// <summary>
-        /// Client Secret for OAuth
-        /// </summary>
-        private string clientSecret;
-
-        /// <summary>
-        /// Access Token that is generated
-        /// </summary>
-        private string accessToken;
-
-        /// <summary>
-        /// Application Id returned by OAuth servers
-        /// </summary>
-        private string appId;
-
-        /// <summary>
-        /// Seconds for with access token is valid
-        /// </summary>
-        private int secondsToExpire;
-
-        /// <summary>
-        /// Last date when access token was generated
-        /// </summary>
-        private DateTime lastAccessTokenCreationDate;
-
-        /// <summary>
-        /// Safety gap when checking the expiration of an already created access token in seconds.
-        /// The expiration must not lie in the past of now - the safety gap. 
-        /// </summary>
-        private int accessTokenExpirationCheckSafetyGapSeconds = 120;
 
         /// <summary>
         /// Dynamic configuration map
         /// </summary>
         private Dictionary<string, string> config;
+
+        /// <summary>
+        /// Cached access token that is generated when calling <see cref="OAuthtokenCredential.GetAccessToken()"/>.
+        /// </summary>
+        private string accessToken;
 
         /// <summary>
         /// SDKVersion instance
@@ -82,31 +55,62 @@ namespace PayPal
         private static Logger logger = Logger.GetLogger(typeof(OAuthTokenCredential));
 
         /// <summary>
-        /// Returns the lifetime of a created access token as returned by PayPal in seconds. 
-        /// Is only set after an access token was created.
+        /// Gets the client ID to be used when creating an OAuth token.
         /// </summary>
-        public int AccessTokenLifetimeInSeconds // freeboarder: new property
+        public string ClientId
         {
-           get
-           {
-              return secondsToExpire;
-           }
+            get;
+            private set;
         }
 
         /// <summary>
-        /// Safety gap when checking the expiration of an already created access token in seconds.
-        /// The expiration must not lie in the past of now - the safety gap. 
+        /// Gets the client secret to be used when creating an OAuth token.
         /// </summary>
-        public int AccessTokenExpirationCheckSafetyGapSeconds // freeboarder: new property
+        public string ClientSecret
         {
-           get
-           {
-              return accessTokenExpirationCheckSafetyGapSeconds;
-           }
-           set
-           {
-              accessTokenExpirationCheckSafetyGapSeconds = value;
-           }
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the application ID returned by OAuth servers.
+        /// Must first call <see cref="OAuthtokenCredentials.GetAccessToken()"/> to populate this property.
+        /// </summary>
+        public string ApplicationId
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the lifetime of a created access token in seconds.
+        /// Must first call <see cref="OAuthtokenCredentials.GetAccessToken()"/> to populate this property.
+        /// </summary>
+        public int AccessTokenExpirationInSeconds
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the last date when access token was generated.
+        /// Must first call <see cref="OAuthtokenCredentials.GetAccessToken()"/> to populate this property.
+        /// </summary>
+        public DateTime AccessTokenLastCreationDate
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets or sets the safety gap when checking the expiration of an already created access token in seconds.
+        /// If the elapsed time since the last access token was created is more than the expiration - the safety gap,
+        /// then a new token will be created when calling <see cref="OAuthTokenCredential.GetAccessToken()"/>.
+        /// </summary>
+        public int AccessTokenExpirationSafetyGapInSeconds
+        {
+            get;
+            set;
         }
                
         /// <summary>
@@ -114,12 +118,8 @@ namespace PayPal
         /// </summary>
         /// <param name="clientId"></param>
         /// <param name="clientSecret"></param>
-        public OAuthTokenCredential(string clientId, string clientSecret)
+        public OAuthTokenCredential(string clientId, string clientSecret) : this(clientId, clientSecret, null)
         {
-            this.clientId = clientId;
-            this.clientSecret = clientSecret;
-            this.config = ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());
-            this.SdkVersion = new SDKVersionImpl();
         }
 
         /// <summary>
@@ -129,44 +129,55 @@ namespace PayPal
         /// <param name="clientSecret"></param>
         public OAuthTokenCredential(string clientId, string clientSecret, Dictionary<string, string> config)
         {
-            this.clientId = clientId;
-            this.clientSecret = clientSecret;
+            this.ClientId = clientId;
+            this.ClientSecret = clientSecret;
             this.config = config != null ? ConfigManager.GetConfigWithDefaults(config) : ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties()); 
             this.SdkVersion = new SDKVersionImpl();
+            this.AccessTokenExpirationSafetyGapInSeconds = 120; // Default is 2 minute safety gap for token expiration.
         }
 
+        /// <summary>
+        /// Returns the currently cached access token. If no access token was
+        /// previously cached, or if the current access token is expired, then
+        /// a new one is generated and returned.
+        /// </summary>
+        /// <returns>The OAuth access token to use for making PayPal requests.</returns>
         public string GetAccessToken()
         {
-            // If Access Token is not Null and time has lapsed
-            if (accessToken != null)
+            // If the cached access token value is valid, then check to see if
+            // it has expired.
+            if (!string.IsNullOrEmpty(this.accessToken))
             {
-                // If the token has not expired
-                // Set TTL as expiresTime - 60000
-                // If expired set accesstoken == null
-                // freeboarder: Bugfix 
-               double elapsedSeconds = (DateTime.Now - lastAccessTokenCreationDate).TotalSeconds;
-               if (elapsedSeconds > secondsToExpire - accessTokenExpirationCheckSafetyGapSeconds)
-               {
-                  // regenerate token
-                  accessToken = null;
-               }
+                // If the time since the access token was created is greater
+                // than the access token's specified expiration time less the
+                // safety gap, then regenerate the token.
+                double elapsedSeconds = (DateTime.Now - this.AccessTokenLastCreationDate).TotalSeconds;
+                if (elapsedSeconds > this.AccessTokenExpirationInSeconds - this.AccessTokenExpirationSafetyGapInSeconds)
+                {
+                    this.accessToken = null;
+                }
             }
-            // If accessToken is Null, Compute it
-            if (accessToken == null)
+
+            // If the cached access token is empty or null, then generate a new token.
+            if (string.IsNullOrEmpty(this.accessToken))
             {
                 // Write Logic for passing in Detail to Identity Api Serv and
                 // computing the token
                 // Set the Value inside the accessToken and result
-                accessToken = GenerateAccessToken();
+                this.accessToken = this.GenerateAccessToken();
             }
-            return accessToken;
+            return this.accessToken;
         }
 
+        /// <summary>
+        /// Generates a new access token using the stored client ID and client secret.
+        /// </summary>
+        /// <returns></returns>
         private string GenerateAccessToken()
         {
             string generatedToken = null;
-            string base64ClientId = GenerateBase64String(clientId + ":" + clientSecret);
-            generatedToken = GenerateOAuthToken(base64ClientId);
+            string base64ClientId = this.GenerateBase64String(this.ClientId + ":" + this.ClientSecret);
+            generatedToken = this.GenerateOAuthToken(base64ClientId);
             return generatedToken;
         }
 
@@ -243,9 +254,9 @@ namespace PayPal
             response = httpConnection.Execute(postRequest, httpRequest);
             JObject deserializedObject = (JObject)JsonConvert.DeserializeObject(response);
             string generatedToken = (string)deserializedObject["token_type"] + " " + (string)deserializedObject["access_token"];
-            appId = (string)deserializedObject["app_id"];
-            secondsToExpire = (int)deserializedObject["expires_in"];
-            lastAccessTokenCreationDate = DateTime.Now;
+            this.ApplicationId = (string)deserializedObject["app_id"];
+            this.AccessTokenExpirationInSeconds = (int)deserializedObject["expires_in"];
+            this.AccessTokenLastCreationDate = DateTime.Now;
             return generatedToken;
         }
 
