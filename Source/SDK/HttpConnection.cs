@@ -98,7 +98,7 @@ namespace PayPal
         /// </summary>
         /// <param name="payLoad"></param>
         /// <param name="httpRequest"></param>
-        /// <returns></returns>
+        /// <returns>A string containing the response from the remote host.</returns>
         public string Execute(string payLoad, HttpWebRequest httpRequest)
         {
             int retriesConfigured = config.ContainsKey(BaseConstants.HttpConnectionRetryConfig) ?
@@ -150,45 +150,55 @@ namespace PayPal
                     }
                     catch (WebException ex)
                     {
+                        // Get and log the response from the remote host.
                         string response = null;
-                        if (ex.Response is HttpWebResponse)
+                        using (StreamReader readerStream = new StreamReader(ex.Response.GetResponseStream()))
                         {
-                            HttpStatusCode statusCode = ((HttpWebResponse)ex.Response).StatusCode;
-                            using (StreamReader readerStream = new StreamReader(ex.Response.GetResponseStream()))
+                            response = readerStream.ReadToEnd().Trim();
+                            logger.Error("Error response:");
+                            logger.Error(response);
+                        }
+                        logger.Error(ex.Message);
+
+                        // Protocol errors indicate the remote host received the
+                        // request, but responded with an error (usually a 4xx or
+                        // 5xx error).
+                        if (ex.Status == WebExceptionStatus.ProtocolError)
+                        {
+                            var statusCode = ((HttpWebResponse)ex.Response).StatusCode;
+
+                            // If the HTTP status code is flagged as one where we
+                            // should continue retrying, then ignore the exception
+                            // and continue with the retry attempt.
+                            if (retryCodes.Contains(statusCode))
                             {
-                                response = readerStream.ReadToEnd().Trim();
-                                logger.Error("Error Response: " + response, ex);
+                                continue;
                             }
-                            logger.Info("Got " + statusCode.ToString() + " status code from server");
+
+                            throw new HttpException(ex.Message, response, statusCode, ex.Status);
                         }
-                        if (!RequiresRetry(ex))
-                        {
-                            // Server responses in the range of 4xx throw a WebException
-                            throw new ConnectionException("Invalid HTTP response " + ex.Message, response);
-                        }
+
+                        // Non-protocol errors indicate something happened with the underlying connection to the server.
+                        throw new ConnectionException("Invalid HTTP response " + ex.Message, response, ex.Status);
                     }
                 } while (retries++ < retriesConfigured);
             }
+            catch (PayPalException)
+            {
+                // Rethrow any PayPalExceptions since they already contain the
+                // details of the exception.
+                throw;
+            }
             catch (System.Exception ex)
             {
-                throw new PayPalException("Exception in HttpConnection Execute: " + ex.Message, ex);
+                // Repackage any other exceptions to give a bit more context to
+                // the caller.
+                throw new PayPalException("Exception in PayPal.HttpConnection.Execute(): " + ex.Message, ex);
             }
-            throw new PayPalException("Retried " + retriesConfigured + " times.... Exception in HttpConnection Execute. Check log for more details.");
-        }
 
-        /// <summary>
-        /// Returns true if a HTTP retry is required
-        /// </summary>
-        /// <param name="ex"></param>
-        /// <returns></returns>
-        private static bool RequiresRetry(WebException ex)
-        {
-            if (ex.Status != WebExceptionStatus.ProtocolError)
-            {
-                return false;
-            }
-            HttpStatusCode status = ((HttpWebResponse)ex.Response).StatusCode;
-            return retryCodes.Contains(status);
+            // If we've gotten this far, it means all attempts at sending the
+            // request resulted in a failed attempt.
+            throw new PayPalException("Retried " + retriesConfigured + " times.... Exception in PayPal.HttpConnection.Execute(). Check log for more details.");
         }
     }
 }

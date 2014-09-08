@@ -142,6 +142,13 @@ namespace PayPal
         /// a new one is generated and returned.
         /// </summary>
         /// <returns>The OAuth access token to use for making PayPal requests.</returns>
+        /// <exception cref="PayPal.Exception.MissingCredentialException">Thrown if clientId or clientSecret are null or empty.</exception>
+        /// <exception cref="PayPal.Exception.InvalidCredentialException">Thrown if there is an issue converting the credentials to a formatted authorization string.</exception>
+        /// <exception cref="PayPal.Exception.IdentityException">Thrown if authorization fails as a result of providing invalid credentials.</exception>
+        /// <exception cref="PayPal.Exception.HttpException">Thrown if authorization fails and an HTTP error response is received.</exception>
+        /// <exception cref="PayPal.Exception.ConnectionException">Thrown if there is an issue attempting to connect to PayPal's services.</exception>
+        /// <exception cref="PayPal.Exception.ConfigException">Thrown if there is an error with any informaiton provided by the <see cref="PayPal.Manager.ConfigManager"/>.</exception>
+        /// <exception cref="PayPal.Exception.PayPalException">Thrown for any other general exception. See inner exception for further details.</exception>
         public string GetAccessToken()
         {
             // If the cached access token value is valid, then check to see if
@@ -164,37 +171,57 @@ namespace PayPal
                 // Write Logic for passing in Detail to Identity Api Serv and
                 // computing the token
                 // Set the Value inside the accessToken and result
-                this.accessToken = this.GenerateAccessToken();
+                var base64ClientId = OAuthTokenCredential.ConvertClientCredentialsToBase64String(this.ClientId, this.ClientSecret);
+                this.accessToken = this.GenerateOAuthToken(base64ClientId);
             }
             return this.accessToken;
         }
 
         /// <summary>
-        /// Generates a new access token using the stored client ID and client secret.
+        /// Covnerts the specified client credentials to a base-64 string for authorization purposes.
         /// </summary>
-        /// <returns></returns>
-        private string GenerateAccessToken()
+        /// <param name="clientId">The client ID to be used in generating the base-64 client identifier.</param>
+        /// <param name="clientSecret">The client secret to be used in generating the base-64 client identifier.</param>
+        /// <returns>The base-64 encoded client identifier to use in the authorization request.</returns>
+        /// <exception cref="PayPal.Exception.MissingCredentialException">Thrown if clientId or clientSecret are null or empty.</exception>
+        /// <exception cref="PayPal.Exception.InvalidCredentialException">Thrown if there is an issue converting the credentials to a formatted authorization string.</exception>
+        /// <exception cref="PayPal.Exception.PayPalException">Thrown for any other issue encountered. See inner exception for further details.</exception>
+        private static string ConvertClientCredentialsToBase64String(string clientId, string clientSecret)
         {
-            string generatedToken = null;
-            string base64ClientId = this.GenerateBase64String(this.ClientId + ":" + this.ClientSecret);
-            generatedToken = this.GenerateOAuthToken(base64ClientId);
-            return generatedToken;
-        }
+            // Validate the provided credentials. If either value is null or empty, then throw.
+            if (string.IsNullOrEmpty(clientId))
+            {
+                throw new MissingCredentialException("clientId is missing.");
+            }
+            else if (string.IsNullOrEmpty(clientSecret))
+            {
+                throw new MissingCredentialException("clientSecret is missing.");
+            }
 
-        private string GenerateBase64String(string clientCredential)
-        {
             try
             {
-                byte[] bytes = Encoding.UTF8.GetBytes(clientCredential);
-                string base64ClientId = Convert.ToBase64String(bytes);
-                return base64ClientId;
+                byte[] bytes = Encoding.UTF8.GetBytes(string.Format("{0}:{1}", clientId, clientSecret));
+                return Convert.ToBase64String(bytes);
             }
             catch (System.Exception ex)
             {
+                if (ex is FormatException || ex is ArgumentNullException)
+                {
+                    throw new InvalidCredentialException("Unable to convert client credentials to base-64 string.\n" +
+                                                         "  clientId: \"" + clientId + "\"\n" +
+                                                         "  clientSecret: \"" + clientSecret + "\"\n" +
+                                                         "  Error: " + ex.Message);
+                }
+
                 throw new PayPalException(ex.Message, ex);
             }
         }
 
+        /// <summary>
+        /// Generates a new OAuth token useing the specified client credentials in the authorization request.
+        /// </summary>
+        /// <param name="base64ClientId">The base-64 encoded credentials to be used in the authorization request.</param>
+        /// <returns>The OAuth access token to use for making PayPal requests.</returns>
         private string GenerateOAuthToken(string base64ClientId)
         {
             string response = null;
@@ -251,7 +278,26 @@ namespace PayPal
             }
 
             HttpConnection httpConnection = new HttpConnection(config);
-            response = httpConnection.Execute(postRequest, httpRequest);
+            try
+            {
+                response = httpConnection.Execute(postRequest, httpRequest);
+            }
+            catch (PayPal.Exception.HttpException ex)
+            {
+                // If we get an HTTP exception back and the status code is 401,
+                // then try and generate an IdentityException object to throw.
+                if (ex.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    IdentityException identityEx;
+                    if (ex.TryConvertTo<IdentityException>(out identityEx))
+                    {
+                        throw identityEx;
+                    }
+                }
+
+                throw;
+            }
+
             JObject deserializedObject = (JObject)JsonConvert.DeserializeObject(response);
             string generatedToken = (string)deserializedObject["token_type"] + " " + (string)deserializedObject["access_token"];
             this.ApplicationId = (string)deserializedObject["app_id"];

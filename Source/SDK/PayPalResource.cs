@@ -41,6 +41,9 @@ namespace PayPal
         /// <param name="resource">URI path of the resource</param>
         /// <param name="payload">JSON request payload</param>
         /// <returns>Response object or null otherwise for void API calls</returns>
+        /// <exception cref="PayPal.Exception.HttpException">Thrown if there was an error sending the request.</exception>
+        /// <exception cref="PayPal.Exception.PaymentsException">Thrown if an HttpException was raised and contains a Payments API error object.</exception>
+        /// <exception cref="PayPal.Exception.PayPalException">Thrown for any other issues encountered. See inner exception for further details.</exception>
         public static T ConfigureAndExecute<T>(APIContext apiContext, HttpMethod httpMethod, string resource, string payload)
         {
             Dictionary<string, string> config = null;
@@ -143,6 +146,9 @@ namespace PayPal
         /// <param name="httpMethod">HttpMethod type</param>
         /// <param name="resourcePath">URI path of the resource</param>
         /// <returns>Response object or null otherwise for void API calls</returns>
+        /// <exception cref="PayPal.Exception.HttpException">Thrown if there was an error sending the request.</exception>
+        /// <exception cref="PayPal.Exception.PaymentsException">Thrown if an HttpException was raised and contains a Payments API error object.</exception>
+        /// <exception cref="PayPal.Exception.PayPalException">Thrown for any other issues encountered. See inner exception for further details.</exception>
         private static T ConfigureAndExecute<T>(Dictionary<string, string> config, IAPICallPreHandler apiCallPreHandler, HttpMethod httpMethod, string resourcePath)
         {
             try
@@ -213,6 +219,19 @@ namespace PayPal
                 {
                     throw new PayPalException("Cannot create URL; baseURI=" + baseUri.ToString() + ", resourcePath=" + resourcePath);
                 }
+            }
+            catch (HttpException ex)
+            {
+                //  Check to see if we have a Payments API error.
+                if (ex.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    PaymentsException paymentsEx;
+                    if (ex.TryConvertTo<PaymentsException>(out paymentsEx))
+                    {
+                        throw paymentsEx;
+                    }
+                }
+                throw;
             }
             catch (PayPalException)
             {

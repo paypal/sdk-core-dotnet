@@ -2,35 +2,17 @@ using PayPal.Log;
 
 namespace PayPal.Exception
 {
-    public class ConfigException : System.Exception
+    public class ConfigException : PayPalException
     {
+		/// <summary>
+		/// Represents errors that are related to the application's configuration.
+		/// </summary>
+		/// <param name="message">The message that describes the error</param>
+		public ConfigException(string message): base(message) { }
+
         /// <summary>
-        /// Logger
+        /// Gets the prefix to use when logging the exception information.
         /// </summary>
-        private static Logger logger = Logger.GetLogger(typeof(ConfigException));
-
-		/// <summary>
-		/// Represents application configuration errors 
-		/// </summary>
-        public ConfigException() : base() { }
-        
-		/// <summary>
-		/// Represents errors that occur during application execution
-		/// </summary>
-		/// <param name="message">The message that describes the error</param>
-		public ConfigException(string message): base(message)
-        {
-            logger.Error(message, this);
-        }
-
-		/// <summary>
-		/// Represents errors that occur during application execution
-		/// </summary>
-		/// <param name="message">The message that describes the error</param>
-		/// <param name="cause">The exception that is the cause of the current exception</param>
-		public ConfigException(string message, System.Exception cause): base(message, cause)
-        {
-            logger.Error(message, this);
-        }
+        protected override string ExceptionMessagePrefix { get { return "Configuration Exception"; } }
 	}
 }

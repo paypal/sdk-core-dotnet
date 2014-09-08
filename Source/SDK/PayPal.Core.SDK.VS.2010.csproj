@@ -31,8 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\rest-api-sdk-dotnet\Source\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net35\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -65,6 +66,11 @@
     <Compile Include="Exception\MissingCredentialException.cs" />
     <Compile Include="Exception\OAuthException.cs" />
     <Compile Include="Exception\PayPalException.cs" />
+    <Compile Include="Exception\HttpException.cs" />
+    <Compile Include="Exception\IdentityError.cs" />
+    <Compile Include="Exception\IdentityException.cs" />
+    <Compile Include="Exception\PaymentsError.cs" />
+    <Compile Include="Exception\PaymentsException.cs" />
     <Compile Include="HttpConnection.cs" />
     <Compile Include="HttpMethod.cs" />
     <Compile Include="IAPICallPreHandler.cs" />

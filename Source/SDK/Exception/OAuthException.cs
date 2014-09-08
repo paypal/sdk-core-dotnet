@@ -1,58 +1,33 @@
 namespace PayPal.Exception
 {
-    public class OAuthException : System.Exception
+    public class OAuthException : PayPalException
     {
         /// <summary>
-        /// OAuth Exception Short Message
+        /// Represents an exception related to requesting an OAuth token.
         /// </summary>
-        private string oauthExceptionMessageShort;
+        /// <param name="message">The message associated with the exception.</param>
+        public OAuthException(string message) : this(message, null) { }
 
         /// <summary>
-        /// OAuth Exception Long Message
+        /// Represents an exception related to requesting an OAuth token.
         /// </summary>
-        private string oauthExceptionMessageLong;
-
-        public OAuthException(string oauthExceptionMessage, System.Exception exception)
-        {
-            this.OAuthExceptionShortMessage = oauthExceptionMessage;
-            this.OAuthExceptionLongMessage = exception.Message;
-        }
-
-        public OAuthException(string oauthExceptionMessage)
-        {
-            this.OAuthExceptionShortMessage = oauthExceptionMessage;
-        }
+        /// <param name="message">The message associated with the exception.</param>
+        /// <param name="exception">More exception information that should be included with this exception.</param>
+        public OAuthException(string message, System.Exception exception) : base(message, exception) { }
 
         /// <summary>
-        /// Gets and sets OAuth Exception Short Message
+        /// Gets the OAuth exception short message
         /// </summary>
-        public string OAuthExceptionShortMessage
-        {
-            get
-            {
-                return this.oauthExceptionMessageShort;
-
-            }
-            set
-            {
-                this.oauthExceptionMessageShort = value;
-            }
-        }
+        public string OAuthExceptionShortMessage { get { return this.Message; } }
 
         /// <summary>
-        /// Gets and sets OAuth Exception Long Message
+        /// Gets the OAuth exception long message
         /// </summary>
-        public string OAuthExceptionLongMessage
-        {
-            get
-            {
-                return this.oauthExceptionMessageLong;
+        public string OAuthExceptionLongMessage { get { return this.InnerException == null ? string.Empty : this.InnerException.Message; } }
 
-            }
-            set
-            {
-                this.oauthExceptionMessageLong = value;
-            }
-        }
+        /// <summary>
+        /// Gets the prefix to use when logging the exception information.
+        /// </summary>
+        protected override string ExceptionMessagePrefix { get { return "OAuth Exception"; } }
     }
 }
