@@ -1,4 +1,5 @@
 using System.Text;
+using PayPal.Util;
 
 namespace PayPal
 {
@@ -164,7 +165,7 @@ namespace PayPal
         public const string SdkId = "paypal-core-dotnet";
 
         // DotNet SdkVersion for paypal-core
-        public static readonly string SdkVersion = typeof(PayPal.BaseConstants).Assembly.GetName().Version.ToString(3);
+        public static string SdkVersion { get { return SDKUtil.GetAssemblyVersionForType(typeof(BaseConstants)); } }
         
         public static class ErrorMessages
         {

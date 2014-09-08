@@ -84,6 +84,7 @@
     <Compile Include="SOAP\SignatureHttpHeaderAuthStrategyTest.cs" />
     <Compile Include="SOAP\SignatureSOAPHeaderAuthStrategyTest.cs" />
     <Compile Include="Util\SDKUtilTest.cs" />
+    <Compile Include="UserAgentTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

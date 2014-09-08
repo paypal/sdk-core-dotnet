@@ -295,5 +295,15 @@ namespace PayPal.Util
             }
             return response;
         }
+
+        /// <summary>
+        /// Gets the version number of the parent assembly for the specified object type.
+        /// </summary>
+        /// <typeparam name="T">The object type to use in determining which assembly version should be returned.</typeparam>
+        /// <returns>A 3-digit version of the parent assembly.</returns>
+        public static string GetAssemblyVersionForType(Type type)
+        {
+            return type.Assembly.GetName().Version.ToString(3);
+        }
     }
 }

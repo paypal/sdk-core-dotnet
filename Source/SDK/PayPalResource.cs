@@ -187,7 +187,7 @@ namespace PayPal
                     {
                         httpRequest.Headers.Add(entry.Key, entry.Value);
                     }
-                    
+
                     foreach (string headerName in httpRequest.Headers)
                     {
                         logger.DebugFormat(headerName + ":" + httpRequest.Headers[headerName]);
@@ -214,9 +214,9 @@ namespace PayPal
                     throw new PayPalException("Cannot create URL; baseURI=" + baseUri.ToString() + ", resourcePath=" + resourcePath);
                 }
             }
-            catch (PayPalException ex)
+            catch (PayPalException)
             {
-                throw ex;
+                throw;
             }
             catch (System.Exception ex)
             {
@@ -245,6 +245,7 @@ namespace PayPal
             restAPICallPreHandler.AuthorizationToken = authorizationToken;
             restAPICallPreHandler.RequestId = requestId;
             restAPICallPreHandler.Payload = payLoad;
+            restAPICallPreHandler.SdkVersion = sdkVersion;
             return (IAPICallPreHandler)restAPICallPreHandler;
         }
     }

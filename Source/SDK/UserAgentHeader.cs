@@ -9,7 +9,7 @@ namespace PayPal
     /// <summary>
     /// PayPal User-Agent Header implementation class
     /// </summary>
-    class UserAgentHeader
+    public class UserAgentHeader
     {
         /// <summary>
         /// Product Id
@@ -22,30 +22,14 @@ namespace PayPal
         private string productVersion;
 
         /// <summary>
-        /// DotNet Version Header
-        /// </summary>
-        private static string dotnetHeader;
-
-        /// <summary>
-        /// Operating System Header
-        /// </summary>
-        private static string osHeader;
-
-        static UserAgentHeader()
-        {
-            dotnetHeader = DotNetVersionHeader;
-            osHeader = GetOSHeader();
-        }
-
-        /// <summary>
         /// UserAgentHeader Constructor
         /// </summary>
         /// <param name="productId">Product Id, defaults to empty string if null or empty</param>
         /// <param name="productVersion">Product Version, defaults to empty string if null or empty</param>
         public UserAgentHeader(string productId, string productVersion)
         {
-            this.productId = String.IsNullOrEmpty(productId) ? "" : productId;
-            this.productVersion = String.IsNullOrEmpty(productVersion) ? "" : productVersion;
+            this.productId = productId;
+            this.productVersion = productVersion;
         }
 
         /// <summary>
@@ -54,56 +38,58 @@ namespace PayPal
         /// <returns>Dictionary containing User-Agent HTTP Header</returns>
         public Dictionary<string, string> GetHeader()
         {
-            Dictionary<string, string> userAgentDictionary = new Dictionary<string, string>();
-            userAgentDictionary.Add(BaseConstants.UserAgentHeader, FormUserAgentHeader());
+            var userAgentDictionary = new Dictionary<string, string>();
+            userAgentDictionary.Add(BaseConstants.UserAgentHeader, this.GetUserAgentHeader());
             return userAgentDictionary;
         }
 
-        private string FormUserAgentHeader()
+        /// <summary>
+        /// Creates the signature for the UserAgent header.
+        /// </summary>
+        /// <returns>A string containing the signature for the UserAgent header.</returns>
+        private string GetUserAgentHeader()
         {
-            string header = null;
-            StringBuilder stringBuilder = new StringBuilder("PayPalSDK/"
-                + productId + " " + productVersion + " ");
-            stringBuilder.Append(";").Append(dotnetHeader);
-            if (!string.IsNullOrEmpty(osHeader))
+            var header = new StringBuilder("PayPalSDK/");
+            header.Append(this.productId);
+            header.Append(" " + this.productVersion);
+            header.Append(" (");
+
+            header.Append(string.Join(";", new string[] 
             {
-                stringBuilder.Append(";").Append(osHeader);
-            }
-            header = stringBuilder.ToString();
-            return header;
+                FormatUserAgentParameter("core", BaseConstants.SdkVersion),
+                FormatUserAgentParameter("lang", "DOTNET"),
+                FormatUserAgentParameter("v", DotNetVersion),
+                FormatUserAgentParameter("clr", DotNetClrVersion),
+                FormatUserAgentParameter("bit", OperatingSystemBitness),
+                FormatUserAgentParameter("os", OperatingSystemName)
+            }));
+            header.Append(")");
+            return header.ToString();
         }
 
         /// <summary>
-        /// Returns Operating System Friendly Name. Returns an empty string if the query cannot read from the registry.
+        /// Formats a parameter name and value to be used in the signature of a UserAgent header.
         /// </summary>
-        private static string OperatingSystemFriendlyName
+        /// <param name="name">The name of the parameter.</param>
+        /// <param name="value">The value of the parameter.</param>
+        /// <returns>A formatted string containing both the parameter name and value.</returns>
+        private string FormatUserAgentParameter(string name, object value)
         {
-            get
-            {
-                //The query SELECT Caption FROM Win32_OperatingSyste gets the OS information from the registry. Azure does not have registry access. Wrapped in try catch.
-                try {
-                    string result = string.Empty;
-                    ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT Caption FROM Win32_OperatingSystem");
-                    foreach (ManagementObject os in searcher.Get())
-                    {
-                        result = os["Caption"].ToString();
-                    }
-                    return result;
-
-                }
-                catch (System.Exception) {
-                    return string.Empty;
-                }
-                
-            }
+            return string.Format("{0}={1}", name, value);
         }
 
 #if NET_2_0 || NET_3_5
+        /// <summary>
+        /// Returns whether or not the current process is running as a 64-bit process.
+        /// </summary>
         private static bool Is64BitProcess
         {
             get { return IntPtr.Size == 8; }
         }
 
+        /// <summary>
+        /// Returns whether or not the operating system is 64-bit.
+        /// </summary>
         private static bool Is64BitOperatingSystem
         {
             get
@@ -113,63 +99,89 @@ namespace PayPal
                     return true;
                 }
                 bool isWow64;
-                return ModuleContainsFunction("kernel32.dll", "IsWow64Process") && IsWow64Process(GetCurrentProcess(), out isWow64) && isWow64;
+                return ModuleContainsFunction("kernel32.dll", "IsWow64Process") && Win32.IsWow64Process(Win32.GetCurrentProcess(), out isWow64) && isWow64;
             }
         }
 
+        /// <summary>
+        /// Checks whether or not the specified module contains the specified method.
+        /// </summary>
+        /// <param name="moduleName">Name of the module to check.</param>
+        /// <param name="methodName">Name of the method to check for in the module.</param>
+        /// <returns>True if the method was found in the module; false otherwise.</returns>
         private static bool ModuleContainsFunction(string moduleName, string methodName)
         {
-            IntPtr hModule = GetModuleHandle(moduleName);
+            IntPtr hModule = Win32.GetModuleHandle(moduleName);
             if (hModule != IntPtr.Zero)
             {
-                return GetProcAddress(hModule, methodName) != IntPtr.Zero;
+                return Win32.GetProcAddress(hModule, methodName) != IntPtr.Zero;
             }
             return false;
         }
 
-        [DllImport("kernel32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        extern static bool IsWow64Process(IntPtr hProcess, [MarshalAs(UnmanagedType.Bool)] out bool isWow64);
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        extern static IntPtr GetCurrentProcess();
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-        extern static IntPtr GetModuleHandle(string moduleName);
-        [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
-        extern static IntPtr GetProcAddress(IntPtr hModule, string methodName);
-#endif
-        private static string GetOSHeader()
+        /// <summary>
+        /// Private class that provides p/invoke access to specific Win32 calls.
+        /// </summary>
+        private class Win32
         {
-            string osHeader = string.Empty;
-
-#if NET_2_0 || NET_3_5
-            if (Is64BitOperatingSystem)
-            {
-                osHeader += "bit=" + 64 + ";";
-            }
-            else 
-            {
-                osHeader += "bit=" + 32 + ";";
-            }
-#elif NET_4_0 || NET_4_5 || NET_4_5_1
-            if (Environment.Is64BitOperatingSystem)
-            {
-                osHeader += "bit=" + 64 + ";";
-            }
-            else
-            {
-                osHeader += "bit=" + 32 + ";";
-            }
+            [DllImport("kernel32.dll", SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public extern static bool IsWow64Process(IntPtr hProcess, [MarshalAs(UnmanagedType.Bool)] out bool isWow64);
+            [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            public extern static IntPtr GetCurrentProcess();
+            [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+            public extern static IntPtr GetModuleHandle(string moduleName);
+            [DllImport("kernel32.dll", CharSet = CharSet.Ansi, SetLastError = true)]
+            public extern static IntPtr GetProcAddress(IntPtr hModule, string methodName);
+        }
 #endif
-            osHeader += "os=" + OperatingSystemFriendlyName + " " + Environment.OSVersion.Version + ";";
-            return osHeader;
+
+        /// <summary>
+        /// Returns whether or not the operating system is 64-bit.
+        /// </summary>
+        /// <returns>True = 64-bit, False = 32-bit</returns>
+        private static bool Is64Bit()
+        {
+#if NET_2_0 || NET_3_5
+            return Is64BitOperatingSystem;
+#elif NET_4_0 || NET_4_5 || NET_4_5_1
+            return Environment.Is64BitOperatingSystem;
+#endif
         }
 
-        private static string DotNetVersionHeader
+        /// <summary>
+        /// Gets the bitness of the operating system.
+        /// </summary>
+        private static int OperatingSystemBitness { get { return Is64Bit() ? 64 : 32; } }
+
+        /// <summary>
+        /// Gets the name of the operating system.
+        /// </summary>
+        private static string OperatingSystemName { get { return Environment.OSVersion.ToString(); } }
+
+        /// <summary>
+        /// Gets the version of the current .NET common language runtime environment.
+        /// </summary>
+        private static string DotNetClrVersion { get { return Environment.Version.ToString().Trim(); } }
+
+        /// <summary>
+        /// Gets the version of the current .NET environment.
+        /// </summary>
+        private static string DotNetVersion 
         {
             get
             {
-                string DotNetVersionHeader = "lang=" + "DOTNET;" + "v=" + Environment.Version.ToString().Trim();
-                return DotNetVersionHeader;
+#if NET_2_0
+                return "2.0";
+#elif NET_3_5
+                return "3.5";
+#elif NET_4_0
+                return "4.0";
+#elif NET_4_5
+                return "4.5";
+#elif NET_4_5_1
+                return "4.5.1";
+#endif
             }
         }
     }
