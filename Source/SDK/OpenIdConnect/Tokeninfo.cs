@@ -19,92 +19,32 @@ namespace PayPal.OpenIdConnect
         /// <summary>
         /// OPTIONAL, if identical to the scope requested by the client otherwise, REQUIRED
         /// </summary>
-        private string scopeRequested;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string scope { get; set; }
 
         /// <summary>
         /// The access token issued by the authorization server
         /// </summary>
-        private string accessToken;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string access_token { get; set; }
 
         /// <summary>
         /// The refresh token, which can be used to obtain new access tokens using the same authorization grant as described in OAuth2.0 RFC6749 in Section 6
         /// </summary>
-        private string refreshToken;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string refresh_token { get; set; }
 
         /// <summary>
         /// The type of the token issued as described in OAuth2.0 RFC6749 (Section 7.1), value is case insensitive
         /// </summary>
-        private string tokenType;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string token_type { get; set; }
 
         /// <summary>
         /// The lifetime in seconds of the access token
         /// </summary>
-        private int expiresIn;
-
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string scope
-        {
-            get
-            {
-                return scopeRequested;
-            }
-            set
-            {
-                scopeRequested = value;
-            }
-        }
-        
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string access_token
-        {
-            get
-            {
-                return accessToken;
-            }
-            set
-            {
-                accessToken = value;
-            }
-        }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string refresh_token
-        {
-            get
-            {
-                return refreshToken;
-            }
-            set
-            {
-                refreshToken = value;
-            }
-        }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string token_type
-        {
-            get
-            {
-                return tokenType;
-            }
-            set
-            {
-                tokenType = value;
-            }
-        }
-       
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public int expires_in
-        {
-            get
-            {
-                return expiresIn;
-            }
-            set
-            {
-                expiresIn = value;
-            }
-        }
+        public int expires_in { get; set; }
 
         /// <summary>
         /// Explicit default constructor
@@ -137,12 +77,38 @@ namespace PayPal.OpenIdConnect
         /// </summary>
         public static Tokeninfo CreateFromAuthorizationCode(APIContext apiContext, CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters)
         {
-            string pattern = "v1/identity/openidconnect/tokenservice?grant_type={0}&code={1}&redirect_uri={2}";
-            object[] parameters = new object[] { createFromAuthorizationCodeParameters };
-            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
-            string payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
+            var pattern = "v1/identity/openidconnect/tokenservice?grant_type={0}&code={1}&redirect_uri={2}";
+            var parameters = new object[] { createFromAuthorizationCodeParameters };
+            var resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+            return CreateFromAuthorizationCodeParameters(apiContext, createFromAuthorizationCodeParameters, resourcePath);
+        }
+
+        /// <summary>
+        /// Creates Access and Refresh Tokens from an Authorization Code for future payments.
+        /// </summary>
+        /// <param name="apiContext">APIContext to be used for the call.</param>
+        /// <param name="createFromAuthorizationCodeParameters">Query parameters used for the API call.</param>
+        /// <returns>A TokenInfo object containing the Access and Refresh Tokens.</returns>
+        public static Tokeninfo CreateFromAuthorizationCodeForFuturePayments(APIContext apiContext, CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters)
+        {
+            var pattern = "v1/oauth2/token?grant_type=authorization_code&response_type=token&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code={0}";
+            var parameters = new object[] { createFromAuthorizationCodeParameters.ContainerMap["code"] };
+            var resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+            return CreateFromAuthorizationCodeParameters(apiContext, createFromAuthorizationCodeParameters, resourcePath);
+        }
+
+        /// <summary>
+        /// Helper method for creating Access and Refresh Tokens from an Authorization Code.
+        /// </summary>
+        /// <param name="apiContext">APIContext to be used for the call.</param>
+        /// <param name="createFromAuthorizationCodeParameters">Query parameters used for the API call.</param>
+        /// <param name="resourcePath">The path to the REST API resource that will be requested.</param>
+        /// <returns>A TokenInfo object containing the Access and Refresh Tokens.</returns>
+        private static Tokeninfo CreateFromAuthorizationCodeParameters(APIContext apiContext, CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters, string resourcePath)
+        {
+            var payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
             resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
-            Dictionary<string, string> headersMap = new Dictionary<string, string>();
+            var headersMap = new Dictionary<string, string>();
             headersMap.Add(BaseConstants.ContentTypeHeader, "application/x-www-form-urlencoded");
             if (apiContext == null)
             {
