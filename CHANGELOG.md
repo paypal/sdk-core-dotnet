@@ -3,6 +3,7 @@
 #### v1.5.0 - September 9, 2014
 
   * Added future payments support
+  * Dropped .NET 2.0 support
 
 #### v1.4.3 - July 10, 2014
 
