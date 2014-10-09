@@ -1,4 +1,8 @@
-###CHANGE LOG
+### CHANGE LOG
+
+#### v1.5.1 - October 9, 2014
+
+  * Fixed PUT and PATCH requests to send payload
 
 #### v1.5.0 - September 9, 2014
 
