@@ -120,6 +120,8 @@ namespace PayPal
                             switch (httpRequest.Method)
                             {
                                 case "POST":
+                                case "PUT":
+                                case "PATCH":
                                     using (StreamWriter writerStream = new StreamWriter(httpRequest.GetRequestStream()))
                                     {
                                         if (!string.IsNullOrEmpty(payLoad))
