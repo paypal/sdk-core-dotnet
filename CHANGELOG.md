@@ -1,5 +1,9 @@
 ### CHANGE LOG
 
+#### v1.5.2 - October 23, 2014
+
+  * Fixed null exception being thrown for connection timeout errors
+
 #### v1.5.1 - October 9, 2014
 
   * Fixed PUT and PATCH requests to send payload

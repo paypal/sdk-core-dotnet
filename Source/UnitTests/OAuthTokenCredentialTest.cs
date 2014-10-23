@@ -30,7 +30,7 @@ namespace PayPal.UnitTest
         /// A test for GetAccessToken
         /// </summary>
         [TestMethod()]
-        [ExpectedException(typeof(PayPal.Exception.PayPalException))]
+        [ExpectedException(typeof(PayPal.Exception.ConnectionException))]
         public void GetAccessTokenInvalidEndpointTest()
         {
             var accessToken = this.GetAccessToken("https://localhost.sandbox.paypal.com", OAuthTokenCredentialTest.clientId, OAuthTokenCredentialTest.clientSecret);
@@ -83,6 +83,17 @@ namespace PayPal.UnitTest
         public void Verify64BitEncodingWithEmptyClientSecret()
         {
             this.ConvertClientCredentialsToBase64String(OAuthTokenCredentialTest.clientId, "");
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(PayPal.Exception.ConnectionException))]
+        public void GetAccessTokenTimeoutTest()
+        {
+            var config = new Dictionary<string, string>();
+            config[BaseConstants.ApplicationModeConfig] = BaseConstants.SandboxMode;
+            config[BaseConstants.HttpConnectionTimeoutConfig] = "10";
+            var target = new OAuthTokenCredential(clientId, clientSecret, config);
+            var accessToken = target.GetAccessToken();
         }
 
         /// <summary>

@@ -131,7 +131,6 @@ namespace PayPal
                                             writerStream.Close();
                                             logger.Debug(payLoad);
                                         }
-
                                     }
                                     break;
                                 default:
@@ -152,13 +151,16 @@ namespace PayPal
                     }
                     catch (WebException ex)
                     {
-                        // Get and log the response from the remote host.
-                        string response = null;
-                        using (StreamReader readerStream = new StreamReader(ex.Response.GetResponseStream()))
+                        // If provided, get and log the response from the remote host.
+                        var response = string.Empty;
+                        if (ex.Response != null)
                         {
-                            response = readerStream.ReadToEnd().Trim();
-                            logger.Error("Error response:");
-                            logger.Error(response);
+                            using (var readerStream = new StreamReader(ex.Response.GetResponseStream()))
+                            {
+                                response = readerStream.ReadToEnd().Trim();
+                                logger.Error("Error response:");
+                                logger.Error(response);
+                            }
                         }
                         logger.Error(ex.Message);
 
@@ -178,6 +180,12 @@ namespace PayPal
                             }
 
                             throw new HttpException(ex.Message, response, statusCode, ex.Status);
+                        }
+                        else if (ex.Status == WebExceptionStatus.Timeout)
+                        {
+                            // For connection timeout errors, include the connection timeout value that was used.
+                            var message = string.Format("{0} (HTTP request timeout was set to {1}ms)", ex.Message, httpRequest.Timeout);
+                            throw new ConnectionException(message, response, ex.Status);
                         }
 
                         // Non-protocol errors indicate something happened with the underlying connection to the server.
