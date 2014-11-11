@@ -1,5 +1,10 @@
 ### CHANGE LOG
 
+#### v1.6.0 - November 11, 2014
+
+  * Re-added .NET 2.0 support
+  * Added UserAgent to Classic SDK prehandlers
+
 #### v1.5.2 - October 23, 2014
 
   * Fixed null exception being thrown for connection timeout errors
