@@ -305,5 +305,18 @@ namespace PayPal.Util
         {
             return type.Assembly.GetName().Version.ToString(3);
         }
+
+        /// <summary>
+        /// Adds User-Agent information to the specified headers map.
+        /// </summary>
+        /// <param name="headers">A map of headers to be updated with user-agent information.</param>
+        public static void AddUserAgentToHeader(Dictionary<string, string> headers, string name, string version)
+        {
+            UserAgentHeader userAgentHeader = new UserAgentHeader(name, version);
+            foreach (KeyValuePair<string, string> item in userAgentHeader.GetHeader())
+            {
+                headers[item.Key] = item.Value;
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using PayPal.Authentication;
 using PayPal.Exception;
 using PayPal.Manager;
+using PayPal.Util;
 
 namespace PayPal.SOAP
 {
@@ -330,8 +331,9 @@ namespace PayPal.SOAP
 		    returnMap.Add(BaseConstants.PayPalRequestDataFormatHeader, BaseConstants.SOAP);
             returnMap.Add(BaseConstants.PayPalResponseDataFormatHeader, BaseConstants.SOAP);
             returnMap.Add(BaseConstants.PayPalRequestSourceHeader, SDKName + "-" + SDKVersion);
+            SDKUtil.AddUserAgentToHeader(returnMap, SDKName, SDKVersion);
 		    return returnMap;
-	    }        
+	    }
 
         /// <summary>
         /// Initializes the instance of ICredential

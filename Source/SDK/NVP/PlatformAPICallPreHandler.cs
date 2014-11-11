@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using PayPal.Authentication;
 using PayPal.Manager;
 using PayPal.Exception;
+using PayPal.Util;
 
 namespace PayPal.NVP
 {
@@ -322,6 +323,7 @@ namespace PayPal.NVP
                 returnMap.Add(BaseConstants.PayPalRequestSourceHeader, SDKName + "-" + SDKVersion);
                 returnMap.Add(BaseConstants.PayPalSandboxEmailAddressHeader, GetSandboxEmailAddress());
                 returnMap.Add(BaseConstants.PayPalSandboxDeviceIPAddress, GetDeviceIPAddress());
+                SDKUtil.AddUserAgentToHeader(returnMap, SDKName, SDKVersion);
             }
             catch(System.Exception ex)
             {
