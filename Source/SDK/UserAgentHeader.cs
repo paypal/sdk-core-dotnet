@@ -38,7 +38,7 @@ namespace PayPal
         /// <returns>Dictionary containing User-Agent HTTP Header</returns>
         public Dictionary<string, string> GetHeader()
         {
-            var userAgentDictionary = new Dictionary<string, string>();
+            Dictionary<string, string> userAgentDictionary = new Dictionary<string, string>();
             userAgentDictionary.Add(BaseConstants.UserAgentHeader, this.GetUserAgentHeader());
             return userAgentDictionary;
         }
@@ -49,7 +49,7 @@ namespace PayPal
         /// <returns>A string containing the signature for the UserAgent header.</returns>
         private string GetUserAgentHeader()
         {
-            var header = new StringBuilder("PayPalSDK/");
+            StringBuilder header = new StringBuilder("PayPalSDK/");
             header.Append(this.productId);
             header.Append(" " + this.productVersion);
             header.Append(" (");

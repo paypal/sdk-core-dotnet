@@ -12,7 +12,8 @@ namespace PayPal.Exception
         /// <summary>
         /// Gets a <see cref="PayPal.Exception.IdentityError"/> JSON object containing the parsed details of the Identity error.
         /// </summary>
-        public IdentityError Details { get; private set; }
+        public IdentityError Details { get { return this._details; } private set { this._details = value; } }
+        private IdentityError _details;
 
         /// <summary>
         /// Copy constructor that attempts to deserialize the response from the specified <paramref name="PayPal.Exception.HttpException"/>.

@@ -59,18 +59,20 @@ namespace PayPal
         /// </summary>
         public string ClientId
         {
-            get;
-            private set;
+            get { return this._clientId; }
+            private set { this._clientId = value; }
         }
+        private string _clientId;
 
         /// <summary>
         /// Gets the client secret to be used when creating an OAuth token.
         /// </summary>
         public string ClientSecret
         {
-            get;
-            private set;
+            get { return this._clientSecret; }
+            private set { this._clientSecret = value; }
         }
+        private string _clientSecret;
 
         /// <summary>
         /// Gets the application ID returned by OAuth servers.
@@ -78,9 +80,10 @@ namespace PayPal
         /// </summary>
         public string ApplicationId
         {
-            get;
-            private set;
+            get { return this._applicationId; }
+            private set { this._applicationId = value; }
         }
+        private string _applicationId;
 
         /// <summary>
         /// Gets or sets the lifetime of a created access token in seconds.
@@ -88,9 +91,10 @@ namespace PayPal
         /// </summary>
         public int AccessTokenExpirationInSeconds
         {
-            get;
-            set;
+            get { return this._accessTokenExpirationInSeconds; }
+            set { this._accessTokenExpirationInSeconds = value; }
         }
+        private int _accessTokenExpirationInSeconds;
 
         /// <summary>
         /// Gets the last date when access token was generated.
@@ -98,9 +102,10 @@ namespace PayPal
         /// </summary>
         public DateTime AccessTokenLastCreationDate
         {
-            get;
-            private set;
+            get { return this._accessTokenLastCreationDate; }
+            private set { this._accessTokenLastCreationDate = value; }
         }
+        private DateTime _accessTokenLastCreationDate;
 
         /// <summary>
         /// Gets or sets the safety gap when checking the expiration of an already created access token in seconds.
@@ -109,9 +114,10 @@ namespace PayPal
         /// </summary>
         public int AccessTokenExpirationSafetyGapInSeconds
         {
-            get;
-            set;
+            get { return this._accessTokenExpirationSafetyGapInSeconds; }
+            set { this._accessTokenExpirationSafetyGapInSeconds = value; }
         }
+        private int _accessTokenExpirationSafetyGapInSeconds;
                
         /// <summary>
         /// Client Id and Secret for the OAuth
@@ -171,7 +177,7 @@ namespace PayPal
                 // Write Logic for passing in Detail to Identity Api Serv and
                 // computing the token
                 // Set the Value inside the accessToken and result
-                var base64ClientId = OAuthTokenCredential.ConvertClientCredentialsToBase64String(this.ClientId, this.ClientSecret);
+                string base64ClientId = OAuthTokenCredential.ConvertClientCredentialsToBase64String(this.ClientId, this.ClientSecret);
                 this.accessToken = this.GenerateOAuthToken(base64ClientId);
             }
             return this.accessToken;
@@ -268,8 +274,8 @@ namespace PayPal
             {
                 // aganzha
                 //iso-8859-1
-                var iso8851 = Encoding.GetEncoding("iso-8859-1", new EncoderReplacementFallback(string.Empty), new DecoderExceptionFallback());
-                var bytes = Encoding.Convert(Encoding.UTF8,iso8851, Encoding.UTF8.GetBytes(entry.Value));                
+                Encoding iso8851 = Encoding.GetEncoding("iso-8859-1", new EncoderReplacementFallback(string.Empty), new DecoderExceptionFallback());
+                byte[] bytes = Encoding.Convert(Encoding.UTF8,iso8851, Encoding.UTF8.GetBytes(entry.Value));                
                 httpRequest.UserAgent = iso8851.GetString(bytes);
             }
             foreach (KeyValuePair<string, string> header in headers)

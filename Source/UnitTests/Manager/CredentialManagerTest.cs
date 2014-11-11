@@ -19,7 +19,11 @@ namespace PayPal.UnitTest
             credentialMngr = CredentialManager.Instance;
             credential = credentialMngr.GetCredentials(ConfigManager.Instance.GetProperties(), apiUsername);
             Assert.IsNotNull(credential);
+#if NUnit
+            Assert.IsInstanceOf<SignatureCredential>(credential);
+#else
             Assert.IsInstanceOfType(credential, typeof(SignatureCredential));
+#endif
             SignatureCredential signCredential = (SignatureCredential)credential;
             Assert.AreEqual(apiUsername, signCredential.UserName);
             Assert.AreEqual(Constants.APIPassword, signCredential.Password);
@@ -34,7 +38,11 @@ namespace PayPal.UnitTest
             credentialMngr = CredentialManager.Instance;
             credential = credentialMngr.GetCredentials(ConfigManager.Instance.GetProperties(), apiUsername);
             Assert.IsNotNull(credential);
+#if NUnit
+            Assert.IsInstanceOf<CertificateCredential>(credential);
+#else
             Assert.IsInstanceOfType(credential, typeof(CertificateCredential));
+#endif
             CertificateCredential certCredential = (CertificateCredential)credential;
             Assert.AreEqual(apiUsername, certCredential.UserName);
             Assert.AreEqual(Constants.CertificateAPIPassword, certCredential.Password);

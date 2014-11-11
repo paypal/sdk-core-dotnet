@@ -11,7 +11,8 @@ namespace PayPal.Exception
         /// <summary>
         /// Gets the <see cref="System.Net.HttpStatusCode"/> returned from the server.
         /// </summary>
-        public HttpStatusCode StatusCode { get; private set; }
+        public HttpStatusCode StatusCode { get { return this._statusCode; } private set { this._statusCode = value; } }
+        private HttpStatusCode _statusCode;
 
         /// <summary>
         /// Represents an error occurred when attempting to send an HTTP request.

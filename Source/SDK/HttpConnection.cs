@@ -152,10 +152,10 @@ namespace PayPal
                     catch (WebException ex)
                     {
                         // If provided, get and log the response from the remote host.
-                        var response = string.Empty;
+                        string response = string.Empty;
                         if (ex.Response != null)
                         {
-                            using (var readerStream = new StreamReader(ex.Response.GetResponseStream()))
+                            using (StreamReader readerStream = new StreamReader(ex.Response.GetResponseStream()))
                             {
                                 response = readerStream.ReadToEnd().Trim();
                                 logger.Error("Error response:");
@@ -169,7 +169,7 @@ namespace PayPal
                         // 5xx error).
                         if (ex.Status == WebExceptionStatus.ProtocolError)
                         {
-                            var statusCode = ((HttpWebResponse)ex.Response).StatusCode;
+                            HttpStatusCode statusCode = ((HttpWebResponse)ex.Response).StatusCode;
 
                             // If the HTTP status code is flagged as one where we
                             // should continue retrying, then ignore the exception
@@ -184,7 +184,7 @@ namespace PayPal
                         else if (ex.Status == WebExceptionStatus.Timeout)
                         {
                             // For connection timeout errors, include the connection timeout value that was used.
-                            var message = string.Format("{0} (HTTP request timeout was set to {1}ms)", ex.Message, httpRequest.Timeout);
+                            string message = string.Format("{0} (HTTP request timeout was set to {1}ms)", ex.Message, httpRequest.Timeout);
                             throw new ConnectionException(message, response, ex.Status);
                         }
 

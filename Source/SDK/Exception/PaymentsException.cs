@@ -8,7 +8,8 @@ namespace PayPal.Exception
         /// <summary>
         /// Gets a <see cref="PayPal.Exception.PaymentsError"/> JSON object containing the parsed details of the Payments error.
         /// </summary>
-        public PaymentsError Details { get; private set; }
+        public PaymentsError Details { get { return this._details; } private set { this._details = value; } }
+        private PaymentsError _details;
 
         /// <summary>
         /// Copy constructor that attempts to deserialize the response from the specified <paramref name="PayPal.Exception.HttpException"/>.

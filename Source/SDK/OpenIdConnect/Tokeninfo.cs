@@ -20,31 +20,36 @@ namespace PayPal.OpenIdConnect
         /// OPTIONAL, if identical to the scope requested by the client otherwise, REQUIRED
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string scope { get; set; }
+        public string scope { get { return this._scope; } set { this._scope = value; } }
+        private string _scope;
 
         /// <summary>
         /// The access token issued by the authorization server
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string access_token { get; set; }
+        public string access_token { get { return this._access_token; } set { this._access_token = value; } }
+        private string _access_token;
 
         /// <summary>
         /// The refresh token, which can be used to obtain new access tokens using the same authorization grant as described in OAuth2.0 RFC6749 in Section 6
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string refresh_token { get; set; }
+        public string refresh_token { get { return this._refresh_token; } set { this._refresh_token = value; } }
+        private string _refresh_token;
 
         /// <summary>
         /// The type of the token issued as described in OAuth2.0 RFC6749 (Section 7.1), value is case insensitive
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string token_type { get; set; }
+        public string token_type { get { return this._token_type; } set { this._token_type = value; } }
+        private string _token_type;
 
         /// <summary>
         /// The lifetime in seconds of the access token
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public int expires_in { get; set; }
+        public int expires_in { get { return this._expires_in; } set { this._expires_in = value; } }
+        private int _expires_in;
 
         /// <summary>
         /// Explicit default constructor
@@ -77,9 +82,9 @@ namespace PayPal.OpenIdConnect
         /// </summary>
         public static Tokeninfo CreateFromAuthorizationCode(APIContext apiContext, CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters)
         {
-            var pattern = "v1/identity/openidconnect/tokenservice?grant_type={0}&code={1}&redirect_uri={2}";
-            var parameters = new object[] { createFromAuthorizationCodeParameters };
-            var resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+            string pattern = "v1/identity/openidconnect/tokenservice?grant_type={0}&code={1}&redirect_uri={2}";
+            object[] parameters = new object[] { createFromAuthorizationCodeParameters };
+            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             return CreateFromAuthorizationCodeParameters(apiContext, createFromAuthorizationCodeParameters, resourcePath);
         }
 
@@ -91,9 +96,9 @@ namespace PayPal.OpenIdConnect
         /// <returns>A TokenInfo object containing the Access and Refresh Tokens.</returns>
         public static Tokeninfo CreateFromAuthorizationCodeForFuturePayments(APIContext apiContext, CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters)
         {
-            var pattern = "v1/oauth2/token?grant_type=authorization_code&response_type=token&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code={0}";
-            var parameters = new object[] { createFromAuthorizationCodeParameters.ContainerMap["code"] };
-            var resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
+            string pattern = "v1/oauth2/token?grant_type=authorization_code&response_type=token&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code={0}";
+            object[] parameters = new object[] { createFromAuthorizationCodeParameters.ContainerMap["code"] };
+            string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             return CreateFromAuthorizationCodeParameters(apiContext, createFromAuthorizationCodeParameters, resourcePath);
         }
 
@@ -106,9 +111,9 @@ namespace PayPal.OpenIdConnect
         /// <returns>A TokenInfo object containing the Access and Refresh Tokens.</returns>
         private static Tokeninfo CreateFromAuthorizationCodeParameters(APIContext apiContext, CreateFromAuthorizationCodeParameters createFromAuthorizationCodeParameters, string resourcePath)
         {
-            var payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
+            string payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);
             resourcePath = resourcePath.Substring(0, resourcePath.IndexOf("?"));
-            var headersMap = new Dictionary<string, string>();
+            Dictionary<string, string> headersMap = new Dictionary<string, string>();
             headersMap.Add(BaseConstants.ContentTypeHeader, "application/x-www-form-urlencoded");
             if (apiContext == null)
             {

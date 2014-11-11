@@ -22,7 +22,7 @@ namespace PayPal.UnitTest
         [TestMethod()]
         public void GetAccessTokenTest()
         {
-            var accessToken = this.GetAccessToken(OAuthTokenCredentialTest.endpoint, OAuthTokenCredentialTest.clientId, OAuthTokenCredentialTest.clientSecret);
+            string accessToken = this.GetAccessToken(OAuthTokenCredentialTest.endpoint, OAuthTokenCredentialTest.clientId, OAuthTokenCredentialTest.clientSecret);
             Assert.AreEqual(true, accessToken.StartsWith("Bearer "));
         }
 
@@ -33,27 +33,28 @@ namespace PayPal.UnitTest
         [ExpectedException(typeof(PayPal.Exception.ConnectionException))]
         public void GetAccessTokenInvalidEndpointTest()
         {
-            var accessToken = this.GetAccessToken("https://localhost.sandbox.paypal.com", OAuthTokenCredentialTest.clientId, OAuthTokenCredentialTest.clientSecret);
+            string accessToken = this.GetAccessToken("https://localhost.sandbox.paypal.com", OAuthTokenCredentialTest.clientId, OAuthTokenCredentialTest.clientSecret);
         }
 
         [TestMethod()]
         [ExpectedException(typeof(PayPal.Exception.IdentityException))]
         public void GetAccessTokenInvalidClientId()
         {
-            var accessToken = this.GetAccessToken(OAuthTokenCredentialTest.endpoint, "invalid_client_id", OAuthTokenCredentialTest.clientSecret);
+            string accessToken = this.GetAccessToken(OAuthTokenCredentialTest.endpoint, "invalid_client_id", OAuthTokenCredentialTest.clientSecret);
         }
 
         [TestMethod()]
         [ExpectedException(typeof(PayPal.Exception.IdentityException))]
         public void GetAccessTokenInvalidClientSecret()
         {
-            var accessToken = this.GetAccessToken(OAuthTokenCredentialTest.endpoint, OAuthTokenCredentialTest.clientId, "invalid_client_secret");
+            string accessToken = this.GetAccessToken(OAuthTokenCredentialTest.endpoint, OAuthTokenCredentialTest.clientId, "invalid_client_secret");
         }
 
+#if !NUnit
         [TestMethod()]
         public void Verify64BitEncodingWithValidCredentials()
         {
-            var credentials = this.ConvertClientCredentialsToBase64String(OAuthTokenCredentialTest.clientId, OAuthTokenCredentialTest.clientSecret);
+            string credentials = this.ConvertClientCredentialsToBase64String(OAuthTokenCredentialTest.clientId, OAuthTokenCredentialTest.clientSecret);
             Assert.AreEqual("RUJXS2psRUxLTVlxUk5RNnNZdkZvNjRGdGFSTFJSNUJkSEVFU21oYTQ5VE06RU80MjJkbjNnUUxnRGJ1d3FUanpyRmdGdGFSTFJSNUJkSEVFU21oYTQ5VE0=", credentials);
         }
 
@@ -84,16 +85,17 @@ namespace PayPal.UnitTest
         {
             this.ConvertClientCredentialsToBase64String(OAuthTokenCredentialTest.clientId, "");
         }
+#endif
 
         [TestMethod()]
         [ExpectedException(typeof(PayPal.Exception.ConnectionException))]
         public void GetAccessTokenTimeoutTest()
         {
-            var config = new Dictionary<string, string>();
+            Dictionary<string, string> config = new Dictionary<string, string>();
             config[BaseConstants.ApplicationModeConfig] = BaseConstants.SandboxMode;
             config[BaseConstants.HttpConnectionTimeoutConfig] = "10";
-            var target = new OAuthTokenCredential(clientId, clientSecret, config);
-            var accessToken = target.GetAccessToken();
+            OAuthTokenCredential target = new OAuthTokenCredential(clientId, clientSecret, config);
+            string accessToken = target.GetAccessToken();
         }
 
         /// <summary>
@@ -105,12 +107,13 @@ namespace PayPal.UnitTest
         /// <returns></returns>
         private string GetAccessToken(string endpoint, string clientId, string clientSecret)
         {
-            var config = new Dictionary<string, string>();
+            Dictionary<string, string> config = new Dictionary<string, string>();
             config.Add("endpoint", endpoint);
-            var target = new OAuthTokenCredential(clientId, clientSecret, config);
+            OAuthTokenCredential target = new OAuthTokenCredential(clientId, clientSecret, config);
             return target.GetAccessToken();
         }
 
+#if !NUnit
         /// <summary>
         /// Helper method for calling <see cref="OAuthTokenCredentia.ConvertClientCredentialsToBase64String"/> from any unit test.
         /// </summary>
@@ -119,8 +122,9 @@ namespace PayPal.UnitTest
         /// <returns>A base-64 encoded string containing the client credentials.</returns>
         private string ConvertClientCredentialsToBase64String(string clientId, string clientSecret)
         {
-            var oauthTokenCredential = new PrivateType(typeof(OAuthTokenCredential));
+            PrivateType oauthTokenCredential = new PrivateType(typeof(OAuthTokenCredential));
             return oauthTokenCredential.InvokeStatic("ConvertClientCredentialsToBase64String", new string[] { clientId, clientSecret }) as string;
         }
+#endif
     }
 }

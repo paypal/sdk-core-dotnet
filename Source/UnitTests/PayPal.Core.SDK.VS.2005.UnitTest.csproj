@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B14448F9-EA7C-4418-882F-C5976F7719E5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>PayPal.UnitTest</RootNamespace>
+    <AssemblyName>PayPalCoreSDKVS2005UnitTest</AssemblyName>
+    <WarningLevel>4</WarningLevel>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\UnitTestBuild\bin\Debug\net20\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>..\UnitTestBuild\bin\Release\net20\</OutputPath>
+    <DefineConstants>TRACE;NUnit</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Windows\assembly\GAC_MSIL\Microsoft.VisualStudio.QualityTools.UnitTestFramework\8.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="APIServiceTest.cs" />
+    <Compile Include="Authentication\CertificateCredentialTest.cs" />
+    <Compile Include="Authentication\SignatureCredentialTest.cs" />
+    <Compile Include="Authentication\SubjectAuthorizationTest .cs" />
+    <Compile Include="Authentication\TokenAuthorizationTest.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="DefaultSOAPAPICallHandlerTest.cs" />
+    <Compile Include="IPNMessageTest.cs" />
+    <Compile Include="Manager\ConfigManagerTest.cs" />
+    <Compile Include="Manager\ConnectionManagerTest.cs" />
+    <Compile Include="Manager\CredentialManagerTest.cs" />
+    <Compile Include="NVP\CertificateHttpHeaderAuthStrategyNVPTest.cs" />
+    <Compile Include="NVP\PlatformAPICallPreHandlerTest.cs" />
+    <Compile Include="NVP\SignatureHttpHeaderAuthStrategyNVPTest.cs" />
+    <Compile Include="OAuthTokenCredentialTest.cs" />
+    <Compile Include="OpenIdConnect\OpenIdTest.cs" />
+    <Compile Include="RESTAPICallPreHandlerTest.cs" />
+    <Compile Include="SOAP\CertificateHttpHeaderAuthStrategyTest.cs" />
+    <Compile Include="SOAP\CertificateSOAPHeaderAuthStrategyTest.cs" />
+    <Compile Include="SOAP\MerchantAPICallPreHandlerTest.cs" />
+    <Compile Include="SOAP\SignatureHttpHeaderAuthStrategyTest.cs" />
+    <Compile Include="SOAP\SignatureSOAPHeaderAuthStrategyTest.cs" />
+    <Compile Include="Util\SDKUtilTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Resources\sdk-cert.p12" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SDK\PayPal.Core.SDK.VS.2005.csproj">
+      <Project>{7CD6456F-7828-45EA-90A1-C1E26900C476}</Project>
+      <Name>PayPal.Core.SDK.VS.2005</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+</Project>

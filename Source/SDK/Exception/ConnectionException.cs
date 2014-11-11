@@ -7,12 +7,14 @@ namespace PayPal.Exception
         /// <summary>
         /// Gets the response payload for non-200 response
         /// </summary>
-        public string Response { get; private set; }
+        public string Response { get { return this._response; } private set { this._response = value; } }
+        private string _response;
 
         /// <summary>
         /// Gets the <see cref="System.Net.WebExceptionStatus"/> returned from a failed HTTP request.
         /// </summary>
-        public WebExceptionStatus WebExceptionStatus { get; private set; }
+        public WebExceptionStatus WebExceptionStatus { get { return this._webExceptionStatus; } private set { this._webExceptionStatus = value; } }
+        private WebExceptionStatus _webExceptionStatus;
 
         /// <summary>
         /// Represents errors that occur during application execution
