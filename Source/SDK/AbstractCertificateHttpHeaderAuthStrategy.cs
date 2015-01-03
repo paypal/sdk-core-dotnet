@@ -15,7 +15,7 @@ namespace PayPal
         /// AbstractCertificateHttpHeaderAuthStrategy constructor
         /// </summary>
         /// <param name="endpointUrl"></param>
-        public AbstractCertificateHttpHeaderAuthStrategy(string endpointUrl)
+        protected AbstractCertificateHttpHeaderAuthStrategy(string endpointUrl)
         {
             this.endpointUrl = endpointUrl;
         }

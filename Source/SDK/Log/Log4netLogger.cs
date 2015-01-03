@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using System.Globalization;
 
 namespace PayPal.Log
 {

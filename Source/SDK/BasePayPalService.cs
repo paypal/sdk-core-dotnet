@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using PayPal.Manager;
-using System;
 
 namespace PayPal
 {
@@ -13,12 +12,12 @@ namespace PayPal
 
         protected Dictionary<string, string> config;
 
-        public BasePayPalService() 
+        protected BasePayPalService() 
         {
             this.config = ConfigManager.GetConfigWithDefaults(ConfigManager.Instance.GetProperties());
         }
 
-        public BasePayPalService(Dictionary<string, string> config) 
+        protected BasePayPalService(Dictionary<string, string> config) 
         {
             this.config = ConfigManager.GetConfigWithDefaults(config);
         }

@@ -8,11 +8,11 @@ namespace PayPal.Authentication
         /// Subject information
         /// </summary>
         private string sub;
-           
+
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="subject"></param>
+        /// <param name="sub"></param>
         public SubjectAuthorization(string sub) : base()
         {
             if (string.IsNullOrEmpty(sub))
