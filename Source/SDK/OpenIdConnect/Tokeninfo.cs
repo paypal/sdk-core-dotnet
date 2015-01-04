@@ -9,7 +9,6 @@ using System.Collections.Generic;
     * Reference is auto-added 
 */
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using PayPal.Util;
 
 namespace PayPal.OpenIdConnect

@@ -1,11 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using PayPal.Manager;
-using PayPal.Exception;
 using PayPal.Authentication;
 using PayPal.Log;
 

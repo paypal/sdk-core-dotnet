@@ -16,7 +16,6 @@ using Newtonsoft.Json.Linq;
 using PayPal.Exception;
 using PayPal.Manager;
 using PayPal.Log;
-using System.Web;
 
 namespace PayPal
 {

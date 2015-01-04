@@ -14,8 +14,8 @@ namespace PayPal
         /// <summary>
         /// AbstractCertificateHttpHeaderAuthStrategy constructor
         /// </summary>
-        /// <param name="endPointUrl"></param>
-        public AbstractSignatureHttpHeaderAuthStrategy(string endpointUrl)
+        /// <param name="endpointUrl"></param>
+        protected AbstractSignatureHttpHeaderAuthStrategy(string endpointUrl)
         {
             this.endpointUrl = endpointUrl;
         }
@@ -23,7 +23,7 @@ namespace PayPal
         /// <summary>
         /// Returns CertificateCredential as HTTP headers
         /// </summary>
-        /// <param name="credential"></param>
+        /// <param name="signCredential"></param>
         /// <returns></returns>
         public Dictionary<string, string> GenerateHeaderStrategy(SignatureCredential signCredential)
         {

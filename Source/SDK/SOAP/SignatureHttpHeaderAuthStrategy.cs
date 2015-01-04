@@ -16,7 +16,7 @@ namespace PayPal.SOAP
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="endPointUrl"></param>
+        /// <param name="endpointUrl"></param>
         public SignatureHttpHeaderAuthStrategy(string endpointUrl) : base(endpointUrl) { }
 
 	    /// <summary>

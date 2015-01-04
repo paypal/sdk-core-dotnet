@@ -1,5 +1,3 @@
-using PayPal.Log;
-
 namespace PayPal.Exception
 {
     public class ConfigException : PayPalException

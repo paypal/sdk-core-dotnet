@@ -4,21 +4,21 @@ namespace PayPal.Util
 {
     public class QueryParameters
     {
-        private static readonly string count = "count";
+        private const string count = "count";
 
-        private static readonly string startId = "start_id";
+        private const string startId = "start_id";
 
-        private static readonly string startIndex = "start_index";
+        private const string startIndex = "start_index";
 
-        private static readonly string startTime = "start_time";
+        private const string startTime = "start_time";
 
-        private static readonly string endTime = "end_time";
+        private const string endTime = "end_time";
 
-        private static readonly string payeeId = "payee_id";
+        private const string payeeId = "payee_id";
 
-        private static readonly string sortBy = "sort_by";
+        private const string sortBy = "sort_by";
 
-        private static readonly string sortOrder = "sort_order";
+        private const string sortOrder = "sort_order";
 
         private Dictionary<string, string> containerMap;
 
