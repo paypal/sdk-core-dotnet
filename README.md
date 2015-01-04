@@ -1,4 +1,8 @@
-# The PayPal Core SDK for .NET
+#### This SDK is intended to support the PayPal Classic SDKs. This SDK is not actively supported and will be deprecated in the future. For full support on new integrations, please use the [PayPal .NET SDK](https://github.com/paypal/PayPal-NET-SDK)
+
+---
+
+# PayPal Core SDK for .NET
 
 The PayPal Core SDK is a foundational library used by all of PayPal's C# SDKs. This SDK provides functionality such as configuration, credential management, connection management, logging, etc. that are used by the other SDKs. This SDK is developed using .NET Framework 3.5 and should compile on later versions of the .NET Framework. The SDK is also distributed via [NuGet](http://www.nuget.org/packages/PayPalCoreSDK/).
 
