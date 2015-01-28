@@ -21,11 +21,6 @@ namespace PayPal
         /// </summary>
         private const string RequestMethod = BaseConstants.RequestMethod;
 
-        /// <summary>
-        /// X509Certificate
-        /// </summary>
-        private X509Certificate x509;
-
         private Dictionary<string, string> config;
 
         /// <summary>
@@ -81,16 +76,71 @@ namespace PayPal
             if (apiCallHandler.GetCredential() is CertificateCredential)
             {
                 CertificateCredential certCredential = (CertificateCredential)apiCallHandler.GetCredential();
+                System.Exception x509LoadFromFileException = null;
+                X509Certificate2 x509 = null;
 
-                //Load the certificate into an X509Certificate2 object.
-                if (((CertificateCredential)certCredential).PrivateKeyPassword.Trim() == string.Empty)
+                try
                 {
-                    x509 = new X509Certificate2(((CertificateCredential)certCredential).CertificateFile);
+                    //Load the certificate into an X509Certificate2 object.
+                    if (((CertificateCredential)certCredential).PrivateKeyPassword.Trim() == string.Empty)
+                    {
+                        x509 = new X509Certificate2(((CertificateCredential)certCredential).CertificateFile);
+                    }
+                    else
+                    {
+                        x509 = new X509Certificate2(((CertificateCredential)certCredential).CertificateFile, ((CertificateCredential)certCredential).PrivateKeyPassword);
+                    }
                 }
-                else
+                catch (System.Exception ex)
                 {
-                    x509 = new X509Certificate2(((CertificateCredential)certCredential).CertificateFile, ((CertificateCredential)certCredential).PrivateKeyPassword);
+                    x509LoadFromFileException = ex;
                 }
+
+                // If we failed to load the certificate from the specified file,
+                // then try loading it from the certificates store using the provided UserName.
+                if (x509 == null)
+                {
+                    // Start by checking the local machine store.
+                    X509Store store = new X509Store(StoreLocation.LocalMachine);
+                    store.Open(OpenFlags.ReadOnly);
+                    foreach (X509Certificate2 storeCert in store.Certificates)
+                    {
+                        string certName = storeCert.GetNameInfo(X509NameType.DnsName, false);
+                        if (certName.Equals(((CertificateCredential)certCredential).UserName))
+                        {
+                            x509 = storeCert;
+                            break;
+                        }
+                    }
+                    store.Close();
+
+                    // If the certificate couldn't be found in the LM store,
+                    // check the current user store.
+                    if (x509 == null)
+                    {
+                        store = new X509Store(StoreLocation.CurrentUser);
+                        store.Open(OpenFlags.ReadOnly);
+                        foreach (X509Certificate2 storeCert in store.Certificates)
+                        {
+                            string certName = storeCert.GetNameInfo(X509NameType.DnsName, false);
+                            if (certName.Equals(((CertificateCredential)certCredential).UserName))
+                            {
+                                x509 = storeCert;
+                                break;
+                            }
+                        }
+                        store.Close();
+                    }
+                }
+
+                // If the cert still hasn't been loaded by this point, then it means
+                // it failed to be loaded from a file and was not found in any of the
+                // certificate stores.
+                if (x509 == null)
+                {
+                    throw new PayPalException("Failed to load the certificate file", x509LoadFromFileException);
+                }
+
                 httpRequest.ClientCertificates.Add(x509);
             }
 
