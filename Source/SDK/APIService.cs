@@ -4,6 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 using PayPal.Manager;
 using PayPal.Authentication;
 using PayPal.Log;
+using PayPal.Exception;
 
 namespace PayPal
 {
@@ -78,13 +79,13 @@ namespace PayPal
                 try
                 {
                     //Load the certificate into an X509Certificate2 object.
-                    if (((CertificateCredential)certCredential).PrivateKeyPassword.Trim() == string.Empty)
+                    if (string.IsNullOrEmpty(certCredential.PrivateKeyPassword.Trim()))
                     {
-                        x509 = new X509Certificate2(((CertificateCredential)certCredential).CertificateFile);
+                        x509 = new X509Certificate2(certCredential.CertificateFile);
                     }
                     else
                     {
-                        x509 = new X509Certificate2(((CertificateCredential)certCredential).CertificateFile, ((CertificateCredential)certCredential).PrivateKeyPassword);
+                        x509 = new X509Certificate2(certCredential.CertificateFile, certCredential.PrivateKeyPassword);
                     }
                 }
                 catch (System.Exception ex)
@@ -97,41 +98,19 @@ namespace PayPal
                 if (x509 == null)
                 {
                     // Start by checking the local machine store.
-                    X509Store store = new X509Store(StoreLocation.LocalMachine);
-                    store.Open(OpenFlags.ReadOnly);
-                    foreach (X509Certificate2 storeCert in store.Certificates)
-                    {
-                        string certName = storeCert.GetNameInfo(X509NameType.DnsName, false);
-                        if (certName.Equals(((CertificateCredential)certCredential).UserName))
-                        {
-                            x509 = storeCert;
-                            break;
-                        }
-                    }
-                    store.Close();
-
-                    // If the certificate couldn't be found in the LM store,
-                    // check the current user store.
-                    if (x509 == null)
-                    {
-                        store = new X509Store(StoreLocation.CurrentUser);
-                        store.Open(OpenFlags.ReadOnly);
-                        foreach (X509Certificate2 storeCert in store.Certificates)
-                        {
-                            string certName = storeCert.GetNameInfo(X509NameType.DnsName, false);
-                            if (certName.Equals(((CertificateCredential)certCredential).UserName))
-                            {
-                                x509 = storeCert;
-                                break;
-                            }
-                        }
-                        store.Close();
-                    }
+                    x509 = this.GetX509CertificateForUserName(certCredential.UserName, StoreLocation.LocalMachine);
                 }
 
-                // If the cert still hasn't been loaded by this point, then it means
-                // it failed to be loaded from a file and was not found in any of the
-                // certificate stores.
+                // If the certificate couldn't be found in the LM store, check
+                // the current user store.
+                if (x509 == null)
+                {
+                    x509 = this.GetX509CertificateForUserName(certCredential.UserName, StoreLocation.CurrentUser);
+                }
+
+                // If the certificate still hasn't been loaded by this point,
+                // then it means it failed to be loaded from a file and was not
+                // found in any of the certificate stores.
                 if (x509 == null)
                 {
                     throw new PayPalException("Failed to load the certificate file", x509LoadFromFileException);
@@ -144,6 +123,42 @@ namespace PayPal
             string response = connectionHttp.Execute(payload, httpRequest);
 
             return response;
+        }
+
+        /// <summary>
+        /// Searches the specified X509 store for a certificate that matches the specified user name.
+        /// </summary>
+        /// <param name="userName">The user name of the certificate to look for.</param>
+        /// <param name="location">The X509 certificate store to look through.</param>
+        /// <returns>An X509Certificate2 object if found; null otherwise.</returns>
+        private X509Certificate2 GetX509CertificateForUserName(string userName, StoreLocation location)
+        {
+            X509Store store = new X509Store(StoreLocation.CurrentUser);
+            X509Certificate2 x509 = null;
+
+            // Open the X509Store as read-only since we're only trying to search
+            // for a certificate in the store.
+            store.Open(OpenFlags.ReadOnly);
+
+            foreach (X509Certificate2 storeCert in store.Certificates)
+            {
+                string certName = storeCert.GetNameInfo(X509NameType.DnsName, false);
+                if (certName.Equals(userName))
+                {
+                    x509 = storeCert;
+                    break;
+                }
+            }
+
+            // Close the store.
+            //
+            // NOTE: X509Store was updated to inherit IDisposable in .NET 4.5.
+            //       If/When this code is ever updated to support .NET 4.5 and
+            //       later, consider replacing this with a using-statement to
+            //       ensure any unmanaged resources are properly cleaned up.
+            store.Close();
+
+            return x509;
         }
     }
 }
