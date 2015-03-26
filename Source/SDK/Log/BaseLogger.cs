@@ -5,7 +5,7 @@ namespace PayPal.Log
     /// <summary>
     /// Abstract base for the loggers
     /// </summary>
-    internal abstract class BaseLogger
+    public abstract class BaseLogger
     {
         /// <summary>
         /// Type specified
