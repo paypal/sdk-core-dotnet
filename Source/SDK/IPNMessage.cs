@@ -30,7 +30,7 @@ namespace PayPal
         /// <summary>
         /// Encoding format for IPN messages
         /// </summary>
-        private const string IPNEncoding = "windows-1252";
+        private Encoding ipnEncoding = Encoding.GetEncoding("windows-1252");
 
         /// <summary>
         /// SDK configuration parameters
@@ -55,7 +55,7 @@ namespace PayPal
                 {
                     foreach (string key in nvc.Keys)
                     {
-                        items.Add(string.Concat(key, "=", System.Web.HttpUtility.UrlEncode(nvc[key], Encoding.GetEncoding(IPNEncoding))));
+                        items.Add(string.Concat(key, "=", System.Web.HttpUtility.UrlEncode(nvc[key], ipnEncoding)));
                         nvcMap.Add(key, nvc[key]);
                     }
                     ipnRequest = string.Join("&", items.ToArray())+"&cmd=_notify-validate";
@@ -86,7 +86,7 @@ namespace PayPal
         public IPNMessage(Dictionary<string, string> config, byte[] parameters)
         {
             this.config = config;
-            this.Initialize(HttpUtility.ParseQueryString(Encoding.GetEncoding(IPNEncoding).GetString(parameters), Encoding.GetEncoding(IPNEncoding)));
+            this.Initialize(HttpUtility.ParseQueryString(ipnEncoding.GetString(parameters), ipnEncoding));
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace PayPal
         public IPNMessage(byte[] parameters)
         {
             this.config = ConfigManager.Instance.GetProperties();
-            this.Initialize(HttpUtility.ParseQueryString(Encoding.GetEncoding(IPNEncoding).GetString(parameters), Encoding.GetEncoding(IPNEncoding)));
+            this.Initialize(HttpUtility.ParseQueryString(ipnEncoding.GetString(parameters), ipnEncoding));
         }
 
         /// <summary>
@@ -112,24 +112,31 @@ namespace PayPal
             }
             else
             {
-                try
-                {   
-                    string ipnEndpoint = GetIPNEndpoint();
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ipnEndpoint);
+                // Get the IPN endpoint to use in order to validate the received IPN.
+                // NOTE: This call will throw an exception if the config is not setup properly.
+                string ipnEndpoint = this.GetIPNEndpoint();
 
-                    //Set values for the request back
+                try
+                {
+                    // Setup the HTTP request to use for posting the IPN back to PayPal.
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ipnEndpoint);
                     request.Method = "POST";
                     request.ContentType = "application/x-www-form-urlencoded";
-                    request.ContentLength = ipnRequest.Length;
+                    request.ContentLength = this.ipnRequest.Length;
 
-                    //Send the request to PayPal and get the response
-                    StreamWriter streamOut = new StreamWriter(request.GetRequestStream(), Encoding.GetEncoding(IPNEncoding));
-                    streamOut.Write(ipnRequest);
-                    streamOut.Close();
-                    StreamReader streamIn = new StreamReader(request.GetResponse().GetResponseStream());
-                    string strResponse = streamIn.ReadToEnd();
-                    streamIn.Close();
+                    using (StreamWriter streamOut = new StreamWriter(request.GetRequestStream(), ipnEncoding))
+                    {
+                        streamOut.Write(this.ipnRequest);
+                    }
 
+                    // Send the request to PayPal and get the response
+                    string strResponse = string.Empty;
+                    using (StreamReader streamIn = new StreamReader(request.GetResponse().GetResponseStream()))
+                    {
+                        strResponse = streamIn.ReadToEnd();
+                    }
+
+                    // If the IPN is valid, the response from PayPal will be 'VERIFIED'.
                     if (strResponse.Equals("VERIFIED"))
                     {
                         this.ipnValidationResult = true;
@@ -161,16 +168,13 @@ namespace PayPal
                 {
                     case BaseConstants.SandboxMode:
                         return BaseConstants.IPNSandboxEndpoint;
+
                     case BaseConstants.LiveMode:
                         return BaseConstants.IPNLiveEndpoint;
-                    default:
-                        throw new ConfigException("You must configure either the application mode (sandbox/live) or an IPN endpoint");
                 }
             }
-            else
-            {
-                throw new ConfigException("You must configure either the application mode (sandbox/live) or an IPN endpoint");
-            }
+
+            throw new ConfigException("IPN endpoint could not be determined based on the current PayPal configuration settings. The configuration must either define 'mode' (sandbox/live) or 'IPNEndpoint'.");
         }
 
         //TODO: To be renamed as 'IPNMap' as per .NET Naming Conventions

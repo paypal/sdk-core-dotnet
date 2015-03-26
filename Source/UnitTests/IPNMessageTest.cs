@@ -2,6 +2,10 @@ using System.Collections.Specialized;
 using System.Web;
 #pragma warning disable 618
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Text;
+using System.Collections.Generic;
+using PayPal.Manager;
+using PayPal.Exception;
 
 namespace PayPal.UnitTest
 {
@@ -16,6 +20,48 @@ namespace PayPal.UnitTest
         {
             NameValueCollection nvc = HttpUtility.ParseQueryString(ipnMsg);
             IPNMessage ipn = new IPNMessage(nvc);
+            Assert.IsTrue(ipn.Validate());
+        }
+
+        [TestMethod]
+        public void IPNRequestInvalid()
+        {
+            NameValueCollection nvc = HttpUtility.ParseQueryString("test=tests");
+            IPNMessage ipn = new IPNMessage(nvc);
+            Assert.IsFalse(ipn.Validate());
+        }
+
+        [TestMethod]
+        public void IPNConfigMissingModeAndIpnEndpoint()
+        {
+            Encoding ipnEncoding = Encoding.GetEncoding("windows-1252");
+            byte[] message = ipnEncoding.GetBytes(ipnMsg);
+            Dictionary<string, string> config = ConfigManager.Instance.GetProperties();
+            config.Remove(BaseConstants.ApplicationModeConfig);
+            config.Remove(BaseConstants.IPNEndpointConfig);
+            IPNMessage ipn = new IPNMessage(config, message);
+            Assert.Throws(typeof(ConfigException), new NUnit.Framework.TestDelegate(delegate { ipn.Validate(); } ));
+        }
+
+        [TestMethod]
+        public void IPNConfigMissingMode()
+        {
+            Encoding ipnEncoding = Encoding.GetEncoding("windows-1252");
+            byte[] message = ipnEncoding.GetBytes(ipnMsg);
+            Dictionary<string, string> config = ConfigManager.Instance.GetProperties();
+            config.Remove(BaseConstants.ApplicationModeConfig);
+            IPNMessage ipn = new IPNMessage(config, message);
+            Assert.IsTrue(ipn.Validate());
+        }
+
+        [TestMethod]
+        public void IPNConfigMissingIpnEndpoint()
+        {
+            Encoding ipnEncoding = Encoding.GetEncoding("windows-1252");
+            byte[] message = ipnEncoding.GetBytes(ipnMsg);
+            Dictionary<string, string> config = ConfigManager.Instance.GetProperties();
+            config.Remove(BaseConstants.IPNEndpointConfig);
+            IPNMessage ipn = new IPNMessage(config, message);
             Assert.IsTrue(ipn.Validate());
         }
 
@@ -44,6 +90,15 @@ namespace PayPal.UnitTest
             IPNMessage ipn = new IPNMessage(nvc);
             string parameter = ipn.IpnValue("fees_payer");
             Assert.AreEqual("EACHRECEIVER", parameter);
+        }
+
+        [TestMethod]
+        public void IPNMissingParameter()
+        {
+            NameValueCollection nvc = HttpUtility.ParseQueryString(ipnMsg);
+            IPNMessage ipn = new IPNMessage(nvc);
+            string parameter = ipn.IpnValue("not_found");
+            Assert.IsTrue(string.IsNullOrEmpty(parameter));
         }
 
         [TestMethod]
