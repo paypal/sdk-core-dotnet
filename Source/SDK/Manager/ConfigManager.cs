@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using PayPal.Exception;
+using System.Reflection;
 
 namespace PayPal.Manager
 {    
@@ -55,26 +56,37 @@ namespace PayPal.Manager
                 return singletonInstance;
             }
         }
+
         /// <summary>
         /// Private constructor
         /// </summary>
         private ConfigManager()
         {
-            SDKConfigHandler configHandler = (SDKConfigHandler)ConfigurationManager.GetSection("paypal");
-            if (configHandler == null)
+            object paypalConfigSection = null;
+
+            try
             {
-                throw new ConfigException("Cannot parse *.Config file. Ensure you have configured the 'paypal' section correctly.");
+                paypalConfigSection = ConfigurationManager.GetSection("paypal");
+            }
+            catch (System.Exception ex)
+            {
+                throw new ConfigException("Unable to load 'paypal' section from *.config: " + ex.Message);
+            }
+
+            if (paypalConfigSection == null)
+            {
+                throw new ConfigException("Cannot parse *.config file. Ensure you have configured the 'paypal' section correctly.");
             }
             this.configValues = new Dictionary<string, string>();
 
-            NameValueConfigurationCollection settings = configHandler.Settings;
+            NameValueConfigurationCollection settings = (NameValueConfigurationCollection)paypalConfigSection.GetType().GetProperty("Settings").GetValue(paypalConfigSection, null);
             foreach (string key in settings.AllKeys)
             {
                 this.configValues.Add(settings[key].Name, settings[key].Value);
             }
 
             int index = 0;
-            foreach (ConfigurationElement element in configHandler.Accounts)
+            foreach (ConfigurationElement element in (ConfigurationElementCollection)paypalConfigSection.GetType().GetProperty("Accounts").GetValue(paypalConfigSection, null))
             {
                 Account account = (Account)element;
                 if (!string.IsNullOrEmpty(account.APIUserName))
