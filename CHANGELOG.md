@@ -1,5 +1,10 @@
 ### CHANGE LOG
 
+#### v1.6.1 - April 22, 2015
+
+  * Fix compatibility with PayPal .NET SDK
+  * Add X509Store support when loading cert if using certificate credentials
+
 #### v1.6.0 - November 11, 2014
 
   * Re-added .NET 2.0 support
