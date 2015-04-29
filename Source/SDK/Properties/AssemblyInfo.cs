@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("PayPal Core SDK for .NET")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("eBay Inc.")]
+[assembly: AssemblyCompany("PayPal")]
 [assembly: AssemblyProduct("PayPal.Core.SDK")]
-[assembly: AssemblyCopyright("Copyright © 2009-2015, eBay Inc.")]
+[assembly: AssemblyCopyright("Copyright © 2009-2015, PayPal")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.6.1.0")]
-[assembly: AssemblyFileVersion("1.6.1.0")]
+[assembly: AssemblyVersion("1.6.2.0")]
+[assembly: AssemblyFileVersion("1.6.2.0")]

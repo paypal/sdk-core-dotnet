@@ -133,7 +133,7 @@ namespace PayPal
         /// <returns>An X509Certificate2 object if found; null otherwise.</returns>
         private X509Certificate2 GetX509CertificateForUserName(string userName, StoreLocation location)
         {
-            X509Store store = new X509Store(StoreLocation.CurrentUser);
+            X509Store store = new X509Store(location);
             X509Certificate2 x509 = null;
 
             // Open the X509Store as read-only since we're only trying to search
