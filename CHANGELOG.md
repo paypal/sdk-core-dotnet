@@ -1,5 +1,9 @@
 ### CHANGE LOG
 
+#### v1.6.2 - April 29, 2015
+
+  * Fix Issue #43 - Calls to check the X509 stores were incorrectly hard-coded to only check the CurrentUser store.
+
 #### v1.6.1 - April 22, 2015
 
   * Fix compatibility with PayPal .NET SDK
