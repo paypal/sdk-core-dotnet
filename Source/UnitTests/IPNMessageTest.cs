@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using PayPal.Manager;
 using PayPal.Exception;
 
-namespace PayPal.UnitTest
+namespace PayPal.Testing
 {
     [TestClass]
     public class IPNMessageTest
@@ -32,6 +32,7 @@ namespace PayPal.UnitTest
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ConfigException))]
         public void IPNConfigMissingModeAndIpnEndpoint()
         {
             Encoding ipnEncoding = Encoding.GetEncoding("windows-1252");
@@ -40,7 +41,7 @@ namespace PayPal.UnitTest
             config.Remove(BaseConstants.ApplicationModeConfig);
             config.Remove(BaseConstants.IPNEndpointConfig);
             IPNMessage ipn = new IPNMessage(config, message);
-            Assert.Throws(typeof(ConfigException), new NUnit.Framework.TestDelegate(delegate { ipn.Validate(); } ));
+            ipn.Validate();
         }
 
         [TestMethod]

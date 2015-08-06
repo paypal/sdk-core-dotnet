@@ -3,7 +3,7 @@ using PayPal.Authentication;
 using PayPal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace PayPal.UnitTest
+namespace PayPal.Testing
 { 
     /// <summary>
     /// This is a test class for RESTAPICallPreHandlerTest and is intended

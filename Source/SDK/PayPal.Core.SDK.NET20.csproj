@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7CD6456F-7828-45EA-90A1-C1E26900C476}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PayPal</RootNamespace>
+    <AssemblyName>PayPalCoreSDK</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <BaseIntermediateOutputPath>obj\net20</BaseIntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\net20\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET_2_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\net20\</OutputPath>
+    <DefineConstants>TRACE;NET_2_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\paypal-open-source.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net20\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbstractCertificateHttpHeaderAuthStrategy.cs" />
+    <Compile Include="AbstractSignatureHttpHeaderAuthStrategy.cs" />
+    <Compile Include="APIContext.cs" />
+    <Compile Include="APIService.cs" />
+    <Compile Include="Authentication\CertificateCredential.cs" />
+    <Compile Include="Authentication\ICredential.cs" />
+    <Compile Include="Authentication\IThirdPartyAuthorization.cs" />
+    <Compile Include="Authentication\SignatureCredential.cs" />
+    <Compile Include="Authentication\SubjectAuthorization.cs" />
+    <Compile Include="Authentication\TokenAuthorization.cs" />
+    <Compile Include="BaseConstants.cs" />
+    <Compile Include="BasePayPalService.cs" />
+    <Compile Include="DefaultSOAPAPICallHandler.cs" />
+    <Compile Include="Exception\HttpException.cs" />
+    <Compile Include="Exception\ConfigException.cs" />
+    <Compile Include="Exception\ConnectionException.cs" />
+    <Compile Include="Exception\IdentityError.cs" />
+    <Compile Include="Exception\IdentityException.cs" />
+    <Compile Include="Exception\InvalidCredentialException.cs" />
+    <Compile Include="Exception\MissingCredentialException.cs" />
+    <Compile Include="Exception\OAuthException.cs" />
+    <Compile Include="Exception\PaymentsError.cs" />
+    <Compile Include="Exception\PaymentsException.cs" />
+    <Compile Include="Exception\PayPalException.cs" />
+    <Compile Include="HttpConnection.cs" />
+    <Compile Include="HttpMethod.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IAPICallPreHandler.cs" />
+    <Compile Include="IAuthenticationStrategy.cs" />
+    <Compile Include="IPNMessage.cs" />
+    <Compile Include="JsonFormatter.cs" />
+    <Compile Include="Log\BaseLogger.cs" />
+    <Compile Include="Log\DiagnosticsLogger.cs" />
+    <Compile Include="Log\Log4netLogger.cs" />
+    <Compile Include="Log\LogConfiguration.cs" />
+    <Compile Include="Log\Logger.cs" />
+    <Compile Include="Log\LogMessage.cs" />
+    <Compile Include="Log\TraceSourceUtil.cs" />
+    <Compile Include="Manager\ConfigManager.cs" />
+    <Compile Include="Manager\ConnectionManager.cs" />
+    <Compile Include="Manager\CredentialManager.cs" />
+    <Compile Include="Manager\SDKConfigHandler.cs" />
+    <Compile Include="NVP\CertificateHttpHeaderAuthStrategy.cs" />
+    <Compile Include="NVP\PlatformAPICallPreHandler.cs" />
+    <Compile Include="NVP\SignatureHttpHeaderAuthStrategy.cs" />
+    <Compile Include="OAuthTokenCredential.cs" />
+    <Compile Include="OAuth\OAuthGenerator.cs" />
+    <Compile Include="OAuth\PayPalURLEncoder.cs" />
+    <Compile Include="OpenIdConnect\Address.cs" />
+    <Compile Include="OpenIdConnect\ClientCredentials.cs" />
+    <Compile Include="OpenIdConnect\CreateFromAuthorizationCodeParameters.cs" />
+    <Compile Include="OpenIdConnect\CreateFromRefreshTokenParameters.cs" />
+    <Compile Include="OpenIdConnect\Error.cs" />
+    <Compile Include="OpenIdConnect\Session.cs" />
+    <Compile Include="OpenIdConnect\TokenInfo.cs" />
+    <Compile Include="OpenIdConnect\UserInfo.cs" />
+    <Compile Include="OpenIdConnect\UserInfoParameters.cs" />
+    <Compile Include="PayPalResource.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RESTAPICallPreHandler.cs" />
+    <Compile Include="SDKVersion.cs" />
+    <Compile Include="SOAP\CertificateHttpHeaderAuthStrategy.cs" />
+    <Compile Include="SOAP\CertificateSOAPHeaderAuthStrategy.cs" />
+    <Compile Include="SOAP\MerchantAPICallPreHandler.cs" />
+    <Compile Include="SOAP\SignatureHttpHeaderAuthStrategy.cs" />
+    <Compile Include="SOAP\SignatureSOAPHeaderAuthStrategy.cs" />
+    <Compile Include="UserAgentHeader.cs" />
+    <Compile Include="Util\NVPUtil.cs" />
+    <Compile Include="Util\QueryParameters.cs" />
+    <Compile Include="Util\ReadCert.cs" />
+    <Compile Include="Util\ReflectionEnumUtil.cs" />
+    <Compile Include="Util\ReflectionUtil.cs" />
+    <Compile Include="Util\SDKUtil.cs" />
+    <Compile Include="XMLMessageSerializer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

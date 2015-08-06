@@ -1,15 +1,14 @@
-
 # build files
 obj
 bin
 
-
-# IDE files
+# IDE files and folders
 *.user
 *.suo
 *.pdb
 *.bak
 *.FileListAbsolute.txt
+.vs
 
 # Windows image file caches
 Thumbs.db

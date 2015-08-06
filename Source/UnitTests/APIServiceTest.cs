@@ -4,7 +4,7 @@ using PayPal.NVP;
 using PayPal.SOAP;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace PayPal.UnitTest
+namespace PayPal.Testing
 {
     [TestClass]
     [DeploymentItem("sdk-cert.p12")]

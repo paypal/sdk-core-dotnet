@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using PayPal.Util;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace PayPal.UnitTest
+namespace PayPal.Testing
 {
     /// <summary>
     ///This is a test class for SDKUtilTest and is intended

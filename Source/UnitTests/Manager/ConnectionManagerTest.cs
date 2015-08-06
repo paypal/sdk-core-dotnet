@@ -4,7 +4,7 @@ using PayPal.Manager;
 using PayPal.Exception;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace PayPal.UnitTest
+namespace PayPal.Testing
 {
     [TestClass]
     public class ConnectionManagerTest

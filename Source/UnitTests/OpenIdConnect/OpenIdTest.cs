@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using PayPal.OpenIdConnect;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace PayPal.UnitTest
+namespace PayPal.Testing
 {
     [TestClass]
     public class OpenIdTest
