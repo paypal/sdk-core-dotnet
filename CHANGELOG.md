@@ -1,5 +1,9 @@
 ### CHANGE LOG
 
+#### v1.6.3 - September 25, 2015
+
+  * Update IPN endpoint
+
 #### v1.6.2 - April 29, 2015
 
   * Fix Issue #43 - Calls to check the X509 stores were incorrectly hard-coded to only check the CurrentUser store.
@@ -54,10 +58,9 @@
 
 #### v1.3.3 - July 24, 2013
 
-  * Updating version for REST User-Agent header for REST SDK bug fix (https://github.com/paypal/rest-api-sdk-dotnet/issues/7) 
+  * Updating version for REST User-Agent header for REST SDK bug fix (https://github.com/paypal/rest-api-sdk-dotnet/issues/7)
 
 #### v1.3.2 - June 21, 2013
 
   * Fixing 500 internal service error with OAuth calls - Adding necessary Content-Type header.
   * Exposing HTTP response data in ConnectionException for non-200 responses.(#6)
-
