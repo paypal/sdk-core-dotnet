@@ -6,6 +6,7 @@ using System.Text;
 using PayPal.OpenIdConnect;
 using PayPal.Exception;
 using System.Text.RegularExpressions;
+using Microsoft.Win32;
 
 namespace PayPal.Util
 {
@@ -317,6 +318,82 @@ namespace PayPal.Util
             {
                 headers[item.Key] = item.Value;
             }
+        }
+
+        /// <summary>
+        /// Checks if .NET 4.5 or later is detected on the system.
+        /// </summary>
+        /// <returns>True if .NET 4.5 or later is detected; false otherwise.</returns>
+        public static bool IsNet45OrLaterDetected()
+        {
+            var highestNetVersion = GetHighestInstalledNetVersion();
+            return highestNetVersion == null ? false : highestNetVersion >= new Version(4, 5, 0, 0);
+        }
+
+        /// <summary>
+        /// Gets the highest installed version of the .NET framework found on the system.
+        /// </summary>
+        /// <returns>A string containing the highest installed version of the .NET framework found on the system.</returns>
+        private static Version GetHighestInstalledNetVersion()
+        {
+            Version highestNetVersion = null;
+
+            try
+            {
+                // Opens the registry key for the .NET Framework entry.
+                using (var ndpKey = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, "").OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\"))
+                {
+                    // As an alternative, if you know the computers you will query are running .NET Framework 4.5 
+                    // or later, you can use:
+                    // using (RegistryKey ndpKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, 
+                    // RegistryView.Registry32).OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\"))
+                    foreach (string versionKeyName in ndpKey.GetSubKeyNames())
+                    {
+                        if (versionKeyName.StartsWith("v"))
+                        {
+                            var versionKey = ndpKey.OpenSubKey(versionKeyName);
+                            var versionString = versionKey.GetValue("Version", "").ToString();
+
+                            if (string.IsNullOrEmpty(versionString))
+                            {
+                                foreach (string subKeyName in versionKey.GetSubKeyNames())
+                                {
+                                    var subKey = versionKey.OpenSubKey(subKeyName);
+                                    versionString = subKey.GetValue("Version", "").ToString();
+
+                                    if (!string.IsNullOrEmpty(versionString))
+                                    {
+                                        try
+                                        {
+                                            var version = new Version(versionString);
+                                            if (highestNetVersion == null || highestNetVersion < version)
+                                            {
+                                                highestNetVersion = version;
+                                            }
+                                        }
+                                        catch (System.Exception) { }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    var version = new Version(versionString);
+                                    if (highestNetVersion == null || highestNetVersion < version)
+                                    {
+                                        highestNetVersion = version;
+                                    }
+                                }
+                                catch (System.Exception) { }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (System.Exception) { }
+
+            return highestNetVersion;
         }
     }
 }

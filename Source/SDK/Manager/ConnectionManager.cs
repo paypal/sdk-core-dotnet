@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using PayPal.Exception;
 using PayPal.Log;
+using PayPal.Util;
 
 namespace PayPal.Manager
 {
@@ -50,10 +51,26 @@ namespace PayPal.Manager
         public static ConnectionManager Instance { get { return laze.Value; } }  
 #endif
 
+        private bool logTlsWarning = false;
+
         /// <summary>
         /// Private constructor, private to prevent direct instantiation
         /// </summary>
-        private ConnectionManager() { }     
+        private ConnectionManager()
+        {
+#if NET_4_5 || NET_4_5_1
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+#else
+            if (SDKUtil.IsNet45OrLaterDetected())
+            {
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)0xC00;
+            }
+            else
+            {
+                this.logTlsWarning = true;
+            }
+#endif
+        }
 
         /// <summary>
         /// Create and Config a HttpWebRequest
@@ -99,6 +116,12 @@ namespace PayPal.Manager
                 }                
                 httpRequest.Proxy = requestProxy;
             }
+
+            if (this.logTlsWarning)
+            {
+                logger.Warn("SECURITY WARNING: TLSv1.2 is not supported on this system. Please update your .NET framework to a version that supports TLSv1.2.");
+            }
+
             return httpRequest;
         }
     }
