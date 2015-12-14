@@ -264,6 +264,16 @@ namespace PayPal.SOAP
                             endpoint = BaseConstants.MerchantCertificateSandboxEndpoint;
                         }
                         break;
+                    case BaseConstants.TestSandboxMode:
+                        if (credential is SignatureCredential)
+                        {
+                            endpoint = BaseConstants.MerchantSignatureTestSandboxEndpoint;
+                        }
+                        else if (credential is CertificateCredential)
+                        {
+                            endpoint = BaseConstants.MerchantCertificateTestSandboxEndpoint;
+                        }
+                        break;
                     default:
                         throw new ConfigException("You must specify one of mode(live/sandbox) OR endpoint in the configuration");
                 }

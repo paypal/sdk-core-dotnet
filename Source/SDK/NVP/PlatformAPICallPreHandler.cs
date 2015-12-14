@@ -242,6 +242,9 @@ namespace PayPal.NVP
                     case BaseConstants.SandboxMode:
                         endpoint = BaseConstants.PlatformSandboxEndpoint;
                         break;
+                    case BaseConstants.TestSandboxMode:
+                        endpoint = BaseConstants.PlatformTestSandboxEndpoint;
+                        break;
                     default:
                         throw new ConfigException("You must specify one of mode(live/sandbox) OR endpoint in the configuration");
                 }                

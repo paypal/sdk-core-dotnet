@@ -252,6 +252,10 @@ namespace PayPal
                 {
                     baseUri = new Uri(BaseConstants.RESTSandboxEndpoint);
                 }
+                else if (mode.Equals(BaseConstants.TestSandboxMode))
+                {
+                    baseUri = new Uri(BaseConstants.RESTTestSandboxEndpoint);
+                }
                 else
                 {
                     throw new ConfigException("You must specify one of mode(live/sandbox) OR endpoint in the configuration");

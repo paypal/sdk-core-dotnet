@@ -131,7 +131,7 @@ namespace PayPal.Testing
         }
 
         [TestMethod]
-        public void GetEndpointForSandboxMode()
+        public void GetEndpointForLiveMode()
         {
             Dictionary<string, string> config = new Dictionary<string, string>(accountConfig);
             config.Add(BaseConstants.ApplicationModeConfig, BaseConstants.LiveMode);
@@ -146,7 +146,7 @@ namespace PayPal.Testing
         }
 
         [TestMethod]
-        public void GetEndpointForLiveMode()
+        public void GetEndpointForSandboxMode()
         {
             Dictionary<string, string> config = new Dictionary<string, string>(accountConfig);
             config.Add(BaseConstants.ApplicationModeConfig, BaseConstants.SandboxMode);
@@ -160,6 +160,20 @@ namespace PayPal.Testing
             Assert.AreEqual(BaseConstants.MerchantSignatureSandboxEndpoint, soapHandler.GetEndpoint());
         }
 
+        [TestMethod]
+        public void GetEndpointForTestSandboxMode()
+        {
+            Dictionary<string, string> config = new Dictionary<string, string>(accountConfig);
+            config.Add(BaseConstants.ApplicationModeConfig, BaseConstants.TestSandboxMode);
+
+            credential = credentialMngr.GetCredentials(config, Constants.CertificateAPIUserName);
+            MerchantAPICallPreHandler soapHandler = new MerchantAPICallPreHandler(config, defaultSoapHandler, credential);
+            Assert.AreEqual(BaseConstants.MerchantCertificateTestSandboxEndpoint, soapHandler.GetEndpoint());
+
+            credential = credentialMngr.GetCredentials(config, Constants.APIUserName);
+            soapHandler = new MerchantAPICallPreHandler(config, defaultSoapHandler, credential);
+            Assert.AreEqual(BaseConstants.MerchantSignatureTestSandboxEndpoint, soapHandler.GetEndpoint());
+        }
 
         [TestMethod]
         [ExpectedException(typeof(ConfigException), "You must specify one of mode(live/sandbox) OR endpoint in the configuration")]

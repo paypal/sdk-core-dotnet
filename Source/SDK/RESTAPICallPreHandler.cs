@@ -226,6 +226,9 @@ namespace PayPal
                     case BaseConstants.SandboxMode:
                         endpoint = BaseConstants.RESTSandboxEndpoint;
                         break;
+                    case BaseConstants.TestSandboxMode:
+                        endpoint = BaseConstants.RESTTestSandboxEndpoint;
+                        break;
                 }
             }
             if (!endpoint.EndsWith("/"))

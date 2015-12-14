@@ -61,24 +61,29 @@ namespace PayPal
         // PayPal Sandbox Email Address Header
         public const string PayPalSandboxEmailAddressHeader = "X-PAYPAL-SANDBOX-EMAIL-ADDRESS";
 
-        // Allowed application mode - Live
+        // Allowed application modes
         public const string LiveMode = "live";
-
-        // Allowe application mode - sandbox
         public const string SandboxMode = "sandbox";
+        public const string TestSandboxMode = "security-test-sandbox";
 
         // Endpoints for various APIs        
         public const string MerchantCertificateLiveEndpoint = "https://api.paypal.com/2.0/";        
         public const string MerchantSignatureLiveEndpoint = "https://api-3t.paypal.com/2.0/";
         public const string PlatformLiveEndpoint = "https://svcs.paypal.com/";
         public const string IPNLiveEndpoint = "https://www.paypal.com/cgi-bin/webscr";
-        public const string RESTSandboxEndpoint = "https://api.sandbox.paypal.com/";
+        public const string RESTLiveEndpoint = "https://api.paypal.com/";
 
         public const string MerchantCertificateSandboxEndpoint = "https://api.sandbox.paypal.com/2.0/";
         public const string MerchantSignatureSandboxEndpoint = "https://api-3t.sandbox.paypal.com/2.0/";
         public const string PlatformSandboxEndpoint = "https://svcs.sandbox.paypal.com/";
         public const string IPNSandboxEndpoint = "https://www.sandbox.paypal.com/cgi-bin/webscr";
-        public const string RESTLiveEndpoint = "https://api.paypal.com/";
+        public const string RESTSandboxEndpoint = "https://api.sandbox.paypal.com/";
+
+        public const string MerchantCertificateTestSandboxEndpoint = "https://test-api.sandbox.paypal.com/2.0/";
+        public const string MerchantSignatureTestSandboxEndpoint = "https://test-api-3t.sandbox.paypal.com/2.0/";
+        public const string PlatformTestSandboxEndpoint = "https://test-svcs.sandbox.paypal.com/";
+        public const string IPNTestSandboxEndpoint = "https://test-ipnpb.sandbox.paypal.com/cgi-bin/webscr";
+        public const string RESTTestSandboxEndpoint = "https://test-api.sandbox.paypal.com/";
 
         // Configuration key for application mode
         public const string ApplicationModeConfig = "mode";

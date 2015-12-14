@@ -91,7 +91,7 @@ namespace PayPal.Testing
         }
 
         [TestMethod]
-        public void GetEndpointForSandboxMode()
+        public void GetEndpointForLiveMode()
         {
             Dictionary<string, string> config = new Dictionary<string, string>(accountConfig);
             config.Add(BaseConstants.ApplicationModeConfig, BaseConstants.LiveMode);
@@ -101,16 +101,25 @@ namespace PayPal.Testing
         }
 
         [TestMethod]
-        public void GetEndpointForLiveMode()
+        public void GetEndpointForSandboxMode()
         {
             Dictionary<string, string> config = new Dictionary<string, string>(accountConfig);
             config.Add(BaseConstants.ApplicationModeConfig, BaseConstants.SandboxMode);
 
             PlatformAPICallPreHandler platformHandler = new PlatformAPICallPreHandler(config, "payload", "servicename", "method", Constants.APIUserName, "accessToken", "tokenSecret");
             Assert.AreEqual(BaseConstants.PlatformSandboxEndpoint + "servicename/method", platformHandler.GetEndpoint());
-
         }
-        
+
+        [TestMethod]
+        public void GetEndpointForTestSandboxMode()
+        {
+            Dictionary<string, string> config = new Dictionary<string, string>(accountConfig);
+            config.Add(BaseConstants.ApplicationModeConfig, BaseConstants.TestSandboxMode);
+
+            PlatformAPICallPreHandler platformHandler = new PlatformAPICallPreHandler(config, "payload", "servicename", "method", Constants.APIUserName, "accessToken", "tokenSecret");
+            Assert.AreEqual(BaseConstants.PlatformTestSandboxEndpoint + "servicename/method", platformHandler.GetEndpoint());
+        }
+
         [TestMethod]
         [ExpectedException(typeof(ConfigException), "You must specify one of mode or endpoint in the configuration")]
         public void GetEndpointForDefaultModeWithoutEndpoint()

@@ -169,6 +169,9 @@ namespace PayPal
                     case BaseConstants.SandboxMode:
                         return BaseConstants.IPNSandboxEndpoint;
 
+                    case BaseConstants.TestSandboxMode:
+                        return BaseConstants.IPNTestSandboxEndpoint;
+
                     case BaseConstants.LiveMode:
                         return BaseConstants.IPNLiveEndpoint;
                 }
