@@ -1,5 +1,10 @@
 ### CHANGE LOG
 
+#### v1.7.0 - December 14, 2015
+
+  * Connections to PayPal should use TLSv1.2
+  * Add support for TLS test sandbox endpoints
+
 #### v1.6.3 - September 25, 2015
 
   * Update IPN endpoint
