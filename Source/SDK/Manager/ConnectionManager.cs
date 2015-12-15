@@ -63,7 +63,15 @@ namespace PayPal.Manager
 #else
             if (SDKUtil.IsNet45OrLaterDetected())
             {
-                ServicePointManager.SecurityProtocol = (SecurityProtocolType)0xC00;
+                try
+                {
+                    ServicePointManager.SecurityProtocol = (SecurityProtocolType)0xC00;
+                }
+                catch(NotSupportedException)
+                {
+                    logger.Warn("Unable to set HTTPS connection to use TLSv1.2. Please update your .NET application to target a framework that supports TLSv1.2.");
+                    this.logTlsWarning = true;
+                }
             }
             else
             {
