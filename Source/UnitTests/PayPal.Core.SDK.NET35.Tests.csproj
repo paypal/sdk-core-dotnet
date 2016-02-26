@@ -57,21 +57,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="APIServiceTest.cs" />
     <Compile Include="Authentication\CertificateCredentialTest.cs" />
     <Compile Include="Authentication\SignatureCredentialTest.cs" />
     <Compile Include="Authentication\SubjectAuthorizationTest .cs" />
     <Compile Include="Authentication\TokenAuthorizationTest.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DefaultSOAPAPICallHandlerTest.cs" />
-    <Compile Include="IPNMessageTest.cs" />
     <Compile Include="Manager\ConfigManagerTest.cs" />
     <Compile Include="Manager\ConnectionManagerTest.cs" />
     <Compile Include="Manager\CredentialManagerTest.cs" />
     <Compile Include="NVP\CertificateHttpHeaderAuthStrategyNVPTest.cs" />
     <Compile Include="NVP\PlatformAPICallPreHandlerTest.cs" />
     <Compile Include="NVP\SignatureHttpHeaderAuthStrategyNVPTest.cs" />
-    <Compile Include="OAuthTokenCredentialTest.cs" />
     <Compile Include="OpenIdConnect\OpenIdTest.cs" />
     <Compile Include="RESTAPICallPreHandlerTest.cs" />
     <Compile Include="SOAP\CertificateHttpHeaderAuthStrategyTest.cs" />
