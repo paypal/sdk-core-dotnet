@@ -76,6 +76,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Manager\ConnectionManagerTest.cs" />
+    <Compile Include="Manager\ConnectionManagerTls12Test.cs" />
     <Compile Include="Manager\CredentialManagerTest.cs" />
     <Compile Include="NVP\CertificateHttpHeaderAuthStrategyNVPTest.cs" />
     <Compile Include="NVP\PlatformAPICallPreHandlerTest.cs" />
