@@ -22,3 +22,6 @@ Desktop.ini
 
 #UnitTest Results
 Source/TestResults/
+
+#WORKING 
+_working/*
