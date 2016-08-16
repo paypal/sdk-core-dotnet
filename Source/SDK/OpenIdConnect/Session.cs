@@ -64,7 +64,7 @@ namespace PayPal.OpenIdConnect
             }
             builder.Append(HttpUtility.UrlEncode(scpBuilder.ToString()));
             builder.Append("&redirect_uri=").Append(HttpUtility.UrlEncode(redirectUri));
-            redirectUrl = baseUrl + "/v1/authorize?" + builder.ToString();
+            redirectUrl = baseUrl + "/authorize?" + builder.ToString();
             return redirectUrl;
         }
 
@@ -108,7 +108,7 @@ namespace PayPal.OpenIdConnect
                     .Append("&redirect_uri=")
                     .Append(HttpUtility.UrlEncode(redirectUri))
                     .Append("&logout=true");
-            logoutUrl = baseUrl + "/v1/endsession?" + stringBuilder.ToString();
+            logoutUrl = baseUrl + "/endsession?" + stringBuilder.ToString();
             return logoutUrl;
         }
     }

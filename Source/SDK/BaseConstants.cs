@@ -143,7 +143,7 @@ namespace PayPal
         public const string OpenIdRedirectUri = "openid.RedirectUri";
 
         // OpenId Redirect URI default value
-        public const string OpenIdRedirectUriConstant = "https://www.paypal.com/webapps/auth/protocol/openidconnect";
+        public const string OpenIdRedirectUriConstant = "https://www.paypal.com/signin";
 
         // OAuth endpoint config key
         public const string OAuthEndpoint = "oauth.EndPoint";
