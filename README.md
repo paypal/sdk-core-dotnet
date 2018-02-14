@@ -9,6 +9,10 @@
 
 The PayPal Core SDK is a foundational library used by all of PayPal's C# SDKs. This SDK provides functionality such as configuration, credential management, connection management, logging, etc. that are used by the other SDKs. This SDK is developed using .NET Framework 3.5 and should compile on later versions of the .NET Framework. The SDK is also distributed via [NuGet](http://www.nuget.org/packages/PayPalCoreSDK/).
 
+## Support
+
+> Please contact [PayPal Technical Support](https://developer.paypal.com/support/) for any live or account issues.
+
 ## Prerequisites
 
 *	Visual Studio 2005 or higher
