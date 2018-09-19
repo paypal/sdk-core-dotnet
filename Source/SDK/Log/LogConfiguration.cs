@@ -58,6 +58,9 @@ namespace PayPal.Log
 
         private static string GetConfiguration(string name)
         {
+#if NETSTANDARD2_0 || NETSTANDARD
+            return null;
+#else
             NameValueCollection appSetting = ConfigurationManager.AppSettings;
 
             if (appSetting == null)
@@ -67,6 +70,7 @@ namespace PayPal.Log
 
             string value = appSetting[name];
             return value;
+#endif
         }
 
         private static bool GetConfigBool(string name)

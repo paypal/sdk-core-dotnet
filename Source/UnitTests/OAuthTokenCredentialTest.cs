@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using PayPal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -122,9 +123,26 @@ namespace PayPal.Testing
         /// <returns>A base-64 encoded string containing the client credentials.</returns>
         private string ConvertClientCredentialsToBase64String(string clientId, string clientSecret)
         {
+#if NETCOREAPP || NETCOREAPP2_1
+
+            try
+            {
+                var methodInfo = typeof(OAuthTokenCredential).GetMethod("ConvertClientCredentialsToBase64String",
+                    BindingFlags.Static | BindingFlags.NonPublic);
+
+                var result = methodInfo.Invoke(null, new string[] { clientId, clientSecret }) as string;
+                return result;
+            }
+            catch (TargetInvocationException e)
+            {
+                throw e.InnerException;
+            }
+#else
+
             PrivateType oauthTokenCredential = new PrivateType(typeof(OAuthTokenCredential));
             return oauthTokenCredential.InvokeStatic("ConvertClientCredentialsToBase64String", new string[] { clientId, clientSecret }) as string;
+#endif
         }
 #endif
-    }
+        }
 }

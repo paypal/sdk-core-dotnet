@@ -138,7 +138,11 @@ namespace PayPal
                             }
                         }
 
+#if NETSTANDARD || NETSTANDARD2_0 || NET_4_5 || NET_4_5_1
+                        using (WebResponse responseWeb = httpRequest.GetResponseAsync().GetAwaiter().GetResult())
+#else
                         using (WebResponse responseWeb = httpRequest.GetResponse())
+#endif
                         {
                             using (StreamReader readerStream = new StreamReader(responseWeb.GetResponseStream()))
                             {
