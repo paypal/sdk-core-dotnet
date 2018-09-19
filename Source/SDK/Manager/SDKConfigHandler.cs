@@ -2,6 +2,52 @@ using System.Configuration;
 
 namespace PayPal.Manager
 {
+#if NETSTANDARD || NETSTANDARD2_0
+    public class Account
+    {
+
+        /// <summary>
+        /// API Username
+        /// </summary>
+        public string APIUserName { get; set; }
+
+        /// <summary>
+        /// API password
+        /// </summary>
+        public string APIPassword { get; set; }
+
+        /// <summary>
+        /// Application Id
+        /// </summary>
+        public string ApplicationId { get; set; }
+
+        /// <summary>
+        /// API signature
+        /// </summary>
+        public string APISignature { get; set; }
+
+        /// <summary>
+        /// Client certificate for SSL authentication
+        /// </summary>
+        public string APICertificate { get; set; }
+
+        /// <summary>
+        /// Private key password for SSL authentication
+        /// </summary>
+        public string PrivateKeyPassword { get; set; }
+
+        /// <summary>
+        /// Signature Subject
+        /// </summary>
+        public string SignatureSubject { get; set; }
+
+        /// <summary>
+        /// Certificate Subject
+        /// </summary>
+        public string CertificateSubject { get; set; }
+    }
+#else
+
     /// <summary>
     /// Custom handler for SDK configuration section as defined in App.Config or Web.Config files
     /// </summary>    
@@ -190,5 +236,7 @@ namespace PayPal.Manager
             get { return (string)this[certifySubject]; }
             set { this[certifySubject] = value; }
         } 
-    }   
+    } 
+
+#endif
 }
